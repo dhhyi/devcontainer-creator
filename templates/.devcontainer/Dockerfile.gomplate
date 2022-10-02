@@ -1,0 +1,100 @@
+{{- $L := (datasource "language") -}}
+
+{{- $remoteUser := "vscode" -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") -}}
+  {{- $remoteUser = $L.devcontainer.remoteUser -}}
+{{- end -}}
+
+{{- $from := "mcr.microsoft.com/vscode/devcontainers/base" -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
+  {{- $from = $L.devcontainer.build.base -}}
+{{- end -}}
+
+{{- $packages := coll.Slice -}}
+{{- if (has $L.language "binary") -}}
+  {{- $packages = coll.Append "inotify-tools" $packages -}}
+{{- end -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
+  {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
+{{- end -}}
+
+{{- $insertHome := and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
+
+{{- $fromArgs := coll.Slice -}}
+{{- $rootBuildArgs := coll.Slice -}}
+{{- $userBuildArgs := coll.Slice -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
+  {{- range $arg, $v := $L.devcontainer.build.args -}}
+    {{- if and (has $L.devcontainer "build")
+               (has $L.devcontainer.build "base")
+               ($L.devcontainer.build.base | strings.Contains $arg) -}}
+      {{- $fromArgs = coll.Append $arg $fromArgs -}}
+    {{- else if and (has $L.devcontainer "build")
+               (has $L.devcontainer.build "root")
+               ($L.devcontainer.build.root | strings.Contains $arg) -}}
+      {{- $rootBuildArgs = coll.Append $arg $rootBuildArgs -}}
+    {{- else if and (has $L.devcontainer "build")
+               (has $L.devcontainer.build "user")
+               ($L.devcontainer.build.user | strings.Contains $arg) -}}
+      {{- $userBuildArgs = coll.Append $arg $userBuildArgs -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $fromArgs -}}
+{{- range $fromArgs -}}
+ARG {{ . }}
+{{ end }}
+{{ end }}
+
+{{- "" -}}
+FROM {{ $from }}
+{{ "" }}
+
+{{- if $packages }}
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    {{ conv.Join $packages " " }} \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+{{ end }}
+
+{{- if $rootBuildArgs }}
+{{- range $rootBuildArgs }}
+ARG {{ . }}
+{{- end }}
+{{ end }}
+
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
+{{ conv.Join $L.devcontainer.build.root "\n" }}
+{{ end }}
+
+{{- if (has $L.language "binary") }}
+COPY cont.sh /usr/local/bin/cont
+RUN chmod +x /usr/local/bin/cont
+{{ end }}
+
+{{- "" }}
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
+{{ "" }}
+
+{{- "" }}
+USER {{ $remoteUser }}
+{{ "" }}
+
+{{- if $insertHome -}}
+ENV HOME=/home/{{ $remoteUser }}
+{{ end }}
+
+{{- if $userBuildArgs }}
+{{- range $userBuildArgs }}
+ARG {{ . }}
+{{- end }}
+{{ end }}
+
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") }}
+{{ conv.Join $L.devcontainer.build.user "\n" }}
+{{ end }}
+
+{{- "" }}
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

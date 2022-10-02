@@ -1,0 +1,24 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "create.js",
+  "scripts": {
+    "prepare": "husky install",
+    "build": "webpack --mode=production --node-env=production"
+  },
+  "author": "Danilo Hoffmann",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "onchange": "^7.1.0",
+    "prettier": "^2.7.1",
+    "raw-loader": "^4.0.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "lint-staged": {
+    "*": "prettier --write"
+  }
+}

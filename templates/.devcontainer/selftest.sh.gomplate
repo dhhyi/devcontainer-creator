@@ -1,0 +1,26 @@
+{{- $L := (datasource "language") -}}
+{{- $version := slice -}}
+{{- if or (not (has $L.language "version")) ($L.language.version) -}}
+  {{- if (has $L.language "version") }}
+    {{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+      {{- $version = coll.Append . $version -}}
+    {{- end -}}
+  {{- else if (has $L.language "binary") }}
+    {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version")  " ") $version -}}
+  {{- end -}}
+{{- end -}}
+
+#!/bin/sh
+
+set -e
+set -x
+
+{{- if $version }}
+{{ conv.Join $version "\n" }}
+{{- end }}
+
+{{- if and (has $L "devcontainer") (has $L.devcontainer "selftest") }}
+{{- range split ($L.devcontainer.selftest | strings.TrimSpace) "\n" }}
+{{ . }}
+{{- end -}}
+{{- end }}

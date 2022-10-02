@@ -1,0 +1,121 @@
+{
+  "$id": "https://example.com/language.schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Language",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["language"],
+  "properties": {
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "binary": {
+          "type": "string"
+        },
+        "binaryArgs": {
+          "type": "string"
+        },
+        "repl": {
+          "type": "string"
+        },
+        "version": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean",
+              "not": {
+                "enum": [true]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "devcontainer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "build": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "base": {
+              "type": "string"
+            },
+            "args": {
+              "type": "object"
+            },
+            "packages": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "user": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "root": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "selftest": {
+          "type": "string"
+        },
+        "remoteUser": {
+          "type": "string"
+        }
+      }
+    },
+    "vscode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "script": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "settings": {
+          "type": "object"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "command"],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
