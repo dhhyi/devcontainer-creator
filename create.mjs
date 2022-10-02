@@ -100,10 +100,14 @@ if (languageYaml.startsWith("http")) {
 }
 
 cp.execSync(
-  `${pajvBin} validate -s ${path.join(
-    dir,
-    "language_schema.json"
-  )} -d ${languageYaml} --errors=text --verbose`,
+  [
+    pajvBin,
+    "validate",
+    `-s ${path.join(dir, "language_schema.json")}`,
+    `-d ${languageYaml}`,
+    "--errors=text",
+    "--verbose",
+  ].join(" "),
   { stdio: "inherit" }
 );
 
@@ -113,6 +117,13 @@ const gomplateBin = path.join(
 );
 
 cp.execSync(
-  `${gomplateBin} --input-dir ${dir} --include "**/*.gomplate" --output-map=${targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}' -d language=${languageYaml} -d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
+  [
+    gomplateBin,
+    `--input-dir ${dir}`,
+    '--include "**/*.gomplate"',
+    `--output-map=${targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
+    `-d language=${languageYaml}`,
+    `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
+  ].join(" "),
   { stdio: "inherit", env: { ...process.env, GOMPLATE_SUPPRESS_EMPTY: "true" } }
 );
