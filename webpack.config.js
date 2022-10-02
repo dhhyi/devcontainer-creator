@@ -1,15 +1,19 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require("path");
+const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = () => ({
-  entry: "./create.js",
+  entry: "./create.mjs",
   target: "node",
   mode: "production",
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+  },
+  experiments: {
+    topLevelAwait: true,
   },
   optimization: {
     minimize: true,
@@ -39,5 +43,8 @@ module.exports = () => ({
   plugins: [
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
   ],
 });
