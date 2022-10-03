@@ -8,7 +8,7 @@ devcontainer:
       NODE_VERSION: "16"
     base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
     root:
-      - RUN npm i -g elm elm-test elm-format elm-review
+      - RUN npm i -g elm elm-test elm-format elm-review onchange
   remoteUser: node
   selftest: |
     cat >/tmp/helloworld.elm <<EOF
@@ -22,4 +22,10 @@ devcontainer:
     cat index.html | grep "Hello World!"
 vscode:
   extensions:
-    - Elmtooling.elm-ls-vscode
+    - elmTooling.elm-ls-vscode
+  settings:
+    "[elm]":
+      editor.defaultFormatter: elmTooling.elm-ls-vscode
+  tasks:
+    - label: Run elm reactor
+      command: onchange elm.json -ik -- elm reactor
