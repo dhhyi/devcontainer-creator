@@ -1,17 +1,145 @@
-const os = require("os");
-const fs = require("fs");
-const path = require("path");
-const cp = require("child_process");
-const { argv } = require("process");
-const https = require("https");
+import * as yaml from "js-yaml";
+import * as os from "os";
+import * as fs from "fs";
+import * as path from "path";
+import * as cp from "child_process";
+import * as https from "https";
 
-if (argv.length < 4) {
+async function extractResources(dir) {
+  const resources = {
+    ".devcontainer/cont.sh.gomplate": import(
+      "./templates/.devcontainer/cont.sh.gomplate"
+    ),
+    ".devcontainer/devcontainer.json.gomplate": import(
+      "./templates/.devcontainer/devcontainer.json.gomplate"
+    ),
+    ".devcontainer/disclaimer.sh.gomplate": import(
+      "./templates/.devcontainer/disclaimer.sh.gomplate"
+    ),
+    ".devcontainer/Dockerfile.gomplate": import(
+      "./templates/.devcontainer/Dockerfile.gomplate"
+    ),
+    ".devcontainer/selftest.sh.gomplate": import(
+      "./templates/.devcontainer/selftest.sh.gomplate"
+    ),
+    ".vscode/tasks.json.gomplate": import(
+      "./templates/.vscode/tasks.json.gomplate"
+    ),
+    ".vscode/vscode.code-snippets.gomplate": import(
+      "./templates/.vscode/vscode.code-snippets.gomplate"
+    ),
+    // "workflow.yml.gomplate": import("./templates/workflow.yml.gomplate"),
+    ".devcontainer/vscode.default.settings.json": import(
+      "./templates/.devcontainer/vscode.default.settings.json"
+    ),
+    "language_schema.json": import("./templates/language_schema.json"),
+  };
+
+  await Promise.all(
+    Object.entries(resources).map(([filename, content]) => {
+      const file = path.join(dir, filename);
+      if (!fs.existsSync(path.dirname(file))) {
+        fs.mkdirSync(path.dirname(file), { recursive: true });
+      }
+      return content.then((c) => {
+        fs.writeFileSync(file, c.default);
+      });
+    })
+  );
+
+  console.log("wrote templates to", dir);
+}
+
+async function getYaml(languageYaml) {
+  if (languageYaml.startsWith("root:")) {
+    languageYaml =
+      "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/" +
+      languageYaml.substring(5);
+    if (!languageYaml.endsWith(".yaml")) {
+      languageYaml += ".yaml";
+    }
+  }
+
+  if (languageYaml.startsWith("http")) {
+    const downloadedYaml = path.join(dir, "language.yaml");
+    if (fs.existsSync(downloadedYaml)) {
+      fs.unlinkSync(downloadedYaml);
+    }
+
+    const downloadFile = async (url, fileFullPath) => {
+      console.info("downloading file from url: " + url);
+
+      return new Promise((resolve, reject) => {
+        https
+          .get(url, (resp) => {
+            // chunk received from the server
+            resp.on("data", (chunk) => {
+              fs.appendFileSync(fileFullPath, chunk);
+            });
+
+            // last chunk received, we are done
+            resp.on("end", () => {
+              resolve("File downloaded and stored at: " + fileFullPath);
+            });
+          })
+          .on("error", (err) => {
+            reject(new Error(err.message));
+          });
+      });
+    };
+    await downloadFile(languageYaml, downloadedYaml);
+    languageYaml = downloadedYaml;
+  }
+
+  return yaml.load(fs.readFileSync(languageYaml, "utf8"));
+}
+
+function isObject(item) {
+  return item && typeof item === "object" && !Array.isArray(item);
+}
+
+function mergeDeep(target, source) {
+  if (target === undefined && source === undefined) {
+    return;
+  }
+  let output = { ...target };
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!(key in target)) {
+          output = { ...output, [key]: source[key] };
+        } else {
+          output[key] = mergeDeep(target[key], source[key]);
+        }
+      } else if (Array.isArray(source[key])) {
+        output = { ...output, [key]: [...(target[key] || []), ...source[key]] };
+      } else {
+        output = { ...output, [key]: source[key] };
+      }
+    });
+  } else if (target === undefined) {
+    return mergeDeep({}, source);
+  }
+  return output;
+}
+
+function mergeYaml(base, ext) {
+  const newYaml = mergeDeep(base, ext);
+  if (ext.language) {
+    newYaml.language = ext.language;
+  }
+  return newYaml;
+}
+
+if (process.argv.length < 4) {
   console.log("Usage: node create.js <language.yaml> <target-folder>");
   process.exit(1);
 }
 
-let languageYaml = argv[2];
-const targetDir = argv[3];
+const argv = process.argv.slice(2);
+
+let languageYaml = argv[0];
+const targetDir = argv[1];
 
 const dir = path.join(os.tmpdir(), "devcontainer-creator");
 if (!fs.existsSync(dir)) {
@@ -23,97 +151,26 @@ cp.execSync("npm install --no-save gomplate pajv", {
   cwd: dir,
 });
 
-const resources = {
-  ".devcontainer/cont.sh.gomplate": import(
-    "./templates/.devcontainer/cont.sh.gomplate"
-  ),
-  ".devcontainer/devcontainer.json.gomplate": import(
-    "./templates/.devcontainer/devcontainer.json.gomplate"
-  ),
-  ".devcontainer/disclaimer.sh.gomplate": import(
-    "./templates/.devcontainer/disclaimer.sh.gomplate"
-  ),
-  ".devcontainer/Dockerfile.gomplate": import(
-    "./templates/.devcontainer/Dockerfile.gomplate"
-  ),
-  ".devcontainer/selftest.sh.gomplate": import(
-    "./templates/.devcontainer/selftest.sh.gomplate"
-  ),
-  ".vscode/tasks.json.gomplate": import(
-    "./templates/.vscode/tasks.json.gomplate"
-  ),
-  ".vscode/vscode.code-snippets.gomplate": import(
-    "./templates/.vscode/vscode.code-snippets.gomplate"
-  ),
-  // "workflow.yml.gomplate": import("./templates/workflow.yml.gomplate"),
-  ".devcontainer/vscode.default.settings.json": import(
-    "./templates/.devcontainer/vscode.default.settings.json"
-  ),
-  "language_schema.json": import("./templates/language_schema.json"),
-};
+await extractResources(dir);
 
-await Promise.all(
-  Object.entries(resources).map(([filename, content]) => {
-    const file = path.join(dir, filename);
-    if (!fs.existsSync(path.dirname(file))) {
-      fs.mkdirSync(path.dirname(file), { recursive: true });
-    }
-    return content.then((c) => {
-      fs.writeFileSync(file, c.default);
-    });
-  })
-);
+let resolvedYaml = await getYaml(languageYaml);
+while (resolvedYaml["extends"]) {
+  const extendingYaml = await getYaml(resolvedYaml["extends"]);
+  delete resolvedYaml["extends"];
+  resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
+}
 
-console.log("wrote templates to", dir);
+const resolvedYamlPath = path.join(dir, "language.yaml");
+fs.writeFileSync(resolvedYamlPath, yaml.dump(resolvedYaml));
 
 const pajvBin = path.join(dir, "node_modules/.bin/pajv");
-
-if (languageYaml.startsWith("root:")) {
-  languageYaml =
-    "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/" +
-    languageYaml.substring(5);
-  if (!languageYaml.endsWith(".yaml")) {
-    languageYaml += ".yaml";
-  }
-}
-
-if (languageYaml.startsWith("http")) {
-  const downloadedYaml = path.join(dir, "language.yaml");
-  if (fs.existsSync(downloadedYaml)) {
-    fs.unlinkSync(downloadedYaml);
-  }
-
-  const downloadFile = async (url, fileFullPath) => {
-    console.info("downloading file from url: " + url);
-
-    return new Promise((resolve, reject) => {
-      https
-        .get(url, (resp) => {
-          // chunk received from the server
-          resp.on("data", (chunk) => {
-            fs.appendFileSync(fileFullPath, chunk);
-          });
-
-          // last chunk received, we are done
-          resp.on("end", () => {
-            resolve("File downloaded and stored at: " + fileFullPath);
-          });
-        })
-        .on("error", (err) => {
-          reject(new Error(err.message));
-        });
-    });
-  };
-  await downloadFile(languageYaml, downloadedYaml);
-  languageYaml = downloadedYaml;
-}
 
 cp.execSync(
   [
     pajvBin,
     "validate",
     `-s ${path.join(dir, "language_schema.json")}`,
-    `-d ${languageYaml}`,
+    `-d ${resolvedYamlPath}`,
     "--errors=text",
     "--verbose",
   ].join(" "),
@@ -131,7 +188,7 @@ cp.execSync(
     `--input-dir ${dir}`,
     '--include "**/*.gomplate"',
     `--output-map=${targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
-    `-d language=${languageYaml}`,
+    `-d language=${resolvedYamlPath}`,
     `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
   ].join(" "),
   { stdio: "inherit", env: { ...process.env, GOMPLATE_SUPPRESS_EMPTY: "true" } }
