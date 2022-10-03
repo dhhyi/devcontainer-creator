@@ -79,7 +79,11 @@ async function getYaml(languageYaml) {
 
             // last chunk received, we are done
             resp.on("end", () => {
-              resolve("File downloaded and stored at: " + fileFullPath);
+              if (resp.statusCode === 200) {
+                resolve("File downloaded and stored at: " + fileFullPath);
+              } else {
+                reject("Failed to download file: " + resp.statusMessage);
+              }
             });
           })
           .on("error", (err) => {
@@ -87,7 +91,12 @@ async function getYaml(languageYaml) {
           });
       });
     };
-    await downloadFile(languageYaml, downloadedYaml);
+    try {
+      await downloadFile(languageYaml, downloadedYaml);
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
     languageYaml = downloadedYaml;
   }
 
@@ -146,10 +155,16 @@ if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
 }
 
-cp.execSync("npm install --no-save gomplate pajv", {
-  stdio: "inherit",
-  cwd: dir,
-});
+try {
+  console.log("installing tools");
+  cp.execSync("npm install --no-save gomplate pajv", {
+    stdio: "ignore",
+    cwd: dir,
+  });
+} catch (error) {
+  console.log("error installing dependencies:", error.message);
+  process.exit(1);
+}
 
 await extractResources(dir);
 
@@ -193,3 +208,5 @@ cp.execSync(
   ].join(" "),
   { stdio: "inherit", env: { ...process.env, GOMPLATE_SUPPRESS_EMPTY: "true" } }
 );
+
+console.log("wrote devcontainer to", targetDir);
