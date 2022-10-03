@@ -51,10 +51,10 @@ async function extractResources(dir) {
 }
 
 async function getYaml(languageYaml) {
-  if (languageYaml.startsWith("root:")) {
+  if (languageYaml.startsWith("dcc://")) {
     languageYaml =
       "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/" +
-      languageYaml.substring(5);
+      languageYaml.substring(6);
     if (!languageYaml.endsWith(".yaml")) {
       languageYaml += ".yaml";
     }

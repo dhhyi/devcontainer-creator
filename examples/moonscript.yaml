@@ -1,4 +1,4 @@
-extends: root:lua
+extends: dcc://lua
 language:
   name: moonscript
   binary: moon
