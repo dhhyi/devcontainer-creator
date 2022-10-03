@@ -68,6 +68,15 @@ console.log("wrote templates to", dir);
 
 const pajvBin = path.join(dir, "node_modules/.bin/pajv");
 
+if (languageYaml.startsWith("root:")) {
+  languageYaml =
+    "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/" +
+    languageYaml.substring(5);
+  if (!languageYaml.endsWith(".yaml")) {
+    languageYaml += ".yaml";
+  }
+}
+
 if (languageYaml.startsWith("http")) {
   const downloadedYaml = path.join(dir, "language.yaml");
   if (fs.existsSync(downloadedYaml)) {
