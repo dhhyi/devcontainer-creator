@@ -209,4 +209,12 @@ cp.execSync(
   { stdio: "inherit", env: { ...process.env, GOMPLATE_SUPPRESS_EMPTY: "true" } }
 );
 
+if (resolvedYaml?.devcontainer?.build?.files) {
+  const files = resolvedYaml.devcontainer.build.files;
+  Object.entries(files).forEach(([file, content]) => {
+    const filePath = path.join(targetDir, ".devcontainer", file);
+    fs.writeFileSync(filePath, content);
+  });
+}
+
 console.log("wrote devcontainer to", targetDir);
