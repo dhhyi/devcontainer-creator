@@ -1,0 +1,23 @@
+name: Check Languages
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - .github/workflows/test.yml
+      - templates/**
+      - examples/**
+      - create.mjs
+      - package.json
+      - package-lock.json
+      - webpack.config.js
+      - test.sh
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - run: bash test.sh

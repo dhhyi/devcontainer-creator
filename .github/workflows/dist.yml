@@ -1,4 +1,4 @@
-name: Update example-app Branch
+name: Update dist Branch
 on:
   push:
     branches:
