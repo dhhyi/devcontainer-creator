@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - .github/workflows/dist.yml
+      - templates/**
+      - create.mjs
+      - package.json
+      - package-lock.json
+      - webpack.config.js
 
 jobs:
   deploy:
@@ -22,6 +29,6 @@ jobs:
           REPO: self
           BRANCH: dist
           FOLDER: dist
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          CLEAN: true
           SQUASH_HISTORY: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
