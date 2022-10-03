@@ -1,0 +1,33 @@
+language:
+  name: factor
+  binary: factor
+  binaryArgs: -run
+  repl: factor
+  version: false
+devcontainer:
+  build:
+    args:
+      FACTOR_VERSION: "0.98"
+      WORKSPACE: "${containerWorkspaceFolder}"
+    root:
+      - ADD https://downloads.factorcode.org/releases/${FACTOR_VERSION}/factor-linux-x86-64-${FACTOR_VERSION}.tar.gz /opt/factor.tar.gz
+      - RUN cd /opt && tar zxpf factor.tar.gz
+      - ENV PATH=/opt/factor:${PATH}
+      - RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
+    user:
+      - RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
+  selftest: |
+    cat >/tmp/helloworld.factor <<EOF
+    USE: io
+    "Hello World!" print
+    EOF
+    factor -run /tmp/helloworld.factor
+vscode:
+  extensions:
+    - dexterhaslem.factor
+  script: |
+    USING: io kernel math prettyprint ;
+
+    "------------------------" print
+
+    $1

@@ -1,0 +1,25 @@
+language:
+  name: elm
+  repl: elm repl
+  version: elm --version
+devcontainer:
+  build:
+    args:
+      NODE_VERSION: "16"
+    base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
+    root:
+      - RUN npm i -g elm elm-test elm-format elm-review
+  remoteUser: node
+  selftest: |
+    cat >/tmp/helloworld.elm <<EOF
+    module HelloWorld exposing (..)
+    import Html exposing (text)
+    main = text "Hello World!"
+    EOF
+    cd /tmp
+    echo "Y" | elm init
+    elm make helloworld.elm
+    cat index.html | grep "Hello World!"
+vscode:
+  extensions:
+    - Elmtooling.elm-ls-vscode
