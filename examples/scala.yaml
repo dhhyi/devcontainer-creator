@@ -1,0 +1,29 @@
+language:
+  name: scala
+  binary: amm
+  repl: amm
+devcontainer:
+  build:
+    args:
+      JAVA_VERSION: "17"
+      AMMONITE_VERSION: "2.5.4/2.13-2.5.4"
+    base: mcr.microsoft.com/vscode/devcontainers/java:0-${JAVA_VERSION}
+    root:
+      - ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm
+      - RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
+  selftest: |
+    cat >/tmp/helloworld.scala <<EOF
+    @main def main() = {
+        println("Hello World!")
+    }
+    EOF
+    amm /tmp/helloworld.scala
+vscode:
+  settings:
+    "[scala]":
+      editor.defaultFormatter: scalameta.metals
+      editor.tabSize: 2
+    files.watcherExclude:
+      "**/target": true
+  extensions:
+    - scalameta.metals

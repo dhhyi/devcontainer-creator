@@ -1,0 +1,22 @@
+language:
+  name: ruby
+  binary: ruby
+  repl: irb
+  version: |
+    rubocop --version
+    ruby --version
+devcontainer:
+  build:
+    args:
+      RUBY_VERSION: "3"
+    base: mcr.microsoft.com/vscode/devcontainers/ruby:0-${RUBY_VERSION}
+    root:
+      - RUN gem install rubocop
+  selftest: ruby -e 'puts "Hello World!"'
+vscode:
+  settings:
+    "[ruby]":
+      editor.defaultFormatter: misogi.ruby-rubocop
+  extensions:
+    - rebornix.Ruby
+    - misogi.ruby-rubocop
