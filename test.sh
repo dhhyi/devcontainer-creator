@@ -18,7 +18,8 @@ do
 
     node dist/bundle.js $lang dist/test
 
-    npx devcontainer build --workspace-folder dist/test --image-name img
+    echo "building devcontainer"
+    output=`npx devcontainer build --workspace-folder dist/test --image-name img 2>&1` || (echo $output && exit 1)
 
     docker run --rm img sh /selftest.sh
 done
