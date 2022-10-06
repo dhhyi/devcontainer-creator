@@ -60,6 +60,12 @@
             "files": {
               "type": "object"
             },
+            "prepare": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "packages": {
               "type": "array",
               "items": {

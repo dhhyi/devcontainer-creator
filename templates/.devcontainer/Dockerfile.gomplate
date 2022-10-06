@@ -21,6 +21,7 @@
 {{- $insertHome := and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
 {{- $fromArgs := coll.Slice -}}
+{{- $prepareBuildArgs := coll.Slice -}}
 {{- $rootBuildArgs := coll.Slice -}}
 {{- $userBuildArgs := coll.Slice -}}
 {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
@@ -29,6 +30,10 @@
                (has $L.devcontainer.build "base")
                ($L.devcontainer.build.base | strings.Contains $arg) -}}
       {{- $fromArgs = coll.Append $arg $fromArgs -}}
+    {{- else if and (has $L.devcontainer "build")
+               (has $L.devcontainer.build "prepare")
+               ($L.devcontainer.build.prepare | strings.Contains $arg) -}}
+      {{- $prepareBuildArgs = coll.Append $arg $prepareBuildArgs -}}
     {{- else if and (has $L.devcontainer "build")
                (has $L.devcontainer.build "root")
                ($L.devcontainer.build.root | strings.Contains $arg) -}}
@@ -50,6 +55,16 @@ ARG {{ . }}
 {{- "" -}}
 FROM {{ $from }}
 {{ "" }}
+
+{{- if $prepareBuildArgs }}
+{{- range $prepareBuildArgs }}
+ARG {{ . }}
+{{- end }}
+{{ end }}
+
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "prepare") }}
+{{ conv.Join $L.devcontainer.build.prepare "\n" }}
+{{ end }}
 
 {{- if $packages }}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
