@@ -1,0 +1,21 @@
+language:
+  name: elixir
+  binary: elixir
+  repl: iex
+devcontainer:
+  build:
+    prepare:
+      - RUN locale-gen --no-purge en_US.UTF-8
+      - ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+      - ADD https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb /tmp/erlang-repo.deb
+      - RUN dpkg -i /tmp/erlang-repo.deb
+    packages:
+      - esl-erlang
+      - elixir
+  selftest: elixir -e 'IO.puts "Hello World!"'
+vscode:
+  extensions:
+    - JakeBecker.elixir-ls
+  settings:
+    "[elixir]":
+      editor.defaultFormatter: JakeBecker.elixir-ls
