@@ -217,4 +217,21 @@ if (resolvedYaml?.devcontainer?.build?.files) {
   });
 }
 
+function relativeYamlPath() {
+  if (argv[0].startsWith("dcc://")) {
+    return argv[0];
+  } else {
+    return path.relative(targetDir, argv[0]);
+  }
+}
+
+fs.writeFileSync(
+  path.join(targetDir, ".update_devcontainer.sh"),
+  `#!/bin/sh
+
+cd "$(dirname "$(readlink -f "$0")")"
+
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${relativeYamlPath()} .`
+);
+
 console.log("wrote devcontainer to", targetDir);
