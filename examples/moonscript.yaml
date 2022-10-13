@@ -7,10 +7,10 @@ devcontainer:
   build:
     root:
       - RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec
+      - RUN luarocks install moonpick
   selftest: |
     cat >/tmp/helloworld.moon <<EOF
-    require "moonscript"
-    print("Hello World!")
+    print "Hello World!"
     EOF
     moon /tmp/helloworld.moon
 vscode:
