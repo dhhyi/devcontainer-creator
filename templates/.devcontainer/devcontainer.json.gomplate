@@ -7,6 +7,17 @@
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
 {{- end -}}
 
+{{- $ignores := coll.Slice ".devcontainer" ".vscode" ".update_devcontainer.sh" -}}
+{{- if  and (has $L "vscode") (has $L.vscode "ignoreFiles") -}}
+  {{ $ignores = (coll.Append $ignores $L.vscode.ignoreFiles) | coll.Flatten }}
+{{- end -}}
+{{- define "IGNORES" -}}
+files.exclude:
+  {{ range . }}{{ . }}: true
+  {{ end }}
+{{- end -}}
+{{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "IGNORES" $ignores)) -}}
+
 {{- $extensions := coll.Slice "GitHub.copilot" -}}
 {{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}

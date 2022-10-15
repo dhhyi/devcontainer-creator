@@ -107,6 +107,12 @@
             "type": "string"
           }
         },
+        "ignoreFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "settings": {
           "type": "object"
         },
