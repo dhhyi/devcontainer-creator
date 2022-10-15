@@ -1,0 +1,17 @@
+language:
+  name: julia
+  binary: julia
+  repl: julia
+devcontainer:
+  build:
+    args:
+      JULIA_BASE_VERSION: "1.8"
+      JULIA_MINOR_VERSION: "2"
+    root:
+      - ADD https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_BASE_VERSION}/julia-${JULIA_BASE_VERSION}.${JULIA_MINOR_VERSION}-linux-x86_64.tar.gz /opt/julia.tar.gz
+      - RUN cd /opt && tar -xpf julia.tar.gz
+      - ENV PATH=/opt/julia-${JULIA_BASE_VERSION}.${JULIA_MINOR_VERSION}/bin:${PATH}
+  selftest: julia -e 'println("Hello World!")'
+vscode:
+  extensions:
+    - julialang.language-julia
