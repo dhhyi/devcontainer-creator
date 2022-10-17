@@ -1,0 +1,15 @@
+{
+	"Script": {
+		"scope": "clojure",
+		"prefix": "script",
+		"body": [
+			"(ns ${TM_FILENAME/^(.*).clj$/$1/}",
+			"  (:gen-class))",
+			"(println \"----------------\")",
+			"",
+			"$1",
+			""
+		],
+		"description": "Script template"
+	}
+}

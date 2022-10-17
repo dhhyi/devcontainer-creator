@@ -1,0 +1,41 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"NODE_VERSION": "16"
+		}
+	},
+	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+	"settings": {
+		"[elm]": {
+			"editor.defaultFormatter": "elmTooling.elm-ls-vscode"
+		},
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"editor.formatOnSave": true,
+		"files.exclude": {
+			".devcontainer": true,
+			".update_devcontainer.sh": true,
+			".vscode": true
+		},
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"task.autoDetect": "off",
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"args": [
+					"-l"
+				],
+				"path": "zsh"
+			}
+		}
+	},
+	"extensions": [
+		"elmTooling.elm-ls-vscode",
+		"GitHub.copilot"
+	],
+	"remoteUser": "node"
+}
