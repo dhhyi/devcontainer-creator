@@ -28,7 +28,6 @@ async function extractResources(dir) {
     ".vscode/vscode.code-snippets.gomplate": import(
       "./templates/.vscode/vscode.code-snippets.gomplate"
     ),
-    // "workflow.yml.gomplate": import("./templates/workflow.yml.gomplate"),
     ".devcontainer/vscode.default.settings.json": import(
       "./templates/.devcontainer/vscode.default.settings.json"
     ),
