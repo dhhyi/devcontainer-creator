@@ -24,16 +24,16 @@ files.exclude:
 {{- end -}}
 
 {
-	{{ if and (has $L "devcontainer") (has $L.devcontainer "name") }}"name": "{{ $L.devcontainer.name }}",
-	{{ end -}}
-	"build": {
-		"dockerfile": "Dockerfile"
-		{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
-		"args": {{ $L.devcontainer.build.args | data.ToJSONPretty "\t" | strings.Indent "\t\t" | strings.Trim "\t" }}
-		{{- end }}
-	},
-	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
-	"settings": {{ $settings | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
-	"extensions": {{ $extensions | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
-	"remoteUser": "{{ $remoteUser }}"
+  {{ if and (has $L "devcontainer") (has $L.devcontainer "name") }}"name": "{{ $L.devcontainer.name }}",
+  {{ end -}}
+  "build": {
+    "dockerfile": "Dockerfile"
+    {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
+    "args": {{ $L.devcontainer.build.args | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " " }}
+    {{- end }}
+  },
+  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
+  "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
+  "remoteUser": "{{ $remoteUser }}"
 }

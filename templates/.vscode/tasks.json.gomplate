@@ -1,10 +1,10 @@
 {{- $L := (datasource "language") -}}
 {{- define "TASK" -}}
 {
-	"label": "{{ .label }}",
-	"type": "shell",
-	"command": "{{ .command }}",
-	"problemMatcher": []
+  "label": "{{ .label }}",
+  "type": "shell",
+  "command": "{{ .command }}",
+  "problemMatcher": []
 }
 {{- end -}}
 {{- $tasks := coll.Slice -}}
@@ -30,17 +30,17 @@
 {{- end -}}
 
 {{- if $tasks }}{
-	// See https://go.microsoft.com/fwlink/?LinkId=733558
-	// for the documentation about the tasks.json format
-	"version": "2.0.0",
-	"tasks": {{ $tasks | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }}
-	{{- if (has $L.language "binary") }},
-	"inputs": [
-		{
-			"type": "promptString",
-			"id": "arguments",
-			"description": "Arguments.",
-			"default": "1 2 3 4 5"
-		}
-	]{{ end }}
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": {{ $tasks | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}
+  {{- if (has $L.language "binary") }},
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "arguments",
+      "description": "Arguments.",
+      "default": "1 2 3 4 5"
+    }
+  ]{{ end }}
 }{{ end }}
