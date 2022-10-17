@@ -3,23 +3,25 @@
 set -e
 set -o pipefail
 
+rm -Rf dist/test || true
+
 npm ci
 npm run build
 
 npm i --no-save @devcontainers/cli
 
-for lang in examples/*.yaml
+for yaml in examples/*.yaml
 do
-    rm -Rf dist/test || true
+    lang=$(basename $yaml .yaml)
 
     echo "#############################################"
     echo "# Testing $lang"
     echo "#############################################"
 
-    node dist/bundle.js $lang dist/test
+    node dist/bundle.js dcc://$lang dist/test/$lang
 
     echo "building devcontainer"
-    output=`npx devcontainer build --workspace-folder dist/test --image-name img 2>&1` || (echo $output && exit 1)
+    output=`npx devcontainer build --workspace-folder dist/test/$lang --image-name devcontainer-$lang 2>&1` || (echo $output && exit 1)
 
-    docker run --rm img sh /selftest.sh
+    docker run --rm devcontainer-$lang sh /selftest.sh
 done

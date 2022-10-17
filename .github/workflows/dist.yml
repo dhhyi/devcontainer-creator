@@ -29,6 +29,5 @@ jobs:
           REPO: self
           BRANCH: dist
           FOLDER: dist
-          CLEAN: true
           SQUASH_HISTORY: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
