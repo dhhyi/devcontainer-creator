@@ -1,40 +1,40 @@
 {
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"NODE_VERSION": "16"
-		}
-	},
-	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
-	"settings": {
-		"[jsonc]": {
-			"editor.defaultFormatter": "vscode.json-language-features"
-		},
-		"[typescript]": {
-			"editor.defaultFormatter": "vscode.typescript-language-features"
-		},
-		"editor.formatOnSave": true,
-		"files.exclude": {
-			".devcontainer": true,
-			".update_devcontainer.sh": true,
-			".vscode": true
-		},
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
-		"task.autoDetect": "off",
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"args": [
-					"-l"
-				],
-				"path": "zsh"
-			}
-		}
-	},
-	"extensions": [
-		"GitHub.copilot"
-	],
-	"remoteUser": "node"
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "NODE_VERSION": "16"
+    }
+  },
+  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "settings": {
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "task.autoDetect": "off",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "args": [
+          "-l"
+        ],
+        "path": "zsh"
+      }
+    }
+  },
+  "extensions": [
+    "GitHub.copilot"
+  ],
+  "remoteUser": "node"
 }

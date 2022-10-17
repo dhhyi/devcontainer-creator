@@ -1,40 +1,40 @@
 {
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"LUAROCKS_VERSION": "3.9.1",
-			"LUA_VERSION": "5.4.4"
-		}
-	},
-	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
-	"settings": {
-		"[jsonc]": {
-			"editor.defaultFormatter": "vscode.json-language-features"
-		},
-		"editor.formatOnSave": true,
-		"files.exclude": {
-			".devcontainer": true,
-			".update_devcontainer.sh": true,
-			".vscode": true
-		},
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
-		"task.autoDetect": "off",
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"args": [
-					"-l"
-				],
-				"path": "zsh"
-			}
-		}
-	},
-	"extensions": [
-		"sumneko.lua",
-		"bubuabu.busted-test-explorer",
-		"GitHub.copilot"
-	],
-	"remoteUser": "vscode"
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "LUAROCKS_VERSION": "3.9.1",
+      "LUA_VERSION": "5.4.4"
+    }
+  },
+  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "settings": {
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "task.autoDetect": "off",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "args": [
+          "-l"
+        ],
+        "path": "zsh"
+      }
+    }
+  },
+  "extensions": [
+    "sumneko.lua",
+    "bubuabu.busted-test-explorer",
+    "GitHub.copilot"
+  ],
+  "remoteUser": "vscode"
 }

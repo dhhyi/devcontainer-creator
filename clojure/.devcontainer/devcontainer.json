@@ -1,42 +1,42 @@
 {
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"CLOJURE_VERSION": "1.11.1.1155",
-			"JAVA_VERSION": "17"
-		}
-	},
-	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
-	"settings": {
-		"[jsonc]": {
-			"editor.defaultFormatter": "vscode.json-language-features"
-		},
-		"editor.formatOnSave": true,
-		"files.exclude": {
-			".devcontainer": true,
-			".update_devcontainer.sh": true,
-			".vscode": true
-		},
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
-		"files.watcherExclude": {
-			"**/target": true
-		},
-		"task.autoDetect": "off",
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"args": [
-					"-l"
-				],
-				"path": "zsh"
-			}
-		}
-	},
-	"extensions": [
-		"betterthantomorrow.calva",
-		"GitHub.copilot"
-	],
-	"remoteUser": "vscode"
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "CLOJURE_VERSION": "1.11.1.1155",
+      "JAVA_VERSION": "17"
+    }
+  },
+  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "settings": {
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+      "**/target": true
+    },
+    "task.autoDetect": "off",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "args": [
+          "-l"
+        ],
+        "path": "zsh"
+      }
+    }
+  },
+  "extensions": [
+    "betterthantomorrow.calva",
+    "GitHub.copilot"
+  ],
+  "remoteUser": "vscode"
 }

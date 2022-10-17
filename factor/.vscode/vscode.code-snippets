@@ -1,15 +1,15 @@
 {
-	"Script": {
-		"scope": "factor",
-		"prefix": "script",
-		"body": [
-			"USING: io kernel math prettyprint ;",
-			"",
-			"\"------------------------\" print",
-			"",
-			"$1",
-			""
-		],
-		"description": "Script template"
-	}
+  "Script": {
+    "scope": "factor",
+    "prefix": "script",
+    "body": [
+      "USING: io kernel math prettyprint ;",
+      "",
+      "\"------------------------\" print",
+      "",
+      "$1",
+      ""
+    ],
+    "description": "Script template"
+  }
 }

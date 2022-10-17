@@ -1,15 +1,15 @@
 {
-	"Script": {
-		"scope": "haskell",
-		"prefix": "script",
-		"body": [
-			"module Main where",
-			"",
-			"main = do",
-			"  putStrLn \"----------------\"",
-			"  $1",
-			""
-		],
-		"description": "Script template"
-	}
+  "Script": {
+    "scope": "haskell",
+    "prefix": "script",
+    "body": [
+      "module Main where",
+      "",
+      "main = do",
+      "  putStrLn \"----------------\"",
+      "  $1",
+      ""
+    ],
+    "description": "Script template"
+  }
 }
