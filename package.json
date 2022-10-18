@@ -10,6 +10,11 @@
   "author": "Danilo Hoffmann",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
     "js-yaml": "^4.1.0",
     "lint-staged": "^13.0.3",
@@ -20,6 +25,7 @@
     "webpack-cli": "^4.10.0"
   },
   "lint-staged": {
-    "*": "prettier --write"
+    "*": "prettier --write",
+    "*.mjs": "eslint --fix"
   }
 }

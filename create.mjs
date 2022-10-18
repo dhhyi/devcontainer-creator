@@ -85,7 +85,9 @@ async function getYaml(languageYaml) {
               if (resp.statusCode === 200) {
                 resolve("File downloaded and stored at: " + fileFullPath);
               } else {
-                reject("Failed to download file: " + resp.statusMessage);
+                reject(
+                  new Error("Failed to download file: " + resp.statusMessage)
+                );
               }
             });
           })
@@ -190,9 +192,9 @@ if (simplified) {
 }
 
 let resolvedYaml = await getYaml(languageYaml);
-while (resolvedYaml["extends"]) {
-  const extendingYaml = await getYaml(resolvedYaml["extends"]);
-  delete resolvedYaml["extends"];
+while (resolvedYaml.extends) {
+  const extendingYaml = await getYaml(resolvedYaml.extends);
+  delete resolvedYaml.extends;
   resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
 }
 

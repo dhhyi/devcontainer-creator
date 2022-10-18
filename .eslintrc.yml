@@ -1,0 +1,20 @@
+env:
+  browser: true
+  es2021: true
+extends: standard
+overrides: []
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+rules:
+  quotes:
+    - warn
+    - double
+    - avoidEscape: true
+  semi:
+    - warn
+    - always
+  comma-dangle:
+    - off
+  space-before-function-paren:
+    - off

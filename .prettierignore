@@ -1,5 +1,6 @@
-.gitignore
-.husky
-.prettierignore
+/.git*
+/.husky
+/.prettierignore
 /templates
-LICENSE
+/LICENSE
+/pnpm-lock.yaml
