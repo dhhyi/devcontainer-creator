@@ -156,16 +156,21 @@ function parseArgs() {
   const languageYaml = argv[0];
   const targetDir = argv[1];
   const extraArgs = argv.slice(2);
-  const simplified =
-    languageYaml.startsWith("dcc://") && !extraArgs.includes("--full");
+  const fullDevcontainer = extraArgs.includes("--full");
+  const simplified = languageYaml.startsWith("dcc://") && !fullDevcontainer;
   const devcontainerName =
     extraArgs[extraArgs.findIndex((arg) => arg === "--name") + 1];
 
-  return { languageYaml, targetDir, extraArgs, simplified, devcontainerName };
+  return {
+    languageYaml,
+    targetDir,
+    simplified,
+    fullDevcontainer,
+    devcontainerName,
+  };
 }
 
-const { languageYaml, targetDir, extraArgs, simplified, devcontainerName } =
-  parseArgs();
+const a = parseArgs();
 
 const dir = path.join(os.tmpdir(), "devcontainer-creator");
 if (!fs.existsSync(dir)) {
@@ -186,23 +191,23 @@ try {
 const templates = await extractResources(dir);
 
 let simpleImage = "";
-if (simplified) {
-  const lang = languageYaml.substring(6);
+if (a.simplified) {
+  const lang = a.languageYaml.substring(6);
   simpleImage = `ghcr.io/dhhyi/dcc-devcontainer-${lang}:latest`;
 }
 
-let resolvedYaml = await getYaml(languageYaml);
+let resolvedYaml = await getYaml(a.languageYaml);
 while (resolvedYaml.extends) {
   const extendingYaml = await getYaml(resolvedYaml.extends);
   delete resolvedYaml.extends;
   resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
 }
 
-if (devcontainerName) {
+if (a.devcontainerName) {
   if (!resolvedYaml.devcontainer) {
     resolvedYaml.devcontainer = {};
   }
-  resolvedYaml.devcontainer.name = devcontainerName;
+  resolvedYaml.devcontainer.name = a.devcontainerName;
 }
 
 const resolvedYamlPath = path.join(dir, "language.yaml");
@@ -225,7 +230,7 @@ cp.execSync(
 
 console.log("creating backups");
 templates.forEach((template) => {
-  const templatePath = path.join(targetDir, template);
+  const templatePath = path.join(a.targetDir, template);
   if (fs.existsSync(templatePath)) {
     fs.renameSync(templatePath, templatePath + "~");
   }
@@ -242,7 +247,7 @@ cp.execSync(
     gomplateBin,
     `--input-dir ${dir}`,
     '--include "**/*.gomplate"',
-    `--output-map=${targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
+    `--output-map=${a.targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
     `-d language=${resolvedYamlPath}`,
     `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
   ].join(" "),
@@ -258,7 +263,7 @@ cp.execSync(
 
 console.log("removing backups");
 templates.forEach((template) => {
-  const templatePath = path.join(targetDir, template + "~");
+  const templatePath = path.join(a.targetDir, template + "~");
   if (fs.existsSync(templatePath)) {
     fs.unlinkSync(templatePath);
   }
@@ -267,31 +272,39 @@ templates.forEach((template) => {
 if (resolvedYaml?.devcontainer?.build?.files) {
   const files = resolvedYaml.devcontainer.build.files;
   Object.entries(files).forEach(([file, content]) => {
-    const filePath = path.join(targetDir, ".devcontainer", file);
+    const filePath = path.join(a.targetDir, ".devcontainer", file);
     fs.writeFileSync(filePath, content);
   });
 }
 
 function relativeYamlPath() {
-  if (languageYaml.startsWith("dcc://")) {
-    return languageYaml;
+  if (a.languageYaml.startsWith("dcc://")) {
+    return a.languageYaml;
   } else {
-    return path.relative(targetDir, languageYaml);
+    return path.relative(a.targetDir, a.languageYaml);
   }
 }
 
-const updateArgs = [relativeYamlPath(), ".", ...extraArgs]
+const updateArgs = [relativeYamlPath(), "."];
+if (a.fullDevcontainer) {
+  updateArgs.push("--full");
+}
+if (a.devcontainerName) {
+  updateArgs.push("--name", a.devcontainerName);
+}
+
+const updateArgsString = updateArgs
   .map((arg) => (arg.includes(" ") ? `"${arg}"` : arg))
   .join(" ");
 
 fs.writeFileSync(
-  path.join(targetDir, ".update_devcontainer.sh"),
+  path.join(a.targetDir, ".update_devcontainer.sh"),
   `#!/bin/sh
 
 cd "$(dirname "$(readlink -f "$0")")"
 
-curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${updateArgs}
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${updateArgsString}
 `
 );
 
-console.log("wrote devcontainer to", targetDir);
+console.log("wrote devcontainer to", a.targetDir);
