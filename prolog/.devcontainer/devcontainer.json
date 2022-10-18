@@ -1,4 +1,5 @@
 {
+  "name": "Example devcontainer for prolog",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {

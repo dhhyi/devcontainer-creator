@@ -1,4 +1,5 @@
 {
+  "name": "Example devcontainer for julia",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {

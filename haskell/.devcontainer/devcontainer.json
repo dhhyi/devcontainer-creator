@@ -1,4 +1,5 @@
 {
+  "name": "Example devcontainer for haskell",
   "build": {
     "dockerfile": "Dockerfile"
   },
