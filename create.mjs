@@ -5,6 +5,32 @@ import * as path from "path";
 import * as cp from "child_process";
 import * as https from "https";
 
+const dccReference =
+  "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/";
+const dccProtocol = "dcc://";
+
+function logStatus(...message) {
+  if (process.stdout.clearLine) {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(message.join(" "));
+  } else {
+    console.log(...message);
+  }
+}
+
+function logPersist(...message) {
+  if (process.stdout.clearLine) {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+  }
+  console.log(...message);
+}
+
+function logError(...message) {
+  console.log("\n\x1b[31m", ...message, "\x1b[0m");
+}
+
 async function extractResources(dir) {
   const resources = {
     ".devcontainer/cont.sh.gomplate": import(
@@ -34,7 +60,7 @@ async function extractResources(dir) {
     "language_schema.json": import("./templates/language_schema.json"),
   };
 
-  console.log("writing templates to", dir);
+  logStatus("writing templates to", dir);
 
   await Promise.all(
     Object.entries(resources).map(([filename, content]) => {
@@ -54,10 +80,8 @@ async function extractResources(dir) {
 }
 
 async function getYaml(languageYaml) {
-  if (languageYaml.startsWith("dcc://")) {
-    languageYaml =
-      "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/" +
-      languageYaml.substring(6);
+  if (languageYaml.startsWith(dccProtocol)) {
+    languageYaml = dccReference + languageYaml.substring(6);
     if (!languageYaml.endsWith(".yaml")) {
       languageYaml += ".yaml";
     }
@@ -70,7 +94,12 @@ async function getYaml(languageYaml) {
     }
 
     const downloadFile = async (url, fileFullPath) => {
-      console.info("downloading", url);
+      logStatus(
+        "downloading",
+        url.includes(dccReference)
+          ? url.replace(dccReference, dccProtocol).replace(/\.ya?ml$/, "")
+          : url
+      );
 
       return new Promise((resolve, reject) => {
         https
@@ -99,7 +128,7 @@ async function getYaml(languageYaml) {
     try {
       await downloadFile(languageYaml, downloadedYaml);
     } catch (error) {
-      console.error(error);
+      logError(error);
       process.exit(1);
     }
     languageYaml = downloadedYaml;
@@ -157,7 +186,7 @@ function parseArgs() {
   const targetDir = argv[1];
   const extraArgs = argv.slice(2);
   const fullDevcontainer = extraArgs.includes("--full");
-  const simplified = languageYaml.startsWith("dcc://") && !fullDevcontainer;
+  const simplified = languageYaml.startsWith(dccProtocol) && !fullDevcontainer;
   const devcontainerNameArg = extraArgs.findIndex((arg) => arg === "--name");
   const devcontainerName =
     devcontainerNameArg >= 0 && extraArgs[devcontainerNameArg + 1];
@@ -191,13 +220,13 @@ if (a.build) {
 }
 
 try {
-  console.log("installing tools");
+  logStatus("installing tools");
   cp.execSync(`npm install --no-save ${tools.join(" ")}`, {
     stdio: "ignore",
     cwd: dir,
   });
 } catch (error) {
-  console.log("error installing dependencies:", error.message);
+  logError("error installing dependencies:", error.message);
   process.exit(1);
 }
 
@@ -228,20 +257,23 @@ fs.writeFileSync(resolvedYamlPath, yaml.dump(resolvedYaml));
 
 const pajvBin = path.join(dir, "node_modules/.bin/pajv");
 
-console.log("validating yaml");
-cp.execSync(
-  [
-    pajvBin,
-    "validate",
-    `-s ${path.join(dir, "language_schema.json")}`,
-    `-d ${resolvedYamlPath}`,
-    "--errors=text",
-    "--verbose",
-  ].join(" "),
-  { stdio: "inherit" }
-);
+logStatus("validating yaml");
+const validation = cp.spawnSync(pajvBin, [
+  "validate",
+  "-s",
+  path.join(dir, "language_schema.json"),
+  "-d",
+  resolvedYamlPath,
+  "--errors=text",
+  "--verbose",
+]);
 
-console.log("creating backups");
+if (validation.status !== 0) {
+  logError(validation.stderr.toString());
+  process.exit(1);
+}
+
+logStatus("creating backups");
 templates.forEach((template) => {
   const templatePath = path.join(a.targetDir, template);
   if (fs.existsSync(templatePath)) {
@@ -249,7 +281,7 @@ templates.forEach((template) => {
   }
 });
 
-console.log("executing gomplate");
+logStatus("executing gomplate");
 const gomplateBin = path.join(
   dir,
   "node_modules/gomplate/node_modules/.bin/gomplate"
@@ -274,7 +306,7 @@ cp.execSync(
   }
 );
 
-console.log("removing backups");
+logStatus("removing backups");
 templates.forEach((template) => {
   const templatePath = path.join(a.targetDir, template + "~");
   if (fs.existsSync(templatePath)) {
@@ -291,7 +323,7 @@ if (resolvedYaml?.devcontainer?.build?.files) {
 }
 
 function relativeYamlPath() {
-  if (a.languageYaml.startsWith("dcc://")) {
+  if (a.languageYaml.startsWith(dccProtocol)) {
     return a.languageYaml;
   } else {
     return path.relative(a.targetDir, a.languageYaml);
@@ -321,10 +353,10 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
 `
 );
 
-console.log("wrote devcontainer to", a.targetDir);
+logPersist("wrote devcontainer to", a.targetDir);
 
 if (a.build) {
-  console.log("building devcontainer");
+  logStatus("building devcontainer");
   const devcontainerCliBin = path.join(dir, "node_modules/.bin/devcontainer");
   const devcontainerArgs = ["build", "--workspace-folder", a.targetDir];
   if (a.tag) {
@@ -334,23 +366,25 @@ if (a.build) {
   const build = cp.spawnSync(devcontainerCliBin, devcontainerArgs);
 
   if (build.status !== 0) {
-    console.log("error building devcontainer:", build.stderr.toString());
+    logError("error building devcontainer:", build.stderr.toString());
     process.exit(1);
   }
 
   const devcontainerOutput = JSON.parse(build.stdout.toString());
   const image = devcontainerOutput.imageName[0];
-  console.log("built image", image);
+  logPersist("built image", image);
 
   if (a.test) {
-    console.log("testing devcontainer");
+    logPersist("testing devcontainer");
     try {
       cp.execSync(`docker run --rm ${image} sh /selftest.sh`, {
         stdio: "inherit",
       });
     } catch (error) {
-      console.log("error testing devcontainer:", error.message);
+      logError("error testing devcontainer:", error.message);
       process.exit(1);
     }
   }
 }
+
+logStatus("done\n");
