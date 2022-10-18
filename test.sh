@@ -16,5 +16,12 @@ do
     echo "# Testing $lang"
     echo "#############################################"
 
-    node dist/bundle.js dcc://$lang dist/test/$lang --full --name "Example devcontainer for $lang" --tag devcontainer-$lang --test
+    if [ "$1" = "local" ]
+    then
+        spec=$yaml
+    else
+        spec=dcc://$lang
+    fi
+
+    node dist/bundle.js $spec dist/test/$lang --full --name "Example devcontainer for $lang" --tag devcontainer-$lang --test
 done
