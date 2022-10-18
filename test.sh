@@ -5,10 +5,10 @@ set -o pipefail
 
 rm -Rf dist/test || true
 
-npm ci
-npm run build
+npm exec pnpm i
+npm exec pnpm run build
 
-npm i --no-save @devcontainers/cli
+npm exec pnpm i --no-save @devcontainers/cli
 
 for yaml in examples/*.yaml
 do
