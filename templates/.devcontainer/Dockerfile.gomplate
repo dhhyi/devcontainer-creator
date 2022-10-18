@@ -46,6 +46,8 @@
   {{- end -}}
 {{- end -}}
 
+{{- if not (env.Getenv "SIMPLE_IMAGE" "") }}
+
 {{- if $fromArgs -}}
 {{- range $fromArgs -}}
 ARG {{ . }}
@@ -113,3 +115,5 @@ ARG {{ . }}
 
 {{- "" }}
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+
+{{- end }}

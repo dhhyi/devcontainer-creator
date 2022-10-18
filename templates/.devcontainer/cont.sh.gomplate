@@ -6,6 +6,7 @@
 {{- $command = coll.Append $L.language.binaryArgs $command -}}
 {{- end -}}
 
+{{- if not (env.Getenv "SIMPLE_IMAGE" "") -}}
 #!/bin/sh
 
 [ -z "$*" ] && echo "Usage: $0 <watch> <command>..." && exit 1
@@ -36,4 +37,5 @@ inotifywait -q -m -e close_write,create --recursive $watch | \
         :
     done
   )
+{{- end }}
 {{- end }}

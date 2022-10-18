@@ -9,6 +9,8 @@
     {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version")  " ") $version -}}
   {{- end -}}
 {{- end -}}
+
+{{- if not (env.Getenv "SIMPLE_IMAGE" "") -}}
 #!/bin/sh
 
 {{ if $version }}(
@@ -37,3 +39,4 @@ then
         echo "- $label"
     done
 fi
+{{- end }}

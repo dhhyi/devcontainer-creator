@@ -18,7 +18,7 @@ do
     echo "# Testing $lang"
     echo "#############################################"
 
-    node dist/bundle.js dcc://$lang dist/test/$lang
+    node dist/bundle.js dcc://$lang dist/test/$lang --full
 
     echo "building devcontainer"
     output=`npx devcontainer build --workspace-folder dist/test/$lang --image-name devcontainer-$lang 2>&1` || (echo $output && exit 1)

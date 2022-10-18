@@ -66,7 +66,7 @@ async function getYaml(languageYaml) {
     }
 
     const downloadFile = async (url, fileFullPath) => {
-      console.info("downloading file from url: " + url);
+      console.info("downloading", url);
 
       return new Promise((resolve, reject) => {
         https
@@ -144,10 +144,17 @@ if (process.argv.length < 4) {
   process.exit(1);
 }
 
-const argv = process.argv.slice(2);
+function parseArgs() {
+  const argv = process.argv.slice(2);
 
-let languageYaml = argv[0];
-const targetDir = argv[1];
+  const languageYaml = argv[0];
+  const targetDir = argv[1];
+  const extraArgs = argv.slice(2);
+
+  return { languageYaml, targetDir, extraArgs };
+}
+
+const { languageYaml, targetDir, extraArgs } = parseArgs();
 
 const dir = path.join(os.tmpdir(), "devcontainer-creator");
 if (!fs.existsSync(dir)) {
@@ -166,6 +173,12 @@ try {
 }
 
 await extractResources(dir);
+
+let simpleImage = "";
+if (languageYaml.startsWith("dcc://") && !extraArgs.includes("--full")) {
+  const lang = languageYaml.substring(6);
+  simpleImage = `ghcr.io/dhhyi/dcc-devcontainer-${lang}:latest`;
+}
 
 let resolvedYaml = await getYaml(languageYaml);
 while (resolvedYaml["extends"]) {
@@ -205,7 +218,14 @@ cp.execSync(
     `-d language=${resolvedYamlPath}`,
     `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
   ].join(" "),
-  { stdio: "inherit", env: { ...process.env, GOMPLATE_SUPPRESS_EMPTY: "true" } }
+  {
+    stdio: "inherit",
+    env: {
+      ...process.env,
+      GOMPLATE_SUPPRESS_EMPTY: "true",
+      SIMPLE_IMAGE: simpleImage,
+    },
+  }
 );
 
 if (resolvedYaml?.devcontainer?.build?.files) {
@@ -217,20 +237,22 @@ if (resolvedYaml?.devcontainer?.build?.files) {
 }
 
 function relativeYamlPath() {
-  if (argv[0].startsWith("dcc://")) {
-    return argv[0];
+  if (languageYaml.startsWith("dcc://")) {
+    return languageYaml;
   } else {
-    return path.relative(targetDir, argv[0]);
+    return path.relative(targetDir, languageYaml);
   }
 }
 
+const updateArgs = [relativeYamlPath(), ".", ...extraArgs].join(" ");
 fs.writeFileSync(
   path.join(targetDir, ".update_devcontainer.sh"),
   `#!/bin/sh
 
 cd "$(dirname "$(readlink -f "$0")")"
 
-curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${relativeYamlPath()} .`
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${updateArgs}
+`
 );
 
 console.log("wrote devcontainer to", targetDir);
