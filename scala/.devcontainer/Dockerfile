@@ -15,8 +15,8 @@ RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bi
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
+COPY selftest.sh disclaimer.sh /
+RUN chmod +x /selftest.sh /disclaimer.sh
 
 USER vscode
 

@@ -6,7 +6,7 @@
       "JULIA_MINOR_VERSION": "2"
     }
   },
-  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "settings": {
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"

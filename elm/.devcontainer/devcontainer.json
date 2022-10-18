@@ -5,7 +5,7 @@
       "NODE_VERSION": "16"
     }
   },
-  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "settings": {
     "[elm]": {
       "editor.defaultFormatter": "elmTooling.elm-ls-vscode"

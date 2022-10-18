@@ -4,8 +4,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
 
 RUN npm i -g elm elm-test elm-format elm-review onchange
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
+COPY selftest.sh disclaimer.sh /
+RUN chmod +x /selftest.sh /disclaimer.sh
 
 USER node
 

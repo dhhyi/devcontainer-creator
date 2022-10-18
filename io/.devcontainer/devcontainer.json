@@ -5,7 +5,7 @@
       "IO_VERSION": "2019.05.22-alpha"
     }
   },
-  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "settings": {
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"

@@ -6,7 +6,7 @@
       "JAVA_VERSION": "17"
     }
   },
-  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "settings": {
     "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
