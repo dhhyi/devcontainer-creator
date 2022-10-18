@@ -13,7 +13,7 @@
       "editor.defaultFormatter": "vscode.json-language-features"
     },
     "editor.formatOnSave": true,
-    "erlangFormatter.formatter": "rebar3_format",
+    "erlangFormatter.formatter": "erlfmt",
     "files.exclude": {
       ".devcontainer": true,
       ".update_devcontainer.sh": true,
