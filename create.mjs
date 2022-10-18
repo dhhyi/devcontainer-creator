@@ -9,8 +9,10 @@ const dccReference =
   "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/";
 const dccProtocol = "dcc://";
 
+const verbose = process.argv.includes("--verbose");
+
 function logStatus(...message) {
-  if (process.stdout.clearLine) {
+  if (process.stdout.clearLine && !verbose) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
     process.stdout.write(message.join(" "));
@@ -20,7 +22,7 @@ function logStatus(...message) {
 }
 
 function logPersist(...message) {
-  if (process.stdout.clearLine) {
+  if (process.stdout.clearLine && !verbose) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
   }
@@ -255,10 +257,15 @@ if (a.devcontainerName) {
 const resolvedYamlPath = path.join(dir, "language.yaml");
 fs.writeFileSync(resolvedYamlPath, yaml.dump(resolvedYaml));
 
+if (verbose) {
+  logPersist("Resolved YAML:");
+  logPersist(yaml.dump(resolvedYaml));
+}
+
 const pajvBin = path.join(dir, "node_modules/.bin/pajv");
 
 logStatus("validating yaml");
-const validation = cp.spawnSync(pajvBin, [
+const pajvArgs = [
   "validate",
   "-s",
   path.join(dir, "language_schema.json"),
@@ -266,11 +273,19 @@ const validation = cp.spawnSync(pajvBin, [
   resolvedYamlPath,
   "--errors=text",
   "--verbose",
-]);
+];
+if (verbose) {
+  logPersist("executing", pajvBin, ...pajvArgs);
+}
+const validation = cp.spawnSync(pajvBin, pajvArgs);
 
 if (validation.status !== 0) {
   logError(validation.stderr.toString());
   process.exit(1);
+}
+
+if (verbose) {
+  logPersist(validation.stdout.toString());
 }
 
 logStatus("creating backups");
@@ -287,24 +302,25 @@ const gomplateBin = path.join(
   "node_modules/gomplate/node_modules/.bin/gomplate"
 );
 
-cp.execSync(
-  [
-    gomplateBin,
-    `--input-dir ${dir}`,
-    '--include "**/*.gomplate"',
-    `--output-map=${a.targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
-    `-d language=${resolvedYamlPath}`,
-    `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
-  ].join(" "),
-  {
-    stdio: "inherit",
-    env: {
-      ...process.env,
-      GOMPLATE_SUPPRESS_EMPTY: "true",
-      SIMPLE_IMAGE: simpleImage,
-    },
-  }
-);
+const gomplateCmd = [
+  gomplateBin,
+  `--input-dir ${dir}`,
+  '--include "**/*.gomplate"',
+  `--output-map=${a.targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
+  `-d language=${resolvedYamlPath}`,
+  `-d vscodesettings=${dir}/.devcontainer/vscode.default.settings.json`,
+].join(" ");
+if (verbose) {
+  logPersist("executing", gomplateCmd);
+}
+cp.execSync(gomplateCmd, {
+  stdio: "inherit",
+  env: {
+    ...process.env,
+    GOMPLATE_SUPPRESS_EMPTY: "true",
+    SIMPLE_IMAGE: simpleImage,
+  },
+});
 
 logStatus("removing backups");
 templates.forEach((template) => {
@@ -363,7 +379,14 @@ if (a.build) {
     devcontainerArgs.push("--image-name", a.tag);
   }
 
+  if (verbose) {
+    logPersist("executing", devcontainerCliBin, ...devcontainerArgs);
+  }
   const build = cp.spawnSync(devcontainerCliBin, devcontainerArgs);
+
+  if (verbose) {
+    logPersist(build.stderr.toString());
+  }
 
   if (build.status !== 0) {
     logError("error building devcontainer:", build.stderr.toString());
