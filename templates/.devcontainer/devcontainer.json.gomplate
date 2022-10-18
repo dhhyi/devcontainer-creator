@@ -32,7 +32,7 @@ files.exclude:
     "args": {{ $L.devcontainer.build.args | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " " }}
     {{- end }}
   },
-  "postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
   "remoteUser": "{{ $remoteUser }}"
