@@ -5,45 +5,42 @@ language:
   version: erl +V
 devcontainer:
   build:
+    prepare:
+      - RUN locale-gen --no-purge en_US.UTF-8
+      - ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+      - ADD https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb /tmp/erlang-repo.deb
+      - RUN dpkg -i /tmp/erlang-repo.deb
     packages:
-      - erlang
+      - esl-erlang
     root:
       - ADD https://s3.amazonaws.com/rebar3/rebar3 /usr/local/bin/rebar3
       - RUN chmod +rx /usr/local/bin/rebar3
     files:
       rebar.config: |
-        {plugins, [rebar3_format]}.
-
-        {format,
-        [{files, ["**/*.erl"]},
-          {formatter, default_formatter},
-          {options,
-          #{% https://github.com/AdRoll/rebar3_format/blob/main/README.md#configuration
-            break_indent => 2,
-            inline_clause_bodies => true}}]}.
+        {plugins, [erlfmt]}.
+        {erlfmt, [write]}.
     user:
       - COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
   selftest: |
     cat > /tmp/helloworld.erl <<EOF
-    -module(helloworld).
-    -export([main/1]).
-    main(_) -> io:format("Hello World!\n").
+    -module(helloworld). -export([main/1]).
+    main(_) ->    io:format("Hello World!\n").
     EOF
-    rebar3 format --files /tmp/helloworld.erl
-    escript /tmp/helloworld.erl
+    cd /tmp
+    rebar3 fmt -w helloworld.erl
+    cat helloworld.erl
+    escript helloworld.erl
 vscode:
   settings:
     "[erlang]":
       editor.tabSize: 2
       editor.defaultFormatter: szTheory.erlang-formatter
-    erlangFormatter.formatter: rebar3_format
+    erlangFormatter.formatter: erlfmt
   extensions:
     - pgourlain.erlang
     - szTheory.erlang-formatter
   script: |
     -module(${TM_FILENAME/^(.*).erl$/$1/}).
-
     -export([main/1]).
-
     main(_) ->
       $1
