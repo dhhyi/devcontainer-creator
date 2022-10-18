@@ -5,7 +5,7 @@
   {{- $remoteUser = $L.devcontainer.remoteUser -}}
 {{- end -}}
 
-{{- $from := "mcr.microsoft.com/vscode/devcontainers/base" -}}
+{{- $from := "mcr.microsoft.com/vscode/devcontainers/base:debian" -}}
 {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
   {{- $from = $L.devcontainer.build.base -}}
 {{- end -}}

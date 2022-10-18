@@ -10,7 +10,6 @@ devcontainer:
     packages:
       - build-essential
       - libffi-dev
-      - libffi7
       - libgmp-dev
       - libgmp10
       - libncurses-dev
