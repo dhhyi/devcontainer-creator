@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base
+FROM mcr.microsoft.com/vscode/devcontainers/base:0.202.8-debian-10
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    build-essential libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 inotify-tools \
+    build-essential libffi-dev libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 inotify-tools \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY cont.sh /usr/local/bin/cont
