@@ -150,11 +150,16 @@ function parseArgs() {
   const languageYaml = argv[0];
   const targetDir = argv[1];
   const extraArgs = argv.slice(2);
+  const simplified =
+    languageYaml.startsWith("dcc://") && !extraArgs.includes("--full");
+  const devcontainerName =
+    extraArgs[extraArgs.findIndex((arg) => arg === "--name") + 1];
 
-  return { languageYaml, targetDir, extraArgs };
+  return { languageYaml, targetDir, extraArgs, simplified, devcontainerName };
 }
 
-const { languageYaml, targetDir, extraArgs } = parseArgs();
+const { languageYaml, targetDir, extraArgs, simplified, devcontainerName } =
+  parseArgs();
 
 const dir = path.join(os.tmpdir(), "devcontainer-creator");
 if (!fs.existsSync(dir)) {
@@ -175,7 +180,7 @@ try {
 await extractResources(dir);
 
 let simpleImage = "";
-if (languageYaml.startsWith("dcc://") && !extraArgs.includes("--full")) {
+if (simplified) {
   const lang = languageYaml.substring(6);
   simpleImage = `ghcr.io/dhhyi/dcc-devcontainer-${lang}:latest`;
 }
@@ -185,6 +190,13 @@ while (resolvedYaml["extends"]) {
   const extendingYaml = await getYaml(resolvedYaml["extends"]);
   delete resolvedYaml["extends"];
   resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
+}
+
+if (devcontainerName) {
+  if (!resolvedYaml.devcontainer) {
+    resolvedYaml.devcontainer = {};
+  }
+  resolvedYaml.devcontainer.name = devcontainerName;
 }
 
 const resolvedYamlPath = path.join(dir, "language.yaml");
@@ -244,7 +256,10 @@ function relativeYamlPath() {
   }
 }
 
-const updateArgs = [relativeYamlPath(), ".", ...extraArgs].join(" ");
+const updateArgs = [relativeYamlPath(), ".", ...extraArgs]
+  .map((arg) => (arg.includes(" ") ? `"${arg}"` : arg))
+  .join(" ");
+
 fs.writeFileSync(
   path.join(targetDir, ".update_devcontainer.sh"),
   `#!/bin/sh
