@@ -1,0 +1,13 @@
+language:
+  name: tcl
+  binary: tclsh
+  repl: tclsh
+  version: echo 'puts [info patchlevel]' | tclsh
+devcontainer:
+  build:
+    packages:
+      - tcl
+  selftest: echo 'puts "Hello World!"' | tclsh
+vscode:
+  extensions:
+    - bitwisecook.tcl
