@@ -34,6 +34,8 @@ async function extractResources(dir) {
     "language_schema.json": import("./templates/language_schema.json"),
   };
 
+  console.log("writing templates to", dir);
+
   await Promise.all(
     Object.entries(resources).map(([filename, content]) => {
       const file = path.join(dir, filename);
@@ -46,7 +48,9 @@ async function extractResources(dir) {
     })
   );
 
-  console.log("wrote templates to", dir);
+  return Object.keys(resources)
+    .filter((f) => f.endsWith(".gomplate"))
+    .map((f) => f.replace(".gomplate", ""));
 }
 
 async function getYaml(languageYaml) {
@@ -177,7 +181,7 @@ try {
   process.exit(1);
 }
 
-await extractResources(dir);
+const templates = await extractResources(dir);
 
 let simpleImage = "";
 if (simplified) {
@@ -204,6 +208,7 @@ fs.writeFileSync(resolvedYamlPath, yaml.dump(resolvedYaml));
 
 const pajvBin = path.join(dir, "node_modules/.bin/pajv");
 
+console.log("validating yaml");
 cp.execSync(
   [
     pajvBin,
@@ -216,6 +221,15 @@ cp.execSync(
   { stdio: "inherit" }
 );
 
+console.log("creating backups");
+templates.forEach((template) => {
+  const templatePath = path.join(targetDir, template);
+  if (fs.existsSync(templatePath)) {
+    fs.renameSync(templatePath, templatePath + "~");
+  }
+});
+
+console.log("executing gomplate");
 const gomplateBin = path.join(
   dir,
   "node_modules/gomplate/node_modules/.bin/gomplate"
@@ -239,6 +253,14 @@ cp.execSync(
     },
   }
 );
+
+console.log("removing backups");
+templates.forEach((template) => {
+  const templatePath = path.join(targetDir, template + "~");
+  if (fs.existsSync(templatePath)) {
+    fs.unlinkSync(templatePath);
+  }
+});
 
 if (resolvedYaml?.devcontainer?.build?.files) {
   const files = resolvedYaml.devcontainer.build.files;
