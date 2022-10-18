@@ -158,8 +158,13 @@ function parseArgs() {
   const extraArgs = argv.slice(2);
   const fullDevcontainer = extraArgs.includes("--full");
   const simplified = languageYaml.startsWith("dcc://") && !fullDevcontainer;
+  const devcontainerNameArg = extraArgs.findIndex((arg) => arg === "--name");
   const devcontainerName =
-    extraArgs[extraArgs.findIndex((arg) => arg === "--name") + 1];
+    devcontainerNameArg >= 0 && extraArgs[devcontainerNameArg + 1];
+  const test = extraArgs.includes("--test");
+  const tagArg = extraArgs.findIndex((arg) => arg === "--tag");
+  const tag = tagArg >= 0 && extraArgs[tagArg + 1];
+  const build = extraArgs.includes("--build") || test || tag;
 
   return {
     languageYaml,
@@ -167,6 +172,9 @@ function parseArgs() {
     simplified,
     fullDevcontainer,
     devcontainerName,
+    build,
+    test,
+    tag,
   };
 }
 
@@ -177,9 +185,14 @@ if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
 }
 
+const tools = ["gomplate", "pajv"];
+if (a.build) {
+  tools.push("@devcontainers/cli");
+}
+
 try {
   console.log("installing tools");
-  cp.execSync("npm install --no-save gomplate pajv", {
+  cp.execSync(`npm install --no-save ${tools.join(" ")}`, {
     stdio: "ignore",
     cwd: dir,
   });
@@ -292,6 +305,7 @@ if (a.fullDevcontainer) {
 if (a.devcontainerName) {
   updateArgs.push("--name", a.devcontainerName);
 }
+updateArgs.push('"$@"');
 
 const updateArgsString = updateArgs
   .map((arg) => (arg.includes(" ") ? `"${arg}"` : arg))
@@ -308,3 +322,35 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
 );
 
 console.log("wrote devcontainer to", a.targetDir);
+
+if (a.build) {
+  console.log("building devcontainer");
+  const devcontainerCliBin = path.join(dir, "node_modules/.bin/devcontainer");
+  const devcontainerArgs = ["build", "--workspace-folder", a.targetDir];
+  if (a.tag) {
+    devcontainerArgs.push("--image-name", a.tag);
+  }
+
+  const build = cp.spawnSync(devcontainerCliBin, devcontainerArgs);
+
+  if (build.status !== 0) {
+    console.log("error building devcontainer:", build.stderr.toString());
+    process.exit(1);
+  }
+
+  const devcontainerOutput = JSON.parse(build.stdout.toString());
+  const image = devcontainerOutput.imageName[0];
+  console.log("built image", image);
+
+  if (a.test) {
+    console.log("testing devcontainer");
+    try {
+      cp.execSync(`docker run --rm ${image} sh /selftest.sh`, {
+        stdio: "inherit",
+      });
+    } catch (error) {
+      console.log("error testing devcontainer:", error.message);
+      process.exit(1);
+    }
+  }
+}

@@ -5,3 +5,4 @@
 /LICENSE
 /pnpm-lock.yaml
 /dist
+*.sh

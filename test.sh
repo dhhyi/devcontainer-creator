@@ -8,8 +8,6 @@ rm -Rf dist/test || true
 npm exec pnpm i
 npm exec pnpm run build
 
-npm exec pnpm i --no-save @devcontainers/cli
-
 for yaml in examples/*.yaml
 do
     lang=$(basename $yaml .yaml)
@@ -18,10 +16,5 @@ do
     echo "# Testing $lang"
     echo "#############################################"
 
-    node dist/bundle.js dcc://$lang dist/test/$lang --full --name "Example devcontainer for $lang"
-
-    echo "building devcontainer"
-    output=`npx devcontainer build --workspace-folder dist/test/$lang --image-name devcontainer-$lang 2>&1` || (echo $output && exit 1)
-
-    docker run --rm devcontainer-$lang sh /selftest.sh
+    node dist/bundle.js dcc://$lang dist/test/$lang --full --name "Example devcontainer for $lang" --tag devcontainer-$lang --test
 done
