@@ -5,7 +5,7 @@ set -o pipefail
 
 rm -Rf dist/test || true
 
-npm exec pnpm i
+npm exec pnpm -- i --prod --ignore-scripts
 npm exec pnpm run build
 
 for yaml in examples/*.yaml

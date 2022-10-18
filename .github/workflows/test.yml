@@ -9,7 +9,6 @@ on:
       - examples/**
       - create.mjs
       - package.json
-      - package-lock.json
       - webpack.config.js
       - test.sh
       - publish.sh

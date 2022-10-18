@@ -8,7 +8,6 @@ on:
       - templates/**
       - create.mjs
       - package.json
-      - package-lock.json
       - webpack.config.js
 
 jobs:
@@ -20,7 +19,7 @@ jobs:
 
       - name: Build
         run: |
-          npm exec pnpm i
+          npm exec pnpm -- i --prod --ignore-scripts
           npm exec pnpm run build
 
       - name: Deploy
