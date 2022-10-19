@@ -66,22 +66,31 @@ const TMP_DIR = createTmpDir();
 
 const TMP_YAML_FILE = path.join(TMP_DIR, "language.yaml");
 
+if (!process.stdout.clearLine) {
+  console.time("dcc");
+}
+
 function logStatus(...message) {
-  if (process.stdout.clearLine && !VERBOSE) {
+  if (VERBOSE) {
+    console.log(...message);
+  } else if (process.stdout.clearLine) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
     process.stdout.write(message.join(" "));
   } else {
-    console.log(...message);
+    console.timeLog("dcc", ...message);
   }
 }
 
 function logPersist(...message) {
-  if (process.stdout.clearLine && !VERBOSE) {
+  if (VERBOSE) {
+    console.log(...message);
+  } else if (process.stdout.clearLine) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
+  } else {
+    console.timeLog("dcc", ...message);
   }
-  console.log(...message);
 }
 
 function logError(...message) {
@@ -500,4 +509,8 @@ await writeDevcontainer();
 
 buildAndTest();
 
-logStatus("done\n");
+if (process.stdout.clearLine) {
+  logStatus("done\n");
+} else {
+  console.timeEnd("dcc");
+}
