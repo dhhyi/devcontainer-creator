@@ -23,5 +23,10 @@ do
         spec=dcc://$lang
     fi
 
-    node dist/bundle.js $spec dist/test/$lang --full --name "Example devcontainer for $lang" --tag devcontainer-$lang --test
+    node dist/bundle.js $spec dist/test/$lang \
+       --full \
+       --name "Example devcontainer for $lang" \
+       --cache-from ghcr.io/dhhyi/dcc-devcontainer-$lang:latest \
+       --tag devcontainer-$lang \
+       --test
 done

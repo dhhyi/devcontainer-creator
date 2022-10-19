@@ -30,6 +30,8 @@ function parseArgs() {
   const tagArg = extraArgs.findIndex((arg) => arg === "--tag");
   const tag = tagArg >= 0 && extraArgs[tagArg + 1];
   const build = extraArgs.includes("--build") || test || tag;
+  const cacheFromArg = extraArgs.findIndex((arg) => arg === "--cache-from");
+  const cacheFrom = cacheFromArg >= 0 && extraArgs[cacheFromArg + 1];
 
   let simpleImage = "";
   if (languageYaml.startsWith(DCC_PROTOCOL) && !fullDevcontainer) {
@@ -44,6 +46,7 @@ function parseArgs() {
     fullDevcontainer,
     devcontainerName,
     build,
+    cacheFrom,
     test,
     tag,
   };
@@ -424,8 +427,6 @@ function buildAndTest() {
     return meta;
   }
 
-  logStatus("building devcontainer");
-
   const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
 
   const languageBuildArgs = Object.entries(
@@ -436,8 +437,6 @@ function buildAndTest() {
   );
   const image = ARGS.tag || `dcc-${Date.now()}`;
 
-  const meta = getDevcontainerMeta();
-
   const dockerBuildArgs = [
     "build",
     ...languageBuildArgs,
@@ -445,20 +444,39 @@ function buildAndTest() {
     "BUILDKIT_INLINE_CACHE=1",
     "-t",
     image,
-    "--label",
-    `devcontainer.metadata=${JSON.stringify([meta])}`,
-    `${ARGS.targetDir}/.devcontainer`,
   ];
+
+  if (ARGS.cacheFrom) {
+    dockerBuildArgs.push("--cache-from", ARGS.cacheFrom);
+
+    logStatus("pulling cache image");
+
+    const cachePull = cp.execSync(`docker pull ${ARGS.cacheFrom}`);
+    if (VERBOSE) {
+      logPersist(cachePull.toString());
+    }
+  }
+
+  dockerBuildArgs.push(
+    "--label",
+    `devcontainer.metadata=${JSON.stringify([getDevcontainerMeta()])}`,
+    `${ARGS.targetDir}/.devcontainer`
+  );
 
   if (VERBOSE) {
     logPersist("executing", "docker", ...dockerBuildArgs);
   }
+
+  logStatus("building devcontainer");
 
   const build = cp.spawnSync("docker", dockerBuildArgs);
 
   if (build.status !== 0) {
     logError(build.stderr.toString());
     process.exit(1);
+  }
+  if (VERBOSE) {
+    logPersist(build.stderr.toString());
   }
 
   logPersist("built image", image);
