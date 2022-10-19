@@ -61,6 +61,8 @@ function createTmpDir() {
 
 const TMP_DIR = createTmpDir();
 
+const TMP_YAML_FILE = path.join(TMP_DIR, "language.yaml");
+
 function logStatus(...message) {
   if (process.stdout.clearLine && !VERBOSE) {
     process.stdout.clearLine();
@@ -262,8 +264,7 @@ async function resolveAndValidateYaml() {
     resolvedYaml.devcontainer.name = ARGS.devcontainerName;
   }
 
-  const resolvedYamlPath = path.join(TMP_DIR, "language.yaml");
-  fs.writeFileSync(resolvedYamlPath, yaml.dump(resolvedYaml));
+  fs.writeFileSync(TMP_YAML_FILE, yaml.dump(resolvedYaml));
 
   if (VERBOSE) {
     logPersist("Resolved YAML:");
@@ -278,7 +279,7 @@ async function resolveAndValidateYaml() {
     "-s",
     path.join(TMP_DIR, "language_schema.json"),
     "-d",
-    resolvedYamlPath,
+    TMP_YAML_FILE,
     "--errors=text",
     "--verbose",
   ];
@@ -295,8 +296,6 @@ async function resolveAndValidateYaml() {
   if (VERBOSE) {
     logPersist(validation.stdout.toString());
   }
-
-  return resolvedYamlPath;
 }
 
 function writeUpdateScript() {
@@ -336,7 +335,7 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
 async function writeDevcontainer() {
   const templates = await extractResources(TMP_DIR);
 
-  const yamlPath = await resolveAndValidateYaml();
+  await resolveAndValidateYaml();
 
   logStatus("creating backups");
   templates.forEach((template) => {
@@ -357,7 +356,7 @@ async function writeDevcontainer() {
     `--input-dir ${TMP_DIR}`,
     '--include "**/*.gomplate"',
     `--output-map=${ARGS.targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
-    `-d language=${yamlPath}`,
+    `-d language=${TMP_YAML_FILE}`,
     `-d vscodesettings=${TMP_DIR}/.devcontainer/vscode.default.settings.json`,
   ].join(" ");
   if (VERBOSE) {
@@ -380,7 +379,7 @@ async function writeDevcontainer() {
     }
   });
 
-  const resolvedYaml = yaml.load(fs.readFileSync(yamlPath));
+  const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
 
   if (resolvedYaml?.devcontainer?.build?.files) {
     const files = resolvedYaml.devcontainer.build.files;
@@ -396,45 +395,83 @@ async function writeDevcontainer() {
 }
 
 function buildAndTest() {
-  if (ARGS.build) {
-    logStatus("building devcontainer");
-    const devcontainerCliBin = path.join(
-      TMP_DIR,
-      "node_modules/.bin/devcontainer"
+  if (!ARGS.build) {
+    return;
+  }
+
+  function getDevcontainerMeta() {
+    const meta = JSON.parse(
+      fs.readFileSync(
+        path.join(ARGS.targetDir, ".devcontainer", "devcontainer.json")
+      )
     );
-    const devcontainerArgs = ["build", "--workspace-folder", ARGS.targetDir];
-    if (ARGS.tag) {
-      devcontainerArgs.push("--image-name", ARGS.tag);
+    meta.customizations = {
+      vscode: {
+        extensions: meta.extensions || [],
+        settings: meta.settings || {},
+      },
+    };
+    if (meta.build) {
+      delete meta.build;
+    }
+    if (meta.settings) {
+      delete meta.settings;
+    }
+    if (meta.extensions) {
+      delete meta.extensions;
     }
 
-    if (VERBOSE) {
-      logPersist("executing", devcontainerCliBin, ...devcontainerArgs);
-    }
-    const build = cp.spawnSync(devcontainerCliBin, devcontainerArgs);
+    return meta;
+  }
 
-    if (VERBOSE) {
-      logPersist(build.stderr.toString());
-    }
+  logStatus("building devcontainer");
 
-    if (build.status !== 0) {
-      logError("error building devcontainer:", build.stderr.toString());
+  const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
+
+  const languageBuildArgs = Object.entries(
+    resolvedYaml?.devcontainer?.build?.args || []
+  ).reduce(
+    (acc, [key, value]) => [...acc, "--build-arg", `${key}=${value}`],
+    []
+  );
+  const image = ARGS.tag || `dcc-${Date.now()}`;
+
+  const meta = getDevcontainerMeta();
+
+  const dockerBuildArgs = [
+    "build",
+    ...languageBuildArgs,
+    "--build-arg",
+    "BUILDKIT_INLINE_CACHE=1",
+    "-t",
+    image,
+    "--label",
+    `devcontainer.metadata=${JSON.stringify([meta])}`,
+    `${ARGS.targetDir}/.devcontainer`,
+  ];
+
+  if (VERBOSE) {
+    logPersist("executing", "docker", ...dockerBuildArgs);
+  }
+
+  const build = cp.spawnSync("docker", dockerBuildArgs);
+
+  if (build.status !== 0) {
+    logError(build.stderr.toString());
+    process.exit(1);
+  }
+
+  logPersist("built image", image);
+
+  if (ARGS.test) {
+    logPersist("testing devcontainer");
+    try {
+      cp.execSync(`docker run --rm ${image} sh /selftest.sh`, {
+        stdio: "inherit",
+      });
+    } catch (error) {
+      logError("error testing devcontainer:", error.message);
       process.exit(1);
-    }
-
-    const devcontainerOutput = JSON.parse(build.stdout.toString());
-    const image = devcontainerOutput.imageName[0];
-    logPersist("built image", image);
-
-    if (ARGS.test) {
-      logPersist("testing devcontainer");
-      try {
-        cp.execSync(`docker run --rm ${image} sh /selftest.sh`, {
-          stdio: "inherit",
-        });
-      } catch (error) {
-        logError("error testing devcontainer:", error.message);
-        process.exit(1);
-      }
     }
   }
 }
