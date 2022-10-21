@@ -117,15 +117,11 @@ function installTools() {
 
 async function extractResources() {
   const resources = {
-    ".devcontainer/cont.sh.gomplate": import(
-      "./templates/.devcontainer/cont.sh.gomplate"
-    ),
+    ".devcontainer/cont.sh.gomplate": undefined,
     ".devcontainer/devcontainer.json.gomplate": import(
       "./templates/.devcontainer/devcontainer.json.gomplate"
     ),
-    ".devcontainer/disclaimer.sh.gomplate": import(
-      "./templates/.devcontainer/disclaimer.sh.gomplate"
-    ),
+    ".devcontainer/disclaimer.sh.gomplate": undefined,
     ".devcontainer/Dockerfile.gomplate": import(
       "./templates/.devcontainer/Dockerfile.gomplate"
     ),
@@ -138,24 +134,23 @@ async function extractResources() {
     ".vscode/vscode.code-snippets.gomplate": import(
       "./templates/.vscode/vscode.code-snippets.gomplate"
     ),
-    ".devcontainer/vscode.default.settings.json": import(
-      "./templates/.devcontainer/vscode.default.settings.json"
-    ),
     "language_schema.json": import("./templates/language_schema.json"),
   };
 
   logStatus("writing templates to", TMP_DIR);
 
   await Promise.all(
-    Object.entries(resources).map(([filename, content]) => {
-      const file = path.join(TMP_DIR, filename);
-      if (!fs.existsSync(path.dirname(file))) {
-        fs.mkdirSync(path.dirname(file), { recursive: true });
-      }
-      return content.then((c) => {
-        fs.writeFileSync(file, c.default);
-      });
-    })
+    Object.entries(resources)
+      .filter(([, c]) => !!c)
+      .map(([filename, content]) => {
+        const file = path.join(TMP_DIR, filename);
+        if (!fs.existsSync(path.dirname(file))) {
+          fs.mkdirSync(path.dirname(file), { recursive: true });
+        }
+        return content.then((c) => {
+          fs.writeFileSync(file, c.default);
+        });
+      })
   );
 
   return Object.keys(resources)
@@ -369,7 +364,6 @@ async function writeDevcontainer() {
     '--include "**/*.gomplate"',
     `--output-map=${ARGS.targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
     `-d language=${TMP_YAML_FILE}`,
-    `-d vscodesettings=${TMP_DIR}/.devcontainer/vscode.default.settings.json`,
   ].join(" ");
   if (VERBOSE) {
     logPersist("executing", gomplateCmd);
@@ -411,52 +405,17 @@ function buildAndTest() {
     return;
   }
 
-  function getDevcontainerMeta() {
-    const meta = JSON.parse(
-      fs.readFileSync(
-        path.join(ARGS.targetDir, ".devcontainer", "devcontainer.json")
-      )
-    );
-    meta.customizations = {
-      vscode: {
-        extensions: meta.extensions || [],
-        settings: meta.settings || {},
-      },
-    };
-    if (meta.build) {
-      delete meta.build;
-    }
-    if (meta.settings) {
-      delete meta.settings;
-    }
-    if (meta.extensions) {
-      delete meta.extensions;
-    }
-
-    return meta;
+  const devcontainerCliBin = path.join(
+    TMP_DIR,
+    "node_modules/.bin/devcontainer"
+  );
+  const devcontainerArgs = ["build", "--workspace-folder", ARGS.targetDir];
+  if (ARGS.tag) {
+    devcontainerArgs.push("--image-name", ARGS.tag);
   }
 
-  const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
-
-  const languageBuildArgs = Object.entries(
-    resolvedYaml?.devcontainer?.build?.args || []
-  ).reduce(
-    (acc, [key, value]) => [...acc, "--build-arg", `${key}=${value}`],
-    []
-  );
-  const image = ARGS.tag || `dcc-${Date.now()}`;
-
-  const dockerBuildArgs = [
-    "build",
-    ...languageBuildArgs,
-    "--build-arg",
-    "BUILDKIT_INLINE_CACHE=1",
-    "-t",
-    image,
-  ];
-
   if (ARGS.cacheFrom) {
-    dockerBuildArgs.push("--cache-from", ARGS.cacheFrom);
+    devcontainerArgs.push("--cache-from", ARGS.cacheFrom);
 
     logStatus("pulling cache image");
 
@@ -466,27 +425,24 @@ function buildAndTest() {
     }
   }
 
-  dockerBuildArgs.push(
-    "--label",
-    `devcontainer.metadata=${JSON.stringify([getDevcontainerMeta()])}`,
-    `${ARGS.targetDir}/.devcontainer`
-  );
-
   if (VERBOSE) {
-    logPersist("executing", "docker", ...dockerBuildArgs);
+    logPersist("executing", devcontainerCliBin, ...devcontainerArgs);
   }
 
   logStatus("building devcontainer");
+  const build = cp.spawnSync(devcontainerCliBin, devcontainerArgs);
 
-  const build = cp.spawnSync("docker", dockerBuildArgs);
-
-  if (build.status !== 0) {
-    logError(build.stderr.toString());
-    process.exit(1);
-  }
   if (VERBOSE) {
     logPersist(build.stderr.toString());
   }
+
+  if (build.status !== 0) {
+    logError("error building devcontainer:", build.stderr.toString());
+    process.exit(1);
+  }
+
+  const devcontainerOutput = JSON.parse(build.stdout.toString());
+  const image = devcontainerOutput.imageName[0];
 
   logPersist("built image", image);
 

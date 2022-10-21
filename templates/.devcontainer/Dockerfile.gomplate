@@ -85,14 +85,9 @@ ARG {{ . }}
 {{ conv.Join $L.devcontainer.build.root "\n" }}
 {{ end }}
 
-{{- if (has $L.language "binary") }}
-COPY cont.sh /usr/local/bin/cont
-RUN chmod +x /usr/local/bin/cont
-{{ end }}
-
 {{- "" }}
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 {{ "" }}
 
 {{- "" }}
@@ -115,5 +110,25 @@ ARG {{ . }}
 
 {{- "" }}
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+
+{{- $command := slice -}}
+{{- if has $L.language "binary" -}}
+  {{- $command = coll.Append $L.language.binary $command -}}
+  {{- if has $L.language "binaryArgs" -}}
+    {{- $command = coll.Append $L.language.binaryArgs $command -}}
+  {{- end -}}
+{{- end -}}
+{{- $version := slice -}}
+{{- if or (not (has $L.language "version")) ($L.language.version) -}}
+  {{- if (has $L.language "version") }}
+    {{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+      {{- $version = coll.Append . $version -}}
+    {{- end -}}
+  {{- else if (has $L.language "binary") }}
+    {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version")  " ") $version -}}
+  {{- end -}}
+{{- end -}}
+{{- "" }}
+ENV DCC_BINARY="{{ conv.Join $command " " }}" DCC_REPL="{{  if has $L.language "repl" }}{{ $L.language.repl }}{{ end }}" DCC_VERSION="{{ conv.Join $version ";" }}"
 
 {{- end }}

@@ -4,7 +4,7 @@
 
 {{- $remoteUser := "vscode"}}{{ if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") }}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
 
-{{- $settings := (datasource "vscodesettings") -}}
+{{- $settings := dict -}}
 {{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
 {{- end -}}
@@ -20,7 +20,7 @@ files.exclude:
 {{- end -}}
 {{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "IGNORES" $ignores)) -}}
 
-{{- $extensions := coll.Slice "GitHub.copilot" -}}
+{{- $extensions := coll.Slice -}}
 {{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
 {{- end -}}
@@ -38,6 +38,9 @@ files.exclude:
     {{- end }}
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
   "remoteUser": "{{ $remoteUser }}"

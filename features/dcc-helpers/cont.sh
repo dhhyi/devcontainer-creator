@@ -1,12 +1,3 @@
-{{- $L := (datasource "language") -}}
-{{- if (has $L.language "binary") -}}
-
-{{- $command := slice $L.language.binary -}}
-{{- if has $L.language "binaryArgs" -}}
-{{- $command = coll.Append $L.language.binaryArgs $command -}}
-{{- end -}}
-
-{{- if not (env.Getenv "SIMPLE_IMAGE" "") -}}
 #!/bin/sh
 
 [ -z "$*" ] && echo "Usage: $0 <watch> <command>..." && exit 1
@@ -14,7 +5,7 @@
 if [ "$#" -eq "1" ]
 then
     watch=$1
-    command="{{ conv.Join $command " " }} $1"
+    command="$DCC_BINARY $1"
 else
     watch="$1"
     shift
@@ -37,5 +28,3 @@ inotifywait -q -m -e close_write,create --recursive $watch | \
         :
     done
   )
-{{- end }}
-{{- end }}

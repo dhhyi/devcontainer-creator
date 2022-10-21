@@ -1,0 +1,29 @@
+{
+  "name": "Devcontainer Creator Helpers",
+  "id": "dcc-helpers",
+  "version": "1.0.0",
+  "description": "Installs Devcontainer Creator Helpers",
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
+  "customizations": {
+    "vscode": {
+      "extensions": ["GitHub.copilot"],
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "zsh",
+            "args": ["-l"]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "[jsonc]": {
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "task.autoDetect": "off"
+      }
+    }
+  }
+}
