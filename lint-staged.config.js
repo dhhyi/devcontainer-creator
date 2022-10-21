@@ -1,4 +1,4 @@
 module.exports = {
-  "*": ["prettier --write", () => "node check-lang-ci.js"],
+  "*": ["prettier --write"],
   "*.{mjs,js}": ["eslint --fix"],
 };

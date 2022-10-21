@@ -43,23 +43,29 @@ jobs:
   checkLangCI:
     name: Check CI Languages
     runs-on: ubuntu-latest
+    outputs:
+      languages: ${{ steps.check-lang-ci.outputs.languages }}
+      skip: ${{ steps.check-lang-ci.outputs.skip }}
     steps:
       - uses: actions/checkout@master
-
+        with:
+          fetch-depth: 2
       - name: Check
+        id: check-lang-ci
         run: |
           npm exec pnpm -- i --prod --ignore-scripts
-          node check-lang-ci.js
+          git diff --name-only HEAD~ | node check-lang-ci.js languages >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
   test:
     needs: [deployBundle, deployFeatures, checkLangCI]
+    if: needs.checkLangCI.outputs.skip != 'true'
     name: Test and Publish
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        # must be in one line for the replace script
-        lang: [clojure, elixir, elm, erlang, factor, go, haskell, io, julia, lua, moonscript, prolog, ruby, scala, tcl, typescript]
+        lang: ${{ fromJson(needs.checkLangCI.outputs.languages) }}
     steps:
       - uses: actions/checkout@master
 
