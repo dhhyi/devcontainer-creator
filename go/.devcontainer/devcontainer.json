@@ -1,0 +1,24 @@
+{
+  "name": "Example devcontainer for go",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "GO_VERSION": "1.19"
+    }
+  },
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "golang.Go"
+  ],
+  "remoteUser": "vscode"
+}
