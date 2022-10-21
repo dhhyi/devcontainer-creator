@@ -1,8 +1,15 @@
 {
   "name": "Devcontainer Creator Helpers",
   "id": "dcc-helpers",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "Installs Devcontainer Creator Helpers",
+  "options": {
+    "cont": {
+      "type": "boolean",
+      "default": "true",
+      "description": "Wheather to install the cont script"
+    }
+  },
   "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
   "customizations": {
     "vscode": {

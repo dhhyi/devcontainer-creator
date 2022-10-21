@@ -39,7 +39,9 @@ files.exclude:
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
+      "cont": "{{ if has $L.language "binary" }}true{{ else }}false{{ end }}"
+    }
   },
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
