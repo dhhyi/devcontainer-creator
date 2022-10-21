@@ -40,8 +40,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  checkLangCI:
+    name: Check CI Languages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Check
+        run: |
+          npm exec pnpm -- i --prod --ignore-scripts
+          node check-lang-ci.js
+
   test:
-    needs: [deployBundle, deployFeatures]
+    needs: [deployBundle, deployFeatures, checkLangCI]
     name: Test and Publish
     runs-on: ubuntu-latest
     strategy:
