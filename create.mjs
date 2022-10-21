@@ -12,16 +12,28 @@ const DCC_PROTOCOL = "dcc://";
 const VERBOSE = process.argv.includes("--verbose");
 
 function parseArgs() {
-  if (process.argv.length < 4) {
+  function printUsageAndExit() {
     console.log("Usage: node create.js <language.yaml> <target-folder>");
     process.exit(1);
+  }
+
+  if (process.argv.length < 4) {
+    printUsageAndExit();
   }
 
   const argv = process.argv.slice(2);
 
   const languageYaml = argv[0];
-  const targetDir = argv[1];
-  const extraArgs = argv.slice(2);
+  let targetDir = argv[1];
+
+  let extraArgs = argv.slice(2);
+  if (targetDir === "--test") {
+    extraArgs = argv.slice(1);
+    targetDir = fs.mkdtempSync(path.join(os.tmpdir(), "dcc-test-"));
+  } else if (targetDir.startsWith("-")) {
+    printUsageAndExit();
+  }
+
   const fullDevcontainer = extraArgs.includes("--full");
   const devcontainerNameArg = extraArgs.findIndex((arg) => arg === "--name");
   const devcontainerName =
@@ -88,6 +100,7 @@ function logPersist(...message) {
   } else if (process.stdout.clearLine) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
+    console.log(...message);
   } else {
     console.timeLog("dcc", ...message);
   }
