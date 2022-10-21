@@ -9,7 +9,9 @@
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
+      "cont": "true"
+    }
   },
   "settings": {
     "[scala]": {
