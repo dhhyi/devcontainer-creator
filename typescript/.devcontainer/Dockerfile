@@ -9,12 +9,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 RUN npm i -g ts-node
 
-COPY cont.sh /usr/local/bin/cont
-RUN chmod +x /usr/local/bin/cont
-
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 
 USER node
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="ts-node" DCC_REPL="ts-node" DCC_VERSION="ts-node -vvv"

@@ -13,11 +13,8 @@ RUN cd /opt && tar zxpf factor.tar.gz
 ENV PATH=/opt/factor:${PATH}
 RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
 
-COPY cont.sh /usr/local/bin/cont
-RUN chmod +x /usr/local/bin/cont
-
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 
 USER vscode
 ENV HOME=/home/vscode
@@ -25,3 +22,4 @@ ENV HOME=/home/vscode
 RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="factor -run" DCC_REPL="factor" DCC_VERSION=""

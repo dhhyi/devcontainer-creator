@@ -7,11 +7,10 @@
     }
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
   "settings": {
-    "[jsonc]": {
-      "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "editor.formatOnSave": true,
     "files.associations": {
       "*.pl": "prolog"
     },
@@ -19,24 +18,10 @@
       ".devcontainer": true,
       ".update_devcontainer.sh": true,
       ".vscode": true
-    },
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "task.autoDetect": "off",
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.profiles.linux": {
-      "zsh": {
-        "args": [
-          "-l"
-        ],
-        "path": "zsh"
-      }
     }
   },
   "extensions": [
-    "rebornix.prolog",
-    "GitHub.copilot"
+    "rebornix.prolog"
   ],
   "remoteUser": "vscode"
 }

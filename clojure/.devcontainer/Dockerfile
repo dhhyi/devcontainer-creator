@@ -15,12 +15,10 @@ ADD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein /usr
 RUN chmod +x /usr/local/bin/lein
 RUN echo > /conda-notice.txt
 
-COPY cont.sh /usr/local/bin/cont
-RUN chmod +x /usr/local/bin/cont
-
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="clojure -M" DCC_REPL="lein repl" DCC_VERSION="clojure --version"

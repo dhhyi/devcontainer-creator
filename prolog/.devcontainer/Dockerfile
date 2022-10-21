@@ -11,9 +11,10 @@ ADD http://www.gprolog.org/gprolog-${PROLOG_VERSION}.tar.gz /tmp
 RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
 RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
 
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="" DCC_REPL="gprolog" DCC_VERSION="gprolog --version"

@@ -12,12 +12,10 @@ ADD https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_BASE_VERSION}/julia
 RUN cd /opt && tar -xpf julia.tar.gz
 ENV PATH=/opt/julia-${JULIA_BASE_VERSION}.${JULIA_MINOR_VERSION}/bin:${PATH}
 
-COPY cont.sh /usr/local/bin/cont
-RUN chmod +x /usr/local/bin/cont
-
-COPY selftest.sh disclaimer.sh /
-RUN chmod +x /selftest.sh /disclaimer.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="julia" DCC_REPL="julia" DCC_VERSION="julia --version"
