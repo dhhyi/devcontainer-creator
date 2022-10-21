@@ -1,0 +1,25 @@
+{
+  "name": "Example devcontainer for kotlin",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "JAVA_VERSION": "17",
+      "KOTLIN_VERSION": "1.7.20"
+    }
+  },
+  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "fwcd.kotlin"
+  ],
+  "remoteUser": "vscode"
+}
