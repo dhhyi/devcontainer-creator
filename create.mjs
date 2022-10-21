@@ -432,9 +432,15 @@ function buildAndTest() {
 
     logStatus("pulling cache image");
 
-    const cachePull = cp.execSync(`docker pull ${ARGS.cacheFrom}`);
+    const cachePull = cp.spawnSync("docker", ["pull", ARGS.cacheFrom]);
+
+    if (cachePull.status !== 0) {
+      logPersist("cache image does not exist");
+    }
+
     if (VERBOSE) {
-      logPersist(cachePull.toString());
+      logPersist(cachePull.stderr.toString());
+      logPersist(cachePull.stdout.toString());
     }
   }
 
