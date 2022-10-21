@@ -1,0 +1,108 @@
+name: Publish
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deployBundle:
+    name: Update dist Branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build
+        run: |
+          npm exec pnpm -- i --prod --ignore-scripts
+          npm exec pnpm run build
+
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: dist
+          FOLDER: dist
+          SQUASH_HISTORY: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deployFeatures:
+    name: Deploy Features
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: "Publish Features"
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./features"
+          generate-docs: "false"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    needs: [deployBundle, deployFeatures]
+    name: Test and Publish
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # must be in one line for the replace script
+        lang: [clojure, elixir, elm, erlang, factor, haskell, io, julia, lua, moonscript, prolog, ruby, scala, tcl, typescript]
+    steps:
+      - uses: actions/checkout@master
+
+      - run: |
+          curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
+            examples/${{ matrix.lang }}.yaml \
+            --test \
+            --verbose \
+            --cache-from ghcr.io/dhhyi/dcc-devcontainer-${{ matrix.lang }}:latest \
+            --tag devcontainer-${{ matrix.lang }}
+        name: dcc
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          echo "FROM devcontainer-${{ matrix.lang }}" | docker build \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            --label org.opencontainers.image.source="https://github.com/dhhyi/devcontainer-creator" \
+            --label org.opencontainers.image.description="VSCode devcontainer for ${{ matrix.lang }}" \
+            -t ghcr.io/dhhyi/dcc-devcontainer-${{ matrix.lang }}:latest \
+            -
+          docker push ghcr.io/dhhyi/dcc-devcontainer-${{ matrix.lang }}:latest
+        name: publish
+
+  publishExamples:
+    needs: [test]
+    name: Publish Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - run: |
+          for yaml in examples/*.yaml
+          do
+            lang=$(basename $yaml .yaml)
+            curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
+              dcc://$lang \
+              dist/test/$lang \
+              --full \
+              --name "Example devcontainer for $lang" \
+              --cache-from ghcr.io/dhhyi/dcc-devcontainer-$lang:latest
+          done
+
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: devcontainers
+          FOLDER: dist/test
+          SQUASH_HISTORY: false
+          SKIP_EMPTY_COMMITS: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
