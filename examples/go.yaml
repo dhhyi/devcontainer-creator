@@ -1,0 +1,25 @@
+language:
+  name: go
+  binary: go
+  binaryArgs: run
+  repl: yaegi
+  version: go version
+devcontainer:
+  build:
+    args:
+      GO_VERSION: "1.19"
+    base: mcr.microsoft.com/devcontainers/go:${GO_VERSION}
+    user:
+      - RUN go install github.com/traefik/yaegi/cmd/yaegi@latest
+  selftest: |
+    cat >/tmp/helloworld.go <<EOF
+    package main
+    import "fmt"
+    func main() { fmt.Println("Hello World!") }
+    EOF
+    go fmt /tmp/helloworld.go
+    cat /tmp/helloworld.go
+    go run /tmp/helloworld.go
+vscode:
+  extensions:
+    - golang.Go

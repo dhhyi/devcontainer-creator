@@ -48,7 +48,7 @@ jobs:
       fail-fast: false
       matrix:
         # must be in one line for the replace script
-        lang: [clojure, elixir, elm, erlang, factor, haskell, io, julia, lua, moonscript, prolog, ruby, scala, tcl, typescript]
+        lang: [clojure, elixir, elm, erlang, factor, go, haskell, io, julia, lua, moonscript, prolog, ruby, scala, tcl, typescript]
     steps:
       - uses: actions/checkout@master
 
