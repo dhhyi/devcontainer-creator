@@ -19,5 +19,16 @@
       "DCC_VERSION": "echo myversion",
       "DCC_REPL": "myrepl"
     }
+  },
+  "use_onchange_on_node": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:16",
+    "features": {
+      "dcc-helpers": {}
+    },
+    "containerEnv": {
+      "DCC_VERSION": "echo myversion",
+      "DCC_BINARY": "mybinary --run",
+      "DCC_REPL": "myrepl"
+    }
   }
 }

@@ -11,9 +11,6 @@
 {{- end -}}
 
 {{- $packages := coll.Slice -}}
-{{- if (has $L.language "binary") -}}
-  {{- $packages = coll.Append "inotify-tools" $packages -}}
-{{- end -}}
 {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
   {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
 {{- end -}}
