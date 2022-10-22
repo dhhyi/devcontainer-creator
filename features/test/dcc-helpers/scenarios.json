@@ -1,0 +1,23 @@
+{
+  "install_default": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "features": {
+      "dcc-helpers": {}
+    },
+    "containerEnv": {
+      "DCC_VERSION": "echo myversion",
+      "DCC_BINARY": "mybinary --run",
+      "DCC_REPL": "myrepl"
+    }
+  },
+  "skip_install_cont": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "features": {
+      "dcc-helpers": {}
+    },
+    "containerEnv": {
+      "DCC_VERSION": "echo myversion",
+      "DCC_REPL": "myrepl"
+    }
+  }
+}

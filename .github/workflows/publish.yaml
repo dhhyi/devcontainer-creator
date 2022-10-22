@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - "main"
+      - main
 
 jobs:
   deployBundle:
@@ -31,12 +31,18 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: "Publish Features"
+      - name: Install latest devcontainer CLI
+        run: npm install -g @devcontainers/cli
+
+      - name: Test Features
+        run: devcontainer features test features
+
+      - name: Publish Features
         uses: devcontainers/action@v1
         with:
-          publish-features: "true"
-          base-path-to-features: "./features"
-          generate-docs: "false"
+          publish-features: true
+          base-path-to-features: ./features/src
+          generate-docs: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
