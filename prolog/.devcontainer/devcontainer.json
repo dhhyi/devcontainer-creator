@@ -8,9 +8,7 @@
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
-      "cont": "false"
-    }
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },
   "settings": {
     "files.associations": {

@@ -5,9 +5,7 @@
   },
   "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
-      "cont": "true"
-    }
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },
   "settings": {
     "[erlang]": {
