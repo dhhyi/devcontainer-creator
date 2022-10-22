@@ -4,9 +4,10 @@
     "features": {
       "dcc-helpers": {}
     },
+    "postCreateCommand": "sh /home/dcc/install-helpers.sh",
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
-      "DCC_BINARY": "mybinary --run",
+      "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl"
     }
   },
@@ -15,8 +16,10 @@
     "features": {
       "dcc-helpers": {}
     },
+    "postCreateCommand": "sh /home/dcc/install-helpers.sh",
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
+      "DCC_BINARY": "",
       "DCC_REPL": "myrepl"
     }
   },
@@ -25,9 +28,10 @@
     "features": {
       "dcc-helpers": {}
     },
+    "postCreateCommand": "sh /home/dcc/install-helpers.sh",
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
-      "DCC_BINARY": "mybinary --run",
+      "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl"
     }
   }

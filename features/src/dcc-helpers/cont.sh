@@ -16,7 +16,7 @@ echo "continuously running '$command' watching '$watch'"
 
 if command -v onchange >/dev/null
 then
-    onchange -ik "$watch" -- "$command"
+    onchange -ik "$watch" -- $command
 else
     inotifywait -q -m -e close_write,create --recursive $watch | \
     (
