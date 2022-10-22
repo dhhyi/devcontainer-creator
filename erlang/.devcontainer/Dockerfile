@@ -7,7 +7,7 @@ RUN dpkg -i /tmp/erlang-repo.deb
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    esl-erlang inotify-tools \
+    esl-erlang \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ADD https://s3.amazonaws.com/rebar3/rebar3 /usr/local/bin/rebar3

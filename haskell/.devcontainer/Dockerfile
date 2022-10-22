@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    build-essential libffi-dev libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 inotify-tools \
+    build-essential libffi-dev libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY selftest.sh /

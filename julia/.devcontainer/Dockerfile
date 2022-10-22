@@ -1,10 +1,5 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    inotify-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 ARG JULIA_BASE_VERSION
 ARG JULIA_MINOR_VERSION
 

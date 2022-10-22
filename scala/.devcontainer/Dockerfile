@@ -2,11 +2,6 @@ ARG JAVA_VERSION
 
 FROM mcr.microsoft.com/vscode/devcontainers/java:0-${JAVA_VERSION}
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    inotify-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 ARG AMMONITE_VERSION
 
 ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm

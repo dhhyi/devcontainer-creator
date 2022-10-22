@@ -2,11 +2,6 @@ ARG NODE_VERSION
 
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    inotify-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 RUN npm i -g ts-node
 
 COPY selftest.sh /

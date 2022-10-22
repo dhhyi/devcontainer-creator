@@ -7,7 +7,7 @@ RUN dpkg -i /tmp/erlang-repo.deb
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    esl-erlang elixir inotify-tools \
+    esl-erlang elixir \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY selftest.sh /

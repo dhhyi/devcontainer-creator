@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    build-essential inotify-tools \
+    build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ARG LUAROCKS_VERSION

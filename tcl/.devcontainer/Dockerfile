@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    tcl inotify-tools \
+    tcl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY selftest.sh /
