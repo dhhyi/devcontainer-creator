@@ -9,16 +9,14 @@
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
 {{- end -}}
 
-{{- $ignores := coll.Slice ".devcontainer" ".vscode" ".update_devcontainer.sh" -}}
-{{- if has $L.vscode "ignoreFiles" -}}
-  {{ $ignores = (coll.Append $ignores $L.vscode.ignoreFiles) | coll.Flatten }}
-{{- end -}}
-{{- define "IGNORES" -}}
+{{- define "HIDE_FILES" -}}
 files.exclude:
   {{ range . }}{{ . }}: true
   {{ end }}
 {{- end -}}
-{{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "IGNORES" $ignores)) -}}
+{{- if $L.vscode.hideFiles -}}
+{{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "HIDE_FILES" $L.vscode.hideFiles)) -}}
+{{- end -}}
 
 {{- $extensions := coll.Slice -}}
 {{- if has $L.vscode "extensions" -}}

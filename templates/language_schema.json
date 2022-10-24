@@ -11,9 +11,7 @@
     "language": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -111,11 +109,22 @@
             "type": "string"
           }
         },
-        "ignoreFiles": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "hideFiles": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "boolean",
+              "not": {
+                "const": true
+              }
+            }
+          ],
+          "default": [".devcontainer", ".vscode", ".update_devcontainer.sh"]
         },
         "settings": {
           "type": "object"
@@ -125,10 +134,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "label",
-              "command"
-            ],
+            "required": ["label", "command"],
             "properties": {
               "label": {
                 "type": "string"
