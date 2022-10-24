@@ -26,6 +26,12 @@ files.exclude:
 {
   {{ if has $L.devcontainer "name" }}"name": "{{ $L.devcontainer.name }}",
   {{ end -}}
+  {{ if has $L.extras "forward-x11" }}"runArgs": [
+    "--net", "host",
+    "-e", "DISPLAY=:0",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
+  ],
+  {{ end -}}
   {{ if $simpleImage -}}
   "image": "{{ $simpleImage }}"
   {{- else -}}

@@ -302,6 +302,12 @@ async function resolveAndValidateYaml() {
   if (!resolvedYaml.vscode) {
     resolvedYaml.vscode = {};
   }
+  if (!resolvedYaml.extras) {
+    resolvedYaml.extras = [];
+  }
+  resolvedYaml.extras = resolvedYaml.extras.filter(
+    (v, i, a) => a.indexOf(v) === i
+  );
 
   const ajv = new Ajv({
     useDefaults: true,

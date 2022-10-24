@@ -146,6 +146,13 @@
           }
         }
       }
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["forward-x11"]
+      }
     }
   }
 }
