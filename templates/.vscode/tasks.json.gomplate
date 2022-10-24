@@ -23,7 +23,7 @@
 {{- if (has $L.language "repl") -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Start REPL" "command" $L.language.repl))) $tasks -}}
 {{- end -}}
-{{- if and (has $L "vscode") (has $L.vscode "tasks") -}}
+{{- if has $L.vscode "tasks" -}}
   {{- range $L.vscode.tasks -}}
     {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" .label "command" .command))) $tasks -}}
   {{- end -}}

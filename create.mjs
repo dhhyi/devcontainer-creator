@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as cp from "child_process";
 import * as https from "https";
+import Ajv from "ajv";
 
 const DCC_REFERENCE =
   "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/";
@@ -111,7 +112,7 @@ function logError(...message) {
 }
 
 function installTools() {
-  const tools = ["gomplate", "pajv"];
+  const tools = ["gomplate"];
   if (ARGS.build) {
     tools.push("@devcontainers/cli");
   }
@@ -271,7 +272,7 @@ async function resolveAndValidateYaml() {
   }
 
   let resolvedYaml = await getYaml(ARGS.languageYaml);
-  while (resolvedYaml.extends) {
+  while (resolvedYaml?.extends) {
     const extendingYaml = await getYaml(resolvedYaml.extends);
     delete resolvedYaml.extends;
     resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
@@ -284,37 +285,49 @@ async function resolveAndValidateYaml() {
     resolvedYaml.devcontainer.name = ARGS.devcontainerName;
   }
 
+  logStatus("validating yaml");
+
+  if (!resolvedYaml) {
+    resolvedYaml = {};
+  }
+  if (!resolvedYaml.language) {
+    resolvedYaml.language = {};
+  }
+  if (!resolvedYaml.devcontainer) {
+    resolvedYaml.devcontainer = {};
+  }
+  if (!resolvedYaml.devcontainer.build) {
+    resolvedYaml.devcontainer.build = {};
+  }
+  if (!resolvedYaml.vscode) {
+    resolvedYaml.vscode = {};
+  }
+
+  const ajv = new Ajv({
+    useDefaults: true,
+    removeAdditional: "all",
+  });
+  const schema = JSON.parse(
+    fs.readFileSync(path.join(TMP_DIR, "language_schema.json"), "utf8")
+  );
+  const validate = ajv.compile(schema);
+
+  try {
+    if (!validate(resolvedYaml)) {
+      throw new Error(
+        "invalid yaml: " + JSON.stringify(validate.errors, undefined, 2)
+      );
+    }
+  } catch (error) {
+    logError(error.message);
+    process.exit(1);
+  }
+
   fs.writeFileSync(TMP_YAML_FILE, yaml.dump(resolvedYaml));
 
   if (VERBOSE) {
     logPersist("Resolved YAML:");
     logPersist(yaml.dump(resolvedYaml));
-  }
-
-  const pajvBin = path.join(TMP_DIR, "node_modules/.bin/pajv");
-
-  logStatus("validating yaml");
-  const pajvArgs = [
-    "validate",
-    "-s",
-    path.join(TMP_DIR, "language_schema.json"),
-    "-d",
-    TMP_YAML_FILE,
-    "--errors=text",
-    "--verbose",
-  ];
-  if (VERBOSE) {
-    logPersist("executing", pajvBin, ...pajvArgs);
-  }
-  const validation = cp.spawnSync(pajvBin, pajvArgs);
-
-  if (validation.status !== 0) {
-    logError(validation.stderr.toString());
-    process.exit(1);
-  }
-
-  if (VERBOSE) {
-    logPersist(validation.stdout.toString());
   }
 }
 

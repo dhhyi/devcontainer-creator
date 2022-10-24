@@ -20,7 +20,7 @@ set -x
 {{ conv.Join $version "\n" }}
 {{- end }}
 
-{{- if and (has $L "devcontainer") (has $L.devcontainer "selftest") }}
+{{- if has $L.devcontainer "selftest" }}
 {{- range split ($L.devcontainer.selftest | strings.TrimSpace) "\n" }}
 {{ . }}
 {{- end -}}

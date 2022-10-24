@@ -1,6 +1,6 @@
 {
   "$id": "https://example.com/language.schema.json",
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "title": "Language",
   "type": "object",
   "additionalProperties": false,
@@ -11,7 +11,9 @@
     "language": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "type": "string"
@@ -33,7 +35,7 @@
             {
               "type": "boolean",
               "not": {
-                "enum": [true]
+                "const": true
               }
             }
           ]
@@ -52,7 +54,8 @@
           "additionalProperties": false,
           "properties": {
             "base": {
-              "type": "string"
+              "type": "string",
+              "default": "mcr.microsoft.com/vscode/devcontainers/base:debian"
             },
             "args": {
               "type": "object"
@@ -90,7 +93,8 @@
           "type": "string"
         },
         "remoteUser": {
-          "type": "string"
+          "type": "string",
+          "default": "vscode"
         }
       }
     },
@@ -121,7 +125,10 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["label", "command"],
+            "required": [
+              "label",
+              "command"
+            ],
             "properties": {
               "label": {
                 "type": "string"

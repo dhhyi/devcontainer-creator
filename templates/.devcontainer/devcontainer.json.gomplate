@@ -2,15 +2,15 @@
 
 {{- $simpleImage := env.Getenv "SIMPLE_IMAGE" "" -}}
 
-{{- $remoteUser := "vscode"}}{{ if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") }}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
+{{- $remoteUser :=$L.devcontainer.remoteUser -}}
 
 {{- $settings := dict -}}
-{{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
+{{- if has $L.vscode "settings" -}}
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
 {{- end -}}
 
 {{- $ignores := coll.Slice ".devcontainer" ".vscode" ".update_devcontainer.sh" -}}
-{{- if  and (has $L "vscode") (has $L.vscode "ignoreFiles") -}}
+{{- if has $L.vscode "ignoreFiles" -}}
   {{ $ignores = (coll.Append $ignores $L.vscode.ignoreFiles) | coll.Flatten }}
 {{- end -}}
 {{- define "IGNORES" -}}
@@ -21,19 +21,19 @@ files.exclude:
 {{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "IGNORES" $ignores)) -}}
 
 {{- $extensions := coll.Slice -}}
-{{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
+{{- if has $L.vscode "extensions" -}}
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
 {{- end -}}
 
 {
-  {{ if and (has $L "devcontainer") (has $L.devcontainer "name") }}"name": "{{ $L.devcontainer.name }}",
+  {{ if has $L.devcontainer "name" }}"name": "{{ $L.devcontainer.name }}",
   {{ end -}}
   {{ if $simpleImage -}}
   "image": "{{ $simpleImage }}"
   {{- else -}}
   "build": {
     "dockerfile": "Dockerfile"
-    {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
+    {{- if has $L.devcontainer.build "args" }},
     "args": {{ $L.devcontainer.build.args | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " " }}
     {{- end }}
   },

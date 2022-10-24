@@ -1,42 +1,31 @@
 {{- $L := (datasource "language") -}}
 
-{{- $remoteUser := "vscode" -}}
-{{- if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") -}}
-  {{- $remoteUser = $L.devcontainer.remoteUser -}}
-{{- end -}}
+{{- $remoteUser := $L.devcontainer.remoteUser -}}
 
-{{- $from := "mcr.microsoft.com/vscode/devcontainers/base:debian" -}}
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
-  {{- $from = $L.devcontainer.build.base -}}
-{{- end -}}
+{{- $from := $L.devcontainer.build.base -}}
 
 {{- $packages := coll.Slice -}}
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
+{{- if has $L.devcontainer.build "packages" -}}
   {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
 {{- end -}}
 
-{{- $insertHome := and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
+{{- $insertHome := and (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
 {{- $fromArgs := coll.Slice -}}
 {{- $prepareBuildArgs := coll.Slice -}}
 {{- $rootBuildArgs := coll.Slice -}}
 {{- $userBuildArgs := coll.Slice -}}
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
+{{- if has $L.devcontainer.build "args" -}}
   {{- range $arg, $v := $L.devcontainer.build.args -}}
-    {{- if and (has $L.devcontainer "build")
-               (has $L.devcontainer.build "base")
-               ($L.devcontainer.build.base | strings.Contains $arg) -}}
+    {{- if and ($from | strings.Contains $arg) -}}
       {{- $fromArgs = coll.Append $arg $fromArgs -}}
-    {{- else if and (has $L.devcontainer "build")
-               (has $L.devcontainer.build "prepare")
+    {{- else if and (has $L.devcontainer.build "prepare")
                ($L.devcontainer.build.prepare | strings.Contains $arg) -}}
       {{- $prepareBuildArgs = coll.Append $arg $prepareBuildArgs -}}
-    {{- else if and (has $L.devcontainer "build")
-               (has $L.devcontainer.build "root")
+    {{- else if and (has $L.devcontainer.build "root")
                ($L.devcontainer.build.root | strings.Contains $arg) -}}
       {{- $rootBuildArgs = coll.Append $arg $rootBuildArgs -}}
-    {{- else if and (has $L.devcontainer "build")
-               (has $L.devcontainer.build "user")
+    {{- else if and (has $L.devcontainer.build "user")
                ($L.devcontainer.build.user | strings.Contains $arg) -}}
       {{- $userBuildArgs = coll.Append $arg $userBuildArgs -}}
     {{- end -}}
@@ -61,7 +50,7 @@ ARG {{ . }}
 {{- end }}
 {{ end }}
 
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "prepare") }}
+{{- if has $L.devcontainer.build "prepare" }}
 {{ conv.Join $L.devcontainer.build.prepare "\n" }}
 {{ end }}
 
@@ -78,7 +67,7 @@ ARG {{ . }}
 {{- end }}
 {{ end }}
 
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
+{{- if has $L.devcontainer.build "root" }}
 {{ conv.Join $L.devcontainer.build.root "\n" }}
 {{ end }}
 
@@ -101,7 +90,7 @@ ARG {{ . }}
 {{- end }}
 {{ end }}
 
-{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") }}
+{{- if has $L.devcontainer.build "user" }}
 {{ conv.Join $L.devcontainer.build.user "\n" }}
 {{ end }}
 
