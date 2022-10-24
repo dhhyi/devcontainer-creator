@@ -3,21 +3,17 @@ set -e
 
 packages=""
 
-if ! command -v envsubst >/dev/null
-then
-  packages="$packages gettext-base"
+if ! command -v envsubst > /dev/null; then
+    packages="$packages gettext-base"
 fi
 
-if command -v npm >/dev/null
-then
-  npm i -g onchange
-elif ! command -v inotifywait >/dev/null
-then
-  packages="$packages inotify-tools"
+if command -v npm > /dev/null; then
+    npm i -g onchange
+elif ! command -v inotifywait > /dev/null; then
+    packages="$packages inotify-tools"
 fi
 
-if [ -n "$packages" ]
-then
+if [ -n "$packages" ]; then
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
 

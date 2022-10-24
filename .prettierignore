@@ -1,9 +1,7 @@
-/.git*
 /.husky
-/.prettierignore
+
+/dist
+
 /templates/**/*.gomplate
 /LICENSE
 /pnpm-lock.yaml
-/dist
-*.sh
-Dockerfile

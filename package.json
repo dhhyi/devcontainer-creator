@@ -5,7 +5,8 @@
   "main": "create.js",
   "scripts": {
     "prepare": "husky install",
-    "build": "webpack --mode=production --node-env=production"
+    "build": "webpack --mode=production --node-env=production",
+    "format": "prettier --write \"**/*\""
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",
@@ -24,6 +25,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "prettier-plugin-sh": "^0.12.8"
   }
 }
