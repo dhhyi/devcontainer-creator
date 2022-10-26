@@ -4,7 +4,7 @@
     "features": {
       "dcc-helpers": {}
     },
-    "postAttachCommand": "sh -e /disclaimer.sh",
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
@@ -16,7 +16,7 @@
     "features": {
       "dcc-helpers": {}
     },
-    "postAttachCommand": "sh -e /disclaimer.sh",
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "",
@@ -28,7 +28,7 @@
     "features": {
       "dcc-helpers": {}
     },
-    "postAttachCommand": "sh -e /disclaimer.sh",
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
