@@ -45,6 +45,7 @@ function parseArgs() {
   const build = extraArgs.includes("--build") || test || tag;
   const cacheFromArg = extraArgs.findIndex((arg) => arg === "--cache-from");
   const cacheFrom = cacheFromArg >= 0 && extraArgs[cacheFromArg + 1];
+  const pinImage = extraArgs.includes("--pin-image");
 
   let simpleImage = "";
   if (languageYaml.startsWith(DCC_PROTOCOL) && !fullDevcontainer) {
@@ -62,6 +63,7 @@ function parseArgs() {
     cacheFrom,
     test,
     tag,
+    pinImage,
   };
 }
 
@@ -375,6 +377,16 @@ async function resolveAndValidateYaml() {
     logWarn(`declaration of 'remoteUser: ${remoteUser}' is redundant`);
   } else if (!resolvedYaml.devcontainer.remoteUser) {
     resolvedYaml.devcontainer.remoteUser = remoteUser;
+  }
+
+  if (ARGS.pinImage) {
+    const pinnedImage = cp
+      .execSync(
+        `docker inspect ${baseImage} --format='{{index .RepoDigests 0}}'`
+      )
+      .toString()
+      .trim();
+    resolvedYaml.devcontainer.build.base = pinnedImage;
   }
 
   fs.writeFileSync(TMP_YAML_FILE, yaml.dump(resolvedYaml));

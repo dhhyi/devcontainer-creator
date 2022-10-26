@@ -1,6 +1,5 @@
 plugins:
   - prettier-plugin-sh
-parser: flow
 overrides:
   - options:
       parser: json
