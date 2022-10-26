@@ -107,6 +107,23 @@ function logPersist(...message) {
   }
 }
 
+function logWarn(...message) {
+  if (VERBOSE) {
+    if (!process.stdout.clearLine) {
+      console.log("::warning::", ...message);
+    } else {
+      console.warn(...message);
+    }
+  } else if (process.stdout.clearLine) {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    console.warn(...message);
+  } else {
+    console.timeLog("dcc");
+    console.log("::warning::", ...message);
+  }
+}
+
 function logError(...message) {
   console.log("\n\x1b[31m", ...message, "\x1b[0m");
 }
@@ -327,6 +344,37 @@ async function resolveAndValidateYaml() {
   } catch (error) {
     logError(error.message);
     process.exit(1);
+  }
+
+  const baseImage = resolvedYaml.devcontainer.build.base.replace(
+    /\$\{(\w+)\}/g,
+    (_, variable) => resolvedYaml.devcontainer.build.args[variable]
+  );
+  logStatus("pulling", baseImage);
+  const pullBase = cp.spawnSync("docker", ["pull", baseImage]);
+
+  if (pullBase.status !== 0) {
+    logError(pullBase.stderr.toString());
+    process.exit(1);
+  }
+  if (VERBOSE) {
+    logStatus(pullBase.stdout.toString());
+  }
+
+  const baseDevcontainerMeta = JSON.parse(
+    cp.execSync(
+      `docker inspect ${baseImage} --format='{{index .Config.Labels "devcontainer.metadata"}}'`,
+      { encoding: "utf8" }
+    )
+  );
+  const remoteUser = baseDevcontainerMeta.reduce(
+    (acc, cur) => cur.remoteUser || acc,
+    ""
+  );
+  if (remoteUser === resolvedYaml.devcontainer.remoteUser) {
+    logWarn(`declaration of 'remoteUser: ${remoteUser}' is redundant`);
+  } else if (!resolvedYaml.devcontainer.remoteUser) {
+    resolvedYaml.devcontainer.remoteUser = remoteUser;
   }
 
   fs.writeFileSync(TMP_YAML_FILE, yaml.dump(resolvedYaml));

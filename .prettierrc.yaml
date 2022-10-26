@@ -1,6 +1,16 @@
 plugins:
   - prettier-plugin-sh
+parser: flow
 overrides:
+  - options:
+      parser: json
+    files:
+      - "*.json"
+  - options:
+      parser: yaml
+    files:
+      - "*.yaml"
+      - "*.yml"
   - options:
       parser: sh
       indent: 4

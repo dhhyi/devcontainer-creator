@@ -46,7 +46,6 @@ files.exclude:
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
-  "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }},
-  "remoteUser": "{{ $remoteUser }}"
+  "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}
   {{- end }}
 }

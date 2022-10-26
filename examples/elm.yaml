@@ -9,7 +9,6 @@ devcontainer:
     base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
     root:
       - RUN npm i -g elm elm-test elm-format elm-review onchange
-  remoteUser: node
   selftest: |
     cat >/tmp/helloworld.elm <<EOF
     module HelloWorld exposing (..)

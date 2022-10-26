@@ -10,7 +10,6 @@ devcontainer:
     base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
     root:
       - RUN npm i -g ts-node
-  remoteUser: node
   selftest: ts-node -e 'console.log("Hello World!");'
 vscode:
   settings:
