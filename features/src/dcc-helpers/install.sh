@@ -16,13 +16,15 @@ if [ -n "$packages" ]; then
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
 
+    # shellcheck disable=SC2086 # split by spaces
     apt-get -y install --no-install-recommends $packages
 
     apt-get clean && rm -rf /var/lib/apt/lists/*
 fi
 
 mkdir -p /home/dcc
-
 cp cont.sh disclaimer.sh install-helpers.sh /home/dcc
+chmod +x /home/dcc/*.sh
 
-echo 'sudo -E sudo -E sh /home/dcc/install-helpers.sh && exec $0 "$@"' > /disclaimer.sh
+# shellcheck disable=SC2016 # no expand
+echo 'sudo -E sudo -E /home/dcc/install-helpers.sh && exec $0 "$@"' > /disclaimer.sh

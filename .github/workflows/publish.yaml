@@ -37,6 +37,13 @@ jobs:
       - name: Test Features
         run: devcontainer features test features
 
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "./features"
+          disable_matcher: true
+          check_together: "yes"
+
       - name: Publish Features
         uses: devcontainers/action@v1
         with:

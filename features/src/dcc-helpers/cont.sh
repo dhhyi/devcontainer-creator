@@ -14,16 +14,18 @@ fi
 echo "continuously running '$command' watching '$watch'"
 
 if command -v onchange > /dev/null; then
+    # shellcheck disable=SC2086
     onchange -ik "$watch" -- $command
 else
-    inotifywait -q -m -e close_write,create --recursive $watch \
+    inotifywait -q -m -e close_write,create --recursive "$watch" \
         | (
             while
-                if [ -n "$PID" ] && ps -p $PID > /dev/null; then
-                    kill -9 $PID
+                if [ -n "$PID" ] && ps -p "$PID" > /dev/null; then
+                    kill -9 "$PID"
                 fi
                 $command <&1 &
                 PID=$!
+                # shellcheck disable=SC2034  # Unused variables left for readability
                 read -r filename event
             do
                 :

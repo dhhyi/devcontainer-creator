@@ -2,7 +2,7 @@
 
 set -e
 
-# Optional: Import test library
+# shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
 check "disclaimer template" test -f /home/dcc/disclaimer.sh

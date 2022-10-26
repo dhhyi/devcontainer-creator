@@ -16,7 +16,7 @@ vscode="$1/.vscode/tasks.json"
 if [ -f "$vscode" ]; then
     echo
     echo "Alternatively you can use the VSCode tasks:"
-    cat "$vscode" | grep -vE '^\s*\/\/.*' | jq -r ".tasks [] .label" | while read -r label; do
+    grep -vE '^\s*\/\/.*' "$vscode" | jq -r ".tasks [] .label" | while read -r label; do
         echo "- $label"
     done
 fi
