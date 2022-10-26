@@ -16,8 +16,5 @@
       ".update_devcontainer.sh": true,
       ".vscode": true
     }
-  },
-  "extensions": [
-    "golang.Go"
-  ]
+  }
 }
