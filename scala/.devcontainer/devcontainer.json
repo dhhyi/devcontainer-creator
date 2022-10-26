@@ -27,6 +27,5 @@
   },
   "extensions": [
     "scalameta.metals"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

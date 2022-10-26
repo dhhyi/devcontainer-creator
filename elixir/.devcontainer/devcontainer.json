@@ -19,6 +19,5 @@
   },
   "extensions": [
     "JakeBecker.elixir-ls"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

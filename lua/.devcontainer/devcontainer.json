@@ -21,6 +21,5 @@
   "extensions": [
     "sumneko.lua",
     "bubuabu.busted-test-explorer"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

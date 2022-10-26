@@ -20,6 +20,5 @@
   },
   "extensions": [
     "julialang.language-julia"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

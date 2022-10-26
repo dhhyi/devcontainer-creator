@@ -22,6 +22,5 @@
     "sumneko.lua",
     "bubuabu.busted-test-explorer",
     "vgalaktionov.moonscript"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

@@ -16,6 +16,5 @@
   },
   "extensions": [
     "haskell.haskell"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

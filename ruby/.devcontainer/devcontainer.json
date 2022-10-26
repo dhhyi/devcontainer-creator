@@ -23,6 +23,5 @@
   "extensions": [
     "rebornix.Ruby",
     "misogi.ruby-rubocop"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

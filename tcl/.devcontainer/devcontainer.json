@@ -16,6 +16,5 @@
   },
   "extensions": [
     "bitwisecook.tcl"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

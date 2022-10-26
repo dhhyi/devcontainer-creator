@@ -19,6 +19,5 @@
   },
   "extensions": [
     "golang.Go"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

@@ -22,6 +22,5 @@
   },
   "extensions": [
     "rebornix.prolog"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

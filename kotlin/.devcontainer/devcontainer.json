@@ -20,6 +20,5 @@
   },
   "extensions": [
     "fwcd.kotlin"
-  ],
-  "remoteUser": "vscode"
+  ]
 }

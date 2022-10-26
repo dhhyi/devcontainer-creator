@@ -22,6 +22,5 @@
   "extensions": [
     "pgourlain.erlang",
     "szTheory.erlang-formatter"
-  ],
-  "remoteUser": "vscode"
+  ]
 }
