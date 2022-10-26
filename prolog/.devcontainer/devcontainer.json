@@ -6,7 +6,7 @@
       "PROLOG_VERSION": "1.5.0"
     }
   },
-  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },

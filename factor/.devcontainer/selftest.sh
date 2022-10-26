@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 cat >/tmp/helloworld.factor <<EOF
 USE: io
 "Hello World!" print

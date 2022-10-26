@@ -7,7 +7,7 @@
       "JAVA_VERSION": "17"
     }
   },
-  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },

@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 go version
 cat >/tmp/helloworld.go <<EOF
 package main

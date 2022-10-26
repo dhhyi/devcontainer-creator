@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 erl +V
 cat > /tmp/helloworld.erl <<EOF
 -module(helloworld). -export([main/1]).

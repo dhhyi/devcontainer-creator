@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 amm --version
 cat >/tmp/helloworld.scala <<EOF
 @main def main() = {

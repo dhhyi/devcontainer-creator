@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 cat >/tmp/helloworld.kt <<EOF
 fun main() {
   println("Hello World!")

@@ -1,6 +1,3 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 clojure --version
 clojure -M -e '(println "Hello World!")'

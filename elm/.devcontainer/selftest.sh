@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 elm --version
 cat >/tmp/helloworld.elm <<EOF
 module HelloWorld exposing (..)

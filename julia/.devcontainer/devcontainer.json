@@ -7,7 +7,7 @@
       "JULIA_MINOR_VERSION": "2"
     }
   },
-  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },

@@ -1,7 +1,4 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 ghcup --version
 ghc --version
 cat > /tmp/helloworld.hs <<EOF

@@ -6,7 +6,7 @@
       "IO_VERSION": "2019.05.22-alpha"
     }
   },
-  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },

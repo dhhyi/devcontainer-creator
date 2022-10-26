@@ -1,6 +1,3 @@
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 io --version
 io -e '"Hello World!" println'
