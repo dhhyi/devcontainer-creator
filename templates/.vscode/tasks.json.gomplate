@@ -1,9 +1,9 @@
 {{- $L := (datasource "language") -}}
 {{- define "TASK" -}}
 {
-  "label": "{{ .label }}",
+  "label": {{ .label | data.ToJSON }},
   "type": "shell",
-  "command": "{{ .command }}",
+  "command": {{ .command | data.ToJSON }},
   "problemMatcher": []
 }
 {{- end -}}
