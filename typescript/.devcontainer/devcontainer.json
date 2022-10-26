@@ -6,7 +6,7 @@
       "NODE_VERSION": "16"
     }
   },
-  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "sh -e /disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },
