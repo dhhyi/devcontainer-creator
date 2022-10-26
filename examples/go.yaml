@@ -20,6 +20,3 @@ devcontainer:
     go fmt /tmp/helloworld.go
     cat /tmp/helloworld.go
     go run /tmp/helloworld.go
-vscode:
-  extensions:
-    - golang.Go

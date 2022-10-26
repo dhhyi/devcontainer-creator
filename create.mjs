@@ -379,6 +379,20 @@ async function resolveAndValidateYaml() {
     resolvedYaml.devcontainer.remoteUser = remoteUser;
   }
 
+  const inheritedExtensions = baseDevcontainerMeta.reduce((acc, cur) => {
+    if (cur.customizations?.vscode?.extensions) {
+      return acc.concat(cur.customizations.vscode.extensions);
+    }
+    return acc;
+  }, []);
+  if (resolvedYaml.vscode?.extensions) {
+    resolvedYaml.vscode.extensions.forEach((ext) => {
+      if (inheritedExtensions.includes(ext)) {
+        logWarn(`extension '${ext}' is already inherited`);
+      }
+    });
+  }
+
   if (ARGS.pinImage) {
     const pinnedImage = cp
       .execSync(

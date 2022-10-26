@@ -18,5 +18,4 @@ vscode:
     "[ruby]":
       editor.defaultFormatter: misogi.ruby-rubocop
   extensions:
-    - rebornix.Ruby
     - misogi.ruby-rubocop
