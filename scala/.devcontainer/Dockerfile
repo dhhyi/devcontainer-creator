@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/java@sha256:63f7d975e52099bc63cf63383be9443577337c3c3d09d79b405c2ca266c9e470
+ARG JAVA_VERSION
+
+FROM mcr.microsoft.com/vscode/devcontainers/java:0-${JAVA_VERSION}
 
 ARG AMMONITE_VERSION
 

@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node@sha256:2842f9e0624897d83accea2a2461e9091b55d4173e4455c1a24dc0f42d7acd24
+ARG NODE_VERSION
+
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
 
 RUN npm i -g elm elm-test elm-format elm-review onchange
 

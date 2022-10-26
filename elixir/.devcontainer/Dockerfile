@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base@sha256:3b7d8bb13c1d9eadffa1c1b8cfcf0288b71355771f02ab8dbe055d29023b6091
+FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
 RUN locale-gen --no-purge en_US.UTF-8
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8

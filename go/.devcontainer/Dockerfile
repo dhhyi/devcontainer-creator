@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/devcontainers/go@sha256:bf4f64c8cd22c5d31561121f536ae3c1ab318ce01af4b002b148e44239aed354
+ARG GO_VERSION
+
+FROM mcr.microsoft.com/devcontainers/go:${GO_VERSION}
 
 COPY selftest.sh /
 RUN chmod +x /selftest.sh

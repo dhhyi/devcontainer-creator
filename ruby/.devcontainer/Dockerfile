@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/ruby@sha256:4efe33f4550d6c9396ed10ebf66153d21689256bdbf4015c5c90bfe82e11f18b
+ARG RUBY_VERSION
+
+FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-${RUBY_VERSION}
 
 RUN gem install rubocop
 
