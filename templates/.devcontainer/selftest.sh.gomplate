@@ -11,10 +11,7 @@
 {{- end -}}
 
 {{- if not (env.Getenv "SIMPLE_IMAGE" "") -}}
-#!/bin/sh
-
-set -e
-set -x
+#!/bin/sh -ex
 
 {{- if $version }}
 {{ conv.Join $version "\n" }}

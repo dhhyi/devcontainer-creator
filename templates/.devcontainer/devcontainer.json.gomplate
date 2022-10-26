@@ -41,7 +41,7 @@ files.exclude:
     "args": {{ $L.devcontainer.build.args | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " " }}
     {{- end }}
   },
-  "postAttachCommand": "sh /disclaimer.sh \"${containerWorkspaceFolder}\"",
+  "postAttachCommand": "/disclaimer.sh \"${containerWorkspaceFolder}\"",
   "features": {
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },

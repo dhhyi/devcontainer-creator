@@ -360,15 +360,17 @@ function writeUpdateScript() {
     .map((arg) => (arg.includes(" ") ? `"${arg}"` : arg))
     .join(" ");
 
+  const updateScriptPath = path.join(ARGS.targetDir, ".update_devcontainer.sh");
   fs.writeFileSync(
-    path.join(ARGS.targetDir, ".update_devcontainer.sh"),
-    `#!/bin/sh
+    updateScriptPath,
+    `#!/bin/sh -e
 
 cd "$(dirname "$(readlink -f "$0")")"
 
 curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - ${updateArgsString}
 `
   );
+  fs.chmodSync(updateScriptPath, "755");
 }
 
 async function writeDevcontainer() {
@@ -487,7 +489,7 @@ function buildAndTest() {
   if (ARGS.test) {
     logPersist("testing devcontainer");
     try {
-      cp.execSync(`docker run --rm ${image} sh /selftest.sh`, {
+      cp.execSync(`docker run --rm ${image} /selftest.sh`, {
         stdio: "inherit",
       });
     } catch (error) {

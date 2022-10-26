@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 [ -z "$*" ] && echo "Usage: $0 <watch> <command>..." && exit 1
 
