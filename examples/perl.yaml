@@ -1,0 +1,15 @@
+language:
+  name: perl
+  binary: perl
+devcontainer:
+  build:
+    packages:
+      - perl
+      - exuberant-ctags
+    root:
+      - RUN cpan Perl::Tidy
+  selftest: perl -e 'print "Hello World!\n";'
+vscode:
+  extensions:
+    - cfgweb.vscode-perl
+    - richterger.perl

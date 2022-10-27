@@ -1,0 +1,12 @@
+language:
+  name: raku
+  binary: raku
+  repl: raku
+devcontainer:
+  build:
+    packages:
+      - rakudo
+  selftest: raku -e 'print "Hello World!\n"'
+vscode:
+  extensions:
+    - bscan.raku-navigator

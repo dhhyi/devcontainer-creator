@@ -1,0 +1,18 @@
+language:
+  name: cicada
+  repl: cic
+  binary: cic
+  binaryArgs: run
+devcontainer:
+  build:
+    args:
+      NODE_VERSION: "16"
+    base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
+    root:
+      - RUN npm --global install @cicada-lang/cicada
+  selftest: |
+    cat >/tmp/helloworld.cic <<EOF
+    let greeting = "Hello, World!"
+    compute greeting
+    EOF
+    cic /tmp/helloworld.cic
