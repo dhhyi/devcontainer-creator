@@ -1,0 +1,21 @@
+{
+  "name": "Example devcontainer for perl",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "cfgweb.vscode-perl",
+    "richterger.perl"
+  ]
+}

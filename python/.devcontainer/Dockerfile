@@ -1,0 +1,11 @@
+ARG PYTHON_VERSION
+
+FROM mcr.microsoft.com/devcontainers/python:${PYTHON_VERSION}
+
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
+
+USER vscode
+
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
+ENV DCC_BINARY="python" DCC_REPL="python" DCC_VERSION="python --version"

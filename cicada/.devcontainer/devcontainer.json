@@ -1,0 +1,20 @@
+{
+  "name": "Example devcontainer for cicada",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "NODE_VERSION": "16"
+    }
+  },
+  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
+  "features": {
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  }
+}
