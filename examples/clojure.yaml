@@ -3,6 +3,9 @@ language:
   binary: clojure
   repl: lein repl
   binaryArgs: -M
+  version: |
+    clojure-lsp --version
+    clojure --version
 devcontainer:
   build:
     args:
@@ -15,6 +18,9 @@ devcontainer:
 
       - ADD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein /usr/local/bin
       - RUN chmod +x /usr/local/bin/lein
+
+      - ADD https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install /tmp/install-clojure-lsp.sh
+      - RUN bash /tmp/install-clojure-lsp.sh
 
       - RUN echo > /conda-notice.txt
   selftest: clojure -M -e '(println "Hello World!")'
