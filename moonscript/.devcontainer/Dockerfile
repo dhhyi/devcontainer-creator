@@ -16,10 +16,7 @@ RUN luarocks install busted
 RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec
 RUN luarocks install moonpick
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="moon" DCC_REPL="" DCC_VERSION="moonc -v ."
+ENV DCC_BINARY="moon" DCC_REPL="" DCC_VERSION="moonc -v ." DCC_SELFTEST="Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo="

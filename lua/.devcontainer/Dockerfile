@@ -14,10 +14,7 @@ ADD https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz /tmp
 RUN cd /tmp && tar zxpf luarocks-${LUAROCKS_VERSION}.tar.gz && cd luarocks-${LUAROCKS_VERSION} && ./configure && make && make install
 RUN luarocks install busted
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="lua" DCC_REPL="lua" DCC_VERSION="lua -v;luarocks --version"
+ENV DCC_BINARY="lua" DCC_REPL="lua" DCC_VERSION="lua -v; luarocks --version" DCC_SELFTEST="bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn"

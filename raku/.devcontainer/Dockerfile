@@ -5,10 +5,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     rakudo \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="raku" DCC_REPL="raku" DCC_VERSION="raku --version"
+ENV DCC_BINARY="raku" DCC_REPL="raku" DCC_VERSION="raku --version" DCC_SELFTEST="cmFrdSAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIic="

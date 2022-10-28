@@ -12,10 +12,7 @@ ADD https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install /tm
 RUN bash /tmp/install-clojure-lsp.sh
 RUN echo > /conda-notice.txt
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="clojure -M" DCC_REPL="lein repl" DCC_VERSION="clojure-lsp --version;clojure --version"
+ENV DCC_BINARY="clojure -M" DCC_REPL="lein repl" DCC_VERSION="clojure-lsp --version; clojure --version" DCC_SELFTEST="Y2xvanVyZSAtTSAtZSAnKHByaW50bG4gIkhlbGxvIFdvcmxkISIpJw=="

@@ -5,9 +5,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     build-essential libpcre3-dev libevent-dev cmake \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-
 USER vscode
 ENV HOME=/home/vscode
 
@@ -21,4 +18,4 @@ RUN eerie install https://github.com/IoLanguage/Regex.git
 RUN eerie install https://github.com/IoLanguage/Random.git
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="io" DCC_REPL="io" DCC_VERSION="io --version"
+ENV DCC_BINARY="io" DCC_REPL="io" DCC_VERSION="io --version" DCC_SELFTEST="aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n"
