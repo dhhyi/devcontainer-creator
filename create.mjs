@@ -158,9 +158,7 @@ async function extractResources() {
     ".devcontainer/Dockerfile.gomplate": import(
       "./templates/.devcontainer/Dockerfile.gomplate"
     ),
-    ".devcontainer/selftest.sh.gomplate": import(
-      "./templates/.devcontainer/selftest.sh.gomplate"
-    ),
+    ".devcontainer/selftest.sh.gomplate": undefined,
     ".vscode/tasks.json.gomplate": import(
       "./templates/.vscode/tasks.json.gomplate"
     ),
@@ -562,13 +560,53 @@ function buildAndTest() {
 
   if (ARGS.test) {
     logPersist("testing devcontainer");
+
+    const devcontainerUpArgs = ["up", "--workspace-folder", ARGS.targetDir];
+
+    if (VERBOSE) {
+      logPersist("executing", devcontainerCliBin, ...devcontainerUpArgs);
+    }
+
+    const devcontainerUp = cp.spawnSync(devcontainerCliBin, devcontainerUpArgs);
+
+    if (VERBOSE) {
+      logPersist(devcontainerUp.stderr.toString());
+    }
+
+    if (devcontainerUp.status !== 0) {
+      logError("error starting devcontainer");
+      if (!VERBOSE) {
+        logPersist(devcontainerUp.stderr.toString());
+      }
+      process.exit(1);
+    }
+
+    const containerId = JSON.parse(
+      devcontainerUp.stdout.toString()
+    ).containerId;
+
+    const devcontainerTestArgs = [
+      "exec",
+      "--workspace-folder",
+      ARGS.targetDir,
+      "/selftest.sh",
+    ];
+
+    if (VERBOSE) {
+      logPersist("executing", devcontainerCliBin, ...devcontainerTestArgs);
+    }
+
     try {
-      cp.execSync(`docker run --rm ${image} /selftest.sh`, {
+      cp.execSync(`${devcontainerCliBin} ${devcontainerTestArgs.join(" ")}`, {
         stdio: "inherit",
       });
     } catch (error) {
-      logError("error testing devcontainer:", error.message);
+      logError("error testing devcontainer");
       process.exit(1);
+    } finally {
+      cp.execSync(`docker rm -f ${containerId}`, {
+        stdio: "ignore",
+      });
     }
   }
 }

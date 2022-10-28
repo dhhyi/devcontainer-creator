@@ -72,11 +72,6 @@ ARG {{ . }}
 {{ end }}
 
 {{- "" }}
-COPY selftest.sh /
-RUN chmod +x /selftest.sh
-{{ "" }}
-
-{{- "" }}
 USER {{ $remoteUser }}
 {{ "" }}
 
@@ -115,6 +110,6 @@ RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME
   {{- end -}}
 {{- end -}}
 {{- "" }}
-ENV DCC_BINARY="{{ conv.Join $command " " }}" DCC_REPL="{{  if has $L.language "repl" }}{{ $L.language.repl }}{{ end }}" DCC_VERSION="{{ conv.Join $version ";" }}"
+ENV DCC_BINARY={{ conv.Join $command " " | data.ToJSON }} DCC_REPL={{ if has $L.language "repl" }}{{ $L.language.repl | data.ToJSON }}{{ else }}""{{ end }} DCC_VERSION={{ (conv.Join $version "; ") | data.ToJSON }} DCC_SELFTEST={{ if has $L.devcontainer "selftest" }}{{ $L.devcontainer.selftest | base64.Encode | data.ToJSON }}{{ else }}""{{ end }}
 
 {{- end }}

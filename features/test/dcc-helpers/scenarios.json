@@ -8,7 +8,8 @@
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
-      "DCC_REPL": "myrepl"
+      "DCC_REPL": "myrepl",
+      "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgT0snCmV4aXQgMAo="
     }
   },
   "skip_install_cont": {
@@ -33,6 +34,19 @@
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl"
+    }
+  },
+  "failing_selftest": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "features": {
+      "dcc-helpers": {}
+    },
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "containerEnv": {
+      "DCC_VERSION": "echo myversion",
+      "DCC_BINARY": "bash",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgRkFJTCcKZXhpdCAzCg=="
     }
   }
 }

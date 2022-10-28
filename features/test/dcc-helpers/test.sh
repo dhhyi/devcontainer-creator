@@ -15,5 +15,7 @@ check "envsubst bin" command -v envsubst
 
 check "inotifywait bin" command -v inotifywait
 
+check "base64 bin" command -v base64
+
 # Report result
 reportResults

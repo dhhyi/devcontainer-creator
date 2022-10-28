@@ -15,6 +15,12 @@ check "repl referenced" grep -q "myrepl" /disclaimer.sh
 
 check "disclaimer executes" /disclaimer.sh
 
+check "selftest exists" cat /selftest.sh
+
+check "selftest success" /selftest.sh
+
+check "selftest prints" sh -c '/selftest.sh | grep "selftest OK"'
+
 echo "echo 'mycommand'" > /tmp/file.sh
 cont /tmp/file.sh > /tmp/file.out &
 sleep 1

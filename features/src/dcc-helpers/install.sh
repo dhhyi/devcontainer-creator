@@ -6,6 +6,10 @@ if ! command -v envsubst > /dev/null; then
     packages="$packages gettext-base"
 fi
 
+if ! command -v base64 > /dev/null; then
+    packages="$packages coreutils"
+fi
+
 if command -v npm > /dev/null; then
     npm i -g onchange
 elif ! command -v inotifywait > /dev/null; then
