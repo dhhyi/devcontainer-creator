@@ -34,7 +34,11 @@ function transitiveLanguages() {
 
 function output(langs = []) {
   const variable = process.argv[2] || "languages";
-  const array = [...langs].sort();
+  let array = [...langs].sort();
+  if (process.argv[3] === "--skip") {
+    const skipped = process.argv[4].split(",");
+    array = array.filter((x) => !skipped.includes(x));
+  }
   console.log(`${variable}=${JSON.stringify(array)}`);
   console.log(`skip=${!array.length}`);
   process.exit(0);
