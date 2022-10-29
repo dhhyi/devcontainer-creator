@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:debian
+FROM ghcr.io/dhhyi/dcc-base-debian:latest
 
 ARG JULIA_BASE_VERSION
 ARG JULIA_MINOR_VERSION

@@ -7,10 +7,6 @@
       "LUA_VERSION": "5.4.4"
     }
   },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
-  },
   "settings": {
     "files.exclude": {
       ".devcontainer": true,

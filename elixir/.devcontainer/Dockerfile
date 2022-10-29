@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:debian
+FROM ghcr.io/dhhyi/dcc-base-debian:latest
 
 RUN locale-gen --no-purge en_US.UTF-8
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8

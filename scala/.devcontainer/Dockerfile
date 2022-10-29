@@ -1,6 +1,4 @@
-ARG JAVA_VERSION
-
-FROM mcr.microsoft.com/vscode/devcontainers/java:0-${JAVA_VERSION}
+FROM ghcr.io/dhhyi/dcc-base-java:latest
 
 ARG AMMONITE_VERSION
 

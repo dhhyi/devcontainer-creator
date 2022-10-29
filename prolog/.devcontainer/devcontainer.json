@@ -6,10 +6,6 @@
       "PROLOG_VERSION": "1.5.0"
     }
   },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
-  },
   "settings": {
     "files.associations": {
       "*.pl": "prolog"

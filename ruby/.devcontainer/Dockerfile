@@ -1,6 +1,4 @@
-ARG RUBY_VERSION
-
-FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-${RUBY_VERSION}
+FROM ghcr.io/dhhyi/dcc-base-ruby:latest
 
 RUN gem install rubocop
 

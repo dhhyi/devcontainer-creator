@@ -1,6 +1,4 @@
-ARG GO_VERSION
-
-FROM mcr.microsoft.com/devcontainers/go:${GO_VERSION}
+FROM ghcr.io/dhhyi/dcc-base-go:latest
 
 USER vscode
 

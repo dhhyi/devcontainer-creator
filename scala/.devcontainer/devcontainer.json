@@ -3,13 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "AMMONITE_VERSION": "2.5.4/2.13-2.5.4",
-      "JAVA_VERSION": "17"
+      "AMMONITE_VERSION": "2.5.4/2.13-2.5.4"
     }
-  },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
   },
   "settings": {
     "[scala]": {

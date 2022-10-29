@@ -7,10 +7,6 @@
       "WORKSPACE": "${containerWorkspaceFolder}"
     }
   },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
-  },
   "settings": {
     "files.exclude": {
       ".devcontainer": true,

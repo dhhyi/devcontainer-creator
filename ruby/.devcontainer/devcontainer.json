@@ -1,14 +1,7 @@
 {
   "name": "Example devcontainer for ruby",
   "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "RUBY_VERSION": "3"
-    }
-  },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+    "dockerfile": "Dockerfile"
   },
   "settings": {
     "[ruby]": {

@@ -1,14 +1,7 @@
 {
   "name": "Example devcontainer for typescript",
   "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "NODE_VERSION": "16"
-    }
-  },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+    "dockerfile": "Dockerfile"
   },
   "settings": {
     "[typescript]": {

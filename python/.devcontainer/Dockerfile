@@ -1,6 +1,4 @@
-ARG PYTHON_VERSION
-
-FROM mcr.microsoft.com/devcontainers/python:${PYTHON_VERSION}
+FROM ghcr.io/dhhyi/dcc-base-python:latest
 
 USER vscode
 

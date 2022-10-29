@@ -3,10 +3,6 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postAttachCommand": ["sh", "-e", "/disclaimer.sh", "${containerWorkspaceFolder}"],
-  "features": {
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
-  },
   "settings": {
     "[erlang]": {
       "editor.defaultFormatter": "szTheory.erlang-formatter",
