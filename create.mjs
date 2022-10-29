@@ -561,7 +561,14 @@ function buildAndTest() {
   if (ARGS.test) {
     logPersist("testing devcontainer");
 
-    const devcontainerUpArgs = ["up", "--workspace-folder", ARGS.targetDir];
+    const testingTmpDir = path.join(TMP_DIR, "testing");
+    fs.mkdirSync(testingTmpDir);
+    fs.writeFileSync(
+      path.join(testingTmpDir, ".devcontainer.json"),
+      JSON.stringify({ image })
+    );
+
+    const devcontainerUpArgs = ["up", "--workspace-folder", testingTmpDir];
 
     if (VERBOSE) {
       logPersist("executing", devcontainerCliBin, ...devcontainerUpArgs);
@@ -588,7 +595,7 @@ function buildAndTest() {
     const devcontainerTestArgs = [
       "exec",
       "--workspace-folder",
-      ARGS.targetDir,
+      testingTmpDir,
       "/selftest.sh",
     ];
 
