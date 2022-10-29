@@ -25,7 +25,28 @@ jobs:
           SQUASH_HISTORY: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  checkLangCI:
+    name: Check CI Languages
+    runs-on: ubuntu-latest
+    outputs:
+      languages: ${{ steps.check-lang-ci.outputs.languages }}
+      buildLanguages: ${{ steps.check-lang-ci.outputs.buildLanguages }}
+      buildBase: ${{ steps.check-lang-ci.outputs.buildBase }}
+      baseImages: ${{ steps.check-lang-ci.outputs.baseImages }}
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 2
+      - name: Check
+        id: check-lang-ci
+        run: |
+          npm exec pnpm -- i --prod --ignore-scripts
+          git diff --name-only HEAD~ | node check-lang-ci.js --skip cicada >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+
   deployFeatures:
+    needs: [checkLangCI]
+    if: needs.checkLangCI.outputs.buildBase == 'true'
     name: Deploy Features
     runs-on: ubuntu-latest
     steps:
@@ -53,37 +74,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  checkLangCI:
-    name: Check CI Languages
-    runs-on: ubuntu-latest
-    outputs:
-      languages: ${{ steps.check-lang-ci.outputs.languages }}
-      skip: ${{ steps.check-lang-ci.outputs.skip }}
-      base: ${{ steps.check-lang-ci.outputs.base }}
-    steps:
-      - uses: actions/checkout@master
-        with:
-          fetch-depth: 2
-      - name: Check
-        id: check-lang-ci
-        run: |
-          npm exec pnpm -- i --prod --ignore-scripts
-          git diff --name-only HEAD~ | node check-lang-ci.js languages --skip cicada >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
-
   baseImage:
     needs: [deployFeatures, checkLangCI]
+    if: needs.checkLangCI.outputs.buildBase == 'true'
     name: Update Base Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
       - name: Install latest devcontainer CLI
-        if: needs.checkLangCI.outputs.base == 'true'
         run: npm install -g @devcontainers/cli
 
       - name: Log in to the Container registry
-        if: needs.checkLangCI.outputs.base == 'true'
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -91,30 +93,27 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build base-debian
-        if: needs.checkLangCI.outputs.base == 'true'
         run: devcontainer build --workspace-folder base-images/debian --image-name ghcr.io/dhhyi/dcc-base-debian
 
       - name: Publish base-debian
-        if: needs.checkLangCI.outputs.base == 'true'
         run: docker push ghcr.io/dhhyi/dcc-base-debian
 
   dependentBaseImages:
     needs: [checkLangCI, baseImage]
+    if: needs.checkLangCI.outputs.buildBase == 'true'
     name: Update Dependent Base Images
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        lang: [node, java, go, python, ruby]
+        lang: ${{ fromJson(needs.checkLangCI.outputs.baseImages) }}
     steps:
       - uses: actions/checkout@master
 
       - name: Install latest devcontainer CLI
-        if: needs.checkLangCI.outputs.base == 'true'
         run: npm install -g @devcontainers/cli
 
       - name: Log in to the Container registry
-        if: needs.checkLangCI.outputs.base == 'true'
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -122,16 +121,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build base-${{ matrix.lang }}
-        if: needs.checkLangCI.outputs.base == 'true'
         run: devcontainer build --workspace-folder base-images/${{ matrix.lang }} --image-name ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
 
       - name: Publish base-${{ matrix.lang }}
-        if: needs.checkLangCI.outputs.base == 'true'
         run: docker push ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
 
   test:
     needs: [deployBundle, checkLangCI, baseImage, dependentBaseImages]
-    if: needs.checkLangCI.outputs.skip != 'true'
+    if: ${{ needs.checkLangCI.outputs.buildLanguages == 'true' && always() }}
     name: Test and Publish
     runs-on: ubuntu-latest
     strategy:
@@ -169,6 +166,7 @@ jobs:
 
   publishExamples:
     needs: [test]
+    if: ${{ needs.checkLangCI.outputs.buildLanguages == 'true' && always() }}
     name: Publish Examples
     runs-on: ubuntu-latest
     steps:

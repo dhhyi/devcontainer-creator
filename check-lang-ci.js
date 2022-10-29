@@ -12,6 +12,10 @@ function allLanguages() {
     .map((x) => x.replace(/\.yaml$/, ""));
 }
 
+function baseImages() {
+  return fs.readdirSync("base-images").filter((x) => x !== "debian");
+}
+
 function transitiveLanguages() {
   const langs = allLanguages();
   const transitive = {};
@@ -33,15 +37,15 @@ function transitiveLanguages() {
 }
 
 function output(langs = [], buildBase = false) {
-  const variable = process.argv[2] || "languages";
   let array = [...langs].sort();
-  if (process.argv[3] === "--skip") {
-    const skipped = process.argv[4].split(",");
+  if (process.argv[2] === "--skip") {
+    const skipped = process.argv[3].split(",");
     array = array.filter((x) => !skipped.includes(x));
   }
-  console.log(`${variable}=${JSON.stringify(array)}`);
-  console.log(`skip=${!array.length}`);
-  console.log(`base=${buildBase}`);
+  console.log(`languages=${JSON.stringify(array)}`);
+  console.log(`buildLanguages=${!!array.length}`);
+  console.log(`buildBase=${buildBase}`);
+  console.log(`baseImages=${JSON.stringify(baseImages())}`);
   process.exit(0);
 }
 
