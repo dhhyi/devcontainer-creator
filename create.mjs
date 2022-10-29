@@ -70,7 +70,7 @@ function parseArgs() {
 const ARGS = parseArgs();
 
 function createTmpDir() {
-  const dir = path.join(os.tmpdir(), "devcontainer-creator");
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "devcontainer-creator-"));
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
@@ -138,7 +138,7 @@ function installTools() {
 
   try {
     logStatus("installing tools");
-    cp.execSync(`npm install --no-save ${tools.join(" ")}`, {
+    cp.execSync(`npm exec pnpm install ${tools.join(" ")}`, {
       stdio: "ignore",
       cwd: TMP_DIR,
     });
