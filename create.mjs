@@ -138,10 +138,13 @@ function installTools() {
 
   try {
     logStatus("installing tools");
-    cp.execSync(`npm exec pnpm install ${tools.join(" ")}`, {
-      stdio: "ignore",
-      cwd: TMP_DIR,
-    });
+    cp.execSync(
+      `npm exec pnpm -- install --prefer-offline ${tools.join(" ")}`,
+      {
+        stdio: "ignore",
+        cwd: TMP_DIR,
+      }
+    );
   } catch (error) {
     logError("error installing dependencies:", error.message);
     process.exit(1);
@@ -346,19 +349,19 @@ async function resolveAndValidateYaml() {
     process.exit(1);
   }
 
-  const baseImage = resolvedYaml.devcontainer.build.base.replace(
-    /\$\{(\w+)\}/g,
-    (_, variable) => resolvedYaml.devcontainer.build.args[variable]
-  );
-  logStatus("pulling", baseImage);
-  const pullBase = cp.spawnSync("docker", ["pull", baseImage]);
+  const baseImage = `ghcr.io/dhhyi/dcc-base-${resolvedYaml.devcontainer.build.base}:latest`;
 
-  if (pullBase.status !== 0) {
-    logError(pullBase.stderr.toString());
-    process.exit(1);
-  }
-  if (VERBOSE) {
-    logStatus(pullBase.stdout.toString());
+  if (!cp.execSync(`docker image ls -q ${baseImage}`).toString().trim()) {
+    logStatus("pulling", baseImage);
+    const pullBase = cp.spawnSync("docker", ["pull", baseImage]);
+
+    if (pullBase.status !== 0) {
+      logError(pullBase.stderr.toString());
+      process.exit(1);
+    }
+    if (VERBOSE) {
+      logStatus(pullBase.stdout.toString());
+    }
   }
 
   const baseDevcontainerMeta = JSON.parse(

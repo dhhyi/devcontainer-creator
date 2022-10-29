@@ -10,6 +10,10 @@ if ! command -v base64 > /dev/null; then
     packages="$packages coreutils"
 fi
 
+if ! command -v jq > /dev/null; then
+    packages="$packages jq"
+fi
+
 if command -v npm > /dev/null; then
     npm i -g onchange
 elif ! command -v inotifywait > /dev/null; then

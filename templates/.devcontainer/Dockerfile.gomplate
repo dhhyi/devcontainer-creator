@@ -2,8 +2,6 @@
 
 {{- $remoteUser := $L.devcontainer.remoteUser -}}
 
-{{- $from := $L.devcontainer.build.base -}}
-
 {{- $packages := coll.Slice -}}
 {{- if has $L.devcontainer.build "packages" -}}
   {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
@@ -11,15 +9,12 @@
 
 {{- $insertHome := and (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
-{{- $fromArgs := coll.Slice -}}
 {{- $prepareBuildArgs := coll.Slice -}}
 {{- $rootBuildArgs := coll.Slice -}}
 {{- $userBuildArgs := coll.Slice -}}
 {{- if has $L.devcontainer.build "args" -}}
   {{- range $arg, $v := $L.devcontainer.build.args -}}
-    {{- if and ($from | strings.Contains $arg) -}}
-      {{- $fromArgs = coll.Append $arg $fromArgs -}}
-    {{- else if and (has $L.devcontainer.build "prepare")
+    {{- if and (has $L.devcontainer.build "prepare")
                ($L.devcontainer.build.prepare | strings.Contains $arg) -}}
       {{- $prepareBuildArgs = coll.Append $arg $prepareBuildArgs -}}
     {{- else if and (has $L.devcontainer.build "root")
@@ -34,14 +29,8 @@
 
 {{- if not (env.Getenv "SIMPLE_IMAGE" "") }}
 
-{{- if $fromArgs -}}
-{{- range $fromArgs -}}
-ARG {{ . }}
-{{ end }}
-{{ end }}
-
 {{- "" -}}
-FROM {{ $from }}
+FROM ghcr.io/dhhyi/dcc-base-{{ $L.devcontainer.build.base }}:latest
 {{ "" }}
 
 {{- if $prepareBuildArgs }}

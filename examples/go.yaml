@@ -6,9 +6,7 @@ language:
   version: go version
 devcontainer:
   build:
-    args:
-      GO_VERSION: "1.19"
-    base: mcr.microsoft.com/devcontainers/go:${GO_VERSION}
+    base: go
     user:
       - RUN go install github.com/traefik/yaegi/cmd/yaegi@latest
   selftest: |

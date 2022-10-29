@@ -53,7 +53,8 @@
           "properties": {
             "base": {
               "type": "string",
-              "default": "mcr.microsoft.com/vscode/devcontainers/base:debian"
+              "enum": ["debian", "node", "java", "go", "python", "ruby"],
+              "default": "debian"
             },
             "args": {
               "type": "object"

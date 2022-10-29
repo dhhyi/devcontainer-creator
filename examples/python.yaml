@@ -4,7 +4,5 @@ language:
   repl: python
 devcontainer:
   build:
-    args:
-      PYTHON_VERSION: "3"
-    base: mcr.microsoft.com/devcontainers/python:${PYTHON_VERSION}
+    base: python
   selftest: python -c 'print("Hello World!")'

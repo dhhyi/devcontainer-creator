@@ -17,5 +17,7 @@ check "inotifywait bin" command -v inotifywait
 
 check "base64 bin" command -v base64
 
+check "jq bin" command -v jq
+
 # Report result
 reportResults

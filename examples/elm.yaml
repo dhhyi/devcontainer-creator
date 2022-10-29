@@ -4,9 +4,7 @@ language:
   version: elm --version
 devcontainer:
   build:
-    args:
-      NODE_VERSION: "16"
-    base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
+    base: node
     root:
       - RUN npm i -g elm elm-test elm-format elm-review onchange
   selftest: |

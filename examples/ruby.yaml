@@ -7,9 +7,7 @@ language:
     ruby --version
 devcontainer:
   build:
-    args:
-      RUBY_VERSION: "3"
-    base: mcr.microsoft.com/vscode/devcontainers/ruby:0-${RUBY_VERSION}
+    base: ruby
     root:
       - RUN gem install rubocop
   selftest: ruby -e 'puts "Hello World!"'

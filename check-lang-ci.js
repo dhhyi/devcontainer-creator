@@ -32,7 +32,7 @@ function transitiveLanguages() {
   return transitive;
 }
 
-function output(langs = []) {
+function output(langs = [], buildBase = false) {
   const variable = process.argv[2] || "languages";
   let array = [...langs].sort();
   if (process.argv[3] === "--skip") {
@@ -41,6 +41,7 @@ function output(langs = []) {
   }
   console.log(`${variable}=${JSON.stringify(array)}`);
   console.log(`skip=${!array.length}`);
+  console.log(`base=${buildBase}`);
   process.exit(0);
 }
 
@@ -56,7 +57,13 @@ stdin.on("data", function (chunk) {
 
 stdin.on("end", function () {
   const changed = data.split("\n").filter((x) => x);
+
+  const buildBase = changed.some((x) =>
+    ["base-images/", "features/"].some((p) => x.startsWith(p))
+  );
+
   if (
+    buildBase ||
     changed.some((x) =>
       [
         ".github/workflows/publish.yaml",
@@ -65,11 +72,9 @@ stdin.on("end", function () {
         "package.json",
       ].includes(x)
     ) ||
-    changed.some((x) =>
-      ["templates/", "features/"].some((p) => x.startsWith(p))
-    )
+    changed.some((x) => x.startsWith("templates/"))
   ) {
-    output(allLanguages());
+    output(allLanguages(), buildBase);
   } else if (changed.some((x) => x.startsWith("examples/"))) {
     const transitive = transitiveLanguages();
 

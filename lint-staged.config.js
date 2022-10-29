@@ -1,7 +1,7 @@
 const cp = require("child_process");
 
 const rules = {
-  "*": ["prettier --write --no-error-on-unmatched-pattern"],
+  "*": [() => "npm run format"],
   "*.{mjs,js}": ["eslint --fix"],
 };
 
