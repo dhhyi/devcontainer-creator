@@ -16,7 +16,7 @@
       "type": "shell"
     },
     {
-      "command": "lein repl",
+      "command": "clojure",
       "label": "Start REPL",
       "problemMatcher": [],
       "type": "shell"

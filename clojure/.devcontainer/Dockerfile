@@ -4,8 +4,6 @@ ARG CLOJURE_VERSION
 
 ADD https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh /tmp
 RUN chmod +x /tmp/linux-install-${CLOJURE_VERSION}.sh && /tmp/linux-install-${CLOJURE_VERSION}.sh
-ADD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein /usr/local/bin
-RUN chmod +x /usr/local/bin/lein
 ADD https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install /tmp/install-clojure-lsp.sh
 RUN bash /tmp/install-clojure-lsp.sh
 RUN echo > /conda-notice.txt
@@ -13,4 +11,4 @@ RUN echo > /conda-notice.txt
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="clojure -M" DCC_REPL="lein repl" DCC_VERSION="clojure-lsp --version; clojure --version" DCC_SELFTEST="Y2xvanVyZSAtTSAtZSAnKHByaW50bG4gIkhlbGxvIFdvcmxkISIpJw=="
+ENV DCC_BINARY="clojure -M" DCC_REPL="clojure" DCC_VERSION="clojure-lsp --version; clojure --version" DCC_SELFTEST="Y2xvanVyZSAtTSAtZSAnKHByaW50bG4gIkhlbGxvIFdvcmxkISIpJw=="
