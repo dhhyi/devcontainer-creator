@@ -41,7 +41,7 @@ jobs:
         id: check-lang-ci
         run: |
           npm exec pnpm -- i --prod --ignore-scripts
-          git diff --name-only HEAD~ | node check-lang-ci.js --skip cicada >> $GITHUB_OUTPUT
+          git diff --name-only HEAD~ | node check-lang-ci.js >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
   deployFeatures:
