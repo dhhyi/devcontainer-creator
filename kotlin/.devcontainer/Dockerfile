@@ -7,5 +7,3 @@ RUN cd /opt/kotlin && tar zxpf kotlin.tar.gz --strip-components=1
 ENV PATH=/opt/kotlin/bin:${PATH}
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

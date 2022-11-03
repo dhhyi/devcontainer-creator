@@ -6,5 +6,3 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

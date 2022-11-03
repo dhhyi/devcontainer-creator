@@ -17,5 +17,3 @@ RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rocks
 RUN luarocks install moonpick
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

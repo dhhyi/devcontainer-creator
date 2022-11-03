@@ -17,5 +17,3 @@ USER vscode
 ENV HOME=/home/vscode
 
 COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

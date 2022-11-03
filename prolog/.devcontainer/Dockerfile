@@ -12,5 +12,3 @@ RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
 RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

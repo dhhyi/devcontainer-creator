@@ -12,5 +12,3 @@ USER vscode
 ENV HOME=/home/vscode
 
 RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

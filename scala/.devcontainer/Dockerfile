@@ -6,5 +6,3 @@ ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION
 RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

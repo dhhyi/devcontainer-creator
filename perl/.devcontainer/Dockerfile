@@ -8,5 +8,3 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 RUN cpan Perl::Tidy
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
