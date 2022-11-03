@@ -19,4 +19,3 @@ ENV HOME=/home/vscode
 COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="escript" DCC_REPL="erl" DCC_VERSION="erl +V" DCC_SELFTEST="Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmVybCA8PEVPRgotbW9kdWxlKGhlbGxvd29ybGQpLiAtZXhwb3J0KFttYWluLzFdKS4KbWFpbihfKSAtPiAgICBpbzpmb3JtYXQoIkhlbGxvIFdvcmxkIVxuIikuCkVPRgpjZCAvdG1wCnJlYmFyMyBmbXQgLXcgaGVsbG93b3JsZC5lcmwKY2F0IGhlbGxvd29ybGQuZXJsCmVzY3JpcHQgaGVsbG93b3JsZC5lcmwK"

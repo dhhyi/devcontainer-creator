@@ -10,4 +10,3 @@ RUN cpan Perl::Tidy
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="perl" DCC_REPL="" DCC_VERSION="perl --version" DCC_SELFTEST="cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn"

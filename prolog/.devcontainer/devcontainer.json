@@ -18,5 +18,11 @@
   },
   "extensions": [
     "rebornix.prolog"
-  ]
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "",
+    "DCC_REPL": "gprolog",
+    "DCC_VERSION": "gprolog --version",
+    "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi"
+  }
 }

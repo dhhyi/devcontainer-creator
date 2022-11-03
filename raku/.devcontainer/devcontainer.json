@@ -12,5 +12,11 @@
   },
   "extensions": [
     "bscan.raku-navigator"
-  ]
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "raku",
+    "DCC_REPL": "raku",
+    "DCC_VERSION": "raku --version",
+    "DCC_SELFTEST": "cmFrdSAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIic="
+  }
 }

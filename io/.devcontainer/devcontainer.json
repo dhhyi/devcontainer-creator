@@ -15,5 +15,11 @@
   },
   "extensions": [
     "kennethceyer.io"
-  ]
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "io",
+    "DCC_REPL": "io",
+    "DCC_VERSION": "io --version",
+    "DCC_SELFTEST": "aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n"
+  }
 }

@@ -15,5 +15,11 @@
   },
   "extensions": [
     "JakeBecker.elixir-ls"
-  ]
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "elixir",
+    "DCC_REPL": "iex",
+    "DCC_VERSION": "elixir --version",
+    "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw=="
+  }
 }

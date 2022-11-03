@@ -17,4 +17,3 @@ RUN luarocks install busted
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="lua" DCC_REPL="lua" DCC_VERSION="lua -v; luarocks --version" DCC_SELFTEST="bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn"

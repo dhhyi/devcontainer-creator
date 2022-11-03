@@ -13,5 +13,11 @@
   "extensions": [
     "cfgweb.vscode-perl",
     "richterger.perl"
-  ]
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "perl",
+    "DCC_REPL": "",
+    "DCC_VERSION": "perl --version",
+    "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn"
+  }
 }

@@ -14,4 +14,3 @@ RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="" DCC_REPL="gprolog" DCC_VERSION="gprolog --version" DCC_SELFTEST="Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi"

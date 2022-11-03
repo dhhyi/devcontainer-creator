@@ -8,4 +8,3 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="raku" DCC_REPL="raku" DCC_VERSION="raku --version" DCC_SELFTEST="cmFrdSAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIic="

@@ -18,4 +18,3 @@ RUN eerie install https://github.com/IoLanguage/Regex.git
 RUN eerie install https://github.com/IoLanguage/Random.git
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="io" DCC_REPL="io" DCC_VERSION="io --version" DCC_SELFTEST="aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n"

@@ -11,4 +11,3 @@ RUN echo > /conda-notice.txt
 USER vscode
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="clojure -M" DCC_REPL="clojure" DCC_VERSION="clojure-lsp --version; clojure --version" DCC_SELFTEST="Y2xvanVyZSAtTSAtZSAnKHByaW50bG4gIkhlbGxvIFdvcmxkISIpJw=="

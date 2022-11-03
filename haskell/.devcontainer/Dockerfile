@@ -14,4 +14,3 @@ RUN ghcup install hls
 RUN ghcup install stack
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-ENV DCC_BINARY="runhaskell" DCC_REPL="ghci" DCC_VERSION="ghcup --version; ghc --version" DCC_SELFTEST="Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmhzIDw8RU9GCm1haW4gPSBwdXRTdHJMbiAiSGVsbG8gV29ybGQhIgpFT0YKcnVuaGFza2VsbCAvdG1wL2hlbGxvd29ybGQuaHMK"
