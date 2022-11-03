@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/go:1",
+    "init": true,
+    "capAdd": [
+      "SYS_PTRACE"
+    ],
+    "securityOpt": [
+      "seccomp=unconfined"
+    ],
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "golang.Go"
+        ]
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "go run",
+      "DCC_REPL": "yaegi",
+      "DCC_VERSION": "go version",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZ28gPDxFT0YKcGFja2FnZSBtYWluCmltcG9ydCAiZm10IgpmdW5jIG1haW4oKSB7IGZtdC5QcmludGxuKCJIZWxsbyBXb3JsZCEiKSB9CkVPRgpnbyBmbXQgL3RtcC9oZWxsb3dvcmxkLmdvCmNhdCAvdG1wL2hlbGxvd29ybGQuZ28KZ28gcnVuIC90bXAvaGVsbG93b3JsZC5nbwo="
+    }
+  }
+]

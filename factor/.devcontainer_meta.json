@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dexterhaslem.factor"
+        ],
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "factor -run",
+      "DCC_REPL": "factor",
+      "DCC_VERSION": "",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZmFjdG9yIDw8RU9GClVTRTogaW8KIkhlbGxvIFdvcmxkISIgcHJpbnQKRU9GCmZhY3RvciAtcnVuIC90bXAvaGVsbG93b3JsZC5mYWN0b3IK"
+    }
+  }
+]

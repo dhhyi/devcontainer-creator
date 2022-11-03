@@ -1,0 +1,81 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/ruby:1",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "rebornix.Ruby"
+        ]
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "misogi.ruby-rubocop"
+        ],
+        "settings": {
+          "[ruby]": {
+            "editor.defaultFormatter": "misogi.ruby-rubocop"
+          },
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "ruby",
+      "DCC_REPL": "irb",
+      "DCC_VERSION": "rubocop --version; ruby --version",
+      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic="
+    }
+  }
+]

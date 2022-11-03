@@ -1,0 +1,84 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/java:1",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "vscjava.vscode-java-pack"
+        ],
+        "settings": {
+          "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
+        }
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "betterthantomorrow.calva"
+        ],
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          },
+          "files.watcherExclude": {
+            "**/target": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "clojure -M",
+      "DCC_REPL": "clojure",
+      "DCC_VERSION": "clojure-lsp --version; clojure --version",
+      "DCC_SELFTEST": "Y2xvanVyZSAtTSAtZSAnKHByaW50bG4gIkhlbGxvIFdvcmxkISIpJw=="
+    }
+  }
+]

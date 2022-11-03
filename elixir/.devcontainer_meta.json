@@ -1,0 +1,71 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "JakeBecker.elixir-ls"
+        ],
+        "settings": {
+          "[elixir]": {
+            "editor.defaultFormatter": "JakeBecker.elixir-ls"
+          },
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "elixir",
+      "DCC_REPL": "iex",
+      "DCC_VERSION": "elixir --version",
+      "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw=="
+    }
+  }
+]
