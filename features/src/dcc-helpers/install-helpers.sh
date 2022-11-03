@@ -22,3 +22,7 @@ if [ -n "$DCC_SELFTEST" ]; then
     echo "$DCC_SELFTEST" | base64 -d >> /selftest.sh
 fi
 chmod +x /selftest.sh
+
+SHELL_PROMPT='\nexport PS1="$ "\n'
+printf "%b" "$SHELL_PROMPT" >> "$HOME/.bashrc"
+printf "%b" "$SHELL_PROMPT" >> "$HOME/.zshrc"

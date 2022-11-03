@@ -35,4 +35,4 @@ cp cont.sh disclaimer.sh install-helpers.sh /home/dcc
 chmod +x /home/dcc/*.sh
 
 # shellcheck disable=SC2016 # no expand
-echo 'sudo -E sudo -E /home/dcc/install-helpers.sh && exec $0 "$@"' > /disclaimer.sh
+echo 'sudo -E /home/dcc/install-helpers.sh && exec $0 "$@"' > /disclaimer.sh

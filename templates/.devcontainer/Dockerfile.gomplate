@@ -78,7 +78,4 @@ ARG {{ . }}
 {{ conv.Join $L.devcontainer.build.user "\n" }}
 {{ end }}
 
-{{- "" }}
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc
-
-{{- end }}
+{{- end -}}

@@ -5,6 +5,10 @@ set -e
 # shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
+check "zsh prompt" grep -q 'export PS1="$ "' "$HOME/.zshrc"
+
+check "bash prompt" grep -q 'export PS1="$ "' "$HOME/.bashrc"
+
 check "templates after install" test -f /disclaimer.sh && test -f /usr/local/bin/cont
 
 check "binary referenced" grep -q "bash" /usr/local/bin/cont
