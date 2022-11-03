@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "webpack --mode=production --node-env=production",
-    "format": "prettier --write \"**/*\""
+    "format": "prettier --write -u \"**/*\""
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",

@@ -192,6 +192,25 @@ async function extractResources() {
     .map((f) => f.replace(".gomplate", ""));
 }
 
+function pullImage(image, fail = false) {
+  if (!cp.execSync(`docker image ls -q ${image}`).toString().trim()) {
+    logStatus("pulling", image);
+    const pullBase = cp.spawnSync("docker", ["pull", image]);
+
+    if (pullBase.status !== 0) {
+      if (fail) {
+        logError(pullBase.stderr.toString());
+        process.exit(1);
+      } else {
+        logWarn("failed to pull", image);
+      }
+    }
+    if (VERBOSE) {
+      logStatus(pullBase.stdout.toString());
+    }
+  }
+}
+
 async function resolveAndValidateYaml() {
   async function getYaml(languageYaml) {
     if (languageYaml.startsWith(DCC_PROTOCOL)) {
@@ -351,18 +370,7 @@ async function resolveAndValidateYaml() {
 
   const baseImage = `ghcr.io/dhhyi/dcc-base-${resolvedYaml.devcontainer.build.base}:latest`;
 
-  if (!cp.execSync(`docker image ls -q ${baseImage}`).toString().trim()) {
-    logStatus("pulling", baseImage);
-    const pullBase = cp.spawnSync("docker", ["pull", baseImage]);
-
-    if (pullBase.status !== 0) {
-      logError(pullBase.stderr.toString());
-      process.exit(1);
-    }
-    if (VERBOSE) {
-      logStatus(pullBase.stdout.toString());
-    }
-  }
+  pullImage(baseImage, true);
 
   const baseDevcontainerMeta = JSON.parse(
     cp.execSync(
@@ -509,11 +517,7 @@ async function writeDevcontainer() {
   logPersist("wrote devcontainer to", ARGS.targetDir);
 }
 
-function buildAndTest() {
-  if (!ARGS.build) {
-    return;
-  }
-
+function buildWithDevcontainerCli() {
   const devcontainerCliBin = path.join(
     TMP_DIR,
     "node_modules/.bin/devcontainer"
@@ -526,18 +530,7 @@ function buildAndTest() {
   if (ARGS.cacheFrom) {
     devcontainerArgs.push("--cache-from", ARGS.cacheFrom);
 
-    logStatus("pulling cache image");
-
-    const cachePull = cp.spawnSync("docker", ["pull", ARGS.cacheFrom]);
-
-    if (cachePull.status !== 0) {
-      logPersist("cache image does not exist");
-    }
-
-    if (VERBOSE) {
-      logPersist(cachePull.stderr.toString());
-      logPersist(cachePull.stdout.toString());
-    }
+    pullImage(ARGS.cacheFrom);
   }
 
   if (VERBOSE) {
@@ -558,66 +551,82 @@ function buildAndTest() {
 
   const devcontainerOutput = JSON.parse(build.stdout.toString());
   const image = devcontainerOutput.imageName[0];
-
   logPersist("built image", image);
 
-  if (ARGS.test) {
-    logPersist("testing devcontainer");
+  return image;
+}
 
-    const testingTmpDir = path.join(TMP_DIR, "testing");
-    fs.mkdirSync(testingTmpDir);
-    fs.writeFileSync(
-      path.join(testingTmpDir, ".devcontainer.json"),
-      JSON.stringify({ image })
-    );
+function testDevcontainer(image) {
+  logPersist("testing devcontainer");
 
-    const devcontainerUpArgs = ["up", "--workspace-folder", testingTmpDir];
+  const devcontainerCliBin = path.join(
+    TMP_DIR,
+    "node_modules/.bin/devcontainer"
+  );
 
-    if (VERBOSE) {
-      logPersist("executing", devcontainerCliBin, ...devcontainerUpArgs);
-    }
+  const testingTmpDir = path.join(TMP_DIR, "testing");
+  fs.mkdirSync(testingTmpDir);
+  fs.writeFileSync(
+    path.join(testingTmpDir, ".devcontainer.json"),
+    JSON.stringify({ image })
+  );
 
-    const devcontainerUp = cp.spawnSync(devcontainerCliBin, devcontainerUpArgs);
+  const devcontainerUpArgs = ["up", "--workspace-folder", testingTmpDir];
 
-    if (VERBOSE) {
+  if (VERBOSE) {
+    logPersist("executing", devcontainerCliBin, ...devcontainerUpArgs);
+  }
+
+  const devcontainerUp = cp.spawnSync(devcontainerCliBin, devcontainerUpArgs);
+
+  if (VERBOSE) {
+    logPersist(devcontainerUp.stderr.toString());
+  }
+
+  if (devcontainerUp.status !== 0) {
+    logError("error starting devcontainer");
+    if (!VERBOSE) {
       logPersist(devcontainerUp.stderr.toString());
     }
+    process.exit(1);
+  }
 
-    if (devcontainerUp.status !== 0) {
-      logError("error starting devcontainer");
-      if (!VERBOSE) {
-        logPersist(devcontainerUp.stderr.toString());
-      }
-      process.exit(1);
-    }
+  const containerId = JSON.parse(devcontainerUp.stdout.toString()).containerId;
 
-    const containerId = JSON.parse(
-      devcontainerUp.stdout.toString()
-    ).containerId;
+  const devcontainerTestArgs = [
+    "exec",
+    "--workspace-folder",
+    testingTmpDir,
+    "/selftest.sh",
+  ];
 
-    const devcontainerTestArgs = [
-      "exec",
-      "--workspace-folder",
-      testingTmpDir,
-      "/selftest.sh",
-    ];
+  if (VERBOSE) {
+    logPersist("executing", devcontainerCliBin, ...devcontainerTestArgs);
+  }
 
-    if (VERBOSE) {
-      logPersist("executing", devcontainerCliBin, ...devcontainerTestArgs);
-    }
+  try {
+    cp.execSync(`${devcontainerCliBin} ${devcontainerTestArgs.join(" ")}`, {
+      stdio: "inherit",
+    });
+  } catch (error) {
+    logError("error testing devcontainer");
+    process.exit(1);
+  } finally {
+    cp.execSync(`docker rm -f ${containerId}`, {
+      stdio: "ignore",
+    });
+  }
+}
 
-    try {
-      cp.execSync(`${devcontainerCliBin} ${devcontainerTestArgs.join(" ")}`, {
-        stdio: "inherit",
-      });
-    } catch (error) {
-      logError("error testing devcontainer");
-      process.exit(1);
-    } finally {
-      cp.execSync(`docker rm -f ${containerId}`, {
-        stdio: "ignore",
-      });
-    }
+function buildAndTest() {
+  if (!ARGS.build) {
+    return;
+  }
+
+  const image = buildWithDevcontainerCli();
+
+  if (ARGS.test) {
+    testDevcontainer(image);
   }
 }
 
