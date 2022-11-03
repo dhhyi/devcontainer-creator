@@ -62,20 +62,15 @@ stdin.on("data", function (chunk) {
 stdin.on("end", function () {
   const changed = data.split("\n").filter((x) => x);
 
-  const buildBase = changed.some((x) =>
-    ["base-images/", "features/"].some((p) => x.startsWith(p))
+  const buildBase = changed.some(
+    (x) =>
+      [".github/workflows/publish.yaml", "check-lang-ci.js"].includes(x) ||
+      ["base-images/", "features/"].some((p) => x.startsWith(p))
   );
 
   if (
     buildBase ||
-    changed.some((x) =>
-      [
-        ".github/workflows/publish.yaml",
-        "check-lang-ci.js",
-        "create.mjs",
-        "package.json",
-      ].includes(x)
-    ) ||
+    changed.some((x) => ["create.mjs", "package.json"].includes(x)) ||
     changed.some((x) => x.startsWith("templates/"))
   ) {
     output(allLanguages(), buildBase);

@@ -95,8 +95,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Pull cache
+        continue-on-error: true
+        run: docker pull ghcr.io/dhhyi/dcc-base-debian
+
       - name: Build base-debian
-        run: devcontainer build --workspace-folder base-images/debian --image-name ghcr.io/dhhyi/dcc-base-debian
+        run: devcontainer build --workspace-folder base-images/debian --cache-from ghcr.io/dhhyi/dcc-base-debian --image-name ghcr.io/dhhyi/dcc-base-debian
 
       - name: Publish base-debian
         run: docker push ghcr.io/dhhyi/dcc-base-debian
@@ -123,8 +127,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Pull cache
+        continue-on-error: true
+        run: docker pull ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
+
       - name: Build base-${{ matrix.lang }}
-        run: devcontainer build --workspace-folder base-images/${{ matrix.lang }} --image-name ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
+        run: devcontainer build --workspace-folder base-images/${{ matrix.lang }} --cache-from ghcr.io/dhhyi/dcc-base-${{ matrix.lang }} --image-name ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
 
       - name: Publish base-${{ matrix.lang }}
         run: docker push ghcr.io/dhhyi/dcc-base-${{ matrix.lang }}
