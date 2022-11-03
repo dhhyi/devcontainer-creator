@@ -16,6 +16,9 @@ jobs:
           npm exec pnpm -- i --prod --ignore-scripts
           npm exec pnpm run build
 
+      - name: Test
+        run: ./run-tests.sh
+
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:
