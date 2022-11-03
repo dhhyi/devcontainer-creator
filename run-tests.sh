@@ -7,12 +7,12 @@ fi
 
 find tests -name 'test.dcc' | while read -r test; do
     echo "Running $test"
-    node dist/bundle.js "$(head -n 1 "$test")" "$(dirname "$test")" --test
+    node dist/bundle.js "$(head -n 1 "$test")" "$(dirname "$test")" --test --dump-meta
 done
 
 find tests -name 'language.yaml' | while read -r test; do
     echo "Running $test"
-    node dist/bundle.js "$test" "$(dirname "$test")" --test
+    node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta
 done
 
 git diff --exit-code --raw -p --stat

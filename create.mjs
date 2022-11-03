@@ -42,7 +42,8 @@ function parseArgs() {
   const test = extraArgs.includes("--test");
   const tagArg = extraArgs.findIndex((arg) => arg === "--tag");
   const tag = tagArg >= 0 && extraArgs[tagArg + 1];
-  const build = extraArgs.includes("--build") || test || tag;
+  const dumpMeta = extraArgs.includes("--dump-meta");
+  const build = extraArgs.includes("--build") || test || tag || dumpMeta;
   const cacheFromArg = extraArgs.findIndex((arg) => arg === "--cache-from");
   const cacheFrom = cacheFromArg >= 0 && extraArgs[cacheFromArg + 1];
   const pinImage = extraArgs.includes("--pin-image");
@@ -64,6 +65,7 @@ function parseArgs() {
     test,
     tag,
     pinImage,
+    dumpMeta,
   };
 }
 
@@ -209,6 +211,15 @@ function pullImage(image, fail = false) {
       logStatus(pullBase.stdout.toString());
     }
   }
+}
+
+function getDevcontainerMeta(image) {
+  return JSON.parse(
+    cp.execSync(
+      `docker inspect ${image} --format='{{index .Config.Labels "devcontainer.metadata"}}'`,
+      { encoding: "utf8" }
+    )
+  );
 }
 
 async function resolveAndValidateYaml() {
@@ -372,12 +383,7 @@ async function resolveAndValidateYaml() {
 
   pullImage(baseImage, true);
 
-  const baseDevcontainerMeta = JSON.parse(
-    cp.execSync(
-      `docker inspect ${baseImage} --format='{{index .Config.Labels "devcontainer.metadata"}}'`,
-      { encoding: "utf8" }
-    )
-  );
+  const baseDevcontainerMeta = getDevcontainerMeta(baseImage);
   const remoteUser = baseDevcontainerMeta.reduce(
     (acc, cur) => cur.remoteUser || acc,
     ""
@@ -624,6 +630,12 @@ function buildAndTest() {
   }
 
   const image = buildWithDevcontainerCli();
+
+  if (ARGS.dumpMeta) {
+    const meta = getDevcontainerMeta(image);
+    const metaFile = path.join(ARGS.targetDir, ".devcontainer_meta.json");
+    fs.writeFileSync(metaFile, JSON.stringify(meta, null, 2));
+  }
 
   if (ARGS.test) {
     testDevcontainer(image);

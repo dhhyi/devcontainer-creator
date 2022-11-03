@@ -183,6 +183,7 @@ jobs:
               dcc://$lang \
               dist/test/$lang \
               --full \
+              --dump-meta \
               --name "Example devcontainer for $lang" \
               --cache-from ghcr.io/dhhyi/dcc-devcontainer-$lang:latest
           done

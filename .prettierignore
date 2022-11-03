@@ -1,6 +1,7 @@
 /.husky
 
 /dist
+.devcontainer_meta.json
 
 /templates/**/*.gomplate
 /LICENSE
