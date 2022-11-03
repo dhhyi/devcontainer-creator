@@ -2,16 +2,19 @@
 
 cd "$(dirname "$0")"
 
+echo "creating /disclaimer.sh"
 # shellcheck disable=SC2016 # no expand
 envsubst '$DCC_VERSION,$DCC_BINARY,$DCC_REPL' < disclaimer.sh > /disclaimer.sh
 chmod +x /disclaimer.sh
 
 if [ -n "$DCC_BINARY" ]; then
+    echo "creating /usr/local/bin/cont"
     # shellcheck disable=SC2016 # no expand
     envsubst '$DCC_VERSION,$DCC_BINARY,$DCC_REPL' < cont.sh > /usr/local/bin/cont
     chmod +x /usr/local/bin/cont
 fi
 
+echo "creating /selftest.sh"
 cat > /selftest.sh << EOF
 #!/bin/sh -ex
 
@@ -23,6 +26,7 @@ if [ -n "$DCC_SELFTEST" ]; then
 fi
 chmod +x /selftest.sh
 
+echo "setting shell prompt"
 SHELL_PROMPT='\nexport PS1="$ "\n'
 printf "%b" "$SHELL_PROMPT" >> "$HOME/.bashrc"
 printf "%b" "$SHELL_PROMPT" >> "$HOME/.zshrc"
