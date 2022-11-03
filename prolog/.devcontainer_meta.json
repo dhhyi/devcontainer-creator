@@ -35,6 +35,11 @@
     }
   },
   {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
     "postAttachCommand": [
       "sh",
       "-e",
