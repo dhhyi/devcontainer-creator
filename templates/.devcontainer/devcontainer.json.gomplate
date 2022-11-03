@@ -2,11 +2,27 @@
 
 {{- $simpleImage := env.Getenv "SIMPLE_IMAGE" "" -}}
 
-{{- $remoteUser :=$L.devcontainer.remoteUser -}}
-
 {{- $settings := dict -}}
 {{- if has $L.vscode "settings" -}}
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
+{{- end -}}
+
+{{- $command := slice -}}
+{{- if has $L.language "binary" -}}
+  {{- $command = coll.Append $L.language.binary $command -}}
+  {{- if has $L.language "binaryArgs" -}}
+    {{- $command = coll.Append $L.language.binaryArgs $command -}}
+  {{- end -}}
+{{- end -}}
+{{- $version := slice -}}
+{{- if or (not (has $L.language "version")) ($L.language.version) -}}
+  {{- if (has $L.language "version") }}
+    {{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+      {{- $version = coll.Append . $version -}}
+    {{- end -}}
+  {{- else if (has $L.language "binary") }}
+    {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version")  " ") $version -}}
+  {{- end -}}
 {{- end -}}
 
 {{- define "HIDE_FILES" -}}
@@ -43,5 +59,11 @@ files.exclude:
   },
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ if $extensions }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ end }}
-  {{- end }}
+  {{- end }},
+  "containerEnv": {
+    "DCC_BINARY": {{ conv.Join $command " " | data.ToJSON }},
+    "DCC_REPL": {{ if has $L.language "repl" }}{{ $L.language.repl | data.ToJSON }}{{ else }}""{{ end }},
+    "DCC_VERSION": {{ (conv.Join $version "; ") | data.ToJSON }},
+    "DCC_SELFTEST": {{ if has $L.devcontainer "selftest" }}{{ $L.devcontainer.selftest | base64.Encode | data.ToJSON }}{{ else }}""{{ end }}
+  }
 }
