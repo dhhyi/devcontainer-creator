@@ -19,7 +19,7 @@
   "containerEnv": {
     "DCC_BINARY": "ruby",
     "DCC_REPL": "irb",
-    "DCC_VERSION": "rubocop --version; ruby --version",
-    "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic="
+    "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
+    "DCC_VERSION": "rubocop --version; ruby --version"
   }
 }

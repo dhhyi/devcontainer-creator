@@ -86,8 +86,8 @@
     "containerEnv": {
       "DCC_BINARY": "python",
       "DCC_REPL": "python",
-      "DCC_VERSION": "python --version",
-      "DCC_SELFTEST": "cHl0aG9uIC1jICdwcmludCgiSGVsbG8gV29ybGQhIikn"
+      "DCC_SELFTEST": "cHl0aG9uIC1jICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+      "DCC_VERSION": "python --version"
     }
   }
 ]

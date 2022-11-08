@@ -66,8 +66,8 @@
     "containerEnv": {
       "DCC_BINARY": "tclsh",
       "DCC_REPL": "tclsh",
-      "DCC_VERSION": "echo 'puts [info patchlevel]' | tclsh",
-      "DCC_SELFTEST": "ZWNobyAncHV0cyAiSGVsbG8gV29ybGQhIicgfCB0Y2xzaA=="
+      "DCC_SELFTEST": "ZWNobyAncHV0cyAiSGVsbG8gV29ybGQhIicgfCB0Y2xzaA==",
+      "DCC_VERSION": "echo 'puts [info patchlevel]' | tclsh"
     }
   }
 ]

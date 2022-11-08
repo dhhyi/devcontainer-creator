@@ -21,7 +21,7 @@
   "containerEnv": {
     "DCC_BINARY": "lua",
     "DCC_REPL": "lua",
-    "DCC_VERSION": "lua -v; luarocks --version",
-    "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn"
+    "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+    "DCC_VERSION": "lua -v; luarocks --version"
   }
 }

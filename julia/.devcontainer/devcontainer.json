@@ -20,7 +20,7 @@
   "containerEnv": {
     "DCC_BINARY": "julia",
     "DCC_REPL": "julia",
-    "DCC_VERSION": "julia --version",
-    "DCC_SELFTEST": "anVsaWEgLWUgJ3ByaW50bG4oIkhlbGxvIFdvcmxkISIpJw=="
+    "DCC_SELFTEST": "anVsaWEgLWUgJ3ByaW50bG4oIkhlbGxvIFdvcmxkISIpJw==",
+    "DCC_VERSION": "julia --version"
   }
 }
