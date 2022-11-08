@@ -8,11 +8,5 @@
       ".update_devcontainer.sh": true,
       ".vscode": true
     }
-  },
-  "containerEnv": {
-    "DCC_BINARY": "",
-    "DCC_REPL": "",
-    "DCC_VERSION": "",
-    "DCC_SELFTEST": ""
   }
 }

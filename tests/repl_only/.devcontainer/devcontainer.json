@@ -12,7 +12,6 @@
   "containerEnv": {
     "DCC_BINARY": "",
     "DCC_REPL": "bash",
-    "DCC_VERSION": "",
-    "DCC_SELFTEST": ""
+    "DCC_VERSION": ""
   }
 }

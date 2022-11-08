@@ -39,6 +39,20 @@ files.exclude:
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
 {{- end -}}
 
+{{- $containerEnv := dict -}}
+{{- if $L.language -}}
+  {{- $containerEnv = coll.Merge $containerEnv (dict "DCC_BINARY" (conv.Join $command " ")) -}}
+  {{- $containerEnv = coll.Merge $containerEnv (dict "DCC_VERSION" (conv.Join $version "; ")) -}}
+  {{- if has $L.language "repl" -}}
+    {{- $containerEnv = coll.Merge $containerEnv (dict "DCC_REPL" $L.language.repl) -}}
+  {{- else -}}
+    {{- $containerEnv = coll.Merge $containerEnv (dict "DCC_REPL" "") -}}
+  {{- end -}}
+{{- end -}}
+{{- if has $L.devcontainer "selftest" -}}
+  {{- $containerEnv = coll.Merge $containerEnv (dict "DCC_SELFTEST" ($L.devcontainer.selftest | base64.Encode)) -}}
+{{- end -}}
+
 {
   {{ if has $L.devcontainer "name" }}"name": "{{ $L.devcontainer.name }}",
   {{ end -}}
@@ -59,11 +73,6 @@ files.exclude:
   },
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ if $extensions }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ end }}
-  {{- end }},
-  "containerEnv": {
-    "DCC_BINARY": {{ conv.Join $command " " | data.ToJSON }},
-    "DCC_REPL": {{ if has $L.language "repl" }}{{ $L.language.repl | data.ToJSON }}{{ else }}""{{ end }},
-    "DCC_VERSION": {{ (conv.Join $version "; ") | data.ToJSON }},
-    "DCC_SELFTEST": {{ if has $L.devcontainer "selftest" }}{{ $L.devcontainer.selftest | base64.Encode | data.ToJSON }}{{ else }}""{{ end }}
-  }
+  {{- end }}{{ if $containerEnv }},
+  "containerEnv": {{ $containerEnv | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ end }}
 }
