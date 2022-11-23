@@ -1,0 +1,52 @@
+language:
+  name: idris
+  repl: idris2
+  binary: runidris
+  version: idris2 --version
+devcontainer:
+  build:
+    args:
+      IDRIS2_VERSION: 0.6.0
+    packages:
+      - chezscheme
+      - build-essential
+      - libgmp-dev
+    files:
+      runidris.sh: |
+        #!/bin/sh -e
+
+        if [ $# -eq 0 ]; then
+            echo "Usage: $0 <file>"
+            exit 1
+        fi
+
+        if [ ! -f "$1" ]; then
+            echo "File $1 does not exist"
+            exit 1
+        fi
+
+        name=$(basename "$1" .idr)
+        dir=$(dirname "$1")
+        cd "$dir"
+
+        idris2 "$1" --build-dir /tmp/idris --output-dir /tmp/idris -o $name
+        /tmp/idris/$name "$@"
+    root:
+      - RUN git clone --depth 1 --branch v${IDRIS2_VERSION} https://github.com/idris-lang/Idris2.git /tmp/idris2
+      - RUN cd /tmp/idris2 && sed -i 's%PREFIX.*%PREFIX ?= /usr/local%' config.mk && make bootstrap SCHEME=chezscheme && make install
+      - COPY runidris.sh /usr/local/bin/runidris
+      - RUN chmod +x  /usr/local/bin/runidris
+  selftest: |
+    cat >/tmp/helloworld.idr <<EOF
+    module Main
+    main : IO ()
+    main = putStrLn "Hello World!"
+    EOF
+    runidris /tmp/helloworld.idr
+vscode:
+  extensions:
+    - meraymond.idris-vscode
+  settings:
+    idris.idris2Mode: true
+    idris.idrisPath: idris2
+    idris.autosave: always
