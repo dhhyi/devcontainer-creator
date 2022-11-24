@@ -49,11 +49,15 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for elixir",
+    "containerEnv": {
+      "DCC_BINARY": "elixir",
+      "DCC_REPL": "iex",
+      "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw==",
+      "DCC_VERSION": "elixir --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "JakeBecker.elixir-ls"
-        ],
         "settings": {
           "[elixir]": {
             "editor.defaultFormatter": "JakeBecker.elixir-ls"
@@ -63,14 +67,11 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "JakeBecker.elixir-ls"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "elixir",
-      "DCC_REPL": "iex",
-      "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw==",
-      "DCC_VERSION": "elixir --version"
     }
   }
 ]

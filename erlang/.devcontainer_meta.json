@@ -49,12 +49,15 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for erlang",
+    "containerEnv": {
+      "DCC_BINARY": "escript",
+      "DCC_REPL": "erl",
+      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmVybCA8PEVPRgotbW9kdWxlKGhlbGxvd29ybGQpLiAtZXhwb3J0KFttYWluLzFdKS4KbWFpbihfKSAtPiAgICBpbzpmb3JtYXQoIkhlbGxvIFdvcmxkIVxuIikuCkVPRgpjZCAvdG1wCnJlYmFyMyBmbXQgLXcgaGVsbG93b3JsZC5lcmwKY2F0IGhlbGxvd29ybGQuZXJsCmVzY3JpcHQgaGVsbG93b3JsZC5lcmwK",
+      "DCC_VERSION": "erl +V"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "pgourlain.erlang",
-          "szTheory.erlang-formatter"
-        ],
         "settings": {
           "[erlang]": {
             "editor.defaultFormatter": "szTheory.erlang-formatter",
@@ -66,14 +69,12 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "pgourlain.erlang",
+          "szTheory.erlang-formatter"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "escript",
-      "DCC_REPL": "erl",
-      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmVybCA8PEVPRgotbW9kdWxlKGhlbGxvd29ybGQpLiAtZXhwb3J0KFttYWluLzFdKS4KbWFpbihfKSAtPiAgICBpbzpmb3JtYXQoIkhlbGxvIFdvcmxkIVxuIikuCkVPRgpjZCAvdG1wCnJlYmFyMyBmbXQgLXcgaGVsbG93b3JsZC5lcmwKY2F0IGhlbGxvd29ybGQuZXJsCmVzY3JpcHQgaGVsbG93b3JsZC5lcmwK",
-      "DCC_VERSION": "erl +V"
     }
   }
 ]
