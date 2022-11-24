@@ -516,6 +516,15 @@ async function writeDevcontainer() {
       const filePath = path.join(ARGS.targetDir, ".devcontainer", file);
       fs.writeFileSync(filePath, content);
     });
+    const gitignorePath = path.join(
+      ARGS.targetDir,
+      ".devcontainer",
+      ".gitignore"
+    );
+    fs.writeFileSync(
+      gitignorePath,
+      [".gitignore", ...Object.keys(files)].join("\n") + "\n"
+    );
   }
 
   writeUpdateScript();
