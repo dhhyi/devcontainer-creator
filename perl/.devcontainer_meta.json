@@ -49,26 +49,27 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for perl",
+    "containerEnv": {
+      "DCC_BINARY": "perl",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn",
+      "DCC_VERSION": "perl --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "cfgweb.vscode-perl",
-          "richterger.perl"
-        ],
         "settings": {
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "cfgweb.vscode-perl",
+          "richterger.perl"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "perl",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn",
-      "DCC_VERSION": "perl --version"
     }
   }
 ]

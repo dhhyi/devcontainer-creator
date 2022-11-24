@@ -49,11 +49,15 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for prolog",
+    "containerEnv": {
+      "DCC_BINARY": "",
+      "DCC_REPL": "gprolog",
+      "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi",
+      "DCC_VERSION": "gprolog --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "rebornix.prolog"
-        ],
         "settings": {
           "files.associations": {
             "*.pl": "prolog"
@@ -63,14 +67,11 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "rebornix.prolog"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "",
-      "DCC_REPL": "gprolog",
-      "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi",
-      "DCC_VERSION": "gprolog --version"
     }
   }
 ]

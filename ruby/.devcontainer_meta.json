@@ -59,11 +59,15 @@
     }
   },
   {
+    "name": "Example devcontainer for ruby",
+    "containerEnv": {
+      "DCC_BINARY": "ruby",
+      "DCC_REPL": "irb",
+      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
+      "DCC_VERSION": "rubocop --version; ruby --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "misogi.ruby-rubocop"
-        ],
         "settings": {
           "[ruby]": {
             "editor.defaultFormatter": "misogi.ruby-rubocop"
@@ -73,14 +77,11 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "misogi.ruby-rubocop"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "ruby",
-      "DCC_REPL": "irb",
-      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
-      "DCC_VERSION": "rubocop --version; ruby --version"
     }
   }
 ]

@@ -49,25 +49,26 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for io",
+    "containerEnv": {
+      "DCC_BINARY": "io",
+      "DCC_REPL": "io",
+      "DCC_SELFTEST": "aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n",
+      "DCC_VERSION": "io --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "kennethceyer.io"
-        ],
         "settings": {
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "kennethceyer.io"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "io",
-      "DCC_REPL": "io",
-      "DCC_SELFTEST": "aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n",
-      "DCC_VERSION": "io --version"
     }
   }
 ]

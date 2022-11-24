@@ -49,26 +49,27 @@
     "remoteUser": "vscode"
   },
   {
+    "name": "Example devcontainer for lua",
+    "containerEnv": {
+      "DCC_BINARY": "lua",
+      "DCC_REPL": "lua",
+      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+      "DCC_VERSION": "lua -v; luarocks --version"
+    },
     "customizations": {
       "vscode": {
-        "extensions": [
-          "sumneko.lua",
-          "bubuabu.busted-test-explorer"
-        ],
         "settings": {
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "sumneko.lua",
+          "bubuabu.busted-test-explorer"
+        ]
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "lua",
-      "DCC_REPL": "lua",
-      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
-      "DCC_VERSION": "lua -v; luarocks --version"
     }
   }
 ]

@@ -72,6 +72,13 @@
     }
   },
   {
+    "name": "Example devcontainer for python",
+    "containerEnv": {
+      "DCC_BINARY": "python",
+      "DCC_REPL": "python",
+      "DCC_SELFTEST": "cHl0aG9uIC1jICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+      "DCC_VERSION": "python --version"
+    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -82,12 +89,6 @@
           }
         }
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "python",
-      "DCC_REPL": "python",
-      "DCC_SELFTEST": "cHl0aG9uIC1jICdwcmludCgiSGVsbG8gV29ybGQhIikn",
-      "DCC_VERSION": "python --version"
     }
   }
 ]
