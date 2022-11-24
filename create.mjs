@@ -562,6 +562,93 @@ function buildWithDevcontainerCli() {
   return image;
 }
 
+function buildWithDocker() {
+  const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
+
+  const languageBuildArgs = Object.entries(
+    resolvedYaml?.devcontainer?.build?.args || []
+  ).reduce(
+    (acc, [key, value]) => [...acc, "--build-arg", `${key}=${value}`],
+    []
+  );
+  const image = ARGS.tag || `dcc-${Date.now()}`;
+
+  const currentMeta = (() => {
+    const meta = JSON.parse(
+      fs.readFileSync(
+        path.join(ARGS.targetDir, ".devcontainer", "devcontainer.json")
+      )
+    );
+    if (meta.build) {
+      delete meta.build;
+    }
+    if (meta.name) {
+      delete meta.name;
+    }
+    if (meta.settings || meta.extensions) {
+      meta.customizations = {
+        vscode: {},
+      };
+      if (meta.settings) {
+        meta.customizations.vscode.settings = meta.settings;
+        delete meta.settings;
+      }
+      if (meta.extensions) {
+        meta.customizations.vscode.extensions = meta.extensions;
+        delete meta.extensions;
+      }
+    }
+
+    return meta;
+  })();
+
+  const oldMeta = (() => {
+    const baseImage = `ghcr.io/dhhyi/dcc-base-${resolvedYaml.devcontainer.build.base}:latest`;
+
+    pullImage(baseImage, true);
+
+    return getDevcontainerMeta(baseImage);
+  })();
+
+  const dockerBuildArgs = [
+    "build",
+    ...languageBuildArgs,
+    "--build-arg",
+    "BUILDKIT_INLINE_CACHE=1",
+    "-t",
+    image,
+    "--label",
+    `devcontainer.metadata=${JSON.stringify([...oldMeta, currentMeta])}`,
+  ];
+
+  if (ARGS.cacheFrom) {
+    dockerBuildArgs.push("--cache-from", ARGS.cacheFrom);
+
+    pullImage(ARGS.cacheFrom);
+  }
+
+  dockerBuildArgs.push(`${ARGS.targetDir}/.devcontainer`);
+
+  if (VERBOSE) {
+    logPersist("executing", "docker", ...dockerBuildArgs);
+  }
+
+  logStatus("building devcontainer");
+  const build = cp.spawnSync("docker", dockerBuildArgs);
+
+  if (build.status !== 0) {
+    logError(build.stderr.toString());
+    process.exit(1);
+  }
+
+  if (VERBOSE) {
+    logPersist(build.stderr.toString());
+  }
+
+  logPersist("built image", image);
+  return image;
+}
+
 function testDevcontainer(image) {
   logPersist("testing devcontainer");
 
@@ -629,7 +716,9 @@ function buildAndTest() {
     return;
   }
 
-  const image = buildWithDevcontainerCli();
+  const image = ARGS.simpleImage
+    ? buildWithDevcontainerCli()
+    : buildWithDocker();
 
   if (ARGS.dumpMeta) {
     const meta = getDevcontainerMeta(image);

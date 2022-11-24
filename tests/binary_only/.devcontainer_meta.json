@@ -49,6 +49,12 @@
     "remoteUser": "vscode"
   },
   {
+    "containerEnv": {
+      "DCC_BINARY": "bash",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "YmFzaCAtYyAiZWNobyAnSGVsbG8gV29ybGQhJyI=",
+      "DCC_VERSION": "bash --version"
+    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -59,12 +65,6 @@
           }
         }
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "bash",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "YmFzaCAtYyAiZWNobyAnSGVsbG8gV29ybGQhJyI=",
-      "DCC_VERSION": "bash --version"
     }
   }
 ]
