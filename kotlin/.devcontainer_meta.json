@@ -62,7 +62,6 @@
     }
   },
   {
-    "name": "Example devcontainer for kotlin",
     "containerEnv": {
       "DCC_BINARY": "",
       "DCC_REPL": "",

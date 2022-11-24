@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for factor",
     "containerEnv": {
       "DCC_BINARY": "factor -run",
       "DCC_REPL": "factor",

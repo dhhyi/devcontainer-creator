@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for erlang",
     "containerEnv": {
       "DCC_BINARY": "escript",
       "DCC_REPL": "erl",

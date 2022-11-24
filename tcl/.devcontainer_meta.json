@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for tcl",
     "containerEnv": {
       "DCC_BINARY": "tclsh",
       "DCC_REPL": "tclsh",

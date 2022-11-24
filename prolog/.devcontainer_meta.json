@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for prolog",
     "containerEnv": {
       "DCC_BINARY": "",
       "DCC_REPL": "gprolog",

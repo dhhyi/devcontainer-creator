@@ -62,7 +62,6 @@
     }
   },
   {
-    "name": "Example devcontainer for clojure",
     "containerEnv": {
       "DCC_BINARY": "clojure -M",
       "DCC_REPL": "clojure",

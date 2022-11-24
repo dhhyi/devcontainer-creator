@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for perl",
     "containerEnv": {
       "DCC_BINARY": "perl",
       "DCC_REPL": "",

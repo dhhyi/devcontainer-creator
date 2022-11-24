@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for raku",
     "containerEnv": {
       "DCC_BINARY": "raku",
       "DCC_REPL": "raku",

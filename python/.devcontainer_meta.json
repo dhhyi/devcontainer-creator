@@ -72,7 +72,6 @@
     }
   },
   {
-    "name": "Example devcontainer for python",
     "containerEnv": {
       "DCC_BINARY": "python",
       "DCC_REPL": "python",

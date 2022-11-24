@@ -59,7 +59,6 @@
     }
   },
   {
-    "name": "Example devcontainer for ruby",
     "containerEnv": {
       "DCC_BINARY": "ruby",
       "DCC_REPL": "irb",

@@ -62,7 +62,6 @@
     }
   },
   {
-    "name": "Example devcontainer for scala",
     "containerEnv": {
       "DCC_BINARY": "amm",
       "DCC_REPL": "amm",

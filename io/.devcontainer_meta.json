@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for io",
     "containerEnv": {
       "DCC_BINARY": "io",
       "DCC_REPL": "io",

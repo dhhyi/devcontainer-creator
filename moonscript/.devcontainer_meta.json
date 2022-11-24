@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for moonscript",
     "containerEnv": {
       "DCC_BINARY": "moon",
       "DCC_REPL": "",

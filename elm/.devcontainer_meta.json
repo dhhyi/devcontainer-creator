@@ -59,7 +59,6 @@
     }
   },
   {
-    "name": "Example devcontainer for elm",
     "containerEnv": {
       "DCC_BINARY": "",
       "DCC_REPL": "elm repl",

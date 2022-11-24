@@ -59,7 +59,6 @@
     }
   },
   {
-    "name": "Example devcontainer for typescript",
     "containerEnv": {
       "DCC_BINARY": "ts-node",
       "DCC_REPL": "ts-node",

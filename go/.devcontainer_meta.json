@@ -66,7 +66,6 @@
     }
   },
   {
-    "name": "Example devcontainer for go",
     "containerEnv": {
       "DCC_BINARY": "go run",
       "DCC_REPL": "yaegi",

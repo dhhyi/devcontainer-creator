@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for haskell",
     "containerEnv": {
       "DCC_BINARY": "runhaskell",
       "DCC_REPL": "ghci",

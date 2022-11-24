@@ -49,7 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "name": "Example devcontainer for julia",
     "containerEnv": {
       "DCC_BINARY": "julia",
       "DCC_REPL": "julia",
