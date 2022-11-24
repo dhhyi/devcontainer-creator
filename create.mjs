@@ -43,7 +43,7 @@ function parseArgs() {
   const tagArg = extraArgs.findIndex((arg) => arg === "--tag");
   const tag = tagArg >= 0 && extraArgs[tagArg + 1];
   const dumpMeta = extraArgs.includes("--dump-meta");
-  const build = extraArgs.includes("--build") || test || tag || dumpMeta;
+  const build = extraArgs.includes("--build") || test || tag;
   const cacheFromArg = extraArgs.findIndex((arg) => arg === "--cache-from");
   const cacheFrom = cacheFromArg >= 0 && extraArgs[cacheFromArg + 1];
   const pinImage = extraArgs.includes("--pin-image");
@@ -571,6 +571,43 @@ function buildWithDevcontainerCli() {
   return image;
 }
 
+function constructDevcontainerMeta() {
+  const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
+
+  const meta = JSON.parse(
+    fs.readFileSync(
+      path.join(ARGS.targetDir, ".devcontainer", "devcontainer.json")
+    )
+  );
+  if (meta.build) {
+    delete meta.build;
+  }
+  if (meta.name) {
+    delete meta.name;
+  }
+  if (meta.settings || meta.extensions) {
+    meta.customizations = {
+      vscode: {},
+    };
+    if (meta.settings) {
+      meta.customizations.vscode.settings = meta.settings;
+      delete meta.settings;
+    }
+    if (meta.extensions) {
+      meta.customizations.vscode.extensions = meta.extensions;
+      delete meta.extensions;
+    }
+  }
+
+  const baseImage = `ghcr.io/dhhyi/dcc-base-${resolvedYaml.devcontainer.build.base}:latest`;
+
+  pullImage(baseImage, true);
+
+  const oldMeta = getDevcontainerMeta(baseImage);
+
+  return [...oldMeta, meta];
+}
+
 function buildWithDocker() {
   const resolvedYaml = yaml.load(fs.readFileSync(TMP_YAML_FILE));
 
@@ -582,43 +619,6 @@ function buildWithDocker() {
   );
   const image = ARGS.tag || `dcc-${Date.now()}`;
 
-  const currentMeta = (() => {
-    const meta = JSON.parse(
-      fs.readFileSync(
-        path.join(ARGS.targetDir, ".devcontainer", "devcontainer.json")
-      )
-    );
-    if (meta.build) {
-      delete meta.build;
-    }
-    if (meta.name) {
-      delete meta.name;
-    }
-    if (meta.settings || meta.extensions) {
-      meta.customizations = {
-        vscode: {},
-      };
-      if (meta.settings) {
-        meta.customizations.vscode.settings = meta.settings;
-        delete meta.settings;
-      }
-      if (meta.extensions) {
-        meta.customizations.vscode.extensions = meta.extensions;
-        delete meta.extensions;
-      }
-    }
-
-    return meta;
-  })();
-
-  const oldMeta = (() => {
-    const baseImage = `ghcr.io/dhhyi/dcc-base-${resolvedYaml.devcontainer.build.base}:latest`;
-
-    pullImage(baseImage, true);
-
-    return getDevcontainerMeta(baseImage);
-  })();
-
   const dockerBuildArgs = [
     "build",
     ...languageBuildArgs,
@@ -627,7 +627,7 @@ function buildWithDocker() {
     "-t",
     image,
     "--label",
-    `devcontainer.metadata=${JSON.stringify([...oldMeta, currentMeta])}`,
+    `devcontainer.metadata=${JSON.stringify(constructDevcontainerMeta())}`,
   ];
 
   if (ARGS.cacheFrom) {
@@ -721,6 +721,18 @@ function testDevcontainer(image) {
 }
 
 function buildAndTest() {
+  if (ARGS.dumpMeta) {
+    let meta;
+    if (ARGS.simpleImage) {
+      pullImage(ARGS.simpleImage, true);
+      meta = getDevcontainerMeta(ARGS.simpleImage);
+    } else {
+      meta = constructDevcontainerMeta();
+    }
+    const metaFile = path.join(ARGS.targetDir, ".devcontainer_meta.json");
+    fs.writeFileSync(metaFile, JSON.stringify(meta, null, 2));
+  }
+
   if (!ARGS.build) {
     return;
   }
@@ -728,12 +740,6 @@ function buildAndTest() {
   const image = ARGS.simpleImage
     ? buildWithDevcontainerCli()
     : buildWithDocker();
-
-  if (ARGS.dumpMeta) {
-    const meta = getDevcontainerMeta(image);
-    const metaFile = path.join(ARGS.targetDir, ".devcontainer_meta.json");
-    fs.writeFileSync(metaFile, JSON.stringify(meta, null, 2));
-  }
 
   if (ARGS.test) {
     testDevcontainer(image);
