@@ -1,0 +1,13 @@
+extends: dcc://typescript
+devcontainer:
+  name: "Complex Extended"
+  selftest: ts-node -e 'console.log("Hello Extended!");'
+  build:
+    root:
+      - RUN npm i -g prettier
+vscode:
+  settings:
+    foo: bar
+  tasks:
+    - label: Say Hi
+      command: ts-node -e 'console.log("Hi!");'

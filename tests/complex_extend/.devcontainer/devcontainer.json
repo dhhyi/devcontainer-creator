@@ -1,0 +1,23 @@
+{
+  "name": "Complex Extended",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "[typescript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    },
+    "foo": "bar"
+  },
+  "containerEnv": {
+    "DCC_BINARY": "ts-node",
+    "DCC_REPL": "ts-node",
+    "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc=",
+    "DCC_VERSION": "ts-node -vvv"
+  }
+}
