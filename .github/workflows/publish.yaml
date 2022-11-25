@@ -153,7 +153,7 @@ jobs:
           curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
             examples/${{ matrix.lang }}.yaml \
             --test \
-            --verbose \
+            --vv \
             --cache-from ghcr.io/dhhyi/dcc-devcontainer-${{ matrix.lang }}:latest \
             --tag devcontainer-${{ matrix.lang }}
         name: dcc

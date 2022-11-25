@@ -12,7 +12,7 @@ export function logStatus(...message: unknown[]) {
     process.stdout.cursorTo(0);
     process.stdout.write(message.join(' '));
   } else {
-    console.timeLog('dcc', ...message);
+    console.timeLog('dcc', message?.join(' ')?.trim());
   }
 }
 

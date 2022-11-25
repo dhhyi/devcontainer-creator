@@ -1,4 +1,3 @@
-import { spawnSync } from 'child_process';
 import {
   appendFileSync,
   existsSync,
@@ -13,13 +12,14 @@ import * as yaml from 'js-yaml';
 import { once } from 'lodash-es';
 
 import { baseImageReference, DCC_PROTOCOL, DCC_REFERENCE } from '../constants';
+import { execute } from '../exec';
 import { Language } from '../language';
 import { logError, logPersist, logStatus, logWarn } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
 import { DevcontainerMeta } from './devcontainer-meta';
 import { AjvCLIBin } from './install-tools';
-import { ParsedArgs, VERBOSE } from './parse-args';
+import { ParsedArgs, VERY_VERBOSE } from './parse-args';
 import { ExtractedResources } from './templates';
 
 async function getYaml(languageYaml: string): Promise<Language> {
@@ -204,12 +204,11 @@ export const ResolvedYaml = once(async () => {
 
   writeFileSync(yamlPath, yaml.dump(resolvedYaml));
 
-  if (VERBOSE) {
+  if (VERY_VERBOSE) {
     logPersist('Resolved YAML:');
     logPersist(yaml.dump(resolvedYaml));
   }
 
-  logStatus('validating yaml');
   await ExtractedResources();
 
   const ajvArgs = [
@@ -221,19 +220,8 @@ export const ResolvedYaml = once(async () => {
     '--errors=text',
     '--verbose',
   ];
-  if (VERBOSE) {
-    logPersist('executing', AjvCLIBin(), ...ajvArgs);
-  }
-  const validation = spawnSync(AjvCLIBin(), ajvArgs);
 
-  if (validation.status !== 0) {
-    logError(validation.stderr.toString());
-    process.exit(1);
-  }
-
-  if (VERBOSE) {
-    logPersist(validation.stdout.toString());
-  }
+  execute('validating yaml', AjvCLIBin, ajvArgs);
 
   return {
     path: yamlPath,

@@ -1,30 +1,21 @@
-import { execSync, spawnSync } from 'child_process';
+import { execSync } from 'child_process';
 
 import { memoize } from 'lodash-es';
 
-import { logError, logStatus, logWarn } from '../logging';
-
-import { VERBOSE } from './parse-args';
+import { execute } from '../exec';
 
 export const PulledImage: (image: string, fail?: boolean) => string = memoize(
-  (image: string, fail = false) => {
+  (image: string, expectSuccess = false) => {
     if (!image.includes(':')) {
-      return PulledImage(`${image}:latest`, fail);
+      return PulledImage(`${image}:latest`, expectSuccess);
     } else {
-      if (!execSync(`docker image ls -q ${image}`).toString().trim()) {
-        logStatus('pulling', image);
-        const pullBase = spawnSync('docker', ['pull', image]);
-
-        if (pullBase.status !== 0) {
-          if (fail) {
-            logError(pullBase.stderr.toString());
-            process.exit(1);
-          } else {
-            logWarn('failed to pull', image);
-          }
-        }
-        if (VERBOSE) {
-          logStatus(pullBase.stdout.toString());
+      if (
+        !execSync(`docker image ls -q ${image}`, { encoding: 'utf-8' }).trim()
+      ) {
+        try {
+          execute('pulling ' + image, 'docker', ['pull', image]);
+        } catch (error) {
+          // do nothing
         }
       }
       return image;

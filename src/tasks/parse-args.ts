@@ -13,7 +13,13 @@ function printUsageAndExit() {
   process.exit(1);
 }
 
-export const VERBOSE = process.argv.includes('--verbose');
+export const VERY_VERBOSE =
+  process.argv.includes('--debug') || process.argv.includes('-vv');
+
+export const VERBOSE =
+  VERY_VERBOSE ||
+  process.argv.includes('--verbose') ||
+  process.argv.includes('-v');
 
 export const ParsedArgs = once(() => {
   if (process.argv.length < 4) {

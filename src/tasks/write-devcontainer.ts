@@ -1,4 +1,3 @@
-import { execSync } from 'child_process';
 import {
   chmodSync,
   existsSync,
@@ -11,12 +10,13 @@ import { join, relative } from 'path';
 import { once } from 'lodash-es';
 
 import { DCC_PROTOCOL } from '../constants';
+import { execute } from '../exec';
 import { logPersist, logStatus } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
 import { GomplateBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
-import { ParsedArgs, VERBOSE } from './parse-args';
+import { ParsedArgs } from './parse-args';
 import { ExtractedResources } from './templates';
 
 function writeUpdateScript() {
@@ -72,21 +72,18 @@ export const WriteDevcontainer = once(async () => {
     }
   });
 
-  const gomplateCmd = [
-    GomplateBin(),
-    `--input-dir ${TMP_DIR}`,
-    '--include "**/*.gomplate"',
-    `--output-map=${targetDir}'/{{ .in | strings.TrimSuffix ".gomplate" }}'`,
-    `-d language=${resolvedYaml.path}`,
-  ].join(' ');
-  if (VERBOSE) {
-    logPersist('executing', gomplateCmd);
-  }
-  logStatus('executing gomplate');
-  execSync(gomplateCmd, {
-    stdio: 'inherit',
+  const gomplateArgs = [
+    '--input-dir',
+    TMP_DIR,
+    '--include',
+    '"**/*.gomplate"',
+    `--output-map=${targetDir}/{{ .in | strings.TrimSuffix ".gomplate" }}`,
+    '-d',
+    `language=${resolvedYaml.path}`,
+  ];
+
+  execute('writing devcontainer', GomplateBin, gomplateArgs, {
     env: {
-      ...process.env,
       GOMPLATE_SUPPRESS_EMPTY: 'true',
       SIMPLE_IMAGE: simpleImage,
     },
