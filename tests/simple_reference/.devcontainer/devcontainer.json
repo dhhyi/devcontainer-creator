@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/dhhyi/dcc-devcontainer-typescript:latest",
+  "image": "ghcr.io/dhhyi/dcc-devcontainer-typescript",
   "containerEnv": {
     "DCC_BINARY": "ts-node",
     "DCC_REPL": "ts-node",

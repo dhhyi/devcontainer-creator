@@ -30,8 +30,8 @@ files.exclude:
   {{ range . }}{{ . }}: true
   {{ end }}
 {{- end -}}
-{{- if $L.vscode.hideFiles -}}
-{{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "HIDE_FILES" $L.vscode.hideFiles)) -}}
+{{- if and (has $L.vscode "hideFiles") ($L.vscode.hideFiles) -}}
+  {{- $settings = coll.Merge $settings (data.YAML (tmpl.Exec "HIDE_FILES" $L.vscode.hideFiles)) -}}
 {{- end -}}
 
 {{- $extensions := coll.Slice -}}

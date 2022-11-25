@@ -3,3 +3,4 @@
 /new*
 /output
 *.bak
+/src/language.d.ts

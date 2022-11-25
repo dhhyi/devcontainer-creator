@@ -1,22 +1,21 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
-const path = require("path");
-const webpack = require("webpack");
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = () => ({
-  entry: "./create.mjs",
-  target: "node",
-  mode: "production",
+  entry: './src/index.ts',
+  // devtool: 'inline-source-map',
+  target: 'node',
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
   experiments: {
     topLevelAwait: true,
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -27,16 +26,24 @@ module.exports = () => ({
       }),
     ],
   },
+  resolve: {
+    extensions: ['.ts'],
+  },
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.gomplate$/i,
-        use: "raw-loader",
+        use: 'raw-loader',
       },
       {
         test: /\.json$/i,
-        type: "javascript/auto",
-        use: "raw-loader",
+        type: 'javascript/auto',
+        use: 'raw-loader',
       },
     ],
   },

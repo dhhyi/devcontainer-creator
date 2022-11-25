@@ -52,8 +52,7 @@
           "properties": {
             "base": {
               "type": "string",
-              "enum": ["debian", "node", "java", "go", "python", "ruby"],
-              "default": "debian"
+              "enum": ["debian", "node", "java", "go", "python", "ruby"]
             },
             "args": {
               "type": "object"
@@ -122,8 +121,7 @@
                 "const": true
               }
             }
-          ],
-          "default": [".devcontainer", ".vscode", ".update_devcontainer.sh"]
+          ]
         },
         "settings": {
           "type": "object"
