@@ -80,5 +80,17 @@
         }
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Say Hi",
+            "command": "ts-node -e 'console.log(\"Hi!\");'"
+          }
+        ]
+      }
+    }
   }
 ]

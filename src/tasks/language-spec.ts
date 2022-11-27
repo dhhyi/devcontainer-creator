@@ -17,7 +17,7 @@ import { Language } from '../language';
 import { logError, logPersist, logStatus, logWarn } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
-import { DevcontainerMeta } from './devcontainer-meta';
+import { getDevcontainerMeta } from './devcontainer-meta';
 import { AjvCLIBin } from './install-tools';
 import { ParsedArgs, VERY_VERBOSE } from './parse-args';
 import { ExtractedResources } from './templates';
@@ -175,7 +175,7 @@ export const ResolvedYaml = once(async () => {
 
   const baseImage = baseImageReference(resolvedYaml.devcontainer.build.base);
 
-  const baseDevcontainerMeta = DevcontainerMeta(baseImage);
+  const baseDevcontainerMeta = getDevcontainerMeta(baseImage);
   const remoteUser = baseDevcontainerMeta.reduce(
     (acc, cur) => cur.remoteUser || acc,
     ''

@@ -3,7 +3,11 @@ import { once } from 'lodash-es';
 import { execute } from '../exec';
 import { logPersist } from '../logging';
 
-import { ConstructedDevcontainerMeta } from './devcontainer-meta';
+import {
+  appendMetaToImage,
+  ConstructedDCCMeta,
+  ConstructedDevcontainerMeta,
+} from './devcontainer-meta';
 import { PulledImage } from './docker-pull';
 import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
@@ -52,10 +56,6 @@ async function buildWithDocker() {
     'BUILDKIT_INLINE_CACHE=1',
     '-t',
     image,
-    '--label',
-    `devcontainer.metadata=${JSON.stringify(
-      await ConstructedDevcontainerMeta()
-    )}`,
   ];
 
   if (cacheFrom) {
@@ -66,6 +66,8 @@ async function buildWithDocker() {
 
   execute('building devcontainer', 'docker', dockerBuildArgs);
 
+  appendMetaToImage(image, await ConstructedDevcontainerMeta());
+
   return image;
 }
 
@@ -75,6 +77,11 @@ export const BuildDevcontainer = once(async () => {
     image = buildWithDevcontainerCli();
   } else {
     image = await buildWithDocker();
+  }
+
+  const dccMeta = await ConstructedDCCMeta();
+  if (dccMeta) {
+    appendMetaToImage(image, dccMeta);
   }
 
   logPersist('built image', image);

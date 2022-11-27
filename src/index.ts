@@ -9,14 +9,14 @@ const { build, test, dumpMeta } = ParsedArgs();
 
 await WriteDevcontainer();
 
-if (dumpMeta) {
-  await DumpDevcontainerMeta();
-}
-
 if (test) {
   await TestDevcontainer();
 } else if (build) {
   await BuildDevcontainer();
+}
+
+if (dumpMeta) {
+  await DumpDevcontainerMeta();
 }
 
 logDone();
