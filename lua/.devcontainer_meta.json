@@ -70,5 +70,17 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Run busted continuously on test",
+            "command": "cont '${fileDirname}/**' busted ${file}"
+          }
+        ]
+      }
+    }
   }
 ]

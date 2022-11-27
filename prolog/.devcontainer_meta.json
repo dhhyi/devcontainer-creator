@@ -72,5 +72,17 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Start REPL on current file",
+            "command": "gprolog --consult-file ${file}"
+          }
+        ]
+      }
+    }
   }
 ]

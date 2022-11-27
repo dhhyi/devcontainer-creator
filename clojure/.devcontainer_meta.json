@@ -85,5 +85,12 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "script": "KG5zICR7VE1fRklMRU5BTUUvXiguKikuY2xqJC8kMS99CiAgKDpnZW4tY2xhc3MpKQoocHJpbnRsbiAiLS0tLS0tLS0tLS0tLS0tLSIpCgokMQo="
+      }
+    }
   }
 ]
