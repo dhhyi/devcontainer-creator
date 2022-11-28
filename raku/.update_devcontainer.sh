@@ -2,4 +2,4 @@
 
 cd "$(dirname "$(readlink -f "$0")")"
 
-curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - dcc://raku . --full --name "Example devcontainer for raku" "$@"
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/raku.yaml . --name "Example devcontainer for raku" "$@"

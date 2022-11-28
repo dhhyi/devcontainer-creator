@@ -2,4 +2,4 @@
 
 cd "$(dirname "$(readlink -f "$0")")"
 
-curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - dcc://io . --full --name "Example devcontainer for io" "$@"
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/io.yaml . --name "Example devcontainer for io" "$@"

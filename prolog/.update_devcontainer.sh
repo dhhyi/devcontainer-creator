@@ -2,4 +2,4 @@
 
 cd "$(dirname "$(readlink -f "$0")")"
 
-curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - dcc://prolog . --full --name "Example devcontainer for prolog" "$@"
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/prolog.yaml . --name "Example devcontainer for prolog" "$@"
