@@ -1,5 +1,6 @@
 import { basename } from 'path';
 
+import getopts from 'getopts';
 import { once } from 'lodash-es';
 
 import { DCC_PROTOCOL, simpleImageReference } from '../constants';
@@ -8,7 +9,38 @@ import { TmpOutputDir } from './create-tmp-dir';
 
 function printUsageAndExit() {
   console.log(
-    `Usage: node ${basename(process.argv[1])} <language.yaml> <target-folder>`
+    `Create a devcontainer.
+
+Usage: node ${basename(process.argv[1])} language-spec [target-folder] [options]
+
+language-spec: Path to a language specification YAML file, or a URL to a language specification YAML file. If the argument starts with "${DCC_PROTOCOL}", the language specification will be downloaded from the repositories example folder (i.e ${DCC_PROTOCOL}lua).
+
+target-folder: Path to the target folder. If not specified, a temporary folder will be used.
+
+Options:
+  --full\tCreate a full devcontainer instead of a minimal one.
+  --name\tName of the devcontainer.
+
+  --build\tBuild the devcontainer after creation.
+  --tag\t\tTag of the devcontainer image.
+  --cache-from\tImage to use as cache for the devcontainer image.
+
+  --test\tTest the devcontainer after creation.
+  --dump-meta\tDump the metadata of the devcontainer.
+
+  -v, --verbose\tVerbose output.
+  -vv, --debug\tDebug output.
+
+  -h, --help\tPrint this help message.
+
+Examples:
+  node ${basename(process.argv[1])} ${DCC_PROTOCOL}lua .
+    Create a devcontainer for Lua in the current folder.
+
+  node ${basename(process.argv[1])} language.yaml --test
+    Create and test a temporary devcontainer for the
+    language specified in language.yaml.
+`
   );
   process.exit(1);
 }
@@ -21,36 +53,46 @@ export const VERBOSE =
   process.argv.includes('--verbose') ||
   process.argv.includes('-v');
 
-export const ParsedArgs = once(() => {
-  if (process.argv.length < 4) {
+interface CmdlArguments {
+  languageYaml: string;
+  targetDir: string;
+
+  fullDevcontainer?: boolean;
+  simpleImage?: string;
+
+  devcontainerName?: string;
+
+  build?: boolean;
+  tag?: string;
+  cacheFrom?: string;
+
+  test?: boolean;
+
+  dumpMeta?: boolean;
+}
+
+export const ParsedArgs: () => CmdlArguments = once(() => {
+  const options = getopts(process.argv.slice(2), {
+    string: ['name', 'cache-from', 'tag'],
+    boolean: ['full', 'test', 'dump-meta', 'v', 'verbose', 'debug'],
+    unknown: (arg) => {
+      if (arg !== 'help' && arg !== '-h') {
+        console.log(`Unknown option: ${arg}`);
+      }
+      printUsageAndExit();
+      return false;
+    },
+  });
+
+  const defaultArgs = options._;
+  if (defaultArgs.length === 0) {
     printUsageAndExit();
   }
 
-  const argv = process.argv.slice(2);
+  const languageYaml = defaultArgs[0];
+  const targetDir = defaultArgs[1] || TmpOutputDir();
 
-  const languageYaml = argv[0];
-  let targetDir = argv[1];
-
-  let extraArgs = argv.slice(2);
-  if (targetDir === '--test') {
-    extraArgs = argv.slice(1);
-    targetDir = TmpOutputDir();
-  } else if (targetDir.startsWith('-')) {
-    printUsageAndExit();
-  }
-
-  const fullDevcontainer = extraArgs.includes('--full');
-  const devcontainerNameArg = extraArgs.findIndex((arg) => arg === '--name');
-  const devcontainerName =
-    devcontainerNameArg >= 0 && extraArgs[devcontainerNameArg + 1];
-  const test = extraArgs.includes('--test');
-  const tagArg = extraArgs.findIndex((arg) => arg === '--tag');
-  const tag = tagArg >= 0 && extraArgs[tagArg + 1];
-  const dumpMeta = extraArgs.includes('--dump-meta');
-  const build = extraArgs.includes('--build') || test || tag;
-  const cacheFromArg = extraArgs.findIndex((arg) => arg === '--cache-from');
-  const cacheFrom = cacheFromArg >= 0 && extraArgs[cacheFromArg + 1];
-
+  const fullDevcontainer = !!options.full;
   let simpleImage = '';
   if (languageYaml.startsWith(DCC_PROTOCOL) && !fullDevcontainer) {
     const lang = languageYaml.substring(DCC_PROTOCOL.length);
@@ -60,13 +102,13 @@ export const ParsedArgs = once(() => {
   return {
     languageYaml,
     targetDir,
-    simpleImage,
     fullDevcontainer,
-    devcontainerName,
-    build,
-    cacheFrom,
-    test,
-    tag,
-    dumpMeta,
+    simpleImage,
+    devcontainerName: options.name,
+    build: !!options.build,
+    tag: options.tag,
+    cacheFrom: options['cache-from'],
+    test: !!options.test,
+    dumpMeta: !!options['dump-meta'],
   };
 });

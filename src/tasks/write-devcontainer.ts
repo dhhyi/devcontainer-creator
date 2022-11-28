@@ -82,11 +82,14 @@ export const WriteDevcontainer = once(async () => {
     `language=${resolvedYaml.path}`,
   ];
 
+  const gomplateEnv: Record<string, string> = {
+    GOMPLATE_SUPPRESS_EMPTY: 'true',
+  };
+  if (simpleImage) {
+    gomplateEnv.SIMPLE_IMAGE = simpleImage;
+  }
   execute('writing devcontainer', GomplateBin, gomplateArgs, {
-    env: {
-      GOMPLATE_SUPPRESS_EMPTY: 'true',
-      SIMPLE_IMAGE: simpleImage,
-    },
+    env: gomplateEnv,
   });
 
   logStatus('removing backups');
