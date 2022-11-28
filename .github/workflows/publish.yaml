@@ -188,9 +188,8 @@ jobs:
           do
             lang=$(basename $yaml .yaml)
             curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
-              dcc://$lang \
+              https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/$lang.yaml \
               dist/test/$lang \
-              --full \
               --dump-meta \
               --name "Example devcontainer for $lang" \
               --cache-from ghcr.io/dhhyi/dcc-devcontainer-$lang:latest

@@ -18,7 +18,6 @@ language-spec: Path to a language specification YAML file, or a URL to a languag
 target-folder: Path to the target folder. If not specified, a temporary folder will be used.
 
 Options:
-  --full\tCreate a full devcontainer instead of a minimal one.
   --name\tName of the devcontainer.
 
   --build\tBuild the devcontainer after creation.
@@ -57,7 +56,6 @@ interface CmdlArguments {
   languageYaml: string;
   targetDir: string;
 
-  fullDevcontainer?: boolean;
   simpleImage?: string;
 
   devcontainerName?: string;
@@ -92,9 +90,8 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
   const languageYaml = defaultArgs[0];
   const targetDir = defaultArgs[1] || TmpOutputDir();
 
-  const fullDevcontainer = !!options.full;
   let simpleImage = '';
-  if (languageYaml.startsWith(DCC_PROTOCOL) && !fullDevcontainer) {
+  if (languageYaml.startsWith(DCC_PROTOCOL)) {
     const lang = languageYaml.substring(DCC_PROTOCOL.length);
     simpleImage = simpleImageReference(lang);
   }
@@ -102,7 +99,6 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
   return {
     languageYaml,
     targetDir,
-    fullDevcontainer,
     simpleImage,
     devcontainerName: options.name,
     build: !!options.build,

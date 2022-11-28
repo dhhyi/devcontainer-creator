@@ -20,22 +20,21 @@ import { ParsedArgs } from './parse-args';
 import { ExtractedResources } from './templates';
 
 function writeUpdateScript() {
-  const { languageYaml, targetDir, fullDevcontainer, devcontainerName } =
-    ParsedArgs();
+  const { languageYaml, targetDir, devcontainerName } = ParsedArgs();
 
   logStatus('writing update script');
 
   let relativeYamlPath;
-  if (languageYaml.startsWith(DCC_PROTOCOL)) {
+  if (
+    languageYaml.startsWith(DCC_PROTOCOL) ||
+    languageYaml.startsWith('http')
+  ) {
     relativeYamlPath = languageYaml;
   } else {
     relativeYamlPath = relative(targetDir, languageYaml);
   }
 
   const updateArgs = [relativeYamlPath, '.'];
-  if (fullDevcontainer) {
-    updateArgs.push('--full');
-  }
   if (devcontainerName) {
     updateArgs.push('--name', devcontainerName);
   }
