@@ -69,5 +69,12 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "julia"
+      }
+    }
   }
 ]

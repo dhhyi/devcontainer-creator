@@ -81,7 +81,8 @@
             "label": "Start REPL on current file",
             "command": "gprolog --consult-file ${file}"
           }
-        ]
+        ],
+        "languageName": "prolog"
       }
     }
   }

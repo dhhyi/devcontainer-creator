@@ -91,7 +91,8 @@
             "label": "Run elm reactor",
             "command": "onchange elm.json -ik -- elm reactor"
           }
-        ]
+        ],
+        "languageName": "elm"
       }
     }
   }

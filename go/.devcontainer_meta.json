@@ -83,5 +83,12 @@
         }
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "go"
+      }
+    }
   }
 ]

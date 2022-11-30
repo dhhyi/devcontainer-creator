@@ -72,5 +72,12 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "idris"
+      }
+    }
   }
 ]

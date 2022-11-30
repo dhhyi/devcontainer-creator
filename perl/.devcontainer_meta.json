@@ -70,5 +70,12 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "perl"
+      }
+    }
   }
 ]

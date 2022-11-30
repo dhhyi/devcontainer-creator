@@ -79,5 +79,12 @@
         }
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "typescript"
+      }
+    }
   }
 ]

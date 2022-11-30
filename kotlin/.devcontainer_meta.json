@@ -82,5 +82,12 @@
         ]
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "kotlin"
+      }
+    }
   }
 ]

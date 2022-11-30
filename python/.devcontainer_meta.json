@@ -89,5 +89,12 @@
         }
       }
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "python"
+      }
+    }
   }
 ]
