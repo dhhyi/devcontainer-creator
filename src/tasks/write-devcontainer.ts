@@ -5,17 +5,19 @@ import {
   unlinkSync,
   writeFileSync,
 } from 'fs';
-import { join, relative } from 'path';
+import { basename, join, relative } from 'path';
 
+import * as yaml from 'js-yaml';
 import { once } from 'lodash-es';
 
-import { DCC_PROTOCOL } from '../constants';
+import { baseImageReference, DCC_PROTOCOL } from '../constants';
 import { execute } from '../exec';
+import { Language } from '../language';
 import { logPersist, logStatus } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
 import { GomplateBin } from './install-tools';
-import { ResolvedYaml } from './language-spec';
+import { ExpandedYaml, ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 import { ExtractedResources } from './templates';
 
@@ -57,11 +59,16 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
   chmodSync(updateScriptPath, '755');
 }
 
-export const WriteDevcontainer = once(async () => {
-  const TMP_DIR = TmpWorkingDir();
-  const { targetDir, simpleImage } = ParsedArgs();
-  const templates = await ExtractedResources();
-  const resolvedYaml = await ResolvedYaml();
+async function executeGomplate(
+  folder: '.devcontainer' | '.vscode',
+  resolvedYamlPath: string,
+  resolvedYamlContent: Language
+) {
+  const workingDir = join(TmpWorkingDir(), folder);
+  const targetDir = join(ParsedArgs().targetDir, folder);
+  const templates = (await ExtractedResources())
+    .filter((t) => t.startsWith(folder))
+    .map((f) => basename(f));
 
   logStatus('creating backups');
   templates.forEach((template) => {
@@ -73,21 +80,19 @@ export const WriteDevcontainer = once(async () => {
 
   const gomplateArgs = [
     '--input-dir',
-    TMP_DIR,
+    workingDir,
     '--include',
     '"**/*.gomplate"',
     `--output-map=${targetDir}/{{ .in | strings.TrimSuffix ".gomplate" }}`,
     '-d',
-    `language=${resolvedYaml.path}`,
+    `language=${resolvedYamlPath}`,
   ];
 
   const gomplateEnv: Record<string, string> = {
     GOMPLATE_SUPPRESS_EMPTY: 'true',
+    BASE_IMAGE: baseImageReference(resolvedYamlContent.extends),
   };
-  if (simpleImage) {
-    gomplateEnv.SIMPLE_IMAGE = simpleImage;
-  }
-  execute('writing devcontainer', GomplateBin, gomplateArgs, {
+  execute('writing ' + folder, GomplateBin, gomplateArgs, {
     env: gomplateEnv,
   });
 
@@ -98,6 +103,17 @@ export const WriteDevcontainer = once(async () => {
       unlinkSync(templatePath);
     }
   });
+}
+
+export const WriteDevcontainer = once(async () => {
+  const resolvedYaml = await ResolvedYaml();
+  const targetDir = ParsedArgs().targetDir;
+
+  await executeGomplate(
+    '.devcontainer',
+    resolvedYaml.path,
+    resolvedYaml.content
+  );
 
   if (resolvedYaml.content?.devcontainer?.build?.files) {
     const files = resolvedYaml.content.devcontainer.build.files;
@@ -113,6 +129,14 @@ export const WriteDevcontainer = once(async () => {
       ['.gitignore', ...Object.keys(files)].join('\n') + '\n'
     );
   }
+
+  const expandedYaml = await ExpandedYaml();
+  const expandedYamlPath = resolvedYaml.path.replace('.yaml', '.expanded.yaml');
+  writeFileSync(expandedYamlPath, yaml.dump(expandedYaml), {
+    encoding: 'utf8',
+  });
+
+  await executeGomplate('.vscode', expandedYamlPath, expandedYaml);
 
   writeUpdateScript();
 

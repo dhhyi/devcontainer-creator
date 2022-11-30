@@ -36,8 +36,26 @@ function transitiveLanguages() {
   return transitive;
 }
 
+function sortLanguages(langs) {
+  const transitive = transitiveLanguages();
+  const points = Object.keys(transitive).reduce(
+    (acc, lang) => ({ ...acc, [lang]: 0 }),
+    {}
+  );
+  Object.entries(transitive).forEach(([lang, deps]) => {
+    if (deps.length) {
+      points[lang] -= 1;
+      deps.forEach((dep) => {
+        points[dep] += 1;
+      });
+    }
+  });
+  return langs.sort((a, b) => points[a] - points[b]);
+}
+
 function output(langs = [], buildBase = false) {
-  let array = [...langs].sort();
+  let array = sortLanguages(langs);
+
   if (process.argv[2] === '--skip') {
     const skipped = process.argv[3].split(',');
     array = array.filter((x) => !skipped.includes(x));
@@ -83,13 +101,13 @@ stdin.on('end', function () {
       .filter((x) => x.startsWith('examples/'))
       .map((x) => x.replace(/^examples\//, '').replace(/\.yaml$/, ''));
 
-    const buildWithTransitive = new Set();
+    const buildWithTransitive = [];
     for (const lang of build) {
-      buildWithTransitive.add(lang);
-      transitive[lang].forEach((x) => buildWithTransitive.add(x));
+      buildWithTransitive.push(lang);
+      transitive[lang].forEach((x) => buildWithTransitive.push(x));
     }
 
-    output(buildWithTransitive);
+    output(buildWithTransitive.filter((v, i, a) => a.indexOf(v) === i));
   } else {
     output();
   }

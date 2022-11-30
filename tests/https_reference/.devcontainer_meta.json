@@ -86,35 +86,5 @@
         "languageName": "typescript"
       }
     }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          },
-          "foo": "bar"
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "tasks": [
-          {
-            "label": "Say Hi",
-            "command": "ts-node -e 'console.log(\"Hi!\");'"
-          }
-        ],
-        "languageName": "typescript"
-      }
-    }
   }
 ]

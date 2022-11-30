@@ -1,4 +1,6 @@
 root: true
+ignorePatterns:
+  - src/language.d.ts
 overrides:
   - files:
       - "*.js"

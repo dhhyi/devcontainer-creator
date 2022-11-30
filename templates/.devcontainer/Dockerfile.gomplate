@@ -1,5 +1,9 @@
 {{- $L := (datasource "language") -}}
 
+{{- if has $L.devcontainer "build" }}
+
+{{- $from := env.Getenv "BASE_IMAGE" -}}
+
 {{- $remoteUser := $L.devcontainer.remoteUser -}}
 
 {{- $packages := coll.Slice -}}
@@ -27,11 +31,16 @@
   {{- end -}}
 {{- end -}}
 
-{{- if not (env.Getenv "SIMPLE_IMAGE" "") }}
-
 {{- "" -}}
-FROM ghcr.io/dhhyi/dcc-base-{{ $L.devcontainer.build.base }}:latest
+FROM {{ $from }}
 {{ "" }}
+
+{{- if and
+   (not (strings.Contains "ghcr.io/dhhyi/dcc-base" $from))
+   (or ($prepareBuildArgs) ($packages) ($rootBuildArgs)
+       (has $L.devcontainer.build "root")) }}
+USER root
+{{ end }}
 
 {{- if $prepareBuildArgs }}
 {{- range $prepareBuildArgs }}

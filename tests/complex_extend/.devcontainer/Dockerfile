@@ -1,6 +1,7 @@
-FROM ghcr.io/dhhyi/dcc-base-node:latest
+FROM ghcr.io/dhhyi/dcc-devcontainer-typescript
 
-RUN npm i -g ts-node
+USER root
+
 RUN npm i -g prettier
 
 USER vscode

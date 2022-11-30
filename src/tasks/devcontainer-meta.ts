@@ -4,26 +4,44 @@ import { join } from 'path';
 
 import { once } from 'lodash-es';
 
+import { execute } from '../exec';
+
 import { BuildDevcontainer } from './build-devcontainer';
 import { PulledImage } from './docker-pull';
+import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 import { WriteDevcontainer } from './write-devcontainer';
+
+interface VSCodeMetaType {
+  extensions?: string[];
+  settings?: Record<string, unknown>;
+}
+
+interface DCCMetaType {
+  tasks?: {
+    label: string;
+    command: string;
+  }[];
+  script?: string | boolean;
+  languageName?: string;
+}
 
 interface DevcontainerMetaType {
   id?: string;
   remoteUser?: string;
   customizations?: {
-    vscode?: {
-      extensions?: string[];
-      settings?: Record<string, unknown>;
-    };
-    dcc?: {
-      tasks?: unknown[];
-      script?: string;
-      languageName?: string;
-    };
+    vscode?: VSCodeMetaType;
+    dcc?: DCCMetaType;
   };
+}
+
+interface MergedDevcontainerMetaType {
+  customizations?: {
+    vscode?: VSCodeMetaType[];
+    dcc?: DCCMetaType[];
+  };
+  containerEnv?: Record<string, string>;
 }
 
 export function getDevcontainerMeta(image: string): DevcontainerMetaType[] {
@@ -37,6 +55,25 @@ export function getDevcontainerMeta(image: string): DevcontainerMetaType[] {
     )
   );
 }
+
+export const MergedDevcontainerMeta = once(
+  async (): Promise<MergedDevcontainerMetaType> => {
+    const targetDir = ParsedArgs().targetDir;
+    return JSON.parse(
+      execute(
+        undefined,
+        DevcontainerCLIBin,
+        [
+          'read-configuration',
+          '--workspace-folder',
+          targetDir,
+          '--include-merged-configuration',
+        ],
+        { response: 'stdout' }
+      )
+    ).mergedConfiguration;
+  }
+);
 
 export const ConstructedDevcontainerMeta: () => Promise<DevcontainerMetaType> =
   once(async () => {
@@ -76,8 +113,10 @@ export const ConstructedDCCMeta: () => Promise<
   const yaml = (await ResolvedYaml()).content;
 
   const dcc: Record<string, unknown> = {};
-  if (yaml.vscode?.script) {
+  if (typeof yaml.vscode?.script === 'string') {
     dcc.script = Buffer.from(yaml.vscode.script).toString('base64');
+  } else if (typeof yaml.vscode?.script === 'boolean') {
+    dcc.script = '';
   }
   if (yaml.vscode?.tasks) {
     dcc.tasks = yaml.vscode.tasks;

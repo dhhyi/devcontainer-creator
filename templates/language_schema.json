@@ -6,7 +6,36 @@
   "additionalProperties": false,
   "properties": {
     "extends": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "base://debian",
+        "base://go",
+        "base://java",
+        "base://node",
+        "base://python",
+        "base://ruby",
+        "dcc://clojure",
+        "dcc://elixir",
+        "dcc://elm",
+        "dcc://erlang",
+        "dcc://factor",
+        "dcc://go",
+        "dcc://haskell",
+        "dcc://idris2",
+        "dcc://io",
+        "dcc://julia",
+        "dcc://kotlin",
+        "dcc://lua",
+        "dcc://moonscript",
+        "dcc://perl",
+        "dcc://prolog",
+        "dcc://python",
+        "dcc://raku",
+        "dcc://ruby",
+        "dcc://scala",
+        "dcc://tcl",
+        "dcc://typescript"
+      ]
     },
     "language": {
       "type": "object",
@@ -50,10 +79,6 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "base": {
-              "type": "string",
-              "enum": ["debian", "node", "java", "go", "python", "ruby"]
-            },
             "args": {
               "type": "object"
             },
@@ -99,7 +124,17 @@
       "additionalProperties": false,
       "properties": {
         "script": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean",
+              "not": {
+                "const": true
+              }
+            }
+          ]
         },
         "extensions": {
           "type": "array",
@@ -131,7 +166,10 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["label", "command"],
+            "required": [
+              "label",
+              "command"
+            ],
             "properties": {
               "label": {
                 "type": "string"
@@ -148,7 +186,9 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["forward-x11"]
+        "enum": [
+          "forward-x11"
+        ]
       }
     }
   }

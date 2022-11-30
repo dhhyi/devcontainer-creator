@@ -1,3 +1,4 @@
+extends: base://node
 language:
   name: typescript
   binary: ts-node
@@ -5,7 +6,6 @@ language:
   version: ts-node -vvv
 devcontainer:
   build:
-    base: node
     root:
       - RUN npm i -g ts-node
   selftest: ts-node -e 'console.log("Hello World!");'

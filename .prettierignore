@@ -2,7 +2,8 @@
 
 /dist
 .devcontainer_meta.json
-
-/templates/**/*.gomplate
+/src/language.d.ts
+/tests/**/*.json
+/templates
 /LICENSE
 /pnpm-lock.yaml

@@ -1,7 +1,9 @@
 const cp = require('child_process');
 
+cp.execSync('npm exec pnpm install');
+
 const rules = {
-  '*': [() => 'npm run format'],
+  '*': [() => 'npm run format', () => 'node synchronize-available.js'],
   '*.{js,ts}': ['eslint --fix --max-warnings=0'],
 };
 

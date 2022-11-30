@@ -16,6 +16,9 @@ jobs:
           npm exec pnpm -- i --prod --ignore-scripts
           npm exec pnpm run build
 
+      - name: Synchronize Languages
+        run: node synchronize-available.js
+
       - name: Test
         run: ./run-tests.sh
 
@@ -144,6 +147,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         lang: ${{ fromJson(needs.checkLangCI.outputs.languages) }}
     steps:

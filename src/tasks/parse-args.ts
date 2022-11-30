@@ -3,7 +3,7 @@ import { basename } from 'path';
 import getopts from 'getopts';
 import { once } from 'lodash-es';
 
-import { DCC_PROTOCOL, simpleImageReference } from '../constants';
+import { DCC_PROTOCOL } from '../constants';
 
 import { TmpOutputDir } from './create-tmp-dir';
 
@@ -56,8 +56,6 @@ interface CmdlArguments {
   languageYaml: string;
   targetDir: string;
 
-  simpleImage?: string;
-
   devcontainerName?: string;
 
   build?: boolean;
@@ -90,16 +88,9 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
   const languageYaml = defaultArgs[0];
   const targetDir = defaultArgs[1] || TmpOutputDir();
 
-  let simpleImage = '';
-  if (languageYaml.startsWith(DCC_PROTOCOL)) {
-    const lang = languageYaml.substring(DCC_PROTOCOL.length);
-    simpleImage = simpleImageReference(lang);
-  }
-
   return {
     languageYaml,
     targetDir,
-    simpleImage,
     devcontainerName: options.name,
     build: !!options.build,
     tag: options.tag,

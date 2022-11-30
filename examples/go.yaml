@@ -1,3 +1,4 @@
+extends: base://go
 language:
   name: go
   binary: go
@@ -6,7 +7,6 @@ language:
   version: go version
 devcontainer:
   build:
-    base: go
     user:
       - RUN go install github.com/traefik/yaegi/cmd/yaegi@latest
   selftest: |

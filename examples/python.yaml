@@ -1,8 +1,7 @@
+extends: base://python
 language:
   name: python
   binary: python
   repl: python
 devcontainer:
-  build:
-    base: python
   selftest: python -c 'print("Hello World!")'

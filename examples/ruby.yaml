@@ -1,3 +1,4 @@
+extends: base://ruby
 language:
   name: ruby
   binary: ruby
@@ -7,7 +8,6 @@ language:
     ruby --version
 devcontainer:
   build:
-    base: ruby
     root:
       - RUN gem install rubocop
   selftest: ruby -e 'puts "Hello World!"'

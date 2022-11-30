@@ -1,3 +1,4 @@
+extends: base://java
 language:
   name: scala
   binary: amm
@@ -6,7 +7,6 @@ devcontainer:
   build:
     args:
       AMMONITE_VERSION: "2.5.4/2.13-2.5.4"
-    base: java
     root:
       - ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm
       - RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm

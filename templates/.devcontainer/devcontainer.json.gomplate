@@ -1,7 +1,5 @@
 {{- $L := (datasource "language") -}}
 
-{{- $simpleImage := env.Getenv "SIMPLE_IMAGE" "" -}}
-
 {{- $settings := dict -}}
 {{- if has $L.vscode "settings" -}}
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
@@ -62,17 +60,17 @@ files.exclude:
     "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
   ],
   {{ end -}}
-  {{ if $simpleImage -}}
-  "image": "{{ $simpleImage }}"
+  {{ if not (has $L.devcontainer "build") -}}
+  "image": "{{ env.Getenv "BASE_IMAGE" }}"
   {{- else -}}
   "build": {
     "dockerfile": "Dockerfile"
     {{- if has $L.devcontainer.build "args" }},
     "args": {{ $L.devcontainer.build.args | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " " }}
     {{- end }}
-  },
+  }{{ end }},
   "settings": {{ $settings | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ if $extensions }},
   "extensions": {{ $extensions | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ end }}
-  {{- end }}{{ if $containerEnv }},
+  {{- if $containerEnv }},
   "containerEnv": {{ $containerEnv | data.ToJSONPretty "  " | strings.Indent "  " | strings.Trim " " }}{{ end }}
 }

@@ -1,3 +1,4 @@
+extends: base://java
 language:
   name: clojure
   binary: clojure
@@ -10,7 +11,6 @@ devcontainer:
   build:
     args:
       CLOJURE_VERSION: "1.11.1.1155"
-    base: java
     root:
       - ADD https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh /tmp
       - RUN chmod +x /tmp/linux-install-${CLOJURE_VERSION}.sh && /tmp/linux-install-${CLOJURE_VERSION}.sh

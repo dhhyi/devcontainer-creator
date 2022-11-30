@@ -4,20 +4,20 @@ import { logError, logPersist, logStatus } from './logging';
 import { VERBOSE, VERY_VERBOSE } from './tasks/parse-args';
 
 export function execute(
-  message: string,
+  message: string | undefined,
   binary: (() => string) | string,
   args: string[]
 ): void;
 
 export function execute(
-  message: string,
+  message: string | undefined,
   binary: (() => string) | string,
   args: string[],
   options: { response?: 'stdout'; env?: Record<string, string> }
 ): string;
 
 export function execute(
-  message: string,
+  message: string | undefined,
   binary: (() => string) | string,
   args: string[],
   options?: {
@@ -29,7 +29,7 @@ export function execute(
 
   if (VERY_VERBOSE) {
     logPersist('executing', binaryResolved, ...args);
-  } else {
+  } else if (message) {
     logStatus(message);
   }
 

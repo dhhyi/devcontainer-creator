@@ -1,23 +1,20 @@
-import {
-  appendFileSync,
-  existsSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync,
-} from 'fs';
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import * as https from 'https';
 import { join } from 'path';
 
 import * as yaml from 'js-yaml';
 import { once } from 'lodash-es';
 
-import { baseImageReference, DCC_PROTOCOL, DCC_REFERENCE } from '../constants';
+import { baseImageReference, DCC_PROTOCOL } from '../constants';
 import { execute } from '../exec';
 import { Language } from '../language';
 import { logError, logPersist, logStatus, logWarn } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
-import { getDevcontainerMeta } from './devcontainer-meta';
+import {
+  getDevcontainerMeta,
+  MergedDevcontainerMeta,
+} from './devcontainer-meta';
 import { AjvCLIBin } from './install-tools';
 import { ParsedArgs, VERY_VERBOSE } from './parse-args';
 import { ExtractedResources } from './templates';
@@ -26,10 +23,7 @@ async function getYaml(languageYaml: string): Promise<Language> {
   const dir = TmpWorkingDir();
 
   if (languageYaml.startsWith(DCC_PROTOCOL)) {
-    languageYaml = DCC_REFERENCE + languageYaml.substring(6);
-    if (!languageYaml.endsWith('.yaml')) {
-      languageYaml += '.yaml';
-    }
+    return { extends: languageYaml as Language['extends'] };
   }
 
   if (languageYaml.startsWith('http')) {
@@ -38,26 +32,23 @@ async function getYaml(languageYaml: string): Promise<Language> {
       unlinkSync(downloadedYaml);
     }
 
-    const downloadFile = async (url: string, fileFullPath: string) => {
-      logStatus(
-        'downloading',
-        url.includes(DCC_REFERENCE)
-          ? url.replace(DCC_REFERENCE, DCC_PROTOCOL).replace(/\.ya?ml$/, '')
-          : url
-      );
+    const downloadFile = async (url: string): Promise<string> => {
+      logStatus('downloading', url);
 
       return new Promise((resolve, reject) => {
+        let rawData = '';
+
         https
           .get(url, (resp) => {
             // chunk received from the server
             resp.on('data', (chunk) => {
-              appendFileSync(fileFullPath, chunk);
+              rawData += chunk;
             });
 
             // last chunk received, we are done
             resp.on('end', () => {
               if (resp.statusCode === 200) {
-                resolve('File downloaded and stored at: ' + fileFullPath);
+                resolve(rawData);
               } else {
                 reject(
                   new Error('Failed to download file: ' + resp.statusMessage)
@@ -70,69 +61,23 @@ async function getYaml(languageYaml: string): Promise<Language> {
           });
       });
     };
+
     try {
-      await downloadFile(languageYaml, downloadedYaml);
+      return yaml.load(await downloadFile(languageYaml)) as Language;
     } catch (error) {
       logError(error);
       process.exit(1);
     }
-    languageYaml = downloadedYaml;
   }
 
   return yaml.load(readFileSync(languageYaml, 'utf8')) as Language;
 }
 
-function isObject(item: unknown) {
-  return item && typeof item === 'object' && !Array.isArray(item);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mergeDeep(target: any, source: any): any {
-  if (target === undefined && source === undefined) {
-    return;
-  }
-  let output = { ...target };
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      if (isObject(source[key])) {
-        if (!(key in target)) {
-          output = { ...output, [key]: source[key] };
-        } else {
-          output[key] = mergeDeep(target[key], source[key]);
-        }
-      } else if (Array.isArray(source[key])) {
-        output = {
-          ...output,
-          [key]: [...(target[key] || []), ...source[key]],
-        };
-      } else {
-        output = { ...output, [key]: source[key] };
-      }
-    });
-  } else if (target === undefined) {
-    return mergeDeep({}, source);
-  }
-  return output;
-}
-
-function mergeYaml(base: Language, ext: Language): Language {
-  const newYaml = mergeDeep(base, ext);
-  if (ext.language) {
-    newYaml.language = ext.language;
-  }
-  return newYaml;
-}
-
 export const ResolvedYaml = once(async () => {
   const TMP_DIR = TmpWorkingDir();
-  const { devcontainerName, languageYaml, simpleImage } = ParsedArgs();
+  const { devcontainerName, languageYaml } = ParsedArgs();
 
   let resolvedYaml = await getYaml(languageYaml);
-  while (resolvedYaml?.extends) {
-    const extendingYaml = await getYaml(resolvedYaml.extends);
-    delete resolvedYaml.extends;
-    resolvedYaml = mergeYaml(extendingYaml, resolvedYaml);
-  }
 
   if (devcontainerName) {
     if (!resolvedYaml.devcontainer) {
@@ -144,22 +89,19 @@ export const ResolvedYaml = once(async () => {
   if (!resolvedYaml) {
     resolvedYaml = {};
   }
+  if (!resolvedYaml.extends) {
+    resolvedYaml.extends = 'base://debian';
+  }
   if (!resolvedYaml.language) {
     resolvedYaml.language = {};
   }
   if (!resolvedYaml.devcontainer) {
     resolvedYaml.devcontainer = {};
   }
-  if (!resolvedYaml.devcontainer.build) {
-    resolvedYaml.devcontainer.build = {};
-  }
-  if (!resolvedYaml.devcontainer.build.base) {
-    resolvedYaml.devcontainer.build.base = 'debian';
-  }
   if (!resolvedYaml.vscode) {
     resolvedYaml.vscode = {};
   }
-  if (!simpleImage && !resolvedYaml.vscode.hideFiles) {
+  if (!resolvedYaml.vscode.hideFiles) {
     resolvedYaml.vscode.hideFiles = [
       '.devcontainer',
       '.vscode',
@@ -173,7 +115,7 @@ export const ResolvedYaml = once(async () => {
     (v, i, a) => a.indexOf(v) === i
   );
 
-  const baseImage = baseImageReference(resolvedYaml.devcontainer.build.base);
+  const baseImage = baseImageReference(resolvedYaml.extends);
 
   const baseDevcontainerMeta = getDevcontainerMeta(baseImage);
   const remoteUser = baseDevcontainerMeta.reduce(
@@ -227,4 +169,60 @@ export const ResolvedYaml = once(async () => {
     path: yamlPath,
     content: resolvedYaml,
   };
+});
+
+export const ExpandedYaml = once(async () => {
+  const merged = await MergedDevcontainerMeta();
+
+  const resolvedYaml = (await ResolvedYaml()).content;
+
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  if (!Object.keys(resolvedYaml?.language || {}).length) {
+    if (merged?.containerEnv?.DCC_REPL) {
+      resolvedYaml.language!.repl = merged.containerEnv.DCC_REPL;
+    }
+    if (merged?.containerEnv?.DCC_BINARY) {
+      const split = merged.containerEnv.DCC_BINARY.split(' ');
+      const binary = split[0];
+      resolvedYaml.language!.binary = binary;
+      if (split.length > 1) {
+        resolvedYaml.language!.binaryArgs = split.slice(1).join(' ');
+      }
+    }
+    if (merged?.containerEnv?.DCC_VERSION) {
+      resolvedYaml.language!.version = merged.containerEnv.DCC_VERSION;
+    }
+  }
+  const custom = [
+    ...(merged.customizations?.dcc || []),
+    {
+      tasks: resolvedYaml.vscode!.tasks,
+      script: resolvedYaml.vscode!.script,
+      languageName: resolvedYaml.language?.name,
+    },
+  ].reduce((acc, val) => ({
+    script:
+      val.script === undefined
+        ? acc.script
+        : typeof val.script === 'boolean'
+        ? val.script
+        : Buffer.from(val.script, 'base64').toString('utf-8'),
+    tasks: [...(acc.tasks || []), ...(val.tasks || [])].filter(
+      (v, i, a) => a.findIndex((t) => t.label === v.label) === i
+    ),
+    languageName: val.languageName || acc.languageName,
+  }));
+
+  if (custom?.script) {
+    resolvedYaml.vscode!.script = custom.script;
+  }
+  if (custom?.tasks) {
+    resolvedYaml.vscode!.tasks = custom.tasks;
+  }
+  if (custom?.languageName) {
+    resolvedYaml.language!.name = custom.languageName;
+  }
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
+
+  return resolvedYaml;
 });

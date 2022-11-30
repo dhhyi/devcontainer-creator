@@ -73,10 +73,10 @@ async function buildWithDocker() {
 
 export const BuildDevcontainer = once(async () => {
   let image: string;
-  if (ParsedArgs().simpleImage) {
-    image = buildWithDevcontainerCli();
-  } else {
+  if ((await ResolvedYaml()).content.devcontainer?.build) {
     image = await buildWithDocker();
+  } else {
+    image = buildWithDevcontainerCli();
   }
 
   const dccMeta = await ConstructedDCCMeta();

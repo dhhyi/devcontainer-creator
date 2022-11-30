@@ -1,10 +1,10 @@
+extends: base://node
 language:
   name: elm
   repl: elm repl
   version: elm --version
 devcontainer:
   build:
-    base: node
     root:
       - RUN npm i -g elm elm-test elm-format elm-review onchange
   selftest: |
