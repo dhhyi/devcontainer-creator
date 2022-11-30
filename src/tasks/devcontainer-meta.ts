@@ -21,6 +21,7 @@ interface DevcontainerMetaType {
     dcc?: {
       tasks?: unknown[];
       script?: string;
+      languageName?: string;
     };
   };
 }
@@ -73,23 +74,23 @@ export const ConstructedDCCMeta: () => Promise<
   DevcontainerMetaType | undefined
 > = once(async () => {
   const yaml = (await ResolvedYaml()).content;
-  if (yaml.vscode?.script || yaml.vscode?.tasks) {
-    const meta: DevcontainerMetaType = {
+
+  const dcc: Record<string, unknown> = {};
+  if (yaml.vscode?.script) {
+    dcc.script = Buffer.from(yaml.vscode.script).toString('base64');
+  }
+  if (yaml.vscode?.tasks) {
+    dcc.tasks = yaml.vscode.tasks;
+  }
+  if (yaml.language?.name) {
+    dcc.languageName = yaml.language.name;
+  }
+  if (Object.keys(dcc).length > 0) {
+    return {
       customizations: {
-        dcc: {},
+        dcc,
       },
     };
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    if (yaml.vscode?.script) {
-      meta.customizations!.dcc!.script = Buffer.from(
-        yaml.vscode.script
-      ).toString('base64');
-    }
-    if (yaml.vscode?.tasks) {
-      meta.customizations!.dcc!.tasks = yaml.vscode.tasks;
-    }
-    /* eslint-enable @typescript-eslint/no-non-null-assertion */
-    return meta;
   }
 });
 

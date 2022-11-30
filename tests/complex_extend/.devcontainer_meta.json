@@ -89,7 +89,8 @@
             "label": "Say Hi",
             "command": "ts-node -e 'console.log(\"Hi!\");'"
           }
-        ]
+        ],
+        "languageName": "typescript"
       }
     }
   }

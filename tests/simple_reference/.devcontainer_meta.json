@@ -87,5 +87,12 @@
       "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpOyc=",
       "DCC_VERSION": "ts-node -vvv"
     }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "typescript"
+      }
+    }
   }
 ]
