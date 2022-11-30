@@ -81,6 +81,13 @@
     }
   },
   {
+    "customizations": {
+      "dcc": {
+        "languageName": "typescript"
+      }
+    }
+  },
+  {
     "containerEnv": {
       "DCC_BINARY": "ts-node",
       "DCC_REPL": "ts-node",
