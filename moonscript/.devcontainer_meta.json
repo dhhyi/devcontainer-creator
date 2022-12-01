@@ -115,7 +115,7 @@
             "command": "cont '${fileDirname}/**' busted ${file}"
           }
         ],
-        "languageName": "lua"
+        "languageName": "moonscript"
       }
     }
   }

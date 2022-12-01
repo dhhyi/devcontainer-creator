@@ -1,13 +1,9 @@
 {
   "Script": {
-    "scope": "erlang",
+    "scope": "elixir",
     "prefix": "script",
     "body": [
-      "-module(${TM_FILENAME/^(.*).erl$/$1/}).",
-      "-export([main/1]).",
-      "main(_) -\u003e",
-      "  $1",
-      ""
+      "false"
     ],
     "description": "Script template"
   }
