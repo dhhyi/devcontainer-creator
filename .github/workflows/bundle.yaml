@@ -1,0 +1,30 @@
+name: bundle
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build
+        run: |
+          npm exec pnpm -- i --prod --ignore-scripts
+          npm exec pnpm run build
+
+      - name: Synchronize Languages
+        run: node synchronize-available.js
+
+      - name: Test
+        run: ./run-tests.sh
+
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: dist
+          FOLDER: dist
+          SQUASH_HISTORY: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

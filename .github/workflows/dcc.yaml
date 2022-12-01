@@ -1,0 +1,44 @@
+name: dccTemplate
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+      skip:
+        required: false
+        type: boolean
+
+jobs:
+  build:
+    if: ${{ !inputs.skip }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - run: |
+          curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
+            examples/${{ inputs.name }}.yaml \
+            --test \
+            --debug \
+            --cache-from ghcr.io/dhhyi/dcc-devcontainer-${{ inputs.name }}:latest \
+            --tag devcontainer-${{ inputs.name }}
+        name: dcc
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          echo "FROM devcontainer-${{ inputs.name }}" | docker build \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            --label org.opencontainers.image.source="https://github.com/dhhyi/devcontainer-creator" \
+            --label org.opencontainers.image.description="VSCode devcontainer for ${{ inputs.name }}" \
+            -t ghcr.io/dhhyi/dcc-devcontainer-${{ inputs.name }}:latest \
+            -
+          docker push ghcr.io/dhhyi/dcc-devcontainer-${{ inputs.name }}:latest
+        name: publish

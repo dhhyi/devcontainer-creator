@@ -12,10 +12,6 @@ function allLanguages() {
     .map((x) => x.replace(/\.yaml$/, ''));
 }
 
-function baseImages() {
-  return fs.readdirSync('base-images').filter((x) => x !== 'debian');
-}
-
 function transitiveLanguages() {
   const langs = allLanguages();
   const transitive = {};
@@ -36,34 +32,21 @@ function transitiveLanguages() {
   return transitive;
 }
 
-function sortLanguages(langs) {
-  const transitive = transitiveLanguages();
-  const points = Object.keys(transitive).reduce(
-    (acc, lang) => ({ ...acc, [lang]: 0 }),
-    {}
-  );
-  Object.entries(transitive).forEach(([lang, deps]) => {
-    if (deps.length) {
-      points[lang] -= 1;
-      deps.forEach((dep) => {
-        points[dep] += 1;
-      });
-    }
-  });
-  return langs.sort((a, b) => points[a] - points[b]);
-}
-
 function output(langs = [], buildBase = false) {
-  let array = sortLanguages(langs);
-
   if (process.argv[2] === '--skip') {
     const skipped = process.argv[3].split(',');
-    array = array.filter((x) => !skipped.includes(x));
+    langs = langs.filter((x) => !skipped.includes(x));
   }
-  console.log(`languages=${JSON.stringify(array)}`);
-  console.log(`buildLanguages=${!!array.length}`);
+  console.log(`languages=${JSON.stringify(langs)}`);
+  allLanguages().forEach((lang) => {
+    console.log(
+      `dcc${lang.substring(0, 1).toUpperCase()}${lang.substring(
+        1
+      )}=${langs.includes(lang)}`
+    );
+  });
+  console.log(`buildLanguages=${!!langs.length}`);
   console.log(`buildBase=${buildBase}`);
-  console.log(`baseImages=${JSON.stringify(baseImages())}`);
   process.exit(0);
 }
 

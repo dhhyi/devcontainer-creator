@@ -1,0 +1,37 @@
+name: features
+
+on:
+  workflow_call:
+    inputs:
+      skip:
+        required: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !inputs.skip }}
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install latest devcontainer CLI
+        run: npm install -g @devcontainers/cli
+
+      - name: Test Features
+        run: devcontainer features test features
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "./features"
+          disable_matcher: true
+          check_together: "yes"
+
+      - name: Publish Features
+        uses: devcontainers/action@v1
+        with:
+          publish-features: true
+          base-path-to-features: ./features/src
+          generate-docs: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
