@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-go:latest
+FROM ghcr.io/dhhyi/dcc-base-go
 
 USER vscode
 

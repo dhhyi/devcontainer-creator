@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-ruby:latest
+FROM ghcr.io/dhhyi/dcc-base-ruby
 
 RUN gem install rubocop
 

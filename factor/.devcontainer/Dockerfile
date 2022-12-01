@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-debian:latest
+FROM ghcr.io/dhhyi/dcc-base-debian
 
 ARG FACTOR_VERSION
 ARG WORKSPACE

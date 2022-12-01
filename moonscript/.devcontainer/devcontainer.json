@@ -1,11 +1,7 @@
 {
   "name": "Example devcontainer for moonscript",
   "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "LUAROCKS_VERSION": "3.9.1",
-      "LUA_VERSION": "5.4.4"
-    }
+    "dockerfile": "Dockerfile"
   },
   "settings": {
     "files.exclude": {
@@ -15,8 +11,6 @@
     }
   },
   "extensions": [
-    "sumneko.lua",
-    "bubuabu.busted-test-explorer",
     "vgalaktionov.moonscript"
   ],
   "containerEnv": {

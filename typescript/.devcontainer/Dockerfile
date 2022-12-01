@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-node:latest
+FROM ghcr.io/dhhyi/dcc-base-node
 
 RUN npm i -g ts-node
 

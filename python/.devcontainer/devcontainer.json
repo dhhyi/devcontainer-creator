@@ -1,8 +1,6 @@
 {
   "name": "Example devcontainer for python",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "ghcr.io/dhhyi/dcc-base-python",
   "settings": {
     "files.exclude": {
       ".devcontainer": true,

@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-java:latest
+FROM ghcr.io/dhhyi/dcc-base-java
 
 ARG AMMONITE_VERSION
 

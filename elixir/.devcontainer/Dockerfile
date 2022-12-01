@@ -1,13 +1,10 @@
-FROM ghcr.io/dhhyi/dcc-base-debian:latest
+FROM ghcr.io/dhhyi/dcc-devcontainer-erlang
 
-RUN locale-gen --no-purge en_US.UTF-8
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
-ADD https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb /tmp/erlang-repo.deb
-RUN dpkg -i /tmp/erlang-repo.deb
+USER root
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    esl-erlang elixir \
+    elixir \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER vscode
