@@ -75,7 +75,7 @@ async function getYaml(languageYaml: string): Promise<Language> {
 
 export const ResolvedYaml = once(async () => {
   const TMP_DIR = TmpWorkingDir();
-  const { devcontainerName, languageYaml } = ParsedArgs();
+  const { devcontainerName, languageYaml, vscode } = ParsedArgs();
 
   let resolvedYaml = await getYaml(languageYaml);
 
@@ -104,9 +104,11 @@ export const ResolvedYaml = once(async () => {
   if (!resolvedYaml.vscode.hideFiles) {
     resolvedYaml.vscode.hideFiles = [
       '.devcontainer',
-      '.vscode',
       '.update_devcontainer.sh',
     ];
+    if (vscode) {
+      resolvedYaml.vscode.hideFiles.push('.vscode');
+    }
   }
   if (!resolvedYaml.extras) {
     resolvedYaml.extras = [];

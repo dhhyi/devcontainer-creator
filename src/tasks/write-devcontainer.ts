@@ -22,7 +22,7 @@ import { ParsedArgs } from './parse-args';
 import { ExtractedResources } from './templates';
 
 function writeUpdateScript() {
-  const { languageYaml, targetDir, devcontainerName } = ParsedArgs();
+  const { languageYaml, targetDir, devcontainerName, vscode } = ParsedArgs();
 
   logStatus('writing update script');
 
@@ -39,6 +39,9 @@ function writeUpdateScript() {
   const updateArgs = [relativeYamlPath, '.'];
   if (devcontainerName) {
     updateArgs.push('--name', devcontainerName);
+  }
+  if (!vscode) {
+    updateArgs.push('--no-vscode');
   }
   updateArgs.push('"$@"');
 
@@ -107,7 +110,7 @@ async function executeGomplate(
 
 export const WriteDevcontainer = once(async () => {
   const resolvedYaml = await ResolvedYaml();
-  const targetDir = ParsedArgs().targetDir;
+  const { targetDir, vscode } = ParsedArgs();
 
   await executeGomplate(
     '.devcontainer',
@@ -130,13 +133,18 @@ export const WriteDevcontainer = once(async () => {
     );
   }
 
-  const expandedYaml = await ExpandedYaml();
-  const expandedYamlPath = resolvedYaml.path.replace('.yaml', '.expanded.yaml');
-  writeFileSync(expandedYamlPath, yaml.dump(expandedYaml), {
-    encoding: 'utf8',
-  });
+  if (vscode) {
+    const expandedYaml = await ExpandedYaml();
+    const expandedYamlPath = resolvedYaml.path.replace(
+      '.yaml',
+      '.expanded.yaml'
+    );
+    writeFileSync(expandedYamlPath, yaml.dump(expandedYaml), {
+      encoding: 'utf8',
+    });
 
-  await executeGomplate('.vscode', expandedYamlPath, expandedYaml);
+    await executeGomplate('.vscode', expandedYamlPath, expandedYaml);
+  }
 
   writeUpdateScript();
 

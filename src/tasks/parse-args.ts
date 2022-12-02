@@ -26,6 +26,7 @@ Options:
 
   --test\tTest the devcontainer after creation.
   --dump-meta\tDump the metadata of the devcontainer.
+  --no-vscode\tDo not create a .vscode folder.
 
   -v, --verbose\tVerbose output.
   -vv, --debug\tDebug output.
@@ -64,13 +65,17 @@ interface CmdlArguments {
 
   test?: boolean;
 
+  vscode?: boolean;
   dumpMeta?: boolean;
 }
 
 export const ParsedArgs: () => CmdlArguments = once(() => {
   const options = getopts(process.argv.slice(2), {
     string: ['name', 'cache-from', 'tag'],
-    boolean: ['full', 'test', 'dump-meta', 'v', 'verbose', 'debug'],
+    boolean: ['full', 'test', 'dump-meta', 'vscode', 'v', 'verbose', 'debug'],
+    default: {
+      vscode: true,
+    },
     unknown: (arg) => {
       if (arg !== 'help' && arg !== '-h') {
         console.log(`Unknown option: ${arg}`);
@@ -97,5 +102,6 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     cacheFrom: options['cache-from'],
     test: !!options.test,
     dumpMeta: !!options['dump-meta'],
+    vscode: !!options.vscode,
   };
 });
