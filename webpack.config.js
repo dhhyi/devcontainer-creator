@@ -53,5 +53,8 @@ module.exports = () => ({
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
+    new webpack.DefinePlugin({
+      GIT_REV: JSON.stringify(process.env.GIT_REV) || Date.now().toString(),
+    }),
   ],
 });

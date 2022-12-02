@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { mkdirSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { once } from 'lodash-es';
@@ -8,15 +8,13 @@ import { execute } from '../exec';
 import { logError } from '../logging';
 
 import { BuildDevcontainer } from './build-devcontainer';
-import { TmpWorkingDir } from './create-tmp-dir';
+import { TmpTestingDir } from './create-tmp-dir';
 import { DevcontainerCLIBin } from './install-tools';
 
 export const TestDevcontainer = once(async () => {
-  const TMP_DIR = TmpWorkingDir();
   const image = await BuildDevcontainer();
 
-  const testingTmpDir = join(TMP_DIR, 'testing');
-  mkdirSync(testingTmpDir);
+  const testingTmpDir = TmpTestingDir();
   writeFileSync(
     join(testingTmpDir, '.devcontainer.json'),
     JSON.stringify({ image })
