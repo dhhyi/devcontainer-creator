@@ -19,6 +19,7 @@ jobs:
       dccHaskell: ${{ steps.check.outputs.dccHaskell }}
       dccIdris2: ${{ steps.check.outputs.dccIdris2 }}
       dccIo: ${{ steps.check.outputs.dccIo }}
+      dccJavascript: ${{ steps.check.outputs.dccJavascript }}
       dccJulia: ${{ steps.check.outputs.dccJulia }}
       dccKotlin: ${{ steps.check.outputs.dccKotlin }}
       dccLua: ${{ steps.check.outputs.dccLua }}
@@ -230,6 +231,18 @@ jobs:
       name: io
       skip: ${{ needs.calc.outputs.dccIo == 'false' }}
     secrets: inherit
+  dccJavascript:
+    needs:
+      - calc
+      - bundle
+      - baseNode
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://javascript
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: javascript
+      skip: ${{ needs.calc.outputs.dccJavascript == 'false' }}
+    secrets: inherit
   dccJulia:
     needs:
       - calc
@@ -386,6 +399,7 @@ jobs:
       - dccHaskell
       - dccIdris2
       - dccIo
+      - dccJavascript
       - dccJulia
       - dccKotlin
       - dccLua

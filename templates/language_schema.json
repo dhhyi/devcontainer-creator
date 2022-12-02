@@ -23,6 +23,7 @@
         "dcc://haskell",
         "dcc://idris2",
         "dcc://io",
+        "dcc://javascript",
         "dcc://julia",
         "dcc://kotlin",
         "dcc://lua",

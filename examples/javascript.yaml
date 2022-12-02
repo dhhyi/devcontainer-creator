@@ -1,0 +1,6 @@
+extends: base://node
+language:
+  binary: node
+  repl: node
+devcontainer:
+  selftest: node -e 'console.log("Hello World!")'
