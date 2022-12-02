@@ -57,6 +57,17 @@ jobs:
     with:
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
+  baseBrew:
+    needs:
+      - calc
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: base://brew
+    uses: ./.github/workflows/base.yaml
+    with:
+      name: brew
+      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
+    secrets: inherit
   baseDebian:
     needs:
       - calc

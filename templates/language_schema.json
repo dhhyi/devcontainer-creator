@@ -8,6 +8,7 @@
     "extends": {
       "type": "string",
       "enum": [
+        "base://brew",
         "base://debian",
         "base://go",
         "base://java",

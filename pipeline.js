@@ -36,11 +36,26 @@ function readDependency(file) {
     const devcontainerJson = JSON.parse(
       fs.readFileSync(path.join(file, '.devcontainer.json'), 'utf8')
     );
-    const baseImage = devcontainerJson.image.replace(
+
+    let lookupImage;
+    if (devcontainerJson.image) {
+      lookupImage = devcontainerJson.image;
+    } else if (devcontainerJson.build && devcontainerJson.build.dockerfile) {
+      const dockerfilePath = path.join(file, devcontainerJson.build.dockerfile);
+      const dockerfile = fs.readFileSync(dockerfilePath, 'utf8');
+      const match = dockerfile.match(/^FROM (.*)$/m);
+      if (match) {
+        lookupImage = match[1];
+      } else {
+        throw new Error(`Could not find FROM statement in ${dockerfilePath}`);
+      }
+    }
+
+    const baseImage = lookupImage.replace(
       'ghcr.io/dhhyi/dcc-base-',
       BASE_PROTOCOL
     );
-    if (baseImage === devcontainerJson.image) {
+    if (baseImage === lookupImage) {
       return 'features';
     } else {
       return baseImage;
