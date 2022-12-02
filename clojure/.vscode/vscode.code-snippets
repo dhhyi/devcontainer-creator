@@ -3,7 +3,12 @@
     "scope": "clojure",
     "prefix": "script",
     "body": [
-      "KG5zICR7VE1fRklMRU5BTUUvXiguKikuY2xqJC8kMS99CiAgKDpnZW4tY2xhc3MpKQoocHJpbnRsbiAiLS0tLS0tLS0tLS0tLS0tLSIpCgokMQo="
+      "(ns ${TM_FILENAME/^(.*).clj$/$1/}",
+      "  (:gen-class))",
+      "(println \"----------------\")",
+      "",
+      "$1",
+      ""
     ],
     "description": "Script template"
   }
