@@ -1,0 +1,11 @@
+{
+  "Script": {
+    "scope": "typescript",
+    "prefix": "script",
+    "body": [
+      "console.log('-------');",
+      ""
+    ],
+    "description": "Script template"
+  }
+}

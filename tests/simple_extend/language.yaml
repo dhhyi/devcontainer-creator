@@ -8,3 +8,5 @@ vscode:
   tasks:
     - label: Say Hi
       command: ts-node -e 'console.log("Hi!");'
+  script: |
+    console.log('-------');

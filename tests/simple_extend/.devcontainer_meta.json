@@ -107,6 +107,7 @@
   {
     "customizations": {
       "dcc": {
+        "script": "Y29uc29sZS5sb2coJy0tLS0tLS0nKTsK",
         "tasks": [
           {
             "label": "Say Hi",

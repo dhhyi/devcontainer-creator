@@ -196,19 +196,20 @@ export const ExpandedYaml = once(async () => {
     }
   }
   const custom = [
-    ...(merged.customizations?.dcc || []),
+    ...(merged.customizations?.dcc || []).map((e) => ({
+      ...e,
+      script:
+        typeof e.script === 'string'
+          ? Buffer.from(e.script, 'base64').toString('utf-8')
+          : e.script,
+    })),
     {
       tasks: resolvedYaml.vscode!.tasks,
       script: resolvedYaml.vscode!.script,
       languageName: resolvedYaml.language?.name,
     },
   ].reduce((acc, val) => ({
-    script:
-      val.script === undefined
-        ? acc.script
-        : typeof val.script === 'boolean'
-        ? val.script
-        : Buffer.from(val.script, 'base64').toString('utf-8'),
+    script: val.script === undefined ? acc.script : val.script,
     tasks: [...(acc.tasks || []), ...(val.tasks || [])].filter(
       (v, i, a) => a.findIndex((t) => t.label === v.label) === i
     ),
