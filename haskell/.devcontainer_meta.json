@@ -73,7 +73,7 @@
   {
     "customizations": {
       "dcc": {
-        "script": "bW9kdWxlIE1haW4gd2hlcmUKCm1haW4gPSBkbwogIHB1dFN0ckxuICItLS0tLS0tLS0tLS0tLS0tIgogICQxCg==",
+        "script": "Ylc5a2RXeGxJRTFoYVc0Z2QyaGxjbVVLQ20xaGFXNGdQU0JrYndvZ0lIQjFkRk4wY2t4dUlDSXRMUzB0TFMwdExTMHRMUzB0TFMwdElnb2dJQ1F4Q2c9PQ==",
         "languageName": "haskell"
       }
     }

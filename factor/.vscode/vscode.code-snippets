@@ -3,12 +3,7 @@
     "scope": "factor",
     "prefix": "script",
     "body": [
-      "USING: io kernel math prettyprint ;",
-      "",
-      "\"------------------------\" print",
-      "",
-      "$1",
-      ""
+      "VVNJTkc6IGlvIGtlcm5lbCBtYXRoIHByZXR0eXByaW50IDsKCiItLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0iIHByaW50CgokMQo="
     ],
     "description": "Script template"
   }
