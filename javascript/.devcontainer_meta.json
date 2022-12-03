@@ -62,6 +62,9 @@
     "customizations": {
       "vscode": {
         "settings": {
+          "[javascript]": {
+            "editor.defaultFormatter": "vscode.typescript-language-features"
+          },
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,

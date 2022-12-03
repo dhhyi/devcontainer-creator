@@ -2,6 +2,9 @@
   "name": "Example devcontainer for javascript",
   "image": "ghcr.io/dhhyi/dcc-base-node",
   "settings": {
+    "[javascript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
     "files.exclude": {
       ".devcontainer": true,
       ".update_devcontainer.sh": true,
