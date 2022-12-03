@@ -4,3 +4,7 @@ language:
   repl: node
 devcontainer:
   selftest: node -e 'console.log("Hello World!")'
+vscode:
+  settings:
+    "[javascript]":
+      editor.defaultFormatter: vscode.typescript-language-features
