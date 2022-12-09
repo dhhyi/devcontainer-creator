@@ -6,7 +6,8 @@
   "scripts": {
     "prepare": "husky install",
     "build": "json2ts templates/language_schema.json src/language.d.ts && webpack --mode=production --node-env=production",
-    "format": "prettier --write -u \"**/*\""
+    "format": "prettier --write -u \"**/*\"",
+    "validate-yaml": "ajv validate  -s templates/language_schema.json --errors=text --verbose -d"
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",

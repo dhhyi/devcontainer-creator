@@ -1,4 +1,6 @@
 const cp = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 cp.execSync('npm exec pnpm install');
 
@@ -16,9 +18,15 @@ rules['features/**'] = [() => 'devcontainer features test features'];
 rules['examples/**'] = [
   (files) => [
     ...files.map(
-      (file) =>
-        `npm exec -- ajv validate -d ${file} -s templates/language_schema.json --errors=text --verbose`
+      (file) => `npm run validate-yaml examples/${path.basename(file)}`
     ),
+  ],
+];
+rules['templates/language_schema.json'] = [
+  () => [
+    ...fs
+      .readdirSync('examples')
+      .map((file) => `npm run validate-yaml examples/${file}`),
   ],
 ];
 
