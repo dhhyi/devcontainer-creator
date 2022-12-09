@@ -72,7 +72,7 @@ interface CmdlArguments {
 export const ParsedArgs: () => CmdlArguments = once(() => {
   const options = getopts(process.argv.slice(2), {
     string: ['name', 'cache-from', 'tag'],
-    boolean: ['full', 'test', 'dump-meta', 'vscode', 'v', 'verbose', 'debug'],
+    boolean: ['build', 'test', 'dump-meta', 'vscode', 'v', 'verbose', 'debug'],
     default: {
       vscode: true,
     },

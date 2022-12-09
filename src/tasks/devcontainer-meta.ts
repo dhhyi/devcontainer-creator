@@ -7,7 +7,6 @@ import { once } from 'lodash-es';
 import { execute } from '../exec';
 
 import { BuildDevcontainer } from './build-devcontainer';
-import { PulledImage } from './docker-pull';
 import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
@@ -44,16 +43,39 @@ interface MergedDevcontainerMetaType {
   containerEnv?: Record<string, string>;
 }
 
-export function getDevcontainerMeta(image: string): DevcontainerMetaType[] {
+function getRemoteDevcontainerMeta(image: string): DevcontainerMetaType[] {
+  return JSON.parse(
+    execute(
+      `fetching metadata for ${image}`,
+      'docker',
+      [
+        'run',
+        '--rm',
+        'quay.io/skopeo/stable',
+        'inspect',
+        `docker://${image}`,
+        '--format={{index .Labels "devcontainer.metadata"}}',
+      ],
+      { response: 'stdout' }
+    )
+  );
+}
+
+function getLocalDevcontainerMeta(image: string): DevcontainerMetaType[] {
   return JSON.parse(
     execSync(
-      `docker inspect ${PulledImage(
-        image,
-        true
-      )} --format='{{index .Config.Labels "devcontainer.metadata"}}'`,
+      `docker inspect ${image} --format='{{index .Config.Labels "devcontainer.metadata"}}'`,
       { encoding: 'utf8' }
     )
   );
+}
+
+export function getDevcontainerMeta(image: string): DevcontainerMetaType[] {
+  if (execSync(`docker image ls -q ${image}`, { encoding: 'utf-8' }).trim()) {
+    return getLocalDevcontainerMeta(image);
+  } else {
+    return getRemoteDevcontainerMeta(image);
+  }
 }
 
 export const MergedDevcontainerMeta = once(
@@ -134,7 +156,7 @@ export const ConstructedDCCMeta: () => Promise<
 });
 
 export function appendMetaToImage(image: string, meta: DevcontainerMetaType) {
-  const oldMeta = getDevcontainerMeta(image);
+  const oldMeta = getLocalDevcontainerMeta(image);
   const newMeta = JSON.stringify([...oldMeta, meta]);
 
   const append = spawnSync(
@@ -153,7 +175,7 @@ export function appendMetaToImage(image: string, meta: DevcontainerMetaType) {
 export const DumpDevcontainerMeta = once(async () => {
   const { targetDir } = ParsedArgs();
   const image = await BuildDevcontainer();
-  const meta = getDevcontainerMeta(image);
+  const meta = getLocalDevcontainerMeta(image);
 
   const metaFile = join(targetDir, '.devcontainer_meta.json');
   writeFileSync(metaFile, JSON.stringify(meta, null, 2));
