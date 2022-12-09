@@ -37,7 +37,3 @@ export const GomplateBin = once(() => {
 export const DevcontainerCLIBin = once(() => {
   return installTool('@devcontainers/cli', 'node_modules/.bin/devcontainer');
 });
-
-export const AjvCLIBin = once(() => {
-  return installTool('ajv-cli', 'node_modules/.bin/ajv');
-});

@@ -5,7 +5,7 @@
   "main": "create.js",
   "scripts": {
     "prepare": "husky install",
-    "build": "json2ts templates/language_schema.json src/language.d.ts && webpack --mode=production --node-env=production",
+    "build": "json2ts templates/language_schema.json src/language.d.ts && ajv compile -s templates/language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production",
     "format": "prettier --write -u \"**/*\"",
     "validate-yaml": "ajv validate  -s templates/language_schema.json --errors=text --verbose -d"
   },
@@ -15,7 +15,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.11.9",
-    "ajv": "^8.11.0",
+    "ajv-cli": "^5.0.0",
     "getopts": "^2.3.0",
     "js-yaml": "^4.1.0",
     "json-schema-to-typescript": "^11.0.2",
@@ -29,7 +29,6 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
-    "ajv-cli": "^5.0.0",
     "eslint": "^8.25.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",

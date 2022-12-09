@@ -31,10 +31,6 @@ export const ExtractedResources = once(async () => {
       // @ts-ignore
       '../../templates/.vscode/vscode.code-snippets.gomplate'
     ),
-    'language_schema.json': import(
-      // @ts-ignore
-      '../../templates/language_schema.json'
-    ),
   };
   /* eslint-enable @typescript-eslint/ban-ts-comment */
 

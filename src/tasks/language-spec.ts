@@ -1,37 +1,25 @@
-import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import * as https from 'https';
-import { join } from 'path';
 
 import * as yaml from 'js-yaml';
 import { once } from 'lodash-es';
 
 import { baseImageReference, DCC_PROTOCOL } from '../constants';
-import { execute } from '../exec';
 import { Language } from '../language';
 import { logError, logPersist, logStatus, logWarn } from '../logging';
 
-import { TmpWorkingDir } from './create-tmp-dir';
 import {
   getDevcontainerMeta,
   MergedDevcontainerMeta,
 } from './devcontainer-meta';
-import { AjvCLIBin } from './install-tools';
 import { ParsedArgs, VERY_VERBOSE } from './parse-args';
-import { ExtractedResources } from './templates';
 
 async function getYaml(languageYaml: string): Promise<Language> {
-  const dir = TmpWorkingDir();
-
   if (languageYaml.startsWith(DCC_PROTOCOL)) {
     return { extends: languageYaml as Language['extends'] };
   }
 
   if (languageYaml.startsWith('http')) {
-    const downloadedYaml = join(dir, 'language.yaml');
-    if (existsSync(downloadedYaml)) {
-      unlinkSync(downloadedYaml);
-    }
-
     const downloadFile = async (url: string): Promise<string> => {
       logStatus('downloading', url);
 
@@ -74,7 +62,6 @@ async function getYaml(languageYaml: string): Promise<Language> {
 }
 
 export const ResolvedYaml = once(async () => {
-  const TMP_DIR = TmpWorkingDir();
   const { devcontainerName, languageYaml, vscode } = ParsedArgs();
 
   let resolvedYaml = await getYaml(languageYaml);
@@ -144,28 +131,26 @@ export const ResolvedYaml = once(async () => {
     });
   }
 
-  const yamlPath = join(TMP_DIR, 'language.yaml');
-
-  writeFileSync(yamlPath, yaml.dump(resolvedYaml));
-
   if (VERY_VERBOSE) {
     logPersist('Resolved YAML:');
     logPersist(yaml.dump(resolvedYaml));
   }
 
-  await ExtractedResources();
+  logStatus('validating language spec');
 
-  const ajvArgs = [
-    'validate',
-    '-s',
-    join(TMP_DIR, 'language_schema.json'),
-    '-d',
-    yamlPath,
-    '--errors=text',
-    '--verbose',
-  ];
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const validate = require('../validate_language.js');
 
-  execute('validating yaml', AjvCLIBin, ajvArgs);
+  try {
+    if (!validate(resolvedYaml)) {
+      throw new Error(
+        'invalid yaml: ' + JSON.stringify(validate.errors, undefined, 2)
+      );
+    }
+  } catch (error) {
+    logError((error as Error).message);
+    process.exit(1);
+  }
 
   return resolvedYaml;
 });
