@@ -64,7 +64,6 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
 
 async function executeGomplate(
   folder: '.devcontainer' | '.vscode',
-  resolvedYamlPath: string,
   resolvedYamlContent: Language
 ) {
   const workingDir = join(TmpWorkingDir(), folder);
@@ -88,12 +87,13 @@ async function executeGomplate(
     '"**/*.gomplate"',
     `--output-map=${targetDir}/{{ .in | strings.TrimSuffix ".gomplate" }}`,
     '-d',
-    `language=${resolvedYamlPath}`,
+    'language=env:LANGUAGE?type=application/yaml',
   ];
 
   const gomplateEnv: Record<string, string> = {
     GOMPLATE_SUPPRESS_EMPTY: 'true',
     BASE_IMAGE: baseImageReference(resolvedYamlContent.extends),
+    LANGUAGE: yaml.dump(resolvedYamlContent),
   };
   execute('writing ' + folder, GomplateBin, gomplateArgs, {
     env: gomplateEnv,
@@ -112,14 +112,10 @@ export const WriteDevcontainer = once(async () => {
   const resolvedYaml = await ResolvedYaml();
   const { targetDir, vscode } = ParsedArgs();
 
-  await executeGomplate(
-    '.devcontainer',
-    resolvedYaml.path,
-    resolvedYaml.content
-  );
+  await executeGomplate('.devcontainer', resolvedYaml);
 
-  if (resolvedYaml.content?.devcontainer?.build?.files) {
-    const files = resolvedYaml.content.devcontainer.build.files;
+  if (resolvedYaml.devcontainer?.build?.files) {
+    const files = resolvedYaml.devcontainer.build.files;
     Object.entries(files).forEach(([file, content]) => {
       if (content) {
         const filePath = join(targetDir, '.devcontainer', file);
@@ -135,15 +131,7 @@ export const WriteDevcontainer = once(async () => {
 
   if (vscode) {
     const expandedYaml = await ExpandedYaml();
-    const expandedYamlPath = resolvedYaml.path.replace(
-      '.yaml',
-      '.expanded.yaml'
-    );
-    writeFileSync(expandedYamlPath, yaml.dump(expandedYaml), {
-      encoding: 'utf8',
-    });
-
-    await executeGomplate('.vscode', expandedYamlPath, expandedYaml);
+    await executeGomplate('.vscode', expandedYaml);
   }
 
   writeUpdateScript();

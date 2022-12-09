@@ -38,7 +38,7 @@ function buildWithDevcontainerCli(): string {
 }
 
 async function buildWithDocker() {
-  const resolvedYaml = (await ResolvedYaml()).content;
+  const resolvedYaml = await ResolvedYaml();
   const { tag, cacheFrom, targetDir } = ParsedArgs();
 
   const languageBuildArgs = Object.entries(
@@ -73,7 +73,7 @@ async function buildWithDocker() {
 
 export const BuildDevcontainer = once(async () => {
   let image: string;
-  if ((await ResolvedYaml()).content.devcontainer?.build) {
+  if ((await ResolvedYaml()).devcontainer?.build) {
     image = await buildWithDocker();
   } else {
     image = buildWithDevcontainerCli();

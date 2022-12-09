@@ -110,7 +110,7 @@ export const ConstructedDevcontainerMeta: () => Promise<DevcontainerMetaType> =
 export const ConstructedDCCMeta: () => Promise<
   DevcontainerMetaType | undefined
 > = once(async () => {
-  const yaml = (await ResolvedYaml()).content;
+  const yaml = await ResolvedYaml();
 
   const dcc: Record<string, unknown> = {};
   if (typeof yaml.vscode?.script === 'string') {

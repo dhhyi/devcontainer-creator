@@ -167,16 +167,13 @@ export const ResolvedYaml = once(async () => {
 
   execute('validating yaml', AjvCLIBin, ajvArgs);
 
-  return {
-    path: yamlPath,
-    content: resolvedYaml,
-  };
+  return resolvedYaml;
 });
 
 export const ExpandedYaml = once(async () => {
   const merged = await MergedDevcontainerMeta();
 
-  const resolvedYaml = (await ResolvedYaml()).content;
+  const resolvedYaml = await ResolvedYaml();
 
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
   if (!Object.keys(resolvedYaml?.language || {}).length) {
