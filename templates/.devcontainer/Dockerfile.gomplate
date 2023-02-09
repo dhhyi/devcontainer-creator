@@ -1,5 +1,9 @@
 {{- $L := (datasource "language") -}}
 
+{{- define "INLINE_FILE" -}}
+RUN mkdir -p "{{ path.Dir .path }}" && echo "{{ .content | base64.Encode }}" | base64 -d > "{{ .path }}" && chmod {{ if eq .type "script" }}+rx{{ else }}+r{{ end }} "{{ .path }}"
+{{- end -}}
+
 {{- if has $L.devcontainer "build" }}
 
 {{- $from := env.Getenv "BASE_IMAGE" -}}
@@ -10,8 +14,6 @@
 {{- if has $L.devcontainer.build "packages" -}}
   {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
 {{- end -}}
-
-{{- $insertHome := and (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
 {{- $prepareBuildArgs := coll.Slice -}}
 {{- $rootBuildArgs := coll.Slice -}}
@@ -30,6 +32,20 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
+
+{{- $rootFiles := coll.Slice -}}
+{{- $userFiles := coll.Slice -}}
+{{- if has $L.devcontainer.build "files" -}}
+  {{- range $L.devcontainer.build.files -}}
+    {{- if strings.Contains "HOME" . -}}
+      {{ $userFiles = $userFiles | coll.Append (tmpl.Exec "INLINE_FILE" .) }}
+    {{- else -}}
+      {{ $rootFiles = $rootFiles | coll.Append (tmpl.Exec "INLINE_FILE" .) }}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $insertHome := or $userFiles (and (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME")) -}}
 
 {{- "" -}}
 FROM {{ $from }}
@@ -69,6 +85,10 @@ ARG {{ . }}
 {{ conv.Join $L.devcontainer.build.root "\n" }}
 {{ end }}
 
+{{- if $rootFiles }}
+{{ conv.Join $rootFiles "\n" }}
+{{ end }}
+
 {{- "" }}
 USER {{ $remoteUser }}
 {{ "" }}
@@ -85,6 +105,10 @@ ARG {{ . }}
 
 {{- if has $L.devcontainer.build "user" }}
 {{ conv.Join $L.devcontainer.build.user "\n" }}
+{{ end }}
+
+{{- if $userFiles }}
+{{ conv.Join $userFiles "\n" }}
 {{ end }}
 
 {{- end -}}

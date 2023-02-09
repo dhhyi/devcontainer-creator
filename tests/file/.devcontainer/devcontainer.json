@@ -1,0 +1,15 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "containerEnv": {
+    "DCC_SELFTEST": "dGVzdG1lCnN0YXQgJEhPTUUvLmNvbmZpZy90ZXN0L3Rlc3QuZmlsZQo="
+  }
+}

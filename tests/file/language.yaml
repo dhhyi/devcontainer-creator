@@ -1,0 +1,12 @@
+devcontainer:
+  build:
+    files:
+      - type: script
+        path: /usr/local/bin/testme
+        content: echo 'Hello World!'
+      - type: file
+        path: ${HOME}/.config/test/test.file
+        content: EMPTY
+  selftest: |
+    testme
+    stat $HOME/.config/test/test.file

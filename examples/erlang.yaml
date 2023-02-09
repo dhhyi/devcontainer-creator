@@ -16,11 +16,11 @@ devcontainer:
       - ADD https://s3.amazonaws.com/rebar3/rebar3 /usr/local/bin/rebar3
       - RUN chmod +rx /usr/local/bin/rebar3
     files:
-      rebar.config: |
-        {plugins, [erlfmt]}.
-        {erlfmt, [write]}.
-    user:
-      - COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
+      - type: file
+        path: ${HOME}/.config/rebar3/rebar.config
+        content: |
+          {plugins, [erlfmt]}.
+          {erlfmt, [write]}.
   selftest: |
     cat > /tmp/helloworld.erl <<EOF
     -module(helloworld). -export([main/1]).

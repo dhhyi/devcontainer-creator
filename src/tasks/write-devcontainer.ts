@@ -114,21 +114,6 @@ export const WriteDevcontainer = once(async () => {
 
   await executeGomplate('.devcontainer', resolvedYaml);
 
-  if (resolvedYaml.devcontainer?.build?.files) {
-    const files = resolvedYaml.devcontainer.build.files;
-    Object.entries(files).forEach(([file, content]) => {
-      if (content) {
-        const filePath = join(targetDir, '.devcontainer', file);
-        writeFileSync(filePath, content as string);
-      }
-    });
-    const gitignorePath = join(targetDir, '.devcontainer', '.gitignore');
-    writeFileSync(
-      gitignorePath,
-      ['.gitignore', ...Object.keys(files)].join('\n') + '\n'
-    );
-  }
-
   if (vscode) {
     const expandedYaml = await ExpandedYaml();
     await executeGomplate('.vscode', expandedYaml);
