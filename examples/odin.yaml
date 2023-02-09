@@ -1,0 +1,49 @@
+language:
+  name: odin
+  binary: runodin
+  version: odin version
+devcontainer:
+  build:
+    packages:
+      - build-essential
+      - clang
+      - llvm-11-dev
+    files:
+      runodin.sh: |
+        #!/bin/sh -e
+        if [ $# -eq 0 ]; then
+            echo "Usage: $0 <file>"
+            exit 1
+        fi
+        if [ ! -f "$1" ]; then
+            echo "File $1 does not exist"
+            exit 1
+        fi
+
+        file="$(readlink -f "$1")"
+        shift
+        cd /tmp
+        odin run "$file" -file -- "$@"
+    root:
+      - ADD https://github.com/odin-lang/Odin/archive/refs/tags/dev-2023-02.tar.gz /tmp
+      - >-
+        RUN cd /tmp
+        && tar zxpf dev-2023-02.tar.gz
+        && cd /tmp/Odin-dev-2023-02
+        && make
+        && ln -s /tmp/Odin-dev-2023-02/odin /usr/local/bin/odin
+      - COPY runodin.sh /usr/local/bin/runodin
+      - RUN chmod +x /usr/local/bin/runodin
+  selftest: |
+    cat >/tmp/helloworld.odin <<EOF
+    package main
+    import "core:fmt"
+    main :: proc() {
+      fmt.println("Hello World!")
+    }
+    EOF
+    runodin /tmp/helloworld.odin
+vscode:
+  extensions:
+    - aesl.odin
+    # - DanielGavin.ols

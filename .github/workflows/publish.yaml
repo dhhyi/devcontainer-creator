@@ -26,6 +26,7 @@ jobs:
       dccKotlin: ${{ steps.check.outputs.dccKotlin }}
       dccLua: ${{ steps.check.outputs.dccLua }}
       dccMoonscript: ${{ steps.check.outputs.dccMoonscript }}
+      dccOdin: ${{ steps.check.outputs.dccOdin }}
       dccPerl: ${{ steps.check.outputs.dccPerl }}
       dccProlog: ${{ steps.check.outputs.dccProlog }}
       dccPython: ${{ steps.check.outputs.dccPython }}
@@ -328,6 +329,18 @@ jobs:
       name: moonscript
       skip: ${{ needs.calc.outputs.dccMoonscript == 'false' }}
     secrets: inherit
+  dccOdin:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://odin
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: odin
+      skip: ${{ needs.calc.outputs.dccOdin == 'false' }}
+    secrets: inherit
   dccPerl:
     needs:
       - calc
@@ -443,6 +456,7 @@ jobs:
       - dccKotlin
       - dccLua
       - dccMoonscript
+      - dccOdin
       - dccPerl
       - dccProlog
       - dccPython
