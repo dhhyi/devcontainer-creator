@@ -64,6 +64,7 @@ interface CmdlArguments {
   cacheFrom?: string;
 
   test?: boolean;
+  run?: boolean;
 
   vscode?: boolean;
   dumpMeta?: boolean;
@@ -72,7 +73,16 @@ interface CmdlArguments {
 export const ParsedArgs: () => CmdlArguments = once(() => {
   const options = getopts(process.argv.slice(2), {
     string: ['name', 'cache-from', 'tag'],
-    boolean: ['build', 'test', 'dump-meta', 'vscode', 'v', 'verbose', 'debug'],
+    boolean: [
+      'build',
+      'test',
+      'run',
+      'dump-meta',
+      'vscode',
+      'v',
+      'verbose',
+      'debug',
+    ],
     default: {
       vscode: true,
     },
@@ -101,6 +111,7 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     tag: options.tag,
     cacheFrom: options['cache-from'],
     test: !!options.test,
+    run: !!options.run,
     dumpMeta: !!options['dump-meta'],
     vscode: !!options.vscode,
   };
