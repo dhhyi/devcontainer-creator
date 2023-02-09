@@ -1,0 +1,22 @@
+{
+  "name": "Example devcontainer for odin",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "aesl.odin"
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "runodin",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQub2RpbiA8PEVPRgpwYWNrYWdlIG1haW4KaW1wb3J0ICJjb3JlOmZtdCIKbWFpbiA6OiBwcm9jKCkgewogIGZtdC5wcmludGxuKCJIZWxsbyBXb3JsZCEiKQp9CkVPRgpydW5vZGluIC90bXAvaGVsbG93b3JsZC5vZGluCg==",
+    "DCC_VERSION": "odin version"
+  }
+}
