@@ -5,7 +5,11 @@ const path = require('path');
 cp.execSync('npm exec pnpm install');
 
 const rules = {
-  '*': [() => 'npm run format', () => 'node synchronize-available.js'],
+  '*': [
+    () => 'npm run format',
+    () => 'node synchronize-available.js',
+    () => 'node pipeline.js',
+  ],
   '*.{js,ts}': ['eslint --fix --max-warnings=0'],
 };
 
