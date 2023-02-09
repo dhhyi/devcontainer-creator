@@ -17,6 +17,7 @@ jobs:
       dccErlang: ${{ steps.check.outputs.dccErlang }}
       dccFactor: ${{ steps.check.outputs.dccFactor }}
       dccGo: ${{ steps.check.outputs.dccGo }}
+      dccHare: ${{ steps.check.outputs.dccHare }}
       dccHaskell: ${{ steps.check.outputs.dccHaskell }}
       dccIdris2: ${{ steps.check.outputs.dccIdris2 }}
       dccIo: ${{ steps.check.outputs.dccIo }}
@@ -218,6 +219,18 @@ jobs:
     with:
       name: go
       skip: ${{ needs.calc.outputs.dccGo == 'false' }}
+    secrets: inherit
+  dccHare:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://hare
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: hare
+      skip: ${{ needs.calc.outputs.dccHare == 'false' }}
     secrets: inherit
   dccHaskell:
     needs:
@@ -421,6 +434,7 @@ jobs:
       - dccErlang
       - dccFactor
       - dccGo
+      - dccHare
       - dccHaskell
       - dccIdris2
       - dccIo

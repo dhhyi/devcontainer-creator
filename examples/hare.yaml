@@ -1,0 +1,49 @@
+language:
+  name: hare
+  binary: hare
+  binaryArgs: run
+  version: hare version
+devcontainer:
+  build:
+    args:
+      QBE_VERSION: 1.1
+    packages:
+      - build-essential
+    root:
+      - ADD https://c9x.me/compile/release/qbe-${QBE_VERSION}.tar.xz /tmp
+      - >-
+        RUN cd /tmp
+        && tar xpfv /tmp/qbe-${QBE_VERSION}.tar.xz
+        && cd /tmp/qbe-${QBE_VERSION}
+        && make
+        && make install
+      - >-
+        RUN git clone https://git.sr.ht/~sircmpwn/scdoc --depth 1 /tmp/scdoc
+        && cd /tmp/scdoc
+        && make
+        && make install
+      - >-
+        RUN git clone https://git.sr.ht/~sircmpwn/harec --depth 1 /tmp/harec
+        && cd /tmp/harec
+        && mkdir build
+        && cd build
+        && ../configure
+        && make
+        && make install
+      - >-
+        RUN git clone https://git.sr.ht/~sircmpwn/hare --depth 1 /tmp/hare
+        && cd /tmp/hare
+        && cp config.example.mk config.mk
+        && make
+        && make install
+  selftest: |
+    cat >/tmp/helloworld.ha <<EOF
+    use fmt;
+    export fn main() void = {
+      fmt::println("Hello World!")!;
+    };
+    EOF
+    hare run /tmp/helloworld.ha
+vscode:
+  extensions:
+    - adotinthevoid.hare-highlighting
