@@ -9,7 +9,7 @@ ARG IDRIS2_VERSION
 
 RUN git clone --depth 1 --branch v${IDRIS2_VERSION} https://github.com/idris-lang/Idris2.git /tmp/idris2
 RUN cd /tmp/idris2 && sed -i 's%PREFIX.*%PREFIX ?= /usr/local%' config.mk && make bootstrap SCHEME=chezscheme && make install
-COPY runidris.sh /usr/local/bin/runidris
-RUN chmod +x  /usr/local/bin/runidris
+
+RUN mkdir -p "/usr/local/bin" && echo "IyEvYmluL3NoIC1lCgppZiBbICQjIC1lcSAwIF07IHRoZW4KICAgIGVjaG8gIlVzYWdlOiAkMCA8ZmlsZT4iCiAgICBleGl0IDEKZmkKCmlmIFsgISAtZiAiJDEiIF07IHRoZW4KICAgIGVjaG8gIkZpbGUgJDEgZG9lcyBub3QgZXhpc3QiCiAgICBleGl0IDEKZmkKCm5hbWU9JChiYXNlbmFtZSAiJDEiIC5pZHIpCmRpcj0kKGRpcm5hbWUgIiQxIikKY2QgIiRkaXIiCgppZHJpczIgIiQxIiAtLWJ1aWxkLWRpciAvdG1wL2lkcmlzIC0tb3V0cHV0LWRpciAvdG1wL2lkcmlzIC1vICRuYW1lCi90bXAvaWRyaXMvJG5hbWUgIiRAIgo=" | base64 -d > "/usr/local/bin/runidris" && chmod +rx "/usr/local/bin/runidris"
 
 USER vscode

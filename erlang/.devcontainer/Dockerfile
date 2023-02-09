@@ -16,4 +16,4 @@ RUN chmod +rx /usr/local/bin/rebar3
 USER vscode
 ENV HOME=/home/vscode
 
-COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
+RUN mkdir -p "${HOME}/.config/rebar3" && echo "e3BsdWdpbnMsIFtlcmxmbXRdfS4Ke2VybGZtdCwgW3dyaXRlXX0uCg==" | base64 -d > "${HOME}/.config/rebar3/rebar.config" && chmod +r "${HOME}/.config/rebar3/rebar.config"
