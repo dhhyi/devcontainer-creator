@@ -1,0 +1,20 @@
+language:
+  name: crystal
+  binary: crystal
+devcontainer:
+  build:
+    prepare:
+      - RUN echo 'deb http://download.opensuse.org/repositories/devel:/languages:/crystal/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/devel:languages:crystal.list && curl -fsSL https://download.opensuse.org/repositories/devel:languages:crystal/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_languages_crystal.gpg > /dev/null
+    packages:
+      - crystal
+      - libssl-dev
+      - libxml2-dev
+      - libyaml-dev
+      - libgmp-dev
+      - libz-dev
+  selftest: |
+    echo 'puts "Hello World!"' > /tmp/helloworld.cr
+    crystal /tmp/helloworld.cr
+vscode:
+  extensions:
+    - crystal-lang-tools.crystal-lang

@@ -1,0 +1,25 @@
+language:
+  name: koka
+  repl: koka
+  binary: koka
+  binaryArgs: -e
+devcontainer:
+  build:
+    packages:
+      - build-essential
+      - cmake
+      - ninja-build
+      - pkg-config
+    root:
+      - ADD https://github.com/koka-lang/koka/releases/latest/download/install.sh /tmp/install.sh
+      - RUN chmod +x /tmp/install.sh && /tmp/install.sh
+  selftest: |
+    cat >/tmp/helloworld.kk <<EOF
+    module helloworld
+    pub fun main()
+      println("Hello World!")
+    EOF
+    koka -e /tmp/helloworld.kk
+vscode:
+  extensions:
+    - koka.language-koka

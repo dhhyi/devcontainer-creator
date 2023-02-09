@@ -1,0 +1,28 @@
+language:
+  name: zig
+  binary: zig
+  binaryArgs: run
+  version: zig version
+devcontainer:
+  build:
+    packages:
+      - xz-utils
+    root:
+      - ADD https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz /tmp/zig.tar.xz
+      - RUN mkdir -p /opt/zig && tar -xf /tmp/zig.tar.xz -C /opt/zig --strip-components=1
+      - ENV PATH=/opt/zig:$PATH
+  selftest: |
+    cat >/tmp/helloworld.zig <<EOF
+    const std = @import("std");
+    pub fn main() !void {
+      const stdout_file = std.io.getStdOut().writer();
+      var bw = std.io.bufferedWriter(stdout_file);
+      const stdout = bw.writer();
+      try stdout.print("Hello World!\n", .{});
+      try bw.flush();
+    }
+    EOF
+    zig run /tmp/helloworld.zig
+vscode:
+  extensions:
+    - tiehuis.zig

@@ -17,6 +17,7 @@
         "base://ruby",
         "dcc://cicada",
         "dcc://clojure",
+        "dcc://crystal",
         "dcc://elixir",
         "dcc://elm",
         "dcc://erlang",
@@ -28,6 +29,7 @@
         "dcc://io",
         "dcc://javascript",
         "dcc://julia",
+        "dcc://koka",
         "dcc://kotlin",
         "dcc://lua",
         "dcc://moonscript",
@@ -39,7 +41,8 @@
         "dcc://ruby",
         "dcc://scala",
         "dcc://tcl",
-        "dcc://typescript"
+        "dcc://typescript",
+        "dcc://zig"
       ]
     },
     "language": {
