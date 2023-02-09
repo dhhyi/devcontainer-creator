@@ -15,6 +15,7 @@
         "base://node",
         "base://python",
         "base://ruby",
+        "dcc://cicada",
         "dcc://clojure",
         "dcc://elixir",
         "dcc://elm",

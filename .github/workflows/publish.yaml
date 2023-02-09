@@ -10,6 +10,7 @@ jobs:
     outputs:
       buildLanguages: ${{ steps.check.outputs.buildLanguages }}
       buildBase: ${{ steps.check.outputs.buildBase }}
+      dccCicada: ${{ steps.check.outputs.dccCicada }}
       dccClojure: ${{ steps.check.outputs.dccClojure }}
       dccElixir: ${{ steps.check.outputs.dccElixir }}
       dccElm: ${{ steps.check.outputs.dccElm }}
@@ -133,6 +134,18 @@ jobs:
     with:
       name: ruby
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
+    secrets: inherit
+  dccCicada:
+    needs:
+      - calc
+      - bundle
+      - baseNode
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://cicada
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: cicada
+      skip: ${{ needs.calc.outputs.dccCicada == 'false' }}
     secrets: inherit
   dccClojure:
     needs:
@@ -401,6 +414,7 @@ jobs:
   examples:
     needs:
       - calc
+      - dccCicada
       - dccClojure
       - dccElixir
       - dccElm
