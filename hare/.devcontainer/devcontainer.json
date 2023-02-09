@@ -1,0 +1,25 @@
+{
+  "name": "Example devcontainer for hare",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "QBE_VERSION": 1.1
+    }
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "adotinthevoid.hare-highlighting"
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "hare run",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuaGEgPDxFT0YKdXNlIGZtdDsKZXhwb3J0IGZuIG1haW4oKSB2b2lkID0gewogIGZtdDo6cHJpbnRsbigiSGVsbG8gV29ybGQhIikhOwp9OwpFT0YKaGFyZSBydW4gL3RtcC9oZWxsb3dvcmxkLmhhCg==",
+    "DCC_VERSION": "hare version"
+  }
+}
