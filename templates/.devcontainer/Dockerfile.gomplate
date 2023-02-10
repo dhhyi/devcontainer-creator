@@ -52,9 +52,9 @@ FROM {{ $from }}
 {{ "" }}
 
 {{- if and
-   (not (strings.Contains "ghcr.io/dhhyi/dcc-base" $from))
-   (or ($prepareBuildArgs) ($packages) ($rootBuildArgs)
-       (has $L.devcontainer.build "root")) }}
+    (not (strings.Contains "ghcr.io/dhhyi/dcc-base" $from))
+    (or ($prepareBuildArgs) ($packages) ($rootBuildArgs)
+        (has $L.devcontainer.build "root")) }}
 USER root
 {{ end }}
 
@@ -69,10 +69,7 @@ ARG {{ . }}
 {{ end }}
 
 {{- if $packages }}
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    {{ conv.Join $packages " " }} \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends {{ conv.Join $packages " " }} && apt-get clean && rm -rf /var/lib/apt/lists/*
 {{ end }}
 
 {{- if $rootBuildArgs }}

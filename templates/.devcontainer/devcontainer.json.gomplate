@@ -19,7 +19,7 @@
       {{- $version = coll.Append . $version -}}
     {{- end -}}
   {{- else if (has $L.language "binary") }}
-    {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version")  " ") $version -}}
+    {{- $version = coll.Append (conv.Join (slice $L.language.binary "--version") " ") $version -}}
   {{- end -}}
 {{- end -}}
 
