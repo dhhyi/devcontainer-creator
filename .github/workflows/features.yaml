@@ -15,7 +15,9 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Install latest devcontainer CLI
-        run: npm install -g @devcontainers/cli
+        run: |
+          npm install -g @devcontainers/cli
+          if [ "$(devcontainer --version)" = "0.30.0" ]; then npm install -g @devcontainers/cli@0.29.0 ; fi
 
       - name: Test Features
         run: devcontainer features test features
