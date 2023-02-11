@@ -1,0 +1,22 @@
+{
+  "name": "Example devcontainer for koka",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "koka.language-koka"
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "koka -e",
+    "DCC_REPL": "koka",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQua2sgPDxFT0YKbW9kdWxlIGhlbGxvd29ybGQKcHViIGZ1biBtYWluKCkKICBwcmludGxuKCJIZWxsbyBXb3JsZCEiKQpFT0YKa29rYSAtZSAvdG1wL2hlbGxvd29ybGQua2sK",
+    "DCC_VERSION": "koka --version"
+  }
+}

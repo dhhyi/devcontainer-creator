@@ -1,9 +1,6 @@
 FROM ghcr.io/dhhyi/dcc-base-debian
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    chezscheme build-essential libgmp-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends chezscheme build-essential libgmp-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ARG IDRIS2_VERSION
 

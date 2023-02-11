@@ -1,0 +1,22 @@
+{
+  "name": "Example devcontainer for crystal",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "files.exclude": {
+      ".devcontainer": true,
+      ".update_devcontainer.sh": true,
+      ".vscode": true
+    }
+  },
+  "extensions": [
+    "crystal-lang-tools.crystal-lang"
+  ],
+  "containerEnv": {
+    "DCC_BINARY": "crystal",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "ZWNobyAncHV0cyAiSGVsbG8gV29ybGQhIicgPiAvdG1wL2hlbGxvd29ybGQuY3IKY3J5c3RhbCAvdG1wL2hlbGxvd29ybGQuY3IK",
+    "DCC_VERSION": "crystal --version"
+  }
+}
