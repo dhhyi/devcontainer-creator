@@ -1,0 +1,22 @@
+language:
+  name: v
+  binary: v
+  binaryArgs: run
+  repl: v
+devcontainer:
+  build:
+    packages:
+      - build-essential
+    args:
+      V_VERSION: 0.3.3
+    root:
+      - ADD https://github.com/vlang/v/releases/download/${V_VERSION}/v_linux.zip /opt
+      - RUN cd /opt && unzip v_linux.zip && /opt/v/v symlink && chmod o+w -Rfv /opt/v/cmd/tools
+  selftest: |
+    cat >/tmp/helloworld.v <<EOF
+    println('Hello World!')
+    EOF
+    v run /tmp/helloworld.v
+vscode:
+  extensions:
+    - vlanguage.vscode-vlang

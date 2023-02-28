@@ -37,6 +37,7 @@ jobs:
       dccScala: ${{ steps.check.outputs.dccScala }}
       dccTcl: ${{ steps.check.outputs.dccTcl }}
       dccTypescript: ${{ steps.check.outputs.dccTypescript }}
+      dccV: ${{ steps.check.outputs.dccV }}
       dccZig: ${{ steps.check.outputs.dccZig }}
     env:
       commits: ${{ toJSON(github.event.commits) }}
@@ -464,6 +465,18 @@ jobs:
       name: typescript
       skip: ${{ needs.calc.outputs.dccTypescript == 'false' }}
     secrets: inherit
+  dccV:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://v
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: v
+      skip: ${{ needs.calc.outputs.dccV == 'false' }}
+    secrets: inherit
   dccZig:
     needs:
       - calc
@@ -506,6 +519,7 @@ jobs:
       - dccScala
       - dccTcl
       - dccTypescript
+      - dccV
       - dccZig
     if: ${{ ! failure() && ! cancelled() && always() }}
     uses: ./.github/workflows/examples.yaml

@@ -41,6 +41,7 @@
         "dcc://scala",
         "dcc://tcl",
         "dcc://typescript",
+        "dcc://v",
         "dcc://zig"
       ]
     },
