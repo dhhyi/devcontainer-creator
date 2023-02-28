@@ -8,14 +8,14 @@ import { logError, logStatus } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
 
-function installTool(tool: string, toolBin: string) {
+function installTool(tool: string, version: string, toolBin: string) {
   const toolPath = join(TmpWorkingDir(), toolBin);
   if (existsSync(toolPath)) {
     logStatus('found already installed', tool);
   } else {
     try {
       logStatus('installing', tool);
-      execSync(`npm exec pnpm -- install --prefer-offline ${tool}`, {
+      execSync(`npm exec pnpm -- install --prefer-offline ${tool}@${version}`, {
         stdio: 'ignore',
         cwd: TmpWorkingDir(),
       });
@@ -30,10 +30,15 @@ function installTool(tool: string, toolBin: string) {
 export const GomplateBin = once(() => {
   return installTool(
     'gomplate',
+    'latest',
     'node_modules/gomplate/node_modules/.bin/gomplate'
   );
 });
 
 export const DevcontainerCLIBin = once(() => {
-  return installTool('@devcontainers/cli', 'node_modules/.bin/devcontainer');
+  return installTool(
+    '@devcontainers/cli',
+    '0.29.0',
+    'node_modules/.bin/devcontainer'
+  );
 });
