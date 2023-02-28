@@ -1,4 +1,3 @@
-extends: base://ruby
 language:
   name: ruby
   binary: ruby
@@ -8,6 +7,8 @@ language:
     ruby --version
 devcontainer:
   build:
+    packages:
+      - ruby
     root:
       - RUN gem install rubocop
   selftest: ruby -e 'puts "Hello World!"'
@@ -16,4 +17,5 @@ vscode:
     "[ruby]":
       editor.defaultFormatter: misogi.ruby-rubocop
   extensions:
+    - rebornix.Ruby
     - misogi.ruby-rubocop

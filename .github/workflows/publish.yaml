@@ -129,17 +129,6 @@ jobs:
       name: python
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  baseRuby:
-    needs:
-      - calc
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://ruby
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: ruby
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
   dccCicada:
     needs:
       - calc
@@ -420,7 +409,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseRuby
+      - baseDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://ruby
     uses: ./.github/workflows/dcc.yaml
