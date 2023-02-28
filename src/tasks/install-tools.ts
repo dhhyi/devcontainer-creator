@@ -28,11 +28,22 @@ function installTool(tool: string, version: string, toolBin: string) {
 }
 
 export const GomplateBin = once(() => {
-  return installTool(
-    'gomplate',
-    'latest',
-    'node_modules/gomplate/node_modules/.bin/gomplate'
-  );
+  const baseDir = installTool('gomplate', 'latest', 'node_modules/gomplate');
+
+  // trigger go-npm
+  const output = execSync('npm run postinstall', {
+    cwd: baseDir,
+    encoding: 'utf-8',
+  });
+
+  const regex = /^Placed binary on (.*)$/gm;
+  const globalInstallPath = regex.exec(output)?.[1];
+
+  if (!globalInstallPath) {
+    throw new Error('Could not find global install path for gomplate');
+  }
+
+  return globalInstallPath;
 });
 
 export const DevcontainerCLIBin = once(() => {

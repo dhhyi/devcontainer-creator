@@ -3,5 +3,6 @@
 /new*
 /output
 *.bak
+*~
 /src/language.d.ts
 /src/validate_language.js

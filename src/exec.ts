@@ -44,7 +44,7 @@ export function execute(
   });
 
   if (build.status !== 0) {
-    logError(build.stderr);
+    logError(build.stderr || build.error);
     throw new Error();
   }
 
