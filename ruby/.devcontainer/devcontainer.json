@@ -14,6 +14,7 @@
     }
   },
   "extensions": [
+    "rebornix.Ruby",
     "misogi.ruby-rubocop"
   ],
   "containerEnv": {

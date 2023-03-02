@@ -49,16 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/ruby:1",
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "rebornix.Ruby"
-        ]
-      }
-    }
-  },
-  {
     "containerEnv": {
       "DCC_BINARY": "ruby",
       "DCC_REPL": "irb",
@@ -78,6 +68,7 @@
           }
         },
         "extensions": [
+          "rebornix.Ruby",
           "misogi.ruby-rubocop"
         ]
       }
