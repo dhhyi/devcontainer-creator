@@ -73,7 +73,6 @@
   {
     "customizations": {
       "dcc": {
-        "script": "VVNJTkc6IGlvIGtlcm5lbCBtYXRoIHByZXR0eXByaW50IDsKCiItLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0iIHByaW50CgokMQo=",
         "languageName": "factor"
       }
     }
