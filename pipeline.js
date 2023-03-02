@@ -86,8 +86,13 @@ const workflow = {
           return acc;
         }, {}),
       },
+      // find commits: https://github.com/orgs/community/discussions/25797
+      // find commit length: https://github.com/orgs/community/discussions/27125
+      env: {
+        commits: '${{ toJSON(github.event.commits) }}',
+      },
       steps: [
-        { uses: 'actions/checkout@master', with: { 'fetch-depth': 2 } },
+        { uses: 'actions/checkout@master', with: { 'fetch-depth': 0 } },
         {
           run: 'npm exec pnpm -- i --prod --ignore-scripts',
           name: 'npm install',
@@ -96,9 +101,18 @@ const workflow = {
           run: 'node pipeline.js\ngit diff --exit-code',
           name: 'Check Pipeline',
         },
+        // {
+        //   name: 'Debug',
+        //   run: 'echo "${{ toJSON(github) }}"',
+        // },
         {
-          id: 'check',
-          run: 'git diff --name-only HEAD~ | node check-lang-ci.js >> $GITHUB_OUTPUT\ncat $GITHUB_OUTPUT',
+          run: 'noOfCommits=$(echo $commits | jq ". | length")\ngit diff --name-only HEAD~$noOfCommits',
+          name: 'Report Changed Files',
+        },
+        {
+          id: 'calculate',
+          run: 'noOfCommits=$(echo $commits | jq ". | length")\ngit diff --name-only HEAD~$noOfCommits | node check-lang-ci.js >> $GITHUB_OUTPUT\ncat $GITHUB_OUTPUT',
+          name: 'Calculate Required Jobs',
         },
       ],
     },

@@ -38,20 +38,31 @@ jobs:
       dccTcl: ${{ steps.check.outputs.dccTcl }}
       dccTypescript: ${{ steps.check.outputs.dccTypescript }}
       dccZig: ${{ steps.check.outputs.dccZig }}
+    env:
+      commits: ${{ toJSON(github.event.commits) }}
     steps:
       - uses: actions/checkout@master
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - run: npm exec pnpm -- i --prod --ignore-scripts
         name: npm install
       - run: |-
           node pipeline.js
           git diff --exit-code
         name: Check Pipeline
-      - id: check
-        run: |-
-          git diff --name-only HEAD~ | node check-lang-ci.js >> $GITHUB_OUTPUT
+      - run: |-
+          noOfCommits=$(echo $commits | jq ". | length")
+          git diff --name-only HEAD~$noOfCommits
+        name: Report Changed Files
+      - id: calculate
+        run: >-
+          noOfCommits=$(echo $commits | jq ". | length")
+
+          git diff --name-only HEAD~$noOfCommits | node check-lang-ci.js >>
+          $GITHUB_OUTPUT
+
           cat $GITHUB_OUTPUT
+        name: Calculate Required Jobs
   bundle:
     uses: ./.github/workflows/bundle.yaml
     secrets: inherit
