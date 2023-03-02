@@ -26,7 +26,7 @@ rules['examples/**'] = [
     ),
   ],
 ];
-rules['templates/language_schema.json'] = [
+rules['language_schema.json'] = [
   () => [
     ...fs
       .readdirSync('examples')

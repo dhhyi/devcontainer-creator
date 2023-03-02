@@ -72,7 +72,12 @@ stdin.on('end', function () {
   if (
     buildBase ||
     changed.some((x) =>
-      ['package.json', 'webpack.config.js', 'tsconfig.json'].includes(x)
+      [
+        'package.json',
+        'webpack.config.js',
+        'tsconfig.json',
+        'language_schema.json',
+      ].includes(x)
     ) ||
     changed.some((x) => ['templates/', 'src/'].some((p) => x.startsWith(p)))
   ) {

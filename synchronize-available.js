@@ -18,7 +18,7 @@ const langs = fs
 
 const available = [...bases, ...langs].sort();
 
-const schemaPath = path.join('templates', 'language_schema.json');
+const schemaPath = 'language_schema.json';
 
 const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
 schema.properties.extends.enum = available;

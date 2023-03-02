@@ -5,9 +5,9 @@
   "main": "create.js",
   "scripts": {
     "prepare": "husky install",
-    "build": "json2ts templates/language_schema.json src/language.d.ts && ajv compile -s templates/language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production",
+    "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production",
     "format": "prettier --write -u \"**/*\"",
-    "validate-yaml": "ajv validate  -s templates/language_schema.json --errors=text --verbose -d"
+    "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d"
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",
