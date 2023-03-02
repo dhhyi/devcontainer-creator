@@ -11,7 +11,7 @@ devcontainer:
       - ADD https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb /tmp/erlang-repo.deb
       - RUN dpkg -i /tmp/erlang-repo.deb
     packages:
-      - esl-erlang
+      - esl-erlang=1:25.0.4-1
     root:
       - ADD https://s3.amazonaws.com/rebar3/rebar3 /usr/local/bin/rebar3
       - RUN chmod +rx /usr/local/bin/rebar3
