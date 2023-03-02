@@ -13,6 +13,7 @@ jobs:
       dccCicada: ${{ steps.check.outputs.dccCicada }}
       dccClojure: ${{ steps.check.outputs.dccClojure }}
       dccCrystal: ${{ steps.check.outputs.dccCrystal }}
+      dccDart: ${{ steps.check.outputs.dccDart }}
       dccElixir: ${{ steps.check.outputs.dccElixir }}
       dccElm: ${{ steps.check.outputs.dccElm }}
       dccErlang: ${{ steps.check.outputs.dccErlang }}
@@ -176,6 +177,18 @@ jobs:
     with:
       name: crystal
       skip: ${{ needs.calc.outputs.dccCrystal == 'false' }}
+    secrets: inherit
+  dccDart:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://dart
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: dart
+      skip: ${{ needs.calc.outputs.dccDart == 'false' }}
     secrets: inherit
   dccElixir:
     needs:
@@ -495,6 +508,7 @@ jobs:
       - dccCicada
       - dccClojure
       - dccCrystal
+      - dccDart
       - dccElixir
       - dccElm
       - dccErlang

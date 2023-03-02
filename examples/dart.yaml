@@ -1,0 +1,23 @@
+language:
+  name: dart
+  binary: dart
+devcontainer:
+  build:
+    prepare:
+      - >-
+        RUN wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/dart.gpg
+        && echo 'deb [signed-by=/usr/share/keyrings/dart.gpg arch=amd64] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main' | tee /etc/apt/sources.list.d/dart_stable.list
+    packages:
+      - dart
+    user:
+      - RUN echo "dart --disable-analytics" | tee -a ~/.zshrc ~/.bashrc
+  selftest: |
+    cat <<EOF > /tmp/helloworld.dart
+    void main() {
+      print('Hello World!');
+    }
+    EOF
+    dart run /tmp/helloworld.dart
+vscode:
+  extensions:
+    - Dart-Code.dart-code
