@@ -14,4 +14,3 @@ vscode:
   settings:
     "[elixir]":
       editor.defaultFormatter: JakeBecker.elixir-ls
-  script: false

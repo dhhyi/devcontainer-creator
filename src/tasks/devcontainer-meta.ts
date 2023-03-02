@@ -22,7 +22,6 @@ interface DCCMetaType {
     label: string;
     command: string;
   }[];
-  script?: string | boolean;
   languageName?: string;
 }
 
@@ -135,11 +134,6 @@ export const ConstructedDCCMeta: () => Promise<
   const yaml = await ResolvedYaml();
 
   const dcc: Record<string, unknown> = {};
-  if (typeof yaml.vscode?.script === 'string') {
-    dcc.script = Buffer.from(yaml.vscode.script).toString('base64');
-  } else if (typeof yaml.vscode?.script === 'boolean') {
-    dcc.script = '';
-  }
   if (yaml.vscode?.tasks) {
     dcc.tasks = yaml.vscode.tasks;
   }

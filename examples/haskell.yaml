@@ -28,9 +28,3 @@ devcontainer:
 vscode:
   extensions:
     - haskell.haskell
-  script: |
-    module Main where
-
-    main = do
-      putStrLn "----------------"
-      $1

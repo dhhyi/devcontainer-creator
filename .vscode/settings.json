@@ -8,6 +8,6 @@
     "*.gomplate": "plaintext"
   },
   "yaml.schemas": {
-    "language_schema.json": ["examples/*.yaml"]
+    "language_schema.json": ["examples/*.yaml", "tests/**/language.yaml"]
   }
 }

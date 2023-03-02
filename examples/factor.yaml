@@ -25,9 +25,3 @@ devcontainer:
 vscode:
   extensions:
     - dexterhaslem.factor
-  script: |
-    USING: io kernel math prettyprint ;
-
-    "------------------------" print
-
-    $1

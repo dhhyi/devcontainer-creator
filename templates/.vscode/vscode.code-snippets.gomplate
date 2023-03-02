@@ -1,9 +1,0 @@
-{{- $L := (datasource "language") -}}
-{{- if and (has $L.vscode "script") ($L.vscode.script) }}{
-  "Script": {
-    "scope": "{{ $L.language.name }}",
-    "prefix": "script",
-    "body": {{ $L.vscode.script | strings.Split "\n" | data.ToJSONPretty "  " | strings.Indent "    " | strings.Trim " "}},
-    "description": "Script template"
-  }
-}{{ end }}

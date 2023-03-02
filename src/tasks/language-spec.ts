@@ -178,29 +178,18 @@ export const ExpandedYaml = once(async () => {
     }
   }
   const custom = [
-    ...(merged.customizations?.dcc || []).map((e) => ({
-      ...e,
-      script:
-        typeof e.script === 'string'
-          ? Buffer.from(e.script, 'base64').toString('utf-8')
-          : e.script,
-    })),
+    ...(merged.customizations?.dcc || []),
     {
       tasks: resolvedYaml.vscode!.tasks,
-      script: resolvedYaml.vscode!.script,
       languageName: resolvedYaml.language?.name,
     },
   ].reduce((acc, val) => ({
-    script: val.script === undefined ? acc.script : val.script,
     tasks: [...(acc.tasks || []), ...(val.tasks || [])].filter(
       (v, i, a) => a.findIndex((t) => t.label === v.label) === i
     ),
     languageName: val.languageName || acc.languageName,
   }));
 
-  if (custom?.script) {
-    resolvedYaml.vscode!.script = custom.script;
-  }
   if (custom?.tasks) {
     resolvedYaml.vscode!.tasks = custom.tasks;
   }

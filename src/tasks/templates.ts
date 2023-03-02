@@ -27,10 +27,6 @@ export const ExtractedResources = once(async () => {
       // @ts-ignore
       '../../templates/.vscode/tasks.json.gomplate'
     ),
-    '.vscode/vscode.code-snippets.gomplate': import(
-      // @ts-ignore
-      '../../templates/.vscode/vscode.code-snippets.gomplate'
-    ),
   };
   /* eslint-enable @typescript-eslint/ban-ts-comment */
 

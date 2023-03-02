@@ -156,19 +156,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "script": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "boolean",
-              "not": {
-                "const": true
-              }
-            }
-          ]
-        },
         "extensions": {
           "type": "array",
           "items": {
