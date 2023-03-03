@@ -4,6 +4,48 @@
   "title": "Language",
   "type": "object",
   "additionalProperties": false,
+  "$defs": {
+    "devcontainer-build-file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path",
+        "content"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "script",
+            "file"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    },
+    "v-s-code-task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "command"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        }
+      }
+    }
+  },
   "properties": {
     "extends": {
       "type": "string",
@@ -94,28 +136,7 @@
             "files": {
               "type": "array",
               "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "type",
-                  "path",
-                  "content"
-                ],
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "script",
-                      "file"
-                    ]
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/$defs/devcontainer-build-file"
               }
             },
             "prepare": {
@@ -184,20 +205,7 @@
         "tasks": {
           "type": "array",
           "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "label",
-              "command"
-            ],
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "command": {
-                "type": "string"
-              }
-            }
+            "$ref": "#/$defs/v-s-code-task"
           }
         }
       }

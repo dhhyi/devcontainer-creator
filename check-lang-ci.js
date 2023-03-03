@@ -79,7 +79,7 @@ stdin.on('end', function () {
         'language_schema.json',
       ].includes(x)
     ) ||
-    changed.some((x) => ['templates/', 'src/'].some((p) => x.startsWith(p)))
+    changed.some((x) => ['src/'].some((p) => x.startsWith(p)))
   ) {
     output(allLanguages(), buildBase);
   } else if (changed.some((x) => x.startsWith('examples/'))) {

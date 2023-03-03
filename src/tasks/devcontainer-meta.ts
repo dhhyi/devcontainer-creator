@@ -5,6 +5,7 @@ import { join } from 'path';
 import { once } from 'lodash-es';
 
 import { execute } from '../exec';
+import { VSCodeTask } from '../language';
 
 import { BuildDevcontainer } from './build-devcontainer';
 import { DevcontainerCLIBin } from './install-tools';
@@ -12,16 +13,19 @@ import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 import { WriteDevcontainer } from './write-devcontainer';
 
+export type DCCEnvKeys =
+  | 'DCC_BINARY'
+  | 'DCC_VERSION'
+  | 'DCC_REPL'
+  | 'DCC_SELFTEST';
+
 interface VSCodeMetaType {
   extensions?: string[];
   settings?: Record<string, unknown>;
 }
 
 interface DCCMetaType {
-  tasks?: {
-    label: string;
-    command: string;
-  }[];
+  tasks?: VSCodeTask[];
   languageName?: string;
 }
 
@@ -39,7 +43,7 @@ interface MergedDevcontainerMetaType {
     vscode?: VSCodeMetaType[];
     dcc?: DCCMetaType[];
   };
-  containerEnv?: Record<string, string>;
+  containerEnv?: Record<DCCEnvKeys, string>;
 }
 
 function getRemoteDevcontainerMeta(image: string): DevcontainerMetaType[] {

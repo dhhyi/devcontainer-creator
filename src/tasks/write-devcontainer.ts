@@ -1,25 +1,22 @@
 import {
   chmodSync,
   existsSync,
-  renameSync,
+  mkdirSync,
+  readFileSync,
   unlinkSync,
   writeFileSync,
 } from 'fs';
-import { basename, join, relative } from 'path';
+import { basename, dirname, join, relative } from 'path';
 
-import * as yaml from 'js-yaml';
 import { once } from 'lodash-es';
 
-import { baseImageReference, DCC_PROTOCOL } from '../constants';
-import { execute } from '../exec';
+import { DCC_PROTOCOL } from '../constants';
 import { Language } from '../language';
 import { logPersist, logStatus } from '../logging';
 
-import { TmpWorkingDir } from './create-tmp-dir';
-import { GomplateBin } from './install-tools';
 import { ExpandedYaml, ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
-import { ExtractedResources } from './templates';
+import { AvailableTemplates, Template } from './templates';
 
 function writeUpdateScript() {
   const { languageYaml, targetDir, devcontainerName, vscode } = ParsedArgs();
@@ -62,61 +59,52 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
   chmodSync(updateScriptPath, '755');
 }
 
-async function executeGomplate(
-  folder: '.devcontainer' | '.vscode',
-  resolvedYamlContent: Language
-) {
-  const workingDir = join(TmpWorkingDir(), folder);
-  const targetDir = join(ParsedArgs().targetDir, folder);
-  const templates = (await ExtractedResources())
-    .filter((t) => t.startsWith(folder))
-    .map((f) => basename(f));
+function writeFile(file: AvailableTemplates, desc: Language) {
+  const targetDir = join(ParsedArgs().targetDir, dirname(file));
 
-  logStatus('creating backups');
-  templates.forEach((template) => {
-    const templatePath = join(targetDir, template);
-    if (existsSync(templatePath)) {
-      renameSync(templatePath, templatePath + '~');
+  const newContent = Template(file)(desc);
+
+  let update = false;
+
+  const targetFile = join(targetDir, basename(file));
+
+  if (newContent) {
+    if (existsSync(targetFile)) {
+      const oldContent = readFileSync(targetFile, 'utf8');
+
+      if (oldContent === newContent) {
+        logStatus(file, 'is up to date');
+      } else {
+        update = true;
+      }
+    } else {
+      update = true;
     }
-  });
 
-  const gomplateArgs = [
-    '--input-dir',
-    workingDir,
-    '--include',
-    '"**/*.gomplate"',
-    `--output-map=${targetDir}/{{ .in | strings.TrimSuffix ".gomplate" }}`,
-    '-d',
-    'language=env:LANGUAGE?type=application/yaml',
-  ];
+    if (update) {
+      logStatus('writing ' + file);
 
-  const gomplateEnv: Record<string, string> = {
-    GOMPLATE_SUPPRESS_EMPTY: 'true',
-    BASE_IMAGE: baseImageReference(resolvedYamlContent.extends),
-    LANGUAGE: yaml.dump(resolvedYamlContent),
-  };
-  execute('writing ' + folder, GomplateBin, gomplateArgs, {
-    env: gomplateEnv,
-  });
+      mkdirSync(targetDir, { recursive: true });
 
-  logStatus('removing backups');
-  templates.forEach((template) => {
-    const templatePath = join(targetDir, template + '~');
-    if (existsSync(templatePath)) {
-      unlinkSync(templatePath);
+      writeFileSync(targetFile, newContent);
     }
-  });
+  } else {
+    if (existsSync(targetFile)) {
+      unlinkSync(targetFile);
+    }
+  }
 }
 
 export const WriteDevcontainer = once(async () => {
   const resolvedYaml = await ResolvedYaml();
   const { targetDir, vscode } = ParsedArgs();
 
-  await executeGomplate('.devcontainer', resolvedYaml);
+  writeFile('.devcontainer/devcontainer.json', resolvedYaml);
+  writeFile('.devcontainer/Dockerfile', resolvedYaml);
 
   if (vscode) {
     const expandedYaml = await ExpandedYaml();
-    await executeGomplate('.vscode', expandedYaml);
+    writeFile('.vscode/tasks.json', expandedYaml);
   }
 
   writeUpdateScript();

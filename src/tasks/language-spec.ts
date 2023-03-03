@@ -79,9 +79,6 @@ export const ResolvedYaml = once(async () => {
   if (!resolvedYaml.extends) {
     resolvedYaml.extends = 'base://debian';
   }
-  if (!resolvedYaml.language) {
-    resolvedYaml.language = {};
-  }
   if (!resolvedYaml.devcontainer) {
     resolvedYaml.devcontainer = {};
   }
@@ -160,27 +157,30 @@ export const ExpandedYaml = once(async () => {
 
   const resolvedYaml = await ResolvedYaml();
 
-  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   if (!Object.keys(resolvedYaml?.language || {}).length) {
+    const language: Language['language'] = {};
     if (merged?.containerEnv?.DCC_REPL) {
-      resolvedYaml.language!.repl = merged.containerEnv.DCC_REPL;
+      language.repl = merged.containerEnv.DCC_REPL;
     }
     if (merged?.containerEnv?.DCC_BINARY) {
       const split = merged.containerEnv.DCC_BINARY.split(' ');
       const binary = split[0];
-      resolvedYaml.language!.binary = binary;
+      language.binary = binary;
       if (split.length > 1) {
-        resolvedYaml.language!.binaryArgs = split.slice(1).join(' ');
+        language.binaryArgs = split.slice(1).join(' ');
       }
     }
     if (merged?.containerEnv?.DCC_VERSION) {
-      resolvedYaml.language!.version = merged.containerEnv.DCC_VERSION;
+      language.version = merged.containerEnv.DCC_VERSION;
+    }
+    if (Object.keys(language).length) {
+      resolvedYaml.language = language;
     }
   }
   const custom = [
     ...(merged.customizations?.dcc || []),
     {
-      tasks: resolvedYaml.vscode!.tasks,
+      tasks: resolvedYaml.vscode?.tasks,
       languageName: resolvedYaml.language?.name,
     },
   ].reduce((acc, val) => ({
@@ -191,12 +191,17 @@ export const ExpandedYaml = once(async () => {
   }));
 
   if (custom?.tasks) {
-    resolvedYaml.vscode!.tasks = custom.tasks;
+    if (!resolvedYaml.vscode) {
+      resolvedYaml.vscode = {};
+    }
+    resolvedYaml.vscode.tasks = custom.tasks;
   }
   if (custom?.languageName) {
-    resolvedYaml.language!.name = custom.languageName;
+    if (!resolvedYaml.language) {
+      resolvedYaml.language = {};
+    }
+    resolvedYaml.language.name = custom.languageName;
   }
-  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
   return resolvedYaml;
 });

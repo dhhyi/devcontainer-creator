@@ -4,7 +4,5 @@
 .devcontainer_meta.json
 /src/language.d.ts
 /tests/**/*.json
-/tests/**/*.code-snippets
-/templates
 /LICENSE
 /pnpm-lock.yaml
