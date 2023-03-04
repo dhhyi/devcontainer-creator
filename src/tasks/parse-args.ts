@@ -19,17 +19,18 @@ target-folder: Path to the target folder. If not specified, a temporary folder w
 
 Options:
   --name\tName of the devcontainer.
+  --no-vscode\tDo not create a .vscode folder.
 
-  --build\tBuild the devcontainer after creation.
   --tag\t\tTag of the devcontainer image.
   --cache-from\tImage to use as cache for the devcontainer image.
 
+  --build\tBuild the devcontainer after creation.
   --test\tTest the devcontainer after creation.
-  --dump-meta\tDump the metadata of the devcontainer.
-  --no-vscode\tDo not create a .vscode folder.
+  --run\t\tRun the devcontainer after creation.
 
   -v, --verbose\tVerbose output.
   -vv, --debug\tDebug output.
+  --dump-meta\tDump the metadata of the devcontainer.
 
   -h, --help\tPrint this help message.
 
@@ -40,6 +41,9 @@ Examples:
   node ${basename(process.argv[1])} language.yaml --test
     Create and test a temporary devcontainer for the
     language specified in language.yaml.
+
+  node ${basename(process.argv[1])} ${DCC_PROTOCOL}lua --run
+    Create and run a temporary devcontainer for Lua.
 `
   );
   process.exit(1);
