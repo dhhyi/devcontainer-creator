@@ -98,17 +98,6 @@ jobs:
       name: debian
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  baseGo:
-    needs:
-      - calc
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://go
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: go
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
   baseJava:
     needs:
       - calc
@@ -242,7 +231,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseGo
+      - baseDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://go
     uses: ./.github/workflows/dcc.yaml

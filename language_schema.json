@@ -52,7 +52,6 @@
       "enum": [
         "base://brew",
         "base://debian",
-        "base://go",
         "base://java",
         "base://node",
         "base://python",

@@ -1,4 +1,3 @@
-extends: base://go
 language:
   name: go
   binary: go
@@ -7,6 +6,12 @@ language:
   version: go version
 devcontainer:
   build:
+    args:
+      GO_VERSION: 1.20.1
+    root:
+      - ADD https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz /tmp/go.tar.gz
+      - RUN tar -C /opt -xzf /tmp/go.tar.gz
+      - ENV PATH=/opt/go/bin:$PATH
     user:
       - RUN go install github.com/traefik/yaegi/cmd/yaegi@latest
   selftest: |
@@ -18,3 +23,6 @@ devcontainer:
     go fmt /tmp/helloworld.go
     cat /tmp/helloworld.go
     go run /tmp/helloworld.go
+vscode:
+  extensions:
+    - golang.Go
