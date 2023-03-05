@@ -19,7 +19,7 @@ export type DCCEnvKeys =
   | 'DCC_REPL'
   | 'DCC_SELFTEST';
 
-interface VSCodeMetaType {
+export interface VSCodeMetaType {
   extensions?: string[];
   settings?: Record<string, unknown>;
 }

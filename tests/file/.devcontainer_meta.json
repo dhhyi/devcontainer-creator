@@ -49,9 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_SELFTEST": "dGVzdG1lCnN0YXQgJEhPTUUvLmNvbmZpZy90ZXN0L3Rlc3QuZmlsZQo="
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -62,6 +59,9 @@
           }
         }
       }
+    },
+    "containerEnv": {
+      "DCC_SELFTEST": "dGVzdG1lCnN0YXQgJEhPTUUvLmNvbmZpZy90ZXN0L3Rlc3QuZmlsZQo="
     }
   }
 ]

@@ -1,13 +1,17 @@
 {
   "name": "Simple Extended",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-typescript",
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
-    },
-    "foo": "bar"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "foo": "bar"
+      }
+    }
   },
   "containerEnv": {
     "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="

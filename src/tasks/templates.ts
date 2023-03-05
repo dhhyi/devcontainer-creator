@@ -3,7 +3,7 @@ import { dirname } from 'path';
 import { baseImageReference, isBaseImage } from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
 
-import { DCCEnvKeys } from './devcontainer-meta';
+import { DCCEnvKeys, VSCodeMetaType } from './devcontainer-meta';
 
 export type AvailableTemplates =
   | '.vscode/tasks.json'
@@ -92,8 +92,9 @@ interface DevcontainerJSONType {
     dockerfile: 'Dockerfile';
     args?: Record<string, unknown>;
   };
-  settings?: Record<string, unknown>;
-  extensions?: string[];
+  customizations?: {
+    vscode: VSCodeMetaType;
+  };
   runArgs?: string[];
   containerEnv?: Partial<Record<DCCEnvKeys, string>>;
 }
@@ -133,7 +134,8 @@ const DevcontainerJSONTemplate = (
     json.image = baseImageReference(desc.extends);
   }
 
-  let settings: DevcontainerJSONType['settings'] = {};
+  const vscode: VSCodeMetaType = {};
+  let settings: VSCodeMetaType['settings'] = {};
   if (desc.vscode?.settings) {
     settings = desc.vscode.settings;
   }
@@ -144,11 +146,13 @@ const DevcontainerJSONTemplate = (
     );
   }
   if (Object.keys(settings).length) {
-    json.settings = sortJson(settings);
+    vscode.settings = sortJson(settings);
   }
-
   if (desc.vscode?.extensions?.length) {
-    json.extensions = desc.vscode.extensions;
+    vscode.extensions = desc.vscode.extensions;
+  }
+  if (Object.keys(vscode).length) {
+    json.customizations = { vscode };
   }
 
   const containerEnv: DevcontainerJSONType['containerEnv'] = desc.language
@@ -187,7 +191,7 @@ const DevcontainerJSONTemplate = (
     json.containerEnv = sortJson(containerEnv);
   }
 
-  if (desc) return json;
+  return json;
 };
 
 const DockerfileTemplate = (desc: Language): string | undefined => {
