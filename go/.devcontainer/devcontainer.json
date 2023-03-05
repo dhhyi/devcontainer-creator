@@ -1,7 +1,10 @@
 {
   "name": "Example devcontainer for go",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "args": {
+      "GO_VERSION": "1.20.1"
+    }
   },
   "settings": {
     "files.exclude": {
@@ -10,6 +13,9 @@
       ".vscode": true
     }
   },
+  "extensions": [
+    "golang.Go"
+  ],
   "containerEnv": {
     "DCC_BINARY": "go run",
     "DCC_REPL": "yaegi",

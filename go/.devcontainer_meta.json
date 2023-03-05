@@ -49,23 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/go:1",
-    "init": true,
-    "capAdd": [
-      "SYS_PTRACE"
-    ],
-    "securityOpt": [
-      "seccomp=unconfined"
-    ],
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "golang.Go"
-        ]
-      }
-    }
-  },
-  {
     "containerEnv": {
       "DCC_BINARY": "go run",
       "DCC_REPL": "yaegi",
@@ -80,7 +63,10 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "golang.Go"
+        ]
       }
     }
   },
