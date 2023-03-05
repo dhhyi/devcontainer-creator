@@ -6,16 +6,20 @@
       "GO_VERSION": "1.20.1"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "golang.Go"
+      ]
     }
   },
-  "extensions": [
-    "golang.Go"
-  ],
   "containerEnv": {
     "DCC_BINARY": "go run",
     "DCC_REPL": "yaegi",

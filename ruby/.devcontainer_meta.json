@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "ruby",
-      "DCC_REPL": "irb",
-      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
-      "DCC_VERSION": "rubocop --version; ruby --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -72,6 +66,12 @@
           "misogi.ruby-rubocop"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "ruby",
+      "DCC_REPL": "irb",
+      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
+      "DCC_VERSION": "rubocop --version; ruby --version"
     }
   },
   {

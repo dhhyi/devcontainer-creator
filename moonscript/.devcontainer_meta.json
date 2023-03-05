@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "lua",
-      "DCC_REPL": "lua",
-      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
-      "DCC_VERSION": "lua -v; luarocks --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -69,6 +63,12 @@
           "bubuabu.busted-test-explorer"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "lua",
+      "DCC_REPL": "lua",
+      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+      "DCC_VERSION": "lua -v; luarocks --version"
     }
   },
   {
@@ -85,12 +85,6 @@
     }
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "moon",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo=",
-      "DCC_VERSION": "moonc -v ."
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -104,6 +98,12 @@
           "vgalaktionov.moonscript"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "moon",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo=",
+      "DCC_VERSION": "moonc -v ."
     }
   },
   {

@@ -1,11 +1,15 @@
 {
   "name": "Example devcontainer for python",
   "image": "ghcr.io/dhhyi/dcc-base-python",
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
     }
   },
   "containerEnv": {

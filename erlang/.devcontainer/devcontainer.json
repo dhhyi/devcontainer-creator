@@ -3,22 +3,26 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "[erlang]": {
-      "editor.defaultFormatter": "szTheory.erlang-formatter",
-      "editor.tabSize": 2
-    },
-    "erlangFormatter.formatter": "erlfmt",
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[erlang]": {
+          "editor.defaultFormatter": "szTheory.erlang-formatter",
+          "editor.tabSize": 2
+        },
+        "erlangFormatter.formatter": "erlfmt",
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "pgourlain.erlang",
+        "szTheory.erlang-formatter"
+      ]
     }
   },
-  "extensions": [
-    "pgourlain.erlang",
-    "szTheory.erlang-formatter"
-  ],
   "containerEnv": {
     "DCC_BINARY": "escript",
     "DCC_REPL": "erl",

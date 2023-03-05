@@ -6,19 +6,23 @@
       "CLOJURE_VERSION": "1.11.1.1155"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
-    },
-    "files.watcherExclude": {
-      "**/target": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "files.watcherExclude": {
+          "**/target": true
+        }
+      },
+      "extensions": [
+        "betterthantomorrow.calva"
+      ]
     }
   },
-  "extensions": [
-    "betterthantomorrow.calva"
-  ],
   "containerEnv": {
     "DCC_BINARY": "clojure -M",
     "DCC_REPL": "clojure",

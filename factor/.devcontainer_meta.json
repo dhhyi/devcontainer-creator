@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "factor -run",
-      "DCC_REPL": "factor",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZmFjdG9yIDw8RU9GClVTRTogaW8KIkhlbGxvIFdvcmxkISIgcHJpbnQKRU9GCmZhY3RvciAtcnVuIC90bXAvaGVsbG93b3JsZC5mYWN0b3IK",
-      "DCC_VERSION": ""
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -68,6 +62,12 @@
           "dexterhaslem.factor"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "factor -run",
+      "DCC_REPL": "factor",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZmFjdG9yIDw8RU9GClVTRTogaW8KIkhlbGxvIFdvcmxkISIgcHJpbnQKRU9GCmZhY3RvciAtcnVuIC90bXAvaGVsbG93b3JsZC5mYWN0b3IK",
+      "DCC_VERSION": ""
     }
   },
   {

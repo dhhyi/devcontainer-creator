@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "dart",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "Y2F0IDw8RU9GID4gL3RtcC9oZWxsb3dvcmxkLmRhcnQKdm9pZCBtYWluKCkgewogIHByaW50KCdIZWxsbyBXb3JsZCEnKTsKfQpFT0YKZGFydCBydW4gL3RtcC9oZWxsb3dvcmxkLmRhcnQK",
-      "DCC_VERSION": "dart --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -68,6 +62,12 @@
           "Dart-Code.dart-code"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "dart",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "Y2F0IDw8RU9GID4gL3RtcC9oZWxsb3dvcmxkLmRhcnQKdm9pZCBtYWluKCkgewogIHByaW50KCdIZWxsbyBXb3JsZCEnKTsKfQpFT0YKZGFydCBydW4gL3RtcC9oZWxsb3dvcmxkLmRhcnQK",
+      "DCC_VERSION": "dart --version"
     }
   },
   {

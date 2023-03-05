@@ -7,16 +7,20 @@
       "JULIA_MINOR_VERSION": "2"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "julialang.language-julia"
+      ]
     }
   },
-  "extensions": [
-    "julialang.language-julia"
-  ],
   "containerEnv": {
     "DCC_BINARY": "julia",
     "DCC_REPL": "julia",

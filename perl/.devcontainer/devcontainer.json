@@ -3,17 +3,21 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "cfgweb.vscode-perl",
+        "richterger.perl"
+      ]
     }
   },
-  "extensions": [
-    "cfgweb.vscode-perl",
-    "richterger.perl"
-  ],
   "containerEnv": {
     "DCC_BINARY": "perl",
     "DCC_REPL": "",

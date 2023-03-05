@@ -59,12 +59,6 @@
     }
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "cic run",
-      "DCC_REPL": "cic",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuY2ljIDw8RU9GCmxldCBncmVldGluZyA9ICJIZWxsbywgV29ybGQhIgpjb21wdXRlIGdyZWV0aW5nCkVPRgpjaWMgL3RtcC9oZWxsb3dvcmxkLmNpYwo=",
-      "DCC_VERSION": "cic --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -75,6 +69,12 @@
           }
         }
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "cic run",
+      "DCC_REPL": "cic",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuY2ljIDw8RU9GCmxldCBncmVldGluZyA9ICJIZWxsbywgV29ybGQhIgpjb21wdXRlIGdyZWV0aW5nCkVPRgpjaWMgL3RtcC9oZWxsb3dvcmxkLmNpYwo=",
+      "DCC_VERSION": "cic --version"
     }
   },
   {

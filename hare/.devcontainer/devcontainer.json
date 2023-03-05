@@ -6,16 +6,20 @@
       "QBE_VERSION": 1.1
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "adotinthevoid.hare-highlighting"
+      ]
     }
   },
-  "extensions": [
-    "adotinthevoid.hare-highlighting"
-  ],
   "containerEnv": {
     "DCC_BINARY": "hare run",
     "DCC_REPL": "",

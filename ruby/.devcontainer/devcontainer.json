@@ -3,20 +3,24 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "[ruby]": {
-      "editor.defaultFormatter": "misogi.ruby-rubocop"
-    },
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[ruby]": {
+          "editor.defaultFormatter": "misogi.ruby-rubocop"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "rebornix.Ruby",
+        "misogi.ruby-rubocop"
+      ]
     }
   },
-  "extensions": [
-    "rebornix.Ruby",
-    "misogi.ruby-rubocop"
-  ],
   "containerEnv": {
     "DCC_BINARY": "ruby",
     "DCC_REPL": "irb",

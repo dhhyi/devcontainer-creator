@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "runidris",
-      "DCC_REPL": "idris2",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuaWRyIDw8RU9GCm1vZHVsZSBNYWluCm1haW4gOiBJTyAoKQptYWluID0gcHV0U3RyTG4gIkhlbGxvIFdvcmxkISIKRU9GCnJ1bmlkcmlzIC90bXAvaGVsbG93b3JsZC5pZHIK",
-      "DCC_VERSION": "idris2 --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -71,6 +65,12 @@
           "meraymond.idris-vscode"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "runidris",
+      "DCC_REPL": "idris2",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuaWRyIDw8RU9GCm1vZHVsZSBNYWluCm1haW4gOiBJTyAoKQptYWluID0gcHV0U3RyTG4gIkhlbGxvIFdvcmxkISIKRU9GCnJ1bmlkcmlzIC90bXAvaGVsbG93b3JsZC5pZHIK",
+      "DCC_VERSION": "idris2 --version"
     }
   },
   {

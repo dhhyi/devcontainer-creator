@@ -7,17 +7,21 @@
       "LUAROCKS_VERSION": "3.9.1"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "sumneko.lua",
+        "bubuabu.busted-test-explorer"
+      ]
     }
   },
-  "extensions": [
-    "sumneko.lua",
-    "bubuabu.busted-test-explorer"
-  ],
   "containerEnv": {
     "DCC_BINARY": "lua",
     "DCC_REPL": "lua",

@@ -3,19 +3,23 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "[elm]": {
-      "editor.defaultFormatter": "elmTooling.elm-ls-vscode"
-    },
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[elm]": {
+          "editor.defaultFormatter": "elmTooling.elm-ls-vscode"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "elmTooling.elm-ls-vscode"
+      ]
     }
   },
-  "extensions": [
-    "elmTooling.elm-ls-vscode"
-  ],
   "containerEnv": {
     "DCC_BINARY": "",
     "DCC_REPL": "elm repl",

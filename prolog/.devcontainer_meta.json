@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "",
-      "DCC_REPL": "gprolog",
-      "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi",
-      "DCC_VERSION": "gprolog --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -71,6 +65,12 @@
           "rebornix.prolog"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "",
+      "DCC_REPL": "gprolog",
+      "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi",
+      "DCC_VERSION": "gprolog --version"
     }
   },
   {

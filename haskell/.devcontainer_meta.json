@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "runhaskell",
-      "DCC_REPL": "ghci",
-      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmhzIDw8RU9GCm1haW4gPSBwdXRTdHJMbiAiSGVsbG8gV29ybGQhIgpFT0YKcnVuaGFza2VsbCAvdG1wL2hlbGxvd29ybGQuaHMK",
-      "DCC_VERSION": "ghcup --version; ghc --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -68,6 +62,12 @@
           "haskell.haskell"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "runhaskell",
+      "DCC_REPL": "ghci",
+      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmhzIDw8RU9GCm1haW4gPSBwdXRTdHJMbiAiSGVsbG8gV29ybGQhIgpFT0YKcnVuaGFza2VsbCAvdG1wL2hlbGxvd29ybGQuaHMK",
+      "DCC_VERSION": "ghcup --version; ghc --version"
     }
   },
   {

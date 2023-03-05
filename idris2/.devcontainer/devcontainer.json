@@ -6,19 +6,23 @@
       "IDRIS2_VERSION": "0.6.0"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
-    },
-    "idris.autosave": "always",
-    "idris.idris2Mode": true,
-    "idris.idrisPath": "idris2"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "idris.autosave": "always",
+        "idris.idris2Mode": true,
+        "idris.idrisPath": "idris2"
+      },
+      "extensions": [
+        "meraymond.idris-vscode"
+      ]
+    }
   },
-  "extensions": [
-    "meraymond.idris-vscode"
-  ],
   "containerEnv": {
     "DCC_BINARY": "runidris",
     "DCC_REPL": "idris2",

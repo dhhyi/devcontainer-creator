@@ -6,19 +6,23 @@
       "PROLOG_VERSION": "1.5.0"
     }
   },
-  "settings": {
-    "files.associations": {
-      "*.pl": "prolog"
-    },
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.associations": {
+          "*.pl": "prolog"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "rebornix.prolog"
+      ]
     }
   },
-  "extensions": [
-    "rebornix.prolog"
-  ],
   "containerEnv": {
     "DCC_BINARY": "",
     "DCC_REPL": "gprolog",

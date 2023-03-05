@@ -62,12 +62,6 @@
     }
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "amm",
-      "DCC_REPL": "amm",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuc2NhbGEgPDxFT0YKQG1haW4gZGVmIG1haW4oKSA9IHsKICAgIHByaW50bG4oIkhlbGxvIFdvcmxkISIpCn0KRU9GCmFtbSAvdG1wL2hlbGxvd29ybGQuc2NhbGEK",
-      "DCC_VERSION": "amm --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -88,6 +82,12 @@
           "scalameta.metals"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "amm",
+      "DCC_REPL": "amm",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuc2NhbGEgPDxFT0YKQG1haW4gZGVmIG1haW4oKSA9IHsKICAgIHByaW50bG4oIkhlbGxvIFdvcmxkISIpCn0KRU9GCmFtbSAvdG1wL2hlbGxvd29ybGQuc2NhbGEK",
+      "DCC_VERSION": "amm --version"
     }
   },
   {

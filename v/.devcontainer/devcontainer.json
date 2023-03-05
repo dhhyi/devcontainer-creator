@@ -6,16 +6,20 @@
       "V_VERSION": "0.3.3"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "vlanguage.vscode-vlang"
+      ]
     }
   },
-  "extensions": [
-    "vlanguage.vscode-vlang"
-  ],
   "containerEnv": {
     "DCC_BINARY": "v run",
     "DCC_REPL": "v",

@@ -6,23 +6,27 @@
       "AMMONITE_VERSION": "2.5.4/2.13-2.5.4"
     }
   },
-  "settings": {
-    "[scala]": {
-      "editor.defaultFormatter": "scalameta.metals",
-      "editor.tabSize": 2
-    },
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
-    },
-    "files.watcherExclude": {
-      "**/target": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[scala]": {
+          "editor.defaultFormatter": "scalameta.metals",
+          "editor.tabSize": 2
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "files.watcherExclude": {
+          "**/target": true
+        }
+      },
+      "extensions": [
+        "scalameta.metals"
+      ]
     }
   },
-  "extensions": [
-    "scalameta.metals"
-  ],
   "containerEnv": {
     "DCC_BINARY": "amm",
     "DCC_REPL": "amm",

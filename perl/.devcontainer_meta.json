@@ -49,12 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "containerEnv": {
-      "DCC_BINARY": "perl",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn",
-      "DCC_VERSION": "perl --version"
-    },
     "customizations": {
       "vscode": {
         "settings": {
@@ -69,6 +63,12 @@
           "richterger.perl"
         ]
       }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "perl",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn",
+      "DCC_VERSION": "perl --version"
     }
   },
   {

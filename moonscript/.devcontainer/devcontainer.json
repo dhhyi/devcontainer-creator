@@ -3,16 +3,20 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "vgalaktionov.moonscript"
+      ]
     }
   },
-  "extensions": [
-    "vgalaktionov.moonscript"
-  ],
   "containerEnv": {
     "DCC_BINARY": "moon",
     "DCC_REPL": "",

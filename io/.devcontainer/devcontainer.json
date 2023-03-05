@@ -6,16 +6,20 @@
       "IO_VERSION": "2019.05.22-alpha"
     }
   },
-  "settings": {
-    "files.exclude": {
-      ".devcontainer": true,
-      ".update_devcontainer.sh": true,
-      ".vscode": true
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "kennethceyer.io"
+      ]
     }
   },
-  "extensions": [
-    "kennethceyer.io"
-  ],
   "containerEnv": {
     "DCC_BINARY": "io",
     "DCC_REPL": "io",
