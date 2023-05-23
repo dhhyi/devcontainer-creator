@@ -8,7 +8,7 @@ import { logError, logStatus } from '../logging';
 
 import { TmpWorkingDir } from './create-tmp-dir';
 
-function installTool(tool: string, version: string, toolBin: string) {
+function installTool(tool: string, toolBin: string, version = 'latest') {
   const toolPath = join(TmpWorkingDir(), toolBin);
   if (existsSync(toolPath)) {
     logStatus('found already installed', tool);
@@ -28,9 +28,5 @@ function installTool(tool: string, version: string, toolBin: string) {
 }
 
 export const DevcontainerCLIBin = once(() => {
-  return installTool(
-    '@devcontainers/cli',
-    '0.29.0',
-    'node_modules/.bin/devcontainer'
-  );
+  return installTool('@devcontainers/cli', 'node_modules/.bin/devcontainer');
 });
