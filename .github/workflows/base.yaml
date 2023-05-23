@@ -32,7 +32,7 @@ jobs:
         run: docker pull ghcr.io/dhhyi/dcc-base-${{ inputs.name }}
 
       - name: Build base-${{ inputs.name }}
-        run: devcontainer build --workspace-folder base-images/${{ inputs.name }} --cache-from ghcr.io/dhhyi/dcc-base-${{ inputs.name }} --image-name ghcr.io/dhhyi/dcc-base-${{ inputs.name }}
+        run: npm run build-base ${{ inputs.name }}
 
       - name: Publish base-${{ inputs.name }}
         run: docker push ghcr.io/dhhyi/dcc-base-${{ inputs.name }}

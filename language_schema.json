@@ -55,6 +55,7 @@
         "base://java",
         "base://node",
         "base://python",
+        "base://ubuntu",
         "dcc://cicada",
         "dcc://clojure",
         "dcc://crystal",

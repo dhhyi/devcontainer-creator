@@ -9,7 +9,8 @@
     "format": "prettier --write -u \"**/*\"",
     "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d",
     "synchronize-ci": "node synchronize-available.js && node pipeline.js",
-    "build-examples": "node build-examples.js"
+    "build-examples": "node build-examples.js",
+    "build-base": "node build-base.js"
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",

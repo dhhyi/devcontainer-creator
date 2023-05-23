@@ -124,6 +124,17 @@ jobs:
       name: python
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
+  baseUbuntu:
+    needs:
+      - calc
+      - features
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: base://ubuntu
+    uses: ./.github/workflows/base.yaml
+    with:
+      name: ubuntu
+      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
+    secrets: inherit
   dccClojure:
     needs:
       - calc
