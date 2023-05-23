@@ -2,24 +2,12 @@ language:
   name: haskell
   binary: runhaskell
   repl: ghci
-  version: |
-    ghcup --version
-    ghc --version
+  version: ghc --version
 devcontainer:
   build:
     packages:
-      - build-essential
-      - libffi-dev
-      - libgmp-dev
-      - libgmp10
-      - libncurses-dev
-      - libncurses5
-      - libtinfo5
-    user:
-      - RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-      - ENV PATH="${HOME}/.ghcup/bin:${PATH}"
-      - RUN ghcup install hls
-      - RUN ghcup install stack
+      - haskell-platform
+      - hlint
   selftest: |
     cat > /tmp/helloworld.hs <<EOF
     main = putStrLn "Hello World!"
@@ -27,4 +15,6 @@ devcontainer:
     runhaskell /tmp/helloworld.hs
 vscode:
   extensions:
-    - haskell.haskell
+    - dramforever.vscode-ghc-simple
+    - justusadam.language-haskell
+    - hoovercj.haskell-linter
