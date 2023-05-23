@@ -10,7 +10,6 @@ jobs:
     outputs:
       buildLanguages: ${{ steps.check.outputs.buildLanguages }}
       buildBase: ${{ steps.check.outputs.buildBase }}
-      dccCicada: ${{ steps.check.outputs.dccCicada }}
       dccClojure: ${{ steps.check.outputs.dccClojure }}
       dccDart: ${{ steps.check.outputs.dccDart }}
       dccElixir: ${{ steps.check.outputs.dccElixir }}
@@ -18,13 +17,10 @@ jobs:
       dccErlang: ${{ steps.check.outputs.dccErlang }}
       dccFactor: ${{ steps.check.outputs.dccFactor }}
       dccGo: ${{ steps.check.outputs.dccGo }}
-      dccHare: ${{ steps.check.outputs.dccHare }}
       dccHaskell: ${{ steps.check.outputs.dccHaskell }}
-      dccIdris2: ${{ steps.check.outputs.dccIdris2 }}
       dccIo: ${{ steps.check.outputs.dccIo }}
       dccJavascript: ${{ steps.check.outputs.dccJavascript }}
       dccJulia: ${{ steps.check.outputs.dccJulia }}
-      dccKoka: ${{ steps.check.outputs.dccKoka }}
       dccKotlin: ${{ steps.check.outputs.dccKotlin }}
       dccLua: ${{ steps.check.outputs.dccLua }}
       dccMoonscript: ${{ steps.check.outputs.dccMoonscript }}
@@ -37,8 +33,6 @@ jobs:
       dccScala: ${{ steps.check.outputs.dccScala }}
       dccTcl: ${{ steps.check.outputs.dccTcl }}
       dccTypescript: ${{ steps.check.outputs.dccTypescript }}
-      dccV: ${{ steps.check.outputs.dccV }}
-      dccZig: ${{ steps.check.outputs.dccZig }}
     env:
       commits: ${{ toJSON(github.event.commits) }}
     steps:
@@ -130,18 +124,6 @@ jobs:
       name: python
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  dccCicada:
-    needs:
-      - calc
-      - bundle
-      - baseNode
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://cicada
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: cicada
-      skip: ${{ needs.calc.outputs.dccCicada == 'false' }}
-    secrets: inherit
   dccClojure:
     needs:
       - calc
@@ -226,18 +208,6 @@ jobs:
       name: go
       skip: ${{ needs.calc.outputs.dccGo == 'false' }}
     secrets: inherit
-  dccHare:
-    needs:
-      - calc
-      - bundle
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://hare
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: hare
-      skip: ${{ needs.calc.outputs.dccHare == 'false' }}
-    secrets: inherit
   dccHaskell:
     needs:
       - calc
@@ -249,18 +219,6 @@ jobs:
     with:
       name: haskell
       skip: ${{ needs.calc.outputs.dccHaskell == 'false' }}
-    secrets: inherit
-  dccIdris2:
-    needs:
-      - calc
-      - bundle
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://idris2
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: idris2
-      skip: ${{ needs.calc.outputs.dccIdris2 == 'false' }}
     secrets: inherit
   dccIo:
     needs:
@@ -297,18 +255,6 @@ jobs:
     with:
       name: julia
       skip: ${{ needs.calc.outputs.dccJulia == 'false' }}
-    secrets: inherit
-  dccKoka:
-    needs:
-      - calc
-      - bundle
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://koka
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: koka
-      skip: ${{ needs.calc.outputs.dccKoka == 'false' }}
     secrets: inherit
   dccKotlin:
     needs:
@@ -454,34 +400,9 @@ jobs:
       name: typescript
       skip: ${{ needs.calc.outputs.dccTypescript == 'false' }}
     secrets: inherit
-  dccV:
-    needs:
-      - calc
-      - bundle
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://v
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: v
-      skip: ${{ needs.calc.outputs.dccV == 'false' }}
-    secrets: inherit
-  dccZig:
-    needs:
-      - calc
-      - bundle
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://zig
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: zig
-      skip: ${{ needs.calc.outputs.dccZig == 'false' }}
-    secrets: inherit
   examples:
     needs:
       - calc
-      - dccCicada
       - dccClojure
       - dccDart
       - dccElixir
@@ -489,13 +410,10 @@ jobs:
       - dccErlang
       - dccFactor
       - dccGo
-      - dccHare
       - dccHaskell
-      - dccIdris2
       - dccIo
       - dccJavascript
       - dccJulia
-      - dccKoka
       - dccKotlin
       - dccLua
       - dccMoonscript
@@ -508,8 +426,6 @@ jobs:
       - dccScala
       - dccTcl
       - dccTypescript
-      - dccV
-      - dccZig
     if: ${{ ! failure() && ! cancelled() && always() }}
     uses: ./.github/workflows/examples.yaml
     with:
