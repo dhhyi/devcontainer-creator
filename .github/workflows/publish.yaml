@@ -26,6 +26,7 @@ jobs:
       dccMoonscript: ${{ steps.check.outputs.dccMoonscript }}
       dccOdin: ${{ steps.check.outputs.dccOdin }}
       dccPerl: ${{ steps.check.outputs.dccPerl }}
+      dccPony: ${{ steps.check.outputs.dccPony }}
       dccProlog: ${{ steps.check.outputs.dccProlog }}
       dccPython: ${{ steps.check.outputs.dccPython }}
       dccRaku: ${{ steps.check.outputs.dccRaku }}
@@ -327,6 +328,18 @@ jobs:
       name: perl
       skip: ${{ needs.calc.outputs.dccPerl == 'false' }}
     secrets: inherit
+  dccPony:
+    needs:
+      - calc
+      - bundle
+      - baseUbuntu
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://pony
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: pony
+      skip: ${{ needs.calc.outputs.dccPony == 'false' }}
+    secrets: inherit
   dccProlog:
     needs:
       - calc
@@ -430,6 +443,7 @@ jobs:
       - dccMoonscript
       - dccOdin
       - dccPerl
+      - dccPony
       - dccProlog
       - dccPython
       - dccRaku
