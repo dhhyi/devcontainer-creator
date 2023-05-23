@@ -1,0 +1,80 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "npruehs.pony"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "bWtkaXIgLXAgL3RtcC9oZWxsb3dvcmxkCmNhdCA+L3RtcC9oZWxsb3dvcmxkL21haW4ucG9ueSA8PEVPRgphY3RvciBNYWluCiAgbmV3IGNyZWF0ZShlbnY6IEVudikgPT4KICAgIGVudi5vdXQucHJpbnQoIkhlbGxvIFdvcmxkISIpCkVPRgpwb255YyAvdG1wL2hlbGxvd29ybGQgLW8gL3RtcCAtYiBoZWxsby53b3JsZAovdG1wL2hlbGxvLndvcmxkCg==",
+      "DCC_VERSION": "ponyc --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "pony"
+      }
+    }
+  }
+]
