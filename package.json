@@ -7,7 +7,9 @@
     "prepare": "husky install",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
     "format": "prettier --write -u \"**/*\"",
-    "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d"
+    "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d",
+    "synchronize-ci": "node synchronize-available.js && node pipeline.js",
+    "build-examples": "node build-examples.js"
   },
   "author": "Danilo Hoffmann",
   "license": "MIT",

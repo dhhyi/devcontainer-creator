@@ -14,17 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - run: |
-          for yaml in examples/*.yaml
-          do
-            lang=$(basename $yaml .yaml)
-            curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
-              https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/$lang.yaml \
-              dist/test/$lang \
-              --dump-meta \
-              --name "Example devcontainer for $lang" \
-              --cache-from ghcr.io/dhhyi/dcc-devcontainer-$lang:latest
-          done
+      - name: Download Script
+        run: |
+          mkdir -p dist
+          curl -sL https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js > dist/bundle.js
+
+      - name: Build Examples
+        run: npm run build-examples
 
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop

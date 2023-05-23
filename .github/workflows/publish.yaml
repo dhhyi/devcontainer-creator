@@ -49,9 +49,9 @@ jobs:
       - run: npm exec pnpm -- i --prod --ignore-scripts
         name: npm install
       - run: |-
-          node pipeline.js
+          npm run synchronize-ci
           git diff --exit-code
-        name: Check Pipeline
+        name: Check Pipeline Sync
       - run: |-
           noOfCommits=$(echo $commits | jq ". | length")
           git diff --name-only HEAD~$noOfCommits

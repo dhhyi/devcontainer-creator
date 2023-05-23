@@ -9,13 +9,20 @@ const DCC_PROTOCOL = 'dcc://';
 const PIPELINE_FILE = '.github/workflows/publish.yaml';
 
 function languages() {
+  const skipLanguagesRaw =
+    process.env.npm_config_skip_languages ||
+    JSON.parse(fs.readFileSync('package.json')).config?.['skip-languages'];
+  const skipLanguages = skipLanguagesRaw?.split(',') || [];
+
   return fs
     .readdirSync('examples')
     .filter(
       (x) =>
         x.endsWith('.yaml') && fs.statSync(path.join('examples', x)).isFile()
     )
-    .map((x) => DCC_PROTOCOL + x.replace(/\.yaml$/, ''));
+    .map((x) => x.replace(/\.yaml$/, ''))
+    .filter((x) => !skipLanguages.includes(x))
+    .map((x) => DCC_PROTOCOL + x);
 }
 
 function bases() {
@@ -98,8 +105,8 @@ const workflow = {
           name: 'npm install',
         },
         {
-          run: 'node pipeline.js\ngit diff --exit-code',
-          name: 'Check Pipeline',
+          run: 'npm run synchronize-ci\ngit diff --exit-code',
+          name: 'Check Pipeline Sync',
         },
         // {
         //   name: 'Debug',

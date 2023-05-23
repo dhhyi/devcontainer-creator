@@ -33,10 +33,6 @@ function transitiveLanguages() {
 }
 
 function output(langs = [], buildBase = false) {
-  if (process.argv[2] === '--skip') {
-    const skipped = process.argv[3].split(',');
-    langs = langs.filter((x) => !skipped.includes(x));
-  }
   console.log(`languages=${JSON.stringify(langs)}`);
   allLanguages().forEach((lang) => {
     console.log(
