@@ -1,0 +1,5 @@
+devcontainer:
+  initialize: |
+    echo 'Hello World'
+    echo foobar &&
+    echo "blubb"
