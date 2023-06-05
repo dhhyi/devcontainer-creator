@@ -1,0 +1,15 @@
+{
+  "image": "ghcr.io/dhhyi/dcc-base-debian",
+  "postCreateCommand": "echo 'Hello World' && echo foobar && echo \"blubb\"",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}

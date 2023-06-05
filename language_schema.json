@@ -171,6 +171,9 @@
         },
         "remoteUser": {
           "type": "string"
+        },
+        "initialize": {
+          "type": "string"
         }
       }
     },
