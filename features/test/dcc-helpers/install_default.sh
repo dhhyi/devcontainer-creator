@@ -7,6 +7,8 @@ source dev-container-features-test-lib
 
 check "zsh prompt" grep -q 'ZSH_THEME="dcc"' "$HOME/.zshrc"
 
+check "zsh plugins" grep -q 'plugins=(git)' "$HOME/.zshrc"
+
 check "bash prompt" grep -q 'export PS1="$ "' "$HOME/.bashrc"
 
 check "templates after install" test -f /disclaimer.sh && test -f /usr/local/bin/cont

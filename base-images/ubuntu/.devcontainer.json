@@ -5,7 +5,9 @@
       "username": "vscode"
     },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {}
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
+      "ohMyZshPlugins": "git ubuntu"
+    }
   },
   "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
   "postAttachCommand": [

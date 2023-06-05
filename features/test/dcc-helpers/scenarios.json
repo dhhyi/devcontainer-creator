@@ -52,5 +52,15 @@
       "DCC_REPL": "",
       "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgRkFJTCcKZXhpdCAzCg=="
     }
+  },
+  "ohmyzsh_plugins": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "features": {
+      "dcc-helpers": {
+        "ohMyZshPlugins": "git debian"
+      }
+    },
+    "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"]
   }
 }

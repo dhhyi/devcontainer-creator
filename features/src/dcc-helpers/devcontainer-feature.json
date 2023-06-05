@@ -1,9 +1,14 @@
 {
   "name": "Devcontainer Creator Helpers",
   "id": "dcc-helpers",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Installs Devcontainer Creator Helpers",
-  "options": {},
+  "options": {
+    "ohMyZshPlugins": {
+      "type": "string",
+      "default": "git"
+    }
+  },
   "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
   "customizations": {
     "vscode": {
