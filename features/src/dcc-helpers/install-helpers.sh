@@ -27,6 +27,11 @@ fi
 chmod +x /selftest.sh
 
 echo "setting shell prompt"
-SHELL_PROMPT='\nexport PS1="$ "\n'
-printf "%b" "$SHELL_PROMPT" >> "$HOME/.bashrc"
-printf "%b" "$SHELL_PROMPT" >> "$HOME/.zshrc"
+
+# shellcheck disable=SC2016 # no expand
+ZSH_PROMPT='%{$reset_color%}%(?:$:%{$fg[red]%}$)%{$reset_color%} '
+printf "%b" "PROMPT='$ZSH_PROMPT'\n" > "$HOME/.oh-my-zsh/themes/dcc.zsh-theme"
+sed -i 's/^ZSH_THEME=.*/ZSH_THEME="dcc"/g' "$HOME/.zshrc"
+
+BASH_PROMPT='\nexport PS1="$ "\n'
+printf "%b" "$BASH_PROMPT" >> "$HOME/.bashrc"
