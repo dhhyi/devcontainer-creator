@@ -15,4 +15,8 @@ find tests -name 'language.yaml' | while read -r test; do
     node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta
 done
 
-git diff --exit-code --raw -p --stat
+if [ -n "$(git status -s)" ]; then
+    echo "tree is dirty, please commit changes"
+    git status -s
+    exit 1
+fi
