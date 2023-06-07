@@ -105,6 +105,20 @@ function needsDockerfile(desc: Language): boolean {
   return !!(desc.devcontainer?.build || desc.devcontainer?.ports);
 }
 
+function flattenObject(obj: object): [string, string][] {
+  const result: [string, string][] = [];
+  for (const [k, v] of Object.entries(obj)) {
+    if (typeof v === 'object' && v !== null) {
+      for (const [kk, vv] of flattenObject(v)) {
+        result.push([`${k}.${kk}`, vv]);
+      }
+    } else {
+      result.push([k, String(v)]);
+    }
+  }
+  return result;
+}
+
 const DevcontainerJSONTemplate = (
   desc: Language
 ): DevcontainerJSONType | undefined => {
@@ -126,6 +140,18 @@ const DevcontainerJSONTemplate = (
       '-v',
       '/tmp/.X11-unix:/tmp/.X11-unix'
     );
+  }
+
+  if (desc.extras?.includes('traefik') && desc.traefik) {
+    if (!json.runArgs) {
+      json.runArgs = [];
+    }
+    json.runArgs.push('--label', 'traefik.enable=true');
+    for (const [k, v] of flattenObject(desc.traefik.labels || {})) {
+      const key = k.startsWith('traefik.') ? k : `traefik.${k}`;
+      json.runArgs.push('--label', `${key}=${v}`);
+    }
+    json.runArgs.push('--network', desc.traefik.network);
   }
 
   if (needsDockerfile(desc)) {

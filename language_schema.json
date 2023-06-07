@@ -225,8 +225,25 @@
       "items": {
         "type": "string",
         "enum": [
-          "forward-x11"
+          "forward-x11",
+          "traefik"
         ]
+      }
+    },
+    "traefik": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "labels"
+      ],
+      "properties": {
+        "network": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object"
+        }
       }
     }
   }

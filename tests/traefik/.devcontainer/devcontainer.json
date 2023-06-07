@@ -1,0 +1,33 @@
+{
+  "runArgs": [
+    "--label",
+    "traefik.enable=true",
+    "--label",
+    "traefik.http.routers.json-data.rule=PathPrefix(`/data`)",
+    "--label",
+    "traefik.http.routers.json-data.entrypoints=web",
+    "--label",
+    "traefik.http.routers.json-data.middlewares=json-data-stripprefix",
+    "--label",
+    "traefik.http.middlewares.json-data-stripprefix.stripprefix.prefixes=/data",
+    "--network",
+    "intranet"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [
+    3000
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}

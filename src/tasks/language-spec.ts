@@ -144,6 +144,11 @@ export const ResolvedYaml = once(async () => {
         'invalid yaml: ' + JSON.stringify(validate.errors, undefined, 2)
       );
     }
+    if (resolvedYaml.extras?.includes?.('traefik') && !resolvedYaml.traefik) {
+      throw new Error(
+        'invalid yaml: traefik root config must be defined if extras contains traefik'
+      );
+    }
   } catch (error) {
     logError((error as Error).message);
     process.exit(1);

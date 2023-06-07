@@ -1,0 +1,17 @@
+devcontainer:
+  ports:
+    - 3000
+extras:
+  - traefik
+traefik:
+  network: intranet
+  labels:
+    http:
+      routers:
+        json-data:
+          rule: PathPrefix(`/data`)
+          entrypoints: web
+          middlewares: json-data-stripprefix
+      middlewares:
+        json-data-stripprefix:
+          stripprefix.prefixes: /data
