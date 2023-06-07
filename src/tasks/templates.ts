@@ -97,7 +97,12 @@ interface DevcontainerJSONType {
     vscode: VSCodeMetaType;
   };
   runArgs?: string[];
+  forwardPorts?: number[];
   containerEnv?: Partial<Record<DCCEnvKeys, string>>;
+}
+
+function needsDockerfile(desc: Language): boolean {
+  return !!(desc.devcontainer?.build || desc.devcontainer?.ports);
 }
 
 const DevcontainerJSONTemplate = (
@@ -123,12 +128,12 @@ const DevcontainerJSONTemplate = (
     );
   }
 
-  if (desc.devcontainer?.build) {
+  if (needsDockerfile(desc)) {
     json.build = {
       dockerfile: 'Dockerfile',
     };
 
-    if (desc.devcontainer.build.args) {
+    if (desc.devcontainer?.build?.args) {
       json.build.args = desc.devcontainer.build.args;
     }
   } else {
@@ -143,6 +148,10 @@ const DevcontainerJSONTemplate = (
       .replaceAll(/&&\s+&&/g, '&&');
 
     json.postCreateCommand = command;
+  }
+
+  if (desc.devcontainer?.ports) {
+    json.forwardPorts = desc.devcontainer.ports;
   }
 
   const vscode: VSCodeMetaType = {};
@@ -206,122 +215,128 @@ const DevcontainerJSONTemplate = (
 };
 
 const DockerfileTemplate = (desc: Language): string | undefined => {
-  if (!desc.devcontainer?.build) {
+  if (!needsDockerfile(desc)) {
     return;
   }
 
-  const build = desc.devcontainer.build;
+  const blocks: string[] = [];
 
   const from = baseImageReference(desc.extends);
 
-  const packages = build.packages || [];
-
-  const remoteUser = desc.devcontainer?.remoteUser;
-
-  const findInBuild = (build: string[] | undefined, key: string) => {
-    return build?.some?.((line) => line.includes(key));
-  };
-
-  const [prepareBuildArgs, rootBuildArgs, userBuildArgs] = Object.keys(
-    build.args || {}
-  ).reduce(
-    ([p, r, u], a) => {
-      if (findInBuild(build.prepare, a)) {
-        return [[...p, a], r, u];
-      } else if (findInBuild(build.root, a)) {
-        return [p, [...r, a], u];
-      } else if (findInBuild(build.user, a)) {
-        return [p, r, [...u, a]];
-      } else {
-        return [p, r, u];
-      }
-    },
-    [[], [], []] as [string[], string[], string[]]
-  );
-
-  const fileTemplate = (file: DevcontainerBuildFile): string => {
-    const encoded = Buffer.from(file.content).toString('base64');
-    return `RUN mkdir -p "${dirname(
-      file.path
-    )}" && echo "${encoded}" | base64 -d > "${file.path}" && chmod ${
-      file.type === 'script' ? '+rx' : '+r'
-    } "${file.path}"`;
-  };
-
-  const [rootFiles, userFiles] = (build.files || []).reduce(
-    ([r, u], f) => {
-      const t = fileTemplate(f);
-      if (f.path.includes('HOME') || f.path.includes(`/home/${remoteUser}`)) {
-        return [r, [...u, t]];
-      } else {
-        return [[...r, t], u];
-      }
-    },
-    [[], []] as [string[], string[]]
-  );
-
-  const blocks: string[] = [];
-
   blocks.push(`FROM ${from}`);
 
-  if (
-    !isBaseImage(from) &&
-    (prepareBuildArgs.length ||
-      packages.length ||
-      rootBuildArgs.length ||
-      build.root?.length)
-  ) {
-    blocks.push('USER root');
-  }
+  if (desc.devcontainer?.build) {
+    const build = desc.devcontainer.build;
 
-  const mergeArgs = (args: string[]): string => {
-    return args.map((a) => `ARG ${a}`).join('\n');
-  };
+    const packages = build.packages || [];
 
-  if (prepareBuildArgs.length) {
-    blocks.push(mergeArgs(prepareBuildArgs));
-  }
+    const remoteUser = desc.devcontainer?.remoteUser;
 
-  if (build.prepare?.length) {
-    blocks.push(build.prepare.join('\n'));
-  }
+    const findInBuild = (build: string[] | undefined, key: string) => {
+      return build?.some?.((line) => line.includes(key));
+    };
 
-  if (packages.length) {
-    blocks.push(
-      `RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends ${packages.join(
-        ' '
-      )} && apt-get clean && rm -rf /var/lib/apt/lists/*`
+    const [prepareBuildArgs, rootBuildArgs, userBuildArgs] = Object.keys(
+      build.args || {}
+    ).reduce(
+      ([p, r, u], a) => {
+        if (findInBuild(build.prepare, a)) {
+          return [[...p, a], r, u];
+        } else if (findInBuild(build.root, a)) {
+          return [p, [...r, a], u];
+        } else if (findInBuild(build.user, a)) {
+          return [p, r, [...u, a]];
+        } else {
+          return [p, r, u];
+        }
+      },
+      [[], [], []] as [string[], string[], string[]]
     );
+
+    const fileTemplate = (file: DevcontainerBuildFile): string => {
+      const encoded = Buffer.from(file.content).toString('base64');
+      return `RUN mkdir -p "${dirname(
+        file.path
+      )}" && echo "${encoded}" | base64 -d > "${file.path}" && chmod ${
+        file.type === 'script' ? '+rx' : '+r'
+      } "${file.path}"`;
+    };
+
+    const [rootFiles, userFiles] = (build.files || []).reduce(
+      ([r, u], f) => {
+        const t = fileTemplate(f);
+        if (f.path.includes('HOME') || f.path.includes(`/home/${remoteUser}`)) {
+          return [r, [...u, t]];
+        } else {
+          return [[...r, t], u];
+        }
+      },
+      [[], []] as [string[], string[]]
+    );
+
+    if (
+      !isBaseImage(from) &&
+      (prepareBuildArgs.length ||
+        packages.length ||
+        rootBuildArgs.length ||
+        build.root?.length)
+    ) {
+      blocks.push('USER root');
+    }
+
+    const mergeArgs = (args: string[]): string => {
+      return args.map((a) => `ARG ${a}`).join('\n');
+    };
+
+    if (prepareBuildArgs.length) {
+      blocks.push(mergeArgs(prepareBuildArgs));
+    }
+
+    if (build.prepare?.length) {
+      blocks.push(build.prepare.join('\n'));
+    }
+
+    if (packages.length) {
+      blocks.push(
+        `RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends ${packages.join(
+          ' '
+        )} && apt-get clean && rm -rf /var/lib/apt/lists/*`
+      );
+    }
+
+    if (rootBuildArgs.length) {
+      blocks.push(mergeArgs(rootBuildArgs));
+    }
+
+    if (build.root?.length) {
+      blocks.push(build.root.join('\n'));
+    }
+
+    if (rootFiles.length) {
+      blocks.push(...rootFiles);
+    }
+
+    let user = `USER ${remoteUser}`;
+    if (userFiles.length || findInBuild(build.user, 'HOME')) {
+      user += `\nENV HOME=/home/${remoteUser}`;
+    }
+    blocks.push(user);
+
+    if (userBuildArgs.length) {
+      blocks.push(mergeArgs(userBuildArgs));
+    }
+
+    if (build.user?.length) {
+      blocks.push(build.user.join('\n'));
+    }
+
+    if (userFiles.length) {
+      blocks.push(...userFiles);
+    }
   }
 
-  if (rootBuildArgs.length) {
-    blocks.push(mergeArgs(rootBuildArgs));
-  }
-
-  if (build.root?.length) {
-    blocks.push(build.root.join('\n'));
-  }
-
-  if (rootFiles.length) {
-    blocks.push(...rootFiles);
-  }
-
-  let user = `USER ${remoteUser}`;
-  if (userFiles.length || findInBuild(build.user, 'HOME')) {
-    user += `\nENV HOME=/home/${remoteUser}`;
-  }
-  blocks.push(user);
-
-  if (userBuildArgs.length) {
-    blocks.push(mergeArgs(userBuildArgs));
-  }
-
-  if (build.user?.length) {
-    blocks.push(build.user.join('\n'));
-  }
-
-  if (userFiles.length) {
-    blocks.push(...userFiles);
+  if (desc.devcontainer?.ports) {
+    blocks.push(`EXPOSE ${desc.devcontainer.ports.join(' ')}`);
   }
 
   return blocks.join('\n\n') + '\n';

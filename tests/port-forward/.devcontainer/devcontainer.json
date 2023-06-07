@@ -1,0 +1,20 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [
+    80,
+    8080
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}

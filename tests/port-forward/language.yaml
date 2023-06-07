@@ -1,0 +1,4 @@
+devcontainer:
+  ports:
+    - 80
+    - 8080
