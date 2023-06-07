@@ -1,5 +1,4 @@
 const cp = require('child_process');
-const fs = require('fs');
 const path = require('path');
 
 cp.execSync('npm exec pnpm install');
@@ -22,12 +21,14 @@ rules['examples/**'] = [
     ),
   ],
 ];
+
+const { globSync } = require('glob');
+
 rules['language_schema.json'] = [
-  () => [
-    ...fs
-      .readdirSync('examples')
-      .map((file) => `npm run validate-yaml examples/${file}`),
-  ],
+  () =>
+    globSync('{examples/*.yaml,tests/!(empty)/language.yaml}').map(
+      (file) => `npm run validate-yaml ${file}`
+    ),
 ];
 
 module.exports = rules;
