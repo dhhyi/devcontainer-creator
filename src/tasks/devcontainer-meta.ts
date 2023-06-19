@@ -17,7 +17,8 @@ export type DCCEnvKeys =
   | 'DCC_BINARY'
   | 'DCC_VERSION'
   | 'DCC_REPL'
-  | 'DCC_SELFTEST';
+  | 'DCC_SELFTEST'
+  | string;
 
 export interface VSCodeMetaType {
   extensions?: string[];

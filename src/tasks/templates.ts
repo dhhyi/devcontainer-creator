@@ -233,6 +233,11 @@ const DevcontainerJSONTemplate = (
       desc.devcontainer.selftest
     ).toString('base64');
   }
+  if (desc.devcontainer?.environment) {
+    for (const [k, v] of Object.entries(desc.devcontainer.environment)) {
+      containerEnv[k] = String(v);
+    }
+  }
   if (Object.keys(containerEnv).length) {
     json.containerEnv = sortJson(containerEnv);
   }

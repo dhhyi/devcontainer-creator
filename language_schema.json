@@ -180,6 +180,9 @@
           "items": {
             "type": "integer"
           }
+        },
+        "environment": {
+          "type": "object"
         }
       }
     },

@@ -1,0 +1,4 @@
+extends: dcc://javascript
+devcontainer:
+  environment:
+    NODE_ENV: development
