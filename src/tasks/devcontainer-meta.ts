@@ -1,5 +1,5 @@
 import { execSync, spawnSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { once } from 'lodash-es';
@@ -8,6 +8,7 @@ import { execute } from '../exec';
 import { VSCodeTask } from '../language';
 
 import { BuildDevcontainer } from './build-devcontainer';
+import { TmpWorkingDir } from './create-tmp-dir';
 import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
@@ -48,7 +49,16 @@ interface MergedDevcontainerMetaType {
 }
 
 function getRemoteDevcontainerMeta(image: string): DevcontainerMetaType[] {
-  return JSON.parse(
+  const cachePath = join(TmpWorkingDir(), 'devcontainer-meta-cache.json');
+  const cache = existsSync(cachePath)
+    ? JSON.parse(readFileSync(cachePath, { encoding: 'utf8' }))
+    : {};
+
+  if (cache[image]) {
+    return cache[image];
+  }
+
+  const meta = JSON.parse(
     execute(
       `fetching metadata for ${image}`,
       'docker',
@@ -63,6 +73,11 @@ function getRemoteDevcontainerMeta(image: string): DevcontainerMetaType[] {
       { response: 'stdout' }
     )
   );
+
+  cache[image] = meta;
+  writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+
+  return meta;
 }
 
 function getLocalDevcontainerMeta(image: string): DevcontainerMetaType[] {
