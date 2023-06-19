@@ -229,7 +229,8 @@
         "type": "string",
         "enum": [
           "forward-x11",
-          "traefik"
+          "traefik",
+          "tmpfs"
         ]
       }
     },
@@ -247,6 +248,12 @@
         "labels": {
           "type": "object"
         }
+      }
+    },
+    "tmpfs": {
+      "type": "array",
+      "items": {
+        "type": "string"
       }
     }
   }

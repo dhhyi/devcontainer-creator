@@ -154,6 +154,18 @@ const DevcontainerJSONTemplate = (
     json.runArgs.push('--network', desc.traefik.network);
   }
 
+  if (desc.extras?.includes('tmpfs') && desc.tmpfs) {
+    if (!json.runArgs) {
+      json.runArgs = [];
+    }
+    for (const path of desc.tmpfs) {
+      const mount = path.startsWith('/')
+        ? path
+        : `\${containerWorkspaceFolder}/${path}`;
+      json.runArgs.push('--tmpfs', `${mount}:exec`);
+    }
+  }
+
   if (needsDockerfile(desc)) {
     json.build = {
       dockerfile: 'Dockerfile',

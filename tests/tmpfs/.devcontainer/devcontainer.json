@@ -1,0 +1,20 @@
+{
+  "runArgs": [
+    "--tmpfs",
+    "${containerWorkspaceFolder}/node_modules:exec",
+    "--tmpfs",
+    "/tmp:exec"
+  ],
+  "image": "ghcr.io/dhhyi/dcc-base-debian",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}
