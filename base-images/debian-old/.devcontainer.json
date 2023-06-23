@@ -1,0 +1,20 @@
+{
+  "image": "debian:11",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
+      "ohMyZshPlugins": "git debian"
+    }
+  },
+  "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
+  "postAttachCommand": [
+    "sh",
+    "-e",
+    "/disclaimer.sh",
+    "${containerWorkspaceFolder}"
+  ],
+  "remoteUser": "vscode"
+}

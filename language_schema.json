@@ -52,6 +52,7 @@
       "enum": [
         "base://brew",
         "base://debian",
+        "base://debian-old",
         "base://java",
         "base://node",
         "base://ubuntu",

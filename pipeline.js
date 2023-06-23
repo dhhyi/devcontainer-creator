@@ -73,7 +73,9 @@ function readDependency(file) {
 }
 
 function buildJob(ref) {
-  return ref.replace(/:\/\/(\w)/, (_, p1) => p1.toUpperCase());
+  return ref
+    .replace(/:\/\/(\w)/, (_, p1) => p1.toUpperCase())
+    .replace(/-([a-z])/g, (_, p1) => p1.toUpperCase());
 }
 
 const workflow = {

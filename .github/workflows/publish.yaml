@@ -92,6 +92,17 @@ jobs:
       name: debian
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
+  baseDebianOld:
+    needs:
+      - calc
+      - features
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: base://debian-old
+    uses: ./.github/workflows/base.yaml
+    with:
+      name: debian-old
+      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
+    secrets: inherit
   baseJava:
     needs:
       - calc
@@ -177,7 +188,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - baseDebianOld
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://erlang
     uses: ./.github/workflows/dcc.yaml
@@ -213,7 +224,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - baseDebianOld
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://haskell
     uses: ./.github/workflows/dcc.yaml
@@ -225,7 +236,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - baseDebianOld
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://io
     uses: ./.github/workflows/dcc.yaml
