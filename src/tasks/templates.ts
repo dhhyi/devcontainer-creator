@@ -146,10 +146,12 @@ const DevcontainerJSONTemplate = (
     if (!json.runArgs) {
       json.runArgs = [];
     }
-    json.runArgs.push('--label', 'traefik.enable=true');
-    for (const [k, v] of flattenObject(desc.traefik.labels || {})) {
-      const key = k.startsWith('traefik.') ? k : `traefik.${k}`;
-      json.runArgs.push('--label', `${key}=${v}`);
+    if (desc.traefik.labels) {
+      json.runArgs.push('--label', 'traefik.enable=true');
+      for (const [k, v] of flattenObject(desc.traefik.labels)) {
+        const key = k.startsWith('traefik.') ? k : `traefik.${k}`;
+        json.runArgs.push('--label', `${key}=${v}`);
+      }
     }
     json.runArgs.push('--network', desc.traefik.network);
   }

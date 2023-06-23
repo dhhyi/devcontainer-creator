@@ -238,8 +238,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "network",
-        "labels"
+        "network"
       ],
       "properties": {
         "network": {
