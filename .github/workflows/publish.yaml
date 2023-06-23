@@ -114,17 +114,6 @@ jobs:
       name: node
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  basePython:
-    needs:
-      - calc
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://python
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: python
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
   baseUbuntu:
     needs:
       - calc
@@ -356,7 +345,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - basePython
+      - baseDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://python
     uses: ./.github/workflows/dcc.yaml

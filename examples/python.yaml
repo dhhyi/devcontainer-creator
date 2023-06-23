@@ -1,7 +1,30 @@
-extends: base://python
 language:
   name: python
   binary: python
   repl: python
 devcontainer:
+  build:
+    packages:
+      - python3
+      - python3-pip
+      - black
+      - pylint
+      - flake8
+      - python3-autopep8
+      - mypy
+      - python-is-python3
   selftest: python -c 'print("Hello World!")'
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-python.vscode-pylance
+  # settings:
+  #   python.defaultInterpreterPath: /usr/local/python/current/bin/python
+  #   python.formatting.autopep8Path: /usr/local/py-utils/bin/autopep8
+  #   python.formatting.blackPath: /usr/local/py-utils/bin/black
+  #   python.linting.flake8Path: /usr/local/py-utils/bin/flake8
+  #   python.linting.flake8Enabled: false
+  #   python.linting.mypyPath: /usr/local/py-utils/bin/mypy
+  #   python.linting.mypyEnabled: false
+  #   python.linting.pylintPath: /usr/local/py-utils/bin/pylint
+  #   python.linting.pylintEnabled: false
