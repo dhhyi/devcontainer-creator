@@ -49,28 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/python:1",
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "ms-python.python",
-          "ms-python.vscode-pylance"
-        ],
-        "settings": {
-          "python.defaultInterpreterPath": "/usr/local/python/current/bin/python",
-          "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-          "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-          "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-          "python.linting.flake8Enabled": false,
-          "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-          "python.linting.mypyEnabled": false,
-          "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
-          "python.linting.pylintEnabled": false
-        }
-      }
-    }
-  },
-  {
     "customizations": {
       "vscode": {
         "settings": {
@@ -79,7 +57,11 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "ms-python.python",
+          "ms-python.vscode-pylance"
+        ]
       }
     },
     "containerEnv": {

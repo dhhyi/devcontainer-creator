@@ -1,7 +1,10 @@
 {
   "name": "Example devcontainer for odin",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "args": {
+      "ODIN_VERSION": "dev-2023-05"
+    }
   },
   "customizations": {
     "vscode": {

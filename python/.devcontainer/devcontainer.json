@@ -1,6 +1,8 @@
 {
   "name": "Example devcontainer for python",
-  "image": "ghcr.io/dhhyi/dcc-base-python",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "settings": {
@@ -9,7 +11,11 @@
           ".update_devcontainer.sh": true,
           ".vscode": true
         }
-      }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
     }
   },
   "containerEnv": {
