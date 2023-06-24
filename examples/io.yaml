@@ -1,4 +1,4 @@
-extends: base://debian-old
+extends: base://debian
 language:
   name: io
   binary: io
@@ -6,7 +6,7 @@ language:
 devcontainer:
   build:
     args:
-      IO_VERSION: 2019.05.22-alpha
+      IO_VERSION: master
     packages:
       - build-essential
       - libpcre3-dev
@@ -20,7 +20,7 @@ devcontainer:
       - WORKDIR ${HOME}
       - RUN eerie install https://github.com/IoLanguage/Regex.git
       - RUN eerie install https://github.com/IoLanguage/Random.git
-  selftest: io -e '"Hello World!" println'
+  selftest: io -e 'Random clone ; Regex clone ; Lobby Protos Addons slotNames asJson println ; "Hello World!" println' | grep -1 'Hello World!'
 vscode:
   extensions:
     - kennethceyer.io
