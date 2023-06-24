@@ -66,7 +66,7 @@
     "containerEnv": {
       "DCC_BINARY": "io",
       "DCC_REPL": "io",
-      "DCC_SELFTEST": "aW8gLWUgJyJIZWxsbyBXb3JsZCEiIHByaW50bG4n",
+      "DCC_SELFTEST": "aW8gLWUgJ1JhbmRvbSBjbG9uZSA7IFJlZ2V4IGNsb25lIDsgTG9iYnkgUHJvdG9zIEFkZG9ucyBzbG90TmFtZXMgYXNKc29uIHByaW50bG4gOyAiSGVsbG8gV29ybGQhIiBwcmludGxuJyB8IGdyZXAgLTEgJ0hlbGxvIFdvcmxkISc=",
       "DCC_VERSION": "io --version"
     }
   },
