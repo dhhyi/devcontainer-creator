@@ -92,6 +92,7 @@ interface DevcontainerJSONType {
     dockerfile: 'Dockerfile';
     args?: Record<string, unknown>;
   };
+  mounts?: string[];
   postStartCommand?: string;
   customizations?: {
     vscode: VSCodeMetaType;
@@ -165,6 +166,22 @@ const DevcontainerJSONTemplate = (
         ? path
         : `\${containerWorkspaceFolder}/${path}`;
       json.runArgs.push('--tmpfs', `${mount}:exec`);
+    }
+  }
+
+  if (desc.extras?.includes('node-modules-volume')) {
+    if (!json.mounts) {
+      json.mounts = [];
+    }
+    json.mounts.push(
+      'target=${containerWorkspaceFolder}/node_modules,type=volume'
+    );
+
+    const command = '/setup-node-modules.sh ${containerWorkspaceFolder}';
+    if (json.postStartCommand) {
+      json.postStartCommand += ' && ' + command;
+    } else {
+      json.postStartCommand = command;
     }
   }
 

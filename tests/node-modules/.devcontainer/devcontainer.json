@@ -1,0 +1,23 @@
+{
+  "mounts": [
+    "target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+  "postStartCommand": "/setup-node-modules.sh ${containerWorkspaceFolder} && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && npm i",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  },
+  "containerEnv": {
+    "DCC_SELFTEST": "bnB4IHByZXR0aWVyIC0tdmVyc2lvbg=="
+  }
+}

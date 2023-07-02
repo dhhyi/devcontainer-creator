@@ -1,0 +1,8 @@
+extends: dcc://javascript
+devcontainer:
+  initialize: |
+    echo '{"name":"test","dependencies":{"prettier":"*"}}' > package.json
+    npm i
+  selftest: npx prettier --version
+extras:
+  - node-modules-volume

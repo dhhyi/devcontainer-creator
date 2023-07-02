@@ -230,7 +230,8 @@
         "enum": [
           "forward-x11",
           "traefik",
-          "tmpfs"
+          "tmpfs",
+          "node-modules-volume"
         ]
       }
     },
