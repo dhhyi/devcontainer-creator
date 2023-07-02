@@ -92,7 +92,7 @@ interface DevcontainerJSONType {
     dockerfile: 'Dockerfile';
     args?: Record<string, unknown>;
   };
-  postCreateCommand?: string;
+  postStartCommand?: string;
   customizations?: {
     vscode: VSCodeMetaType;
   };
@@ -187,7 +187,11 @@ const DevcontainerJSONTemplate = (
       .join(' && ')
       .replaceAll(/&&\s+&&/g, '&&');
 
-    json.postCreateCommand = command;
+    if (json.postStartCommand) {
+      json.postStartCommand += ' && ' + command;
+    } else {
+      json.postStartCommand = command;
+    }
   }
 
   if (desc.devcontainer?.ports) {

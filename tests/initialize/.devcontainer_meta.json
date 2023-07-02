@@ -49,7 +49,7 @@
     "remoteUser": "vscode"
   },
   {
-    "postCreateCommand": "echo 'Hello World' && echo foobar && echo \"blubb\"",
+    "postStartCommand": "echo 'Hello World' && echo foobar && echo \"blubb\"",
     "customizations": {
       "vscode": {
         "settings": {
