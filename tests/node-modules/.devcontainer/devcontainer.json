@@ -1,6 +1,6 @@
 {
   "mounts": [
-    "target=${containerWorkspaceFolder}/node_modules,type=volume"
+    "type=volume,target=${containerWorkspaceFolder}/node_modules,source=test-1234"
   ],
   "postStartCommand": "/setup-node-modules.sh ${containerWorkspaceFolder} && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && npm i",
   "build": {

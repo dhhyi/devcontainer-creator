@@ -173,9 +173,14 @@ const DevcontainerJSONTemplate = (
     if (!json.mounts) {
       json.mounts = [];
     }
-    json.mounts.push(
-      'target=${containerWorkspaceFolder}/node_modules,type=volume'
-    );
+    const options = [
+      'type=volume',
+      'target=${containerWorkspaceFolder}/node_modules',
+    ];
+    if (desc['node-modules-volume']) {
+      options.push('source=' + desc['node-modules-volume']);
+    }
+    json.mounts.push(options.join(','));
 
     const command = '/setup-node-modules.sh ${containerWorkspaceFolder}';
     if (json.postStartCommand) {

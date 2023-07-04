@@ -6,3 +6,4 @@ devcontainer:
   selftest: npx prettier --version
 extras:
   - node-modules-volume
+node-modules-volume: test-1234

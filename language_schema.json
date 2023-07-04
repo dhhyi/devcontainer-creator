@@ -255,6 +255,9 @@
       "items": {
         "type": "string"
       }
+    },
+    "node-modules-volume": {
+      "type": "string"
     }
   }
 }
