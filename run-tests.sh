@@ -12,7 +12,13 @@ done
 
 find tests -name 'language.yaml' | while read -r test; do
     echo "Running $test"
-    node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta
+
+    args=""
+    if [ -f "$(dirname "$test")/test-args.dcc" ]; then
+        args="$(head -n 1 "$(dirname "$test")/test-args.dcc")"
+    fi
+    # shellcheck disable=SC2086
+    node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta $args
 done
 
 if [ -n "$(git status -s)" ]; then

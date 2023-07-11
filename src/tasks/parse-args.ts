@@ -20,6 +20,7 @@ target-folder: Path to the target folder. If not specified, a temporary folder w
 Options:
   --name\tName of the devcontainer.
   --no-vscode\tDo not create a .vscode folder.
+  --no-validate\tDo not validate the language specification.
 
   --tag\t\tTag of the devcontainer image.
   --cache-from\tImage to use as cache for the devcontainer image.
@@ -72,6 +73,7 @@ interface CmdlArguments {
 
   vscode?: boolean;
   dumpMeta?: boolean;
+  validate?: boolean;
 }
 
 export const ParsedArgs: () => CmdlArguments = once(() => {
@@ -86,9 +88,11 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
       'v',
       'verbose',
       'debug',
+      'validate',
     ],
     default: {
       vscode: true,
+      validate: true,
     },
     unknown: (arg) => {
       if (arg !== 'help' && arg !== '-h') {
@@ -118,5 +122,6 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     run: !!options.run,
     dumpMeta: !!options['dump-meta'],
     vscode: !!options.vscode,
+    validate: !!options.validate,
   };
 });

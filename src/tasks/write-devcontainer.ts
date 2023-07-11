@@ -19,7 +19,8 @@ import { ParsedArgs } from './parse-args';
 import { AvailableTemplates, Template } from './templates';
 
 function writeUpdateScript() {
-  const { languageYaml, targetDir, devcontainerName, vscode } = ParsedArgs();
+  const { languageYaml, targetDir, devcontainerName, vscode, validate } =
+    ParsedArgs();
 
   logStatus('writing update script');
 
@@ -39,6 +40,9 @@ function writeUpdateScript() {
   }
   if (!vscode) {
     updateArgs.push('--no-vscode');
+  }
+  if (!validate) {
+    updateArgs.push('--no-validate');
   }
   updateArgs.push('"$@"');
 

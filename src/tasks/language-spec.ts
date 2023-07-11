@@ -62,7 +62,7 @@ async function getYaml(languageYaml: string): Promise<Language> {
 }
 
 export const ResolvedYaml = once(async () => {
-  const { devcontainerName, languageYaml, vscode } = ParsedArgs();
+  const { devcontainerName, languageYaml, vscode, validate } = ParsedArgs();
 
   let resolvedYaml = await getYaml(languageYaml);
 
@@ -161,23 +161,25 @@ sudo chown $USER node_modules
 
   logStatus('validating language spec');
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const validate = require('../validate_language.js');
+  if (validate) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const validateAjv = require('../validate_language.js');
 
-  try {
-    if (!validate(resolvedYaml)) {
-      throw new Error(
-        'invalid yaml: ' + JSON.stringify(validate.errors, undefined, 2)
-      );
+    try {
+      if (!validateAjv(resolvedYaml)) {
+        throw new Error(
+          'invalid yaml: ' + JSON.stringify(validateAjv.errors, undefined, 2)
+        );
+      }
+      if (resolvedYaml.extras?.includes?.('traefik') && !resolvedYaml.traefik) {
+        throw new Error(
+          'invalid yaml: traefik root config must be defined if extras contains traefik'
+        );
+      }
+    } catch (error) {
+      logError((error as Error).message);
+      process.exit(1);
     }
-    if (resolvedYaml.extras?.includes?.('traefik') && !resolvedYaml.traefik) {
-      throw new Error(
-        'invalid yaml: traefik root config must be defined if extras contains traefik'
-      );
-    }
-  } catch (error) {
-    logError((error as Error).message);
-    process.exit(1);
   }
 
   return resolvedYaml;
