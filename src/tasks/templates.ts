@@ -13,6 +13,8 @@ export type AvailableTemplates =
 function sortJson<T extends object>(obj: T): T {
   if (typeof obj !== 'object' || obj === null) {
     return obj;
+  } else if (Array.isArray(obj)) {
+    return obj.map(sortJson) as T;
   } else {
     return Object.entries(obj)
       .sort(([k1], [k2]) => k1.localeCompare(k2))

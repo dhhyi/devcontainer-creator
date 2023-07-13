@@ -91,6 +91,21 @@
     "customizations": {
       "vscode": {
         "settings": {
+          "array": [
+            {
+              "extensions": [
+                "ts",
+                "js"
+              ],
+              "path": "/usr/local/bin"
+            },
+            {
+              "extensions": [
+                "py"
+              ],
+              "path": "/usr/bin"
+            }
+          ],
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,

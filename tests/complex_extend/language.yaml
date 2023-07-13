@@ -8,6 +8,11 @@ devcontainer:
 vscode:
   settings:
     foo: bar
+    array:
+      - path: /usr/local/bin
+        extensions: [ts, js]
+      - path: /usr/bin
+        extensions: [py]
   tasks:
     - label: Say Hi
       command: ts-node -e 'console.log("Hi!");'
