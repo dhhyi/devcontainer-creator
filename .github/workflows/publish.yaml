@@ -272,7 +272,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseJava
+      - baseDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://kotlin
     uses: ./.github/workflows/dcc.yaml
