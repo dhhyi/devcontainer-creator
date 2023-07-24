@@ -49,19 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/java:1",
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "vscjava.vscode-java-pack"
-        ],
-        "settings": {
-          "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
-        }
-      }
-    }
-  },
-  {
     "customizations": {
       "vscode": {
         "settings": {
@@ -79,7 +66,7 @@
     "containerEnv": {
       "DCC_BINARY": "",
       "DCC_REPL": "",
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQua3QgPDxFT0YKZnVuIG1haW4oKSB7CiAgcHJpbnRsbigiSGVsbG8gV29ybGQhIikKfQpFT0YKa290bGluYy1uYXRpdmUgL3RtcC9oZWxsb3dvcmxkLmt0IC1vIC90bXAvaGVsbG93b3JsZAovdG1wL2hlbGxvd29ybGQua2V4ZQo=",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQua3QgPDxFT0YKZnVuIG1haW4oKSB7IHByaW50bG4oIkhlbGxvIFdvcmxkISIpIH0KRU9GCmtvdGxpbmMgL3RtcC9oZWxsb3dvcmxkLmt0IC1pbmNsdWRlLXJ1bnRpbWUgLWQgL3RtcC9oZWxsb3dvcmxkLmphcgpqYXZhIC1qYXIgL3RtcC9oZWxsb3dvcmxkLmphcgprdGZtdCAvdG1wL2hlbGxvd29ybGQua3QgJiYgY2F0IC90bXAvaGVsbG93b3JsZC5rdAo=",
       "DCC_VERSION": ""
     }
   },
