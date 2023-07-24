@@ -1,5 +1,6 @@
 devcontainer:
   initialize: |
     echo 'Hello World'
+    # This is a comment
     echo foobar &&
     echo "blubb"

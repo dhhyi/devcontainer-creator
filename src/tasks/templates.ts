@@ -2,6 +2,7 @@ import { dirname } from 'path';
 
 import { baseImageReference, isBaseImage } from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
+import { addCommand, parseCommand } from '../util';
 
 import { DCCEnvKeys, VSCodeMetaType } from './devcontainer-meta';
 
@@ -198,11 +199,7 @@ const DevcontainerJSONTemplate = (
       Object.keys(desc.namedVolumes)
         .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
         .join(' ');
-    if (json.postStartCommand) {
-      json.postStartCommand += ' && ' + command;
-    } else {
-      json.postStartCommand = command;
-    }
+    json.postStartCommand = addCommand(json.postStartCommand, command);
   }
 
   if (needsDockerfile(desc)) {
@@ -218,17 +215,10 @@ const DevcontainerJSONTemplate = (
   }
 
   if (desc.devcontainer?.initialize) {
-    const command = desc.devcontainer.initialize
-      .split('\n')
-      .filter((l) => l.trim())
-      .join(' && ')
-      .replaceAll(/&&\s+&&/g, '&&');
-
-    if (json.postStartCommand) {
-      json.postStartCommand += ' && ' + command;
-    } else {
-      json.postStartCommand = command;
-    }
+    json.postStartCommand = addCommand(
+      json.postStartCommand,
+      parseCommand(desc.devcontainer.initialize)
+    );
   }
 
   if (desc.devcontainer?.ports) {
