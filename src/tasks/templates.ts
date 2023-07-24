@@ -125,6 +125,8 @@ function flattenObject(obj: object): [string, string][] {
 const DevcontainerJSONTemplate = (
   desc: Language
 ): DevcontainerJSONType | undefined => {
+  const remoteUser = desc.devcontainer?.remoteUser;
+
   const json: DevcontainerJSONType = {};
 
   if (desc.devcontainer?.name) {
@@ -171,20 +173,31 @@ const DevcontainerJSONTemplate = (
     }
   }
 
-  if (desc.extras?.includes('node-modules-volume')) {
+  if (desc.extras?.includes('named-volumes') && desc.namedVolumes) {
     if (!json.mounts) {
       json.mounts = [];
     }
-    const options = [
-      'type=volume',
-      'target=${containerWorkspaceFolder}/node_modules',
-    ];
-    if (desc['node-modules-volume']) {
-      options.push('source=' + desc['node-modules-volume']);
-    }
-    json.mounts.push(options.join(','));
+    const mounts = Object.entries(desc.namedVolumes).map(([k, v]) => {
+      const options = ['type=volume'];
+      if (k.startsWith('/') || k.startsWith('$')) {
+        options.push(
+          `target=${k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser)}`
+        );
+      } else {
+        options.push('target=${containerWorkspaceFolder}/' + k);
+      }
+      if (v) {
+        options.push(`source=${v}`);
+      }
+      return options.join(',');
+    });
+    json.mounts.push(...mounts);
 
-    const command = '/setup-node-modules.sh ${containerWorkspaceFolder}';
+    const command =
+      'sudo chown $USER ' +
+      Object.keys(desc.namedVolumes)
+        .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
+        .join(' ');
     if (json.postStartCommand) {
       json.postStartCommand += ' && ' + command;
     } else {

@@ -128,32 +128,6 @@ export const ResolvedYaml = once(async () => {
     });
   }
 
-  if (resolvedYaml.extras?.includes('node-modules-volume')) {
-    if (!resolvedYaml.devcontainer) {
-      resolvedYaml.devcontainer = {};
-    }
-    if (!resolvedYaml.devcontainer.build) {
-      resolvedYaml.devcontainer.build = {};
-    }
-    if (!resolvedYaml.devcontainer.build.files) {
-      resolvedYaml.devcontainer.build.files = [];
-    }
-    resolvedYaml.devcontainer.build.files.push({
-      type: 'script',
-      path: '/setup-node-modules.sh',
-      content: `#/bin/sh
-set -e
-echo "setting up node_modules volume"
-if [ -z "$1" ]; then
-  echo "no workspace argument provided!"
-  exit 1
-fi
-echo "store-dir=$1/node_modules/.store" > $HOME/.npmrc
-sudo chown $USER node_modules
-`,
-    });
-  }
-
   if (VERY_VERBOSE) {
     logPersist('Resolved YAML:');
     logPersist(yaml.dump(resolvedYaml));

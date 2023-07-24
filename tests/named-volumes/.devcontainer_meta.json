@@ -81,10 +81,7 @@
     }
   },
   {
-    "mounts": [
-      "type=volume,target=${containerWorkspaceFolder}/node_modules,source=test-1234"
-    ],
-    "postStartCommand": "/setup-node-modules.sh ${containerWorkspaceFolder} && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && npm i",
+    "postStartCommand": "sudo chown $USER node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
     "customizations": {
       "vscode": {
         "settings": {
@@ -96,6 +93,10 @@
         }
       }
     },
+    "mounts": [
+      "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
+      "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"
+    ],
     "containerEnv": {
       "DCC_SELFTEST": "bnB4IHByZXR0aWVyIC0tdmVyc2lvbg=="
     }
