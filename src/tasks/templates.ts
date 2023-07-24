@@ -352,7 +352,8 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
       (prepareBuildArgs.length ||
         packages.length ||
         rootBuildArgs.length ||
-        build.root?.length)
+        build.root?.length ||
+        rootFiles.length)
     ) {
       blocks.push('USER root');
     }
