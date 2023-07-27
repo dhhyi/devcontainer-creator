@@ -2,14 +2,20 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "command": "cont ${fileDirname} dart ${file}",
+      "command": "cont ${fileDirname} node ${file}",
       "label": "Run file continuously",
       "problemMatcher": [],
       "type": "shell"
     },
     {
-      "command": "cont ${fileDirname} dart ${file} ${input:arguments}",
+      "command": "cont ${fileDirname} node ${file} ${input:arguments}",
       "label": "Run file continuously with arguments",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "node",
+      "label": "Start REPL",
       "problemMatcher": [],
       "type": "shell"
     }

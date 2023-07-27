@@ -52,6 +52,11 @@
     "customizations": {
       "vscode": {
         "settings": {
+          "[typescript]": {
+            "editor.defaultFormatter": "denoland.vscode-deno"
+          },
+          "deno.enable": true,
+          "deno.lint": true,
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
@@ -59,22 +64,21 @@
           }
         },
         "extensions": [
-          "richterger.perl",
-          "sfodje.perltidy"
+          "denoland.vscode-deno"
         ]
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "perl",
+      "DCC_BINARY": "deno run",
       "DCC_REPL": "",
-      "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsnCnBlcmx0aWR5IC12Cg==",
-      "DCC_VERSION": "perl --version"
+      "DCC_SELFTEST": "ZGVubyBldmFsICdjb25zb2xlLmxvZygiSGVsbG8gd29ybGQhIikn",
+      "DCC_VERSION": "deno --version"
     }
   },
   {
     "customizations": {
       "dcc": {
-        "languageName": "perl"
+        "languageName": "deno"
       }
     }
   }

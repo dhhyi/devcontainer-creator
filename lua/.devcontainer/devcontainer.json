@@ -3,8 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "LUA_VERSION": "5.4.4",
-      "LUAROCKS_VERSION": "3.9.1"
+      "LUA_VERSION": "5.4.6",
+      "LUAROCKS_VERSION": "3.9.2"
     }
   },
   "customizations": {

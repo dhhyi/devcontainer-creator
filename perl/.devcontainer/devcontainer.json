@@ -13,15 +13,15 @@
         }
       },
       "extensions": [
-        "cfgweb.vscode-perl",
-        "richterger.perl"
+        "richterger.perl",
+        "sfodje.perltidy"
       ]
     }
   },
   "containerEnv": {
     "DCC_BINARY": "perl",
     "DCC_REPL": "",
-    "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsn",
+    "DCC_SELFTEST": "cGVybCAtZSAncHJpbnQgIkhlbGxvIFdvcmxkIVxuIjsnCnBlcmx0aWR5IC12Cg==",
     "DCC_VERSION": "perl --version"
   }
 }
