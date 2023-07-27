@@ -71,6 +71,7 @@
         "dcc://idris2",
         "dcc://io",
         "dcc://javascript",
+        "dcc://javascript-pnpm",
         "dcc://julia",
         "dcc://koka",
         "dcc://kotlin",

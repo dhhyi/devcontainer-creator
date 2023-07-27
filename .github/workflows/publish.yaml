@@ -20,6 +20,7 @@ jobs:
       dccGo: ${{ steps.check.outputs.dccGo }}
       dccHaskell: ${{ steps.check.outputs.dccHaskell }}
       dccIo: ${{ steps.check.outputs.dccIo }}
+      dccJavascriptPnpm: ${{ steps.check.outputs.dccJavascriptPnpm }}
       dccJavascript: ${{ steps.check.outputs.dccJavascript }}
       dccJulia: ${{ steps.check.outputs.dccJulia }}
       dccKotlin: ${{ steps.check.outputs.dccKotlin }}
@@ -257,6 +258,18 @@ jobs:
       name: io
       skip: ${{ needs.calc.outputs.dccIo == 'false' }}
     secrets: inherit
+  dccJavascriptPnpm:
+    needs:
+      - calc
+      - bundle
+      - dccJavascript
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://javascript-pnpm
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: javascript-pnpm
+      skip: ${{ needs.calc.outputs.dccJavascriptPnpm == 'false' }}
+    secrets: inherit
   dccJavascript:
     needs:
       - calc
@@ -450,6 +463,7 @@ jobs:
       - dccGo
       - dccHaskell
       - dccIo
+      - dccJavascriptPnpm
       - dccJavascript
       - dccJulia
       - dccKotlin

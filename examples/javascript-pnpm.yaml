@@ -1,0 +1,21 @@
+extends: dcc://javascript
+language:
+  binary: node
+  repl: node
+  version: |
+    node --version
+    pnpm --version
+    /tmp/check-pnpm-volume.sh
+devcontainer:
+  build:
+    user:
+      - RUN npm install -g pnpm
+      - RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc $HOME/.bashrc && echo "store-dir=/home/pnpm\npackage-import-method=copy" > $HOME/.npmrc
+    files:
+      - type: script
+        path: /tmp/check-pnpm-volume.sh
+        content: |
+          #!/bin/bash
+          if ! mount | grep -q /home/pnpm; then
+            echo -e "\e[31mWARNING: it is recommended to mount /home/pnpm as a named volume\e[0m"
+          fi
