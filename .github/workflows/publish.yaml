@@ -12,6 +12,7 @@ jobs:
       buildBase: ${{ steps.check.outputs.buildBase }}
       dccClojure: ${{ steps.check.outputs.dccClojure }}
       dccDart: ${{ steps.check.outputs.dccDart }}
+      dccDeno: ${{ steps.check.outputs.dccDeno }}
       dccElixir: ${{ steps.check.outputs.dccElixir }}
       dccElm: ${{ steps.check.outputs.dccElm }}
       dccErlang: ${{ steps.check.outputs.dccErlang }}
@@ -159,6 +160,18 @@ jobs:
     with:
       name: dart
       skip: ${{ needs.calc.outputs.dccDart == 'false' }}
+    secrets: inherit
+  dccDeno:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://deno
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: deno
+      skip: ${{ needs.calc.outputs.dccDeno == 'false' }}
     secrets: inherit
   dccElixir:
     needs:
@@ -429,6 +442,7 @@ jobs:
       - calc
       - dccClojure
       - dccDart
+      - dccDeno
       - dccElixir
       - dccElm
       - dccErlang

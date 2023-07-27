@@ -60,6 +60,7 @@
         "dcc://clojure",
         "dcc://crystal",
         "dcc://dart",
+        "dcc://deno",
         "dcc://elixir",
         "dcc://elm",
         "dcc://erlang",

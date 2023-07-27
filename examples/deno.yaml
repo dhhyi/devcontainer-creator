@@ -1,0 +1,18 @@
+language:
+  name: deno
+  binary: deno
+  binaryArgs: run
+devcontainer:
+  build:
+    root:
+      - ADD https://deno.land/x/install/install.sh /tmp/install.sh
+      - RUN sh /tmp/install.sh && mv /root/.deno/bin/deno /usr/local/bin/deno
+  selftest: deno eval 'console.log("Hello world!")'
+vscode:
+  settings:
+    deno.enable: true
+    deno.lint: true
+    "[typescript]":
+      editor.defaultFormatter: denoland.vscode-deno
+  extensions:
+    - denoland.vscode-deno
