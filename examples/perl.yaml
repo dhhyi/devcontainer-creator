@@ -5,11 +5,12 @@ devcontainer:
   build:
     packages:
       - perl
-      - exuberant-ctags
-    root:
-      - RUN cpan Perl::Tidy
-  selftest: perl -e 'print "Hello World!\n";'
+      - perltidy
+      - libperl-languageserver-perl
+  selftest: |
+    perl -e 'print "Hello World!\n";'
+    perltidy -v
 vscode:
   extensions:
-    - cfgweb.vscode-perl
     - richterger.perl
+    - sfodje.perltidy
