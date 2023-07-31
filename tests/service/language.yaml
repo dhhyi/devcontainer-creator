@@ -1,0 +1,15 @@
+devcontainer:
+  service: |
+    echo 1 >> test.log~
+    pwd >> /tmp/test.log~
+    sleep infinity
+  initialize: |
+    ps aux
+    mount -l
+  #   cat test.log~ | grep 1
+  #   rm test.log~
+  #   service app restart
+  #   sleep 1
+  #   cat test.log~ | grep 1
+  selftest: |
+    echo "Test successful!"

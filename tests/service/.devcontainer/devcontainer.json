@@ -1,0 +1,21 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "overrideCommand": false,
+  "postStartCommand": "ps aux && mount -l",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  },
+  "containerEnv": {
+    "DCC_SELFTEST": "ZWNobyAiVGVzdCBzdWNjZXNzZnVsISIK"
+  }
+}

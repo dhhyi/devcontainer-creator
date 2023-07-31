@@ -8,18 +8,11 @@
     "devcontainer-build-file": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "type",
-        "path",
-        "content"
-      ],
+      "required": ["type", "path", "content"],
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "script",
-            "file"
-          ]
+          "enum": ["script", "file"]
         },
         "path": {
           "type": "string"
@@ -32,10 +25,7 @@
     "v-s-code-task": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "label",
-        "command"
-      ],
+      "required": ["label", "command"],
       "properties": {
         "label": {
           "type": "string"
@@ -177,6 +167,9 @@
         "initialize": {
           "type": "string"
         },
+        "service": {
+          "type": "string"
+        },
         "ports": {
           "type": "array",
           "items": {
@@ -229,20 +222,13 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": [
-          "forward-x11",
-          "traefik",
-          "tmpfs",
-          "named-volumes"
-        ]
+        "enum": ["forward-x11", "traefik", "tmpfs", "named-volumes"]
       }
     },
     "traefik": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "network"
-      ],
+      "required": ["network"],
       "properties": {
         "network": {
           "type": "string"

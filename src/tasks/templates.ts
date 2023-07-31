@@ -103,6 +103,7 @@ interface DevcontainerJSONType {
   runArgs?: string[];
   forwardPorts?: number[];
   containerEnv?: Partial<Record<DCCEnvKeys, string>>;
+  overrideCommand?: false;
 }
 
 function needsDockerfile(desc: Language): boolean {
@@ -212,6 +213,10 @@ const DevcontainerJSONTemplate = (
     }
   } else {
     json.image = baseImageReference(desc.extends);
+  }
+
+  if (desc.devcontainer?.service) {
+    json.overrideCommand = false;
   }
 
   if (desc.devcontainer?.initialize) {
@@ -414,6 +419,11 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
 
   if (desc.devcontainer?.ports) {
     blocks.push(`EXPOSE ${desc.devcontainer.ports.join(' ')}`);
+  }
+
+  if (desc.devcontainer?.service) {
+    // blocks.push('RUN sudo ln -s /usr/bin/sv /etc/init.d/app');
+    blocks.push('CMD ["sudo", "runsvdir", "/etc/service"]');
   }
 
   return blocks.join('\n\n') + '\n';

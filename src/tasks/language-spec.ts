@@ -114,6 +114,36 @@ export const ResolvedYaml = once(async () => {
     resolvedYaml.devcontainer.remoteUser = remoteUser;
   }
 
+  if (resolvedYaml.devcontainer.service) {
+    if (!resolvedYaml.devcontainer.build) {
+      resolvedYaml.devcontainer.build = {};
+    }
+
+    if (!resolvedYaml.devcontainer.build.packages) {
+      resolvedYaml.devcontainer.build.packages = [];
+    }
+    resolvedYaml.devcontainer.build.packages.push('runit');
+
+    if (!resolvedYaml.devcontainer.build.files) {
+      resolvedYaml.devcontainer.build.files = [];
+    }
+    resolvedYaml.devcontainer.build.files.push({
+      path: '$HOME/service/app.sh',
+      type: 'script',
+      content: `#!/bin/bash
+set -e
+${resolvedYaml.devcontainer.service}
+`,
+    });
+    resolvedYaml.devcontainer.build.files.push({
+      path: '/etc/service/app/run',
+      type: 'script',
+      content: `#!/bin/bash
+exec /home/${resolvedYaml.devcontainer.remoteUser}/service/app.sh
+`,
+    });
+  }
+
   const inheritedExtensions = baseDevcontainerMeta.reduce((acc, cur) => {
     if (cur.customizations?.vscode?.extensions) {
       return [...acc, ...cur.customizations.vscode.extensions];
