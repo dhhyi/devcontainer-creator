@@ -1,0 +1,14 @@
+{
+  "image": "ghcr.io/dhhyi/dcc-base-ubuntu",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}

@@ -27,7 +27,7 @@ const { globSync } = require('glob');
 rules['language_schema.json'] = [
   () =>
     globSync(
-      '{examples/*.yaml,tests/!(empty|extra_properties)/language.yaml}'
+      '{examples/*.yaml,tests/!(empty|extra_properties|multi-yaml)/language.yaml}'
     ).map((file) => `npm run validate-yaml ${file}`),
 ];
 

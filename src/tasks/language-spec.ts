@@ -14,6 +14,40 @@ import {
 } from './devcontainer-meta';
 import { ParsedArgs, VERY_VERBOSE } from './parse-args';
 
+function loadYaml(yamlString: string): Language {
+  try {
+    const allYaml = yaml.loadAll(yamlString);
+
+    if (allYaml.length === 0) {
+      logWarn('document is empty');
+      return {} as Language;
+    } else if (allYaml.length === 1) {
+      return allYaml[0] as Language;
+    }
+    const dccSpec = yamlString
+      .split('\n---')
+      .filter((x) => !!x.trim())
+      .map((x) => x.trimStart())
+      .filter((block) => {
+        const beginningComments = block.match(/^#.*$/gm);
+        return beginningComments?.some((comment) =>
+          /#\s*yaml-language-server: \$schema=.*devcontainer-creator.*/.test(
+            comment
+          )
+        );
+      });
+    if (dccSpec.length === 1) {
+      return yaml.load(dccSpec[0]) as Language;
+    }
+    throw new Error(
+      'invalid yaml: multiple documents found and none are marked as DCC spec\nTo mark it add the comment "# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json" to the beginning of the block'
+    );
+  } catch (error) {
+    logError((error as Error).message);
+    process.exit(1);
+  }
+}
+
 async function getYaml(languageYaml: string): Promise<Language> {
   if (languageYaml.startsWith(DCC_PROTOCOL)) {
     return { extends: languageYaml as Language['extends'] };
@@ -51,14 +85,14 @@ async function getYaml(languageYaml: string): Promise<Language> {
     };
 
     try {
-      return yaml.load(await downloadFile(languageYaml)) as Language;
+      return loadYaml(await downloadFile(languageYaml)) as Language;
     } catch (error) {
       logError(error);
       process.exit(1);
     }
   }
 
-  return yaml.load(readFileSync(languageYaml, 'utf8')) as Language;
+  return loadYaml(readFileSync(languageYaml, 'utf8')) as Language;
 }
 
 export const ResolvedYaml = once(async () => {

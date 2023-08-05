@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://json-schema.org/draft/2020-12/meta/core
+foo: bar1
+---
+# this is the dcc spec
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/language_schema.json
+# another test comment
+extends: base://ubuntu
+---
+# yaml-language-server: $schema=https://json-schema.org/draft/2020-12/meta/core
+foo: bar2
