@@ -94,7 +94,7 @@ interface DevcontainerJSONType {
   build?: {
     dockerfile: 'Dockerfile';
     cacheFrom?: string;
-    args?: Record<string, unknown>;
+    args?: Record<string, string | number>;
   };
   mounts?: string[];
   postStartCommand?: string;
@@ -294,7 +294,7 @@ const DevcontainerJSONTemplate = (
   }
   if (desc.devcontainer?.environment) {
     for (const [k, v] of Object.entries(desc.devcontainer.environment)) {
-      containerEnv[k] = String(v);
+      containerEnv[k] = v;
     }
   }
   if (Object.keys(containerEnv).length) {

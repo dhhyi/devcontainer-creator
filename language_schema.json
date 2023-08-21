@@ -135,7 +135,17 @@
           "additionalProperties": false,
           "properties": {
             "args": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
             },
             "files": {
               "type": "array",
@@ -185,7 +195,10 @@
           }
         },
         "environment": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "publish": {
           "type": "object",
@@ -278,7 +291,10 @@
       }
     },
     "namedVolumes": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
     }
   }
 }
