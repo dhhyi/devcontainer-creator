@@ -2,6 +2,11 @@ language:
   name: crystal
   binary: crystal
 devcontainer:
+  publish:
+    image: dcc://crystal
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for crystal
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     prepare:
       - RUN echo 'deb http://download.opensuse.org/repositories/devel:/languages:/crystal/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/devel:languages:crystal.list && curl -fsSL https://download.opensuse.org/repositories/devel:languages:crystal/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_languages_crystal.gpg > /dev/null

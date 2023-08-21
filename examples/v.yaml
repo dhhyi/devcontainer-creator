@@ -4,6 +4,11 @@ language:
   binaryArgs: run
   repl: v
 devcontainer:
+  publish:
+    image: dcc://v
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for v
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - build-essential

@@ -5,6 +5,11 @@ language:
   repl: factor
   version: false
 devcontainer:
+  publish:
+    image: dcc://factor
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for factor
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       FACTOR_VERSION: "0.98"

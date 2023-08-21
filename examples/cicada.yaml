@@ -5,6 +5,11 @@ language:
   binary: cic
   binaryArgs: run
 devcontainer:
+  publish:
+    image: dcc://cicada
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for cicada
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     root:
       - RUN npm --global install @cicada-lang/cicada

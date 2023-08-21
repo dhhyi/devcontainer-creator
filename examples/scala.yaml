@@ -4,6 +4,11 @@ language:
   binary: amm
   repl: amm
 devcontainer:
+  publish:
+    image: dcc://scala
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for scala
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       AMMONITE_VERSION: "2.5.4/2.13-2.5.4"

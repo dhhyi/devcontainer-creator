@@ -4,6 +4,11 @@ language:
   binaryArgs: run
   version: hare version
 devcontainer:
+  publish:
+    image: dcc://hare
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for hare
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       QBE_VERSION: 1.1

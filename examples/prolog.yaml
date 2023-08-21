@@ -3,6 +3,11 @@ language:
   repl: gprolog
   version: gprolog --version
 devcontainer:
+  publish:
+    image: dcc://prolog
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for prolog
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       PROLOG_VERSION: 1.5.0

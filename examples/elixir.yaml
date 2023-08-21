@@ -4,6 +4,11 @@ language:
   binary: elixir
   repl: iex
 devcontainer:
+  publish:
+    image: dcc://elixir
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for elixir
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - elixir

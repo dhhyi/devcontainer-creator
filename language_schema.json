@@ -186,6 +186,24 @@
         },
         "environment": {
           "type": "object"
+        },
+        "publish": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "image"
+          ],
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },

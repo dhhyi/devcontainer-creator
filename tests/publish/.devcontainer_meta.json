@@ -49,45 +49,6 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/node:1",
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "dbaeumer.vscode-eslint"
-        ]
-      }
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "[typescript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
-          },
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "ts-node",
-      "DCC_REPL": "ts-node",
-      "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpOyc=",
-      "DCC_VERSION": "ts-node -vvv"
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "languageName": "typescript"
-      }
-    }
-  },
-  {
     "customizations": {
       "vscode": {
         "settings": {
@@ -95,25 +56,8 @@
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
-          },
-          "foo": "bar"
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "tasks": [
-          {
-            "label": "Say Hi",
-            "command": "ts-node -e 'console.log(\"Hi!\");'"
           }
-        ],
-        "languageName": "typescript"
+        }
       }
     }
   }

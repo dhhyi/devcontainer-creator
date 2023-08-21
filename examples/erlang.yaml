@@ -4,6 +4,11 @@ language:
   repl: erl
   version: erl +V
 devcontainer:
+  publish:
+    image: dcc://erlang
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for erlang
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - erlang

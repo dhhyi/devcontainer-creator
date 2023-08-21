@@ -3,6 +3,11 @@ language:
   name: pony
   version: ponyc --version
 devcontainer:
+  publish:
+    image: dcc://pony
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for pony
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - build-essential

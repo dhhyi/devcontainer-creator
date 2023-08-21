@@ -3,6 +3,11 @@ language:
   binary: julia
   repl: julia
 devcontainer:
+  publish:
+    image: dcc://julia
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for julia
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       JULIA_BASE_VERSION: "1.8"

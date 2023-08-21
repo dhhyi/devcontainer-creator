@@ -2,6 +2,7 @@ import { execSync } from 'child_process';
 
 import { memoize, once } from 'lodash-es';
 
+import { baseImageReference, DCC_PROTOCOL } from '../constants';
 import { execute } from '../exec';
 import { logPersist } from '../logging';
 
@@ -34,8 +35,25 @@ export const PulledImage: (image: string, fail?: boolean) => string = memoize(
   (image, fail) => `${image}:${fail}`
 );
 
-function buildWithDevcontainerCli(): string {
-  const { tag, cacheFrom, targetDir } = ParsedArgs();
+async function resolveImageTag(): Promise<string | undefined>;
+async function resolveImageTag(defaultName: string): Promise<string>;
+async function resolveImageTag(defaultName?: string) {
+  const { tag } = ParsedArgs();
+  if (tag) {
+    return tag;
+  } else {
+    const resolvedYaml = await ResolvedYaml();
+    const tagFromPublish = resolvedYaml?.devcontainer?.publish?.image;
+    if (tagFromPublish?.startsWith(DCC_PROTOCOL)) {
+      return baseImageReference(tagFromPublish);
+    }
+    return tagFromPublish || defaultName;
+  }
+}
+
+async function buildWithDevcontainerCli(): Promise<string> {
+  const { cacheFrom, targetDir } = ParsedArgs();
+  const tag = await resolveImageTag();
 
   const devcontainerArgs = ['build', '--workspace-folder', targetDir];
   if (tag) {
@@ -60,7 +78,7 @@ function buildWithDevcontainerCli(): string {
 
 async function buildWithDocker() {
   const resolvedYaml = await ResolvedYaml();
-  const { tag, cacheFrom, targetDir } = ParsedArgs();
+  const { cacheFrom, targetDir } = ParsedArgs();
 
   const languageBuildArgs = Object.entries(
     resolvedYaml?.devcontainer?.build?.args || []
@@ -68,9 +86,10 @@ async function buildWithDocker() {
     (acc, [key, value]) => [...acc, '--build-arg', `${key}=${value}`],
     []
   );
-  const image = tag || `dcc-${Date.now()}`;
+  const image = await resolveImageTag(`dcc-${Date.now()}`);
 
   const dockerBuildArgs: string[] = [
+    'buildx',
     'build',
     ...languageBuildArgs,
     '--build-arg',
@@ -97,7 +116,7 @@ export const BuildDevcontainer = once(async () => {
   if ((await ResolvedYaml()).devcontainer?.build) {
     image = await buildWithDocker();
   } else {
-    image = buildWithDevcontainerCli();
+    image = await buildWithDevcontainerCli();
   }
 
   const dccMeta = await ConstructedDCCMeta();

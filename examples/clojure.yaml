@@ -8,6 +8,11 @@ language:
     clojure-lsp --version
     clojure --version
 devcontainer:
+  publish:
+    image: dcc://clojure
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for clojure
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       CLOJURE_VERSION: "1.11.1.1155"

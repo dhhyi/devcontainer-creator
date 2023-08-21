@@ -2,6 +2,11 @@ language:
   name: groovy
   binary: groovy
 devcontainer:
+  publish:
+    image: dcc://groovy
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for groovy
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - openjdk-17-jdk

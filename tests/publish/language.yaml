@@ -1,0 +1,6 @@
+devcontainer:
+  publish:
+    image: test-image-name
+    labels:
+      foo: bar
+      test: dummy

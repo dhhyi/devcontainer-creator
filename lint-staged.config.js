@@ -16,9 +16,10 @@ rules['features/**'] = [() => 'devcontainer features test features'];
 
 rules['examples/**'] = [
   (files) => [
-    ...files.map(
-      (file) => `npm run validate-yaml examples/${path.basename(file)}`
-    ),
+    ...files.flatMap((file) => [
+      `npm run validate-yaml examples/${path.basename(file)}`,
+      `node check-language ${file}`,
+    ]),
   ],
 ];
 

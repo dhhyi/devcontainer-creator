@@ -1,6 +1,6 @@
 import { dirname } from 'path';
 
-import { baseImageReference, isBaseImage } from '../constants';
+import { DCC_PROTOCOL, baseImageReference, isBaseImage } from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
 import { addCommand, parseCommand } from '../util';
 
@@ -93,6 +93,7 @@ interface DevcontainerJSONType {
   image?: string;
   build?: {
     dockerfile: 'Dockerfile';
+    cacheFrom?: string;
     args?: Record<string, unknown>;
   };
   mounts?: string[];
@@ -106,7 +107,11 @@ interface DevcontainerJSONType {
 }
 
 function needsDockerfile(desc: Language): boolean {
-  return !!(desc.devcontainer?.build || desc.devcontainer?.ports);
+  return !!(
+    desc.devcontainer?.build ||
+    desc.devcontainer?.ports ||
+    desc?.devcontainer?.publish?.labels
+  );
 }
 
 function flattenObject(obj: object): [string, string][] {
@@ -206,6 +211,15 @@ const DevcontainerJSONTemplate = (
     json.build = {
       dockerfile: 'Dockerfile',
     };
+
+    if (desc.devcontainer?.publish?.image) {
+      const image = desc.devcontainer.publish.image;
+      if (image.startsWith(DCC_PROTOCOL)) {
+        json.build.cacheFrom = baseImageReference(image);
+      } else {
+        json.build.cacheFrom = image;
+      }
+    }
 
     if (desc.devcontainer?.build?.args) {
       json.build.args = desc.devcontainer.build.args;
@@ -414,6 +428,13 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
 
   if (desc.devcontainer?.ports) {
     blocks.push(`EXPOSE ${desc.devcontainer.ports.join(' ')}`);
+  }
+
+  if (desc.devcontainer?.publish?.labels) {
+    const labels = Object.entries(desc.devcontainer.publish.labels)
+      .map(([k, v]) => `"${k}"="${v}"`)
+      .join(' ');
+    blocks.push(`LABEL ${labels}`);
   }
 
   return blocks.join('\n\n') + '\n';

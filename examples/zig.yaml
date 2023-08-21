@@ -4,6 +4,11 @@ language:
   binaryArgs: run
   version: zig version
 devcontainer:
+  publish:
+    image: dcc://zig
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for zig
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - xz-utils

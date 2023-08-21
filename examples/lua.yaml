@@ -6,6 +6,11 @@ language:
     lua -v
     luarocks --version
 devcontainer:
+  publish:
+    image: dcc://lua
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for lua
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       LUA_VERSION: 5.4.6

@@ -2,6 +2,11 @@ language:
   name: perl
   binary: perl
 devcontainer:
+  publish:
+    image: dcc://perl
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for perl
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - perl

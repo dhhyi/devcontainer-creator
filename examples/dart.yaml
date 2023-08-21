@@ -2,6 +2,11 @@ language:
   name: dart
   binary: dart
 devcontainer:
+  publish:
+    image: dcc://dart
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for dart
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     prepare:
       - >-

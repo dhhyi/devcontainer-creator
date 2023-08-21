@@ -5,6 +5,11 @@ language:
   repl: ghci
   version: ghc --version
 devcontainer:
+  publish:
+    image: dcc://haskell
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for haskell
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - haskell-platform

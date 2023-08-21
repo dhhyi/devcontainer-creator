@@ -4,6 +4,11 @@ language:
   binary: runidris
   version: idris2 --version
 devcontainer:
+  publish:
+    image: dcc://idris2
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for idris2
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       IDRIS2_VERSION: 0.6.0

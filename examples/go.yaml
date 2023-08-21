@@ -5,6 +5,11 @@ language:
   repl: yaegi
   version: go version
 devcontainer:
+  publish:
+    image: dcc://go
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for go
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       GO_VERSION: 1.20.6

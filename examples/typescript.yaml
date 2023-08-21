@@ -5,6 +5,11 @@ language:
   repl: ts-node
   version: ts-node -vvv
 devcontainer:
+  publish:
+    image: dcc://typescript
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for typescript
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     root:
       - RUN npm i -g ts-node

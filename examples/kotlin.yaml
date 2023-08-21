@@ -1,6 +1,11 @@
 language:
   name: kotlin
 devcontainer:
+  publish:
+    image: dcc://kotlin
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for kotlin
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - openjdk-17-jdk

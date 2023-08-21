@@ -3,6 +3,11 @@ language:
   binary: runodin
   version: odin version
 devcontainer:
+  publish:
+    image: dcc://odin
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for odin
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       ODIN_VERSION: dev-2023-05

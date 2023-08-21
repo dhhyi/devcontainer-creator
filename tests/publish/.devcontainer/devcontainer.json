@@ -1,0 +1,17 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "test-image-name"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}

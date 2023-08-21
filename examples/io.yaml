@@ -4,6 +4,11 @@ language:
   binary: io
   repl: io
 devcontainer:
+  publish:
+    image: dcc://io
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for io
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
       IO_VERSION: master

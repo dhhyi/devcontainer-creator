@@ -18,6 +18,12 @@
       "label": "Start REPL",
       "problemMatcher": [],
       "type": "shell"
+    },
+    {
+      "command": "ts-node -e 'console.log(\"Hi!\");'",
+      "label": "Say Hi",
+      "problemMatcher": [],
+      "type": "shell"
     }
   ],
   "inputs": [

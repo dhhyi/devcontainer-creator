@@ -4,6 +4,11 @@ language:
   binary: koka
   binaryArgs: -e
 devcontainer:
+  publish:
+    image: dcc://koka
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for koka
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - build-essential

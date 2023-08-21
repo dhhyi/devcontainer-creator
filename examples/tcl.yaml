@@ -4,6 +4,11 @@ language:
   repl: tclsh
   version: echo 'puts [info patchlevel]' | tclsh
 devcontainer:
+  publish:
+    image: dcc://tcl
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for tcl
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - tcl

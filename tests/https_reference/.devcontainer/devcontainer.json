@@ -1,25 +1,19 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "name": "Simple Extended",
+  "image": "ghcr.io/dhhyi/dcc-devcontainer-typescript",
   "customizations": {
     "vscode": {
       "settings": {
-        "[typescript]": {
-          "editor.defaultFormatter": "vscode.typescript-language-features"
-        },
         "files.exclude": {
           ".devcontainer": true,
           ".update_devcontainer.sh": true,
           ".vscode": true
-        }
+        },
+        "foo": "bar"
       }
     }
   },
   "containerEnv": {
-    "DCC_BINARY": "ts-node",
-    "DCC_REPL": "ts-node",
-    "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpOyc=",
-    "DCC_VERSION": "ts-node -vvv"
+    "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
   }
 }

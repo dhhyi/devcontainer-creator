@@ -7,6 +7,11 @@ language:
     pnpm --version
     /tmp/check-pnpm-volume.sh
 devcontainer:
+  publish:
+    image: dcc://javascript-pnpm
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for javascript-pnpm
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     user:
       - RUN npm install -g pnpm

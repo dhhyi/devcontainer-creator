@@ -4,6 +4,11 @@ language:
   binary: moon
   version: moonc -v .
 devcontainer:
+  publish:
+    image: dcc://moonscript
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for moonscript
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     root:
       - RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec

@@ -6,6 +6,11 @@ language:
     rubocop --version
     ruby --version
 devcontainer:
+  publish:
+    image: dcc://ruby
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for ruby
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
       - ruby
