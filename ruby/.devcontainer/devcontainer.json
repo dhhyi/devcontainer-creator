@@ -2,7 +2,7 @@
   "name": "Example devcontainer for ruby",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://ruby"
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-ruby"
   },
   "customizations": {
     "vscode": {

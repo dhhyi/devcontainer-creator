@@ -2,7 +2,7 @@
   "name": "Example devcontainer for javascript",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://javascript"
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-javascript"
   },
   "customizations": {
     "vscode": {

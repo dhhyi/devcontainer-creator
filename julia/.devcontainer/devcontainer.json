@@ -2,7 +2,7 @@
   "name": "Example devcontainer for julia",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://julia",
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-julia",
     "args": {
       "JULIA_BASE_VERSION": "1.8",
       "JULIA_MINOR_VERSION": "2"

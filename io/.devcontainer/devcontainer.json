@@ -2,7 +2,7 @@
   "name": "Example devcontainer for io",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://io",
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-io",
     "args": {
       "IO_VERSION": "master"
     }

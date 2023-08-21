@@ -2,7 +2,7 @@
   "name": "Example devcontainer for deno",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://deno"
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-deno"
   },
   "customizations": {
     "vscode": {

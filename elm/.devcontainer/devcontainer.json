@@ -2,7 +2,7 @@
   "name": "Example devcontainer for elm",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://elm"
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-elm"
   },
   "customizations": {
     "vscode": {

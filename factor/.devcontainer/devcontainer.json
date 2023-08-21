@@ -2,7 +2,7 @@
   "name": "Example devcontainer for factor",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://factor",
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-factor",
     "args": {
       "FACTOR_VERSION": "0.98",
       "WORKSPACE": "${containerWorkspaceFolder}"

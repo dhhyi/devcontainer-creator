@@ -2,7 +2,7 @@
   "name": "Example devcontainer for odin",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://odin",
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-odin",
     "args": {
       "ODIN_VERSION": "dev-2023-05"
     }

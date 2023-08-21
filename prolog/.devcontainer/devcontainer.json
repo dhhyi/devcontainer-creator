@@ -2,7 +2,7 @@
   "name": "Example devcontainer for prolog",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://prolog",
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-prolog",
     "args": {
       "PROLOG_VERSION": "1.5.0"
     }

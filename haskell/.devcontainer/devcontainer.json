@@ -2,7 +2,7 @@
   "name": "Example devcontainer for haskell",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://haskell"
+    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-haskell"
   },
   "customizations": {
     "vscode": {
