@@ -1,8 +1,8 @@
 {
-  "name": "Example devcontainer for moonscript",
+  "name": "Example devcontainer for groovy",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "dcc://moonscript"
+    "cacheFrom": "dcc://groovy"
   },
   "customizations": {
     "vscode": {
@@ -14,14 +14,14 @@
         }
       },
       "extensions": [
-        "vgalaktionov.moonscript"
+        "NicolasVuillamy.vscode-groovy-lint"
       ]
     }
   },
   "containerEnv": {
-    "DCC_BINARY": "moon",
+    "DCC_BINARY": "groovy",
     "DCC_REPL": "",
-    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo=",
-    "DCC_VERSION": "moonc -v ."
+    "DCC_SELFTEST": "ZWNobyAicHJpbnRsbiAnSGVsbG8sIFdvcmxkISciID4gL3RtcC9oZWxsby5ncm9vdnkKZ3Jvb3Z5IC90bXAvaGVsbG8uZ3Jvb3Z5Cg==",
+    "DCC_VERSION": "groovy --version"
   }
 }

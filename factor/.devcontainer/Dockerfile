@@ -12,3 +12,5 @@ USER vscode
 ENV HOME=/home/vscode
 
 RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for factor" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

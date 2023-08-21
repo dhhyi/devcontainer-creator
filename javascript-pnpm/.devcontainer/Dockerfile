@@ -9,3 +9,5 @@ ENV HOME=/home/vscode
 
 RUN npm install -g pnpm
 RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc $HOME/.bashrc && echo "store-dir=/home/pnpm\npackage-import-method=copy" > $HOME/.npmrc
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for javascript-pnpm" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

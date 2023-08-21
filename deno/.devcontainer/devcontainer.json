@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for deno",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://deno"
   },
   "customizations": {
     "vscode": {

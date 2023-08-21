@@ -13,3 +13,5 @@ RUN chmod 644 /opt/ktfmt.jar
 RUN mkdir -p "/usr/bin" && echo "IyEvYmluL2Jhc2gKamF2YSAtamFyIC9vcHQva3RmbXQuamFyICIkQCIK" | base64 -d > "/usr/bin/ktfmt" && chmod +rx "/usr/bin/ktfmt"
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for kotlin" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

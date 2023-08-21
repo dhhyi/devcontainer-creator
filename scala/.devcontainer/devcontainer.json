@@ -2,6 +2,7 @@
   "name": "Example devcontainer for scala",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://scala",
     "args": {
       "AMMONITE_VERSION": "2.5.4/2.13-2.5.4"
     }

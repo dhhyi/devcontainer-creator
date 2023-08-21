@@ -16,3 +16,5 @@ RUN go install -v honnef.co/go/tools/cmd/staticcheck@latest
 RUN go install -v github.com/ramya-rao-a/go-outline@latest
 ENV PATH=${HOME}/go/bin:${PATH}
 RUN go install -v github.com/mitranim/gow@latest
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for go" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

@@ -2,6 +2,7 @@
   "name": "Example devcontainer for go",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://go",
     "args": {
       "GO_VERSION": "1.20.6"
     }

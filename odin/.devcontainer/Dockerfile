@@ -10,3 +10,5 @@ RUN cd /tmp && tar zxpf ${ODIN_VERSION}.tar.gz && cd /tmp/Odin-${ODIN_VERSION} &
 RUN mkdir -p "/usr/local/bin" && echo "IyEvYmluL3NoIC1lCmlmIFsgJCMgLWVxIDAgXTsgdGhlbgogICAgZWNobyAiVXNhZ2U6ICQwIDxmaWxlPiIKICAgIGV4aXQgMQpmaQppZiBbICEgLWYgIiQxIiBdOyB0aGVuCiAgICBlY2hvICJGaWxlICQxIGRvZXMgbm90IGV4aXN0IgogICAgZXhpdCAxCmZpCgpmaWxlPSIkKHJlYWRsaW5rIC1mICIkMSIpIgpzaGlmdApjZCAvdG1wCm9kaW4gcnVuICIkZmlsZSIgLWZpbGUgLS0gIiRAIgo=" | base64 -d > "/usr/local/bin/runodin" && chmod +rx "/usr/local/bin/runodin"
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for odin" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

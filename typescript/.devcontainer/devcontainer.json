@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for typescript",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://typescript"
   },
   "customizations": {
     "vscode": {

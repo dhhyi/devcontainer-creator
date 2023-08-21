@@ -1,6 +1,9 @@
 {
   "name": "Example devcontainer for javascript",
-  "image": "ghcr.io/dhhyi/dcc-base-node",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://javascript"
+  },
   "customizations": {
     "vscode": {
       "settings": {

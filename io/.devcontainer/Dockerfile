@@ -13,3 +13,5 @@ ENV EERIEDIR=${HOME}/.eerie PATH=${PATH}:${HOME}/.eerie/base/bin:${HOME}/.eerie/
 WORKDIR ${HOME}
 RUN eerie install https://github.com/IoLanguage/Regex.git
 RUN eerie install https://github.com/IoLanguage/Random.git
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for io" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

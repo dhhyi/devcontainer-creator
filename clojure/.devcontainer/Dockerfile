@@ -9,3 +9,5 @@ RUN bash /tmp/install-clojure-lsp.sh
 RUN echo > /conda-notice.txt
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for clojure" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

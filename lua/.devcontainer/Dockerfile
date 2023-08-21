@@ -14,3 +14,5 @@ RUN luarocks install --server=https://luarocks.org/dev luaformatter
 RUN luarocks install luacheck
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for lua" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

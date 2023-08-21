@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for ruby",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://ruby"
   },
   "customizations": {
     "vscode": {

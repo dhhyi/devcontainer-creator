@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for elixir",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://elixir"
   },
   "customizations": {
     "vscode": {

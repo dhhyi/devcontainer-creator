@@ -8,3 +8,5 @@ RUN cd /opt && tar -xpf julia.tar.gz
 ENV PATH=/opt/julia-${JULIA_BASE_VERSION}.${JULIA_MINOR_VERSION}/bin:${PATH}
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for julia" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"

@@ -2,6 +2,7 @@
   "name": "Example devcontainer for io",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://io",
     "args": {
       "IO_VERSION": "master"
     }

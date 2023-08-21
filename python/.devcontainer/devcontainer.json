@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for python",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://python"
   },
   "customizations": {
     "vscode": {

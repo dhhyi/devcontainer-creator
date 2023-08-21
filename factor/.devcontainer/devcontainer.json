@@ -2,6 +2,7 @@
   "name": "Example devcontainer for factor",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "dcc://factor",
     "args": {
       "FACTOR_VERSION": "0.98",
       "WORKSPACE": "${containerWorkspaceFolder}"

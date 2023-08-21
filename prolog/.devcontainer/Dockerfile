@@ -9,3 +9,5 @@ RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
 RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
 
 USER vscode
+
+LABEL "org.opencontainers.image.description"="VSCode devcontainer for prolog" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"
