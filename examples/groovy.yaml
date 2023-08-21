@@ -1,0 +1,16 @@
+language:
+  name: groovy
+  binary: groovy
+devcontainer:
+  build:
+    packages:
+      - openjdk-17-jdk
+    user:
+      - RUN curl -s "https://get.sdkman.io" | bash
+      - RUN bash -c ". $HOME/.sdkman/bin/sdkman-init.sh && sdk install groovy"
+  selftest: |
+    echo "println 'Hello, World!'" > /tmp/hello.groovy
+    groovy /tmp/hello.groovy
+vscode:
+  extensions:
+    - NicolasVuillamy.vscode-groovy-lint

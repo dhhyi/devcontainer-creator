@@ -66,6 +66,7 @@
         "dcc://erlang",
         "dcc://factor",
         "dcc://go",
+        "dcc://groovy",
         "dcc://hare",
         "dcc://haskell",
         "dcc://idris2",

@@ -17,6 +17,7 @@ jobs:
       dccErlang: ${{ steps.check.outputs.dccErlang }}
       dccFactor: ${{ steps.check.outputs.dccFactor }}
       dccGo: ${{ steps.check.outputs.dccGo }}
+      dccGroovy: ${{ steps.check.outputs.dccGroovy }}
       dccHaskell: ${{ steps.check.outputs.dccHaskell }}
       dccIo: ${{ steps.check.outputs.dccIo }}
       dccJavascriptPnpm: ${{ steps.check.outputs.dccJavascriptPnpm }}
@@ -220,6 +221,18 @@ jobs:
     with:
       name: go
       skip: ${{ needs.calc.outputs.dccGo == 'false' }}
+    secrets: inherit
+  dccGroovy:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://groovy
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: groovy
+      skip: ${{ needs.calc.outputs.dccGroovy == 'false' }}
     secrets: inherit
   dccHaskell:
     needs:
@@ -447,6 +460,7 @@ jobs:
       - dccErlang
       - dccFactor
       - dccGo
+      - dccGroovy
       - dccHaskell
       - dccIo
       - dccJavascriptPnpm
