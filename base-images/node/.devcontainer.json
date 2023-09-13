@@ -1,6 +1,8 @@
 {
   "image": "ghcr.io/dhhyi/dcc-base-debian",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1.3.0": {
+      "version": "lts"
+    }
   }
 }

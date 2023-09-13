@@ -1,10 +1,10 @@
 {
   "image": "debian:stable-20230208",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:1": {
+    "ghcr.io/devcontainers/features/common-utils:2.1.2": {
       "username": "vscode"
     },
-    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/git:1.1.5": {},
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
       "ohMyZshPlugins": "git debian"
     }

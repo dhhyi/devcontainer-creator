@@ -1,9 +1,9 @@
 [
   {
-    "id": "ghcr.io/devcontainers/features/common-utils:1"
+    "id": "ghcr.io/devcontainers/features/common-utils:2.1.2"
   },
   {
-    "id": "ghcr.io/devcontainers/features/git:1"
+    "id": "ghcr.io/devcontainers/features/git:1.1.5"
   },
   {
     "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
