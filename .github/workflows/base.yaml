@@ -27,10 +27,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Pull cache
-        continue-on-error: true
-        run: docker pull ghcr.io/dhhyi/dcc-base-${{ inputs.name }}
-
       - name: Build base-${{ inputs.name }}
         run: npm run build-base ${{ inputs.name }}
 
