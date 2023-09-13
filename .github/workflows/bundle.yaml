@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Install latest devcontainer CLI
-        run: npm install -g @devcontainers/cli
+      - name: Install patched devcontainer CLI
+        run: npm install -g github:dhhyi/devcontainers-cli\#fix/propagate-cache-from-dist
 
       - name: Build
         run: |
