@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for javascript-pnpm",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for raku",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-raku"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

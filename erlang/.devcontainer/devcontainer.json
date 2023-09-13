@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for erlang",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-erlang"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

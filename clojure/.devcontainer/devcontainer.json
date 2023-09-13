@@ -2,7 +2,6 @@
   "name": "Example devcontainer for clojure",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-clojure",
     "args": {
       "CLOJURE_VERSION": "1.11.1.1155"
     }

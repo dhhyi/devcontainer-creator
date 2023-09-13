@@ -2,7 +2,6 @@
   "name": "Example devcontainer for lua",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-lua",
     "args": {
       "LUA_VERSION": "5.4.6",
       "LUAROCKS_VERSION": "3.9.2"

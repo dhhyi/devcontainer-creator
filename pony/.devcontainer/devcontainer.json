@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for pony",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-pony"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

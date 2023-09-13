@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for tcl",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-tcl"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

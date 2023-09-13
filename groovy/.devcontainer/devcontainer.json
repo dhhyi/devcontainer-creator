@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for groovy",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-groovy"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

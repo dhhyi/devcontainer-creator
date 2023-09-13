@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for python",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-python"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

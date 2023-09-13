@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for perl",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-perl"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

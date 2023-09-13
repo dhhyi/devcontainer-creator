@@ -1,8 +1,7 @@
 {
   "name": "Example devcontainer for moonscript",
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "ghcr.io/dhhyi/dcc-devcontainer-moonscript"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {
