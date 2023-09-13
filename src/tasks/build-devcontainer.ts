@@ -7,11 +7,7 @@ import { execute } from '../exec';
 import { logPersist } from '../logging';
 
 import { DevcontainerCLIBin } from './check-tools';
-import {
-  appendMetaToImage,
-  ConstructedDCCMeta,
-  ConstructedDevcontainerMeta,
-} from './devcontainer-meta';
+import { appendMetaToImage, ConstructedDCCMeta } from './devcontainer-meta';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 
@@ -76,49 +72,8 @@ async function buildWithDevcontainerCli(): Promise<string> {
   return image;
 }
 
-async function buildWithDocker() {
-  const resolvedYaml = await ResolvedYaml();
-  const { cacheFrom, targetDir } = ParsedArgs();
-
-  const languageBuildArgs = Object.entries(
-    resolvedYaml?.devcontainer?.build?.args || []
-  ).reduce<string[]>(
-    (acc, [key, value]) => [...acc, '--build-arg', `${key}=${value}`],
-    []
-  );
-  const image = await resolveImageTag(`dcc-${Date.now()}`);
-
-  const dockerBuildArgs: string[] = [
-    'buildx',
-    'build',
-    ...languageBuildArgs,
-    '--build-arg',
-    'BUILDKIT_INLINE_CACHE=1',
-    '-t',
-    image,
-  ];
-
-  if (cacheFrom) {
-    dockerBuildArgs.push('--cache-from', PulledImage(cacheFrom));
-  }
-
-  dockerBuildArgs.push(`${targetDir}/.devcontainer`);
-
-  execute('building devcontainer', 'docker', dockerBuildArgs);
-
-  appendMetaToImage(image, await ConstructedDevcontainerMeta());
-
-  return image;
-}
-
 export const BuildDevcontainer = once(async () => {
-  let image: string;
-  if ((await ResolvedYaml()).devcontainer?.build) {
-    image = await buildWithDocker();
-  } else {
-    image = await buildWithDevcontainerCli();
-  }
-
+  const image = await buildWithDevcontainerCli();
   const dccMeta = await ConstructedDCCMeta();
   if (dccMeta) {
     appendMetaToImage(image, dccMeta);

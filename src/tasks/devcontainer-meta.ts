@@ -12,7 +12,6 @@ import { DevcontainerCLIBin } from './check-tools';
 import { TmpWorkingDir } from './create-tmp-dir';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
-import { WriteDevcontainer } from './write-devcontainer';
 
 export type DCCEnvKeys =
   | 'DCC_BINARY'
@@ -115,38 +114,6 @@ export const MergedDevcontainerMeta = once(
     ).mergedConfiguration;
   }
 );
-
-export const ConstructedDevcontainerMeta: () => Promise<DevcontainerMetaType> =
-  once(async () => {
-    const meta = JSON.parse(
-      readFileSync(
-        join(await WriteDevcontainer(), '.devcontainer', 'devcontainer.json'),
-        {
-          encoding: 'utf8',
-        }
-      )
-    );
-    if (meta.build) {
-      delete meta.build;
-    }
-    if (meta.name) {
-      delete meta.name;
-    }
-    if (meta.settings || meta.extensions) {
-      meta.customizations = {
-        vscode: {},
-      };
-      if (meta.settings) {
-        meta.customizations.vscode.settings = meta.settings;
-        delete meta.settings;
-      }
-      if (meta.extensions) {
-        meta.customizations.vscode.extensions = meta.extensions;
-        delete meta.extensions;
-      }
-    }
-    return meta;
-  });
 
 export const ConstructedDCCMeta: () => Promise<
   DevcontainerMetaType | undefined
