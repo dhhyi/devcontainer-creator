@@ -2,9 +2,22 @@ import { dirname } from 'path';
 
 import { DCC_PROTOCOL, baseImageReference, isBaseImage } from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
-import { addCommand, parseCommand } from '../util';
 
 import { DCCEnvKeys, VSCodeMetaType } from './devcontainer-meta';
+
+function parseCommand(input: string): string {
+  return input
+    .split('\n')
+    .filter((l) => l.trim())
+    .filter((l) => !l.startsWith('#'))
+    .join(' && ')
+    .replaceAll(/&&\s+&&/g, '&&');
+}
+
+function addCommand(previous: string | undefined, next: string): string {
+  if (!previous?.trim()) return next;
+  return `${previous} && ${next}`;
+}
 
 export type AvailableTemplates =
   | '.vscode/tasks.json'
