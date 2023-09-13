@@ -17,12 +17,20 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - run: |
-          curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - \
-            examples/${{ inputs.name }}.yaml \
-            --test \
-            --debug \
+      - run: >
+          curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node -
+          https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/${{ inputs.name }}.yaml
+          dist/test/${{ inputs.name }}
+          --test
+          --debug
+          --dump-meta
+          --name "Example devcontainer for ${{ inputs.name }}"
         name: dcc
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.name }}
+          path: dist/test/${{ inputs.name }}
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2

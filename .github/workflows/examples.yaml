@@ -14,20 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Download Script
-        run: |
-          mkdir -p dist
-          curl -sL https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js > dist/bundle.js
-
-      - name: Build Examples
-        run: npm run build-examples
+      - uses: actions/download-artifact@v3
+        with:
+          path: output
 
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
           BRANCH: devcontainers
-          FOLDER: dist/test
+          FOLDER: output
           SQUASH_HISTORY: false
           SKIP_EMPTY_COMMITS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
