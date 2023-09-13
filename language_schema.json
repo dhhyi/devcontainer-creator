@@ -50,7 +50,6 @@
     "extends": {
       "type": "string",
       "enum": [
-        "base://brew",
         "base://debian",
         "base://debian-old",
         "base://java",
