@@ -31,9 +31,7 @@ export const PulledImage: (image: string, fail?: boolean) => string = memoize(
   (image, fail) => `${image}:${fail}`
 );
 
-async function resolveImageTag(): Promise<string | undefined>;
-async function resolveImageTag(defaultName: string): Promise<string>;
-async function resolveImageTag(defaultName?: string) {
+async function resolvePublishTag(): Promise<string | undefined> {
   const { tag } = ParsedArgs();
   if (tag) {
     return tag;
@@ -43,20 +41,31 @@ async function resolveImageTag(defaultName?: string) {
     if (tagFromPublish?.startsWith(DCC_PROTOCOL)) {
       return baseImageReference(tagFromPublish);
     }
-    return tagFromPublish || defaultName;
+    return tagFromPublish;
   }
 }
 
+function isRegistryTag(tag: string): boolean {
+  return tag.includes('/');
+}
+
 async function buildWithDevcontainerCli(): Promise<string> {
-  const { cacheFrom, targetDir } = ParsedArgs();
-  const tag = await resolveImageTag();
+  const { targetDir, tag: argTag } = ParsedArgs();
+  const publishTag = await resolvePublishTag();
+
+  const tag = argTag || publishTag;
 
   const devcontainerArgs = ['build', '--workspace-folder', targetDir];
   if (tag) {
     devcontainerArgs.push('--image-name', tag);
   }
-  if (cacheFrom) {
-    devcontainerArgs.push('--cache-from', PulledImage(cacheFrom));
+  if (publishTag && isRegistryTag(publishTag)) {
+    devcontainerArgs.push(
+      '--cache-from',
+      `type=registry,ref=${tag}-cache`,
+      '--cache-to',
+      `type=registry,mode=max,ref=${tag}-cache`
+    );
   }
 
   const result = execute(

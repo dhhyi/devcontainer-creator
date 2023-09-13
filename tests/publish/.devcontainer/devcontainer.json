@@ -1,7 +1,6 @@
 {
   "build": {
-    "dockerfile": "Dockerfile",
-    "cacheFrom": "test-image-name"
+    "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {

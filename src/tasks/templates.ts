@@ -1,6 +1,6 @@
 import { dirname } from 'path';
 
-import { DCC_PROTOCOL, baseImageReference, isBaseImage } from '../constants';
+import { baseImageReference, isBaseImage } from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
 
 import { DCCEnvKeys, VSCodeMetaType } from './devcontainer-meta';
@@ -106,7 +106,6 @@ interface DevcontainerJSONType {
   image?: string;
   build?: {
     dockerfile: 'Dockerfile';
-    cacheFrom?: string;
     args?: Record<string, string | number>;
   };
   mounts?: string[];
@@ -224,15 +223,6 @@ const DevcontainerJSONTemplate = (
     json.build = {
       dockerfile: 'Dockerfile',
     };
-
-    if (desc.devcontainer?.publish?.image) {
-      const image = desc.devcontainer.publish.image;
-      if (image.startsWith(DCC_PROTOCOL)) {
-        json.build.cacheFrom = baseImageReference(image);
-      } else {
-        json.build.cacheFrom = image;
-      }
-    }
 
     if (desc.devcontainer?.build?.args) {
       json.build.args = desc.devcontainer.build.args;

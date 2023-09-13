@@ -23,7 +23,6 @@ Options:
   --no-validate\tDo not validate the language specification.
 
   --tag\t\tTag of the devcontainer image.
-  --cache-from\tImage to use as cache for the devcontainer image.
 
   --build\tBuild the devcontainer after creation.
   --test\tTest the devcontainer after creation.
@@ -66,7 +65,6 @@ interface CmdlArguments {
 
   build?: boolean;
   tag?: string;
-  cacheFrom?: string;
 
   test?: boolean;
   run?: boolean;
@@ -78,7 +76,7 @@ interface CmdlArguments {
 
 export const ParsedArgs: () => CmdlArguments = once(() => {
   const options = getopts(process.argv.slice(2), {
-    string: ['name', 'cache-from', 'tag'],
+    string: ['name', 'tag'],
     boolean: [
       'build',
       'test',
@@ -117,7 +115,6 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     devcontainerName: options.name,
     build: !!options.build,
     tag: options.tag,
-    cacheFrom: options['cache-from'],
     test: !!options.test,
     run: !!options.run,
     dumpMeta: !!options['dump-meta'],
