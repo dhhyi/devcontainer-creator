@@ -9,3 +9,7 @@ curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bund
 ```
 
 Generated devcontainers can be previewed on the [branch `devcontainers`](https://github.com/dhhyi/devcontainer-creator/tree/devcontainers)
+
+## Dependencies
+
+- @devcontainers/cli (install using `npm i -g @devcontainers/cli@latest`)

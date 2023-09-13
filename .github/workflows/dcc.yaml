@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Install latest devcontainer CLI
+        run: npm install -g @devcontainers/cli
+
       - run: >
           curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node -
           https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/examples/${{ inputs.name }}.yaml

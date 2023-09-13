@@ -8,8 +8,8 @@ import { execute } from '../exec';
 import { logError } from '../logging';
 
 import { BuildDevcontainer } from './build-devcontainer';
+import { DevcontainerCLIBin } from './check-tools';
 import { TmpTestingDir } from './create-tmp-dir';
-import { DevcontainerCLIBin } from './install-tools';
 
 export const TestDevcontainer = once(async () => {
   const image = await BuildDevcontainer();

@@ -6,12 +6,12 @@ import { baseImageReference, DCC_PROTOCOL } from '../constants';
 import { execute } from '../exec';
 import { logPersist } from '../logging';
 
+import { DevcontainerCLIBin } from './check-tools';
 import {
   appendMetaToImage,
   ConstructedDCCMeta,
   ConstructedDevcontainerMeta,
 } from './devcontainer-meta';
-import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 

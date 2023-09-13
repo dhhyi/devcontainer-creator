@@ -8,8 +8,8 @@ import { execute } from '../exec';
 import { VSCodeTask } from '../language';
 
 import { BuildDevcontainer } from './build-devcontainer';
+import { DevcontainerCLIBin } from './check-tools';
 import { TmpWorkingDir } from './create-tmp-dir';
-import { DevcontainerCLIBin } from './install-tools';
 import { ResolvedYaml } from './language-spec';
 import { ParsedArgs } from './parse-args';
 import { WriteDevcontainer } from './write-devcontainer';
