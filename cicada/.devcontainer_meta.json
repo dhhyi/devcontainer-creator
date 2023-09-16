@@ -1,0 +1,87 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2.1.2"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1.1.5"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/node:1.3.0",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint"
+        ]
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "cic run",
+      "DCC_REPL": "cic",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuY2ljIDw8RU9GCmxldCBncmVldGluZyA9ICJIZWxsbywgV29ybGQhIgpjb21wdXRlIGdyZWV0aW5nCkVPRgpjaWMgL3RtcC9oZWxsb3dvcmxkLmNpYwo=",
+      "DCC_VERSION": "cic --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "cicada"
+      }
+    }
+  }
+]

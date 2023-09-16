@@ -1,0 +1,26 @@
+{
+  "name": "Example devcontainer for zig",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "tiehuis.zig"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "zig run",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuemlnIDw8RU9GCmNvbnN0IHN0ZCA9IEBpbXBvcnQoInN0ZCIpOwpwdWIgZm4gbWFpbigpICF2b2lkIHsKICBjb25zdCBzdGRvdXRfZmlsZSA9IHN0ZC5pby5nZXRTdGRPdXQoKS53cml0ZXIoKTsKICB2YXIgYncgPSBzdGQuaW8uYnVmZmVyZWRXcml0ZXIoc3Rkb3V0X2ZpbGUpOwogIGNvbnN0IHN0ZG91dCA9IGJ3LndyaXRlcigpOwogIHRyeSBzdGRvdXQucHJpbnQoIkhlbGxvIFdvcmxkIVxuIiwgLnt9KTsKICB0cnkgYncuZmx1c2goKTsKfQpFT0YKemlnIHJ1biAvdG1wL2hlbGxvd29ybGQuemlnCg==",
+    "DCC_VERSION": "zig version"
+  }
+}
