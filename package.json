@@ -2,7 +2,6 @@
   "name": "dcc",
   "version": "1.0.0",
   "description": "devcontainer creator",
-  "main": "create.js",
   "scripts": {
     "prepare": "husky install",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
