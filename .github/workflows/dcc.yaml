@@ -38,12 +38,10 @@ jobs:
           --debug
           --dump-meta
           --name "Example devcontainer for ${{ inputs.name }}"
+          --push
         name: dcc
 
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.name }}
           path: dist/test/${{ inputs.name }}
-
-      - run: docker push ghcr.io/dhhyi/dcc-devcontainer-${{ inputs.name }}:latest
-        name: publish

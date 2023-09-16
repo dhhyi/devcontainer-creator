@@ -27,6 +27,7 @@ Options:
   --build\tBuild the devcontainer after creation.
   --test\tTest the devcontainer after creation.
   --run\t\tRun the devcontainer after creation.
+  --push\t\tPush the devcontainer after creation.
 
   -v, --verbose\tVerbose output.
   -vv, --debug\tDebug output.
@@ -65,6 +66,7 @@ interface CmdlArguments {
 
   build?: boolean;
   tag?: string;
+  push?: boolean;
 
   test?: boolean;
   run?: boolean;
@@ -79,6 +81,7 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     string: ['name', 'tag'],
     boolean: [
       'build',
+      'push',
       'test',
       'run',
       'dump-meta',
@@ -114,6 +117,7 @@ export const ParsedArgs: () => CmdlArguments = once(() => {
     targetDir,
     devcontainerName: options.name,
     build: !!options.build,
+    push: !!options.push,
     tag: options.tag,
     test: !!options.test,
     run: !!options.run,

@@ -50,7 +50,7 @@ function isRegistryTag(tag: string): boolean {
 }
 
 async function buildWithDevcontainerCli(): Promise<string> {
-  const { targetDir, tag: argTag } = ParsedArgs();
+  const { targetDir, tag: argTag, push } = ParsedArgs();
   const publishTag = await resolvePublishTag();
 
   const tag = argTag || publishTag;
@@ -60,12 +60,13 @@ async function buildWithDevcontainerCli(): Promise<string> {
     devcontainerArgs.push('--image-name', tag);
   }
   if (publishTag && isRegistryTag(publishTag)) {
-    devcontainerArgs.push(
-      '--cache-from',
-      `type=registry,ref=${tag}-cache`,
-      '--cache-to',
-      `type=registry,mode=max,ref=${tag}-cache`
-    );
+    devcontainerArgs.push('--cache-from', `type=registry,ref=${tag}-cache`);
+    if (push) {
+      devcontainerArgs.push(
+        '--cache-to',
+        `type=registry,mode=max,ref=${tag}-cache`
+      );
+    }
   }
 
   const result = execute(
@@ -90,5 +91,14 @@ export const BuildDevcontainer = once(async () => {
 
   logPersist('built image', image);
 
+  return image;
+});
+
+export const BuildAndPushDevcontainer = once(async () => {
+  const image = await BuildDevcontainer();
+  const { tag } = ParsedArgs();
+  if (tag && isRegistryTag(tag)) {
+    execute('pushing image', 'docker', ['push', tag]);
+  }
   return image;
 });
