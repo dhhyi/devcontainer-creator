@@ -212,7 +212,7 @@ const DevcontainerJSONTemplate = (
     json.mounts.push(...mounts);
 
     const command =
-      'sudo chown $USER ' +
+      `sudo chown ${remoteUser} ` +
       Object.keys(desc.namedVolumes)
         .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
         .join(' ');

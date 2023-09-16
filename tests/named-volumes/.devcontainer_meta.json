@@ -81,7 +81,7 @@
     }
   },
   {
-    "postStartCommand": "sudo chown $USER node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
+    "postStartCommand": "sudo chown vscode node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
     "customizations": {
       "vscode": {
         "settings": {

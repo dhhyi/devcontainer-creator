@@ -2,7 +2,8 @@
   "image": "debian:stable-20230904",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2.1.2": {
-      "username": "vscode"
+      "username": "vscode",
+      "configureZshAsDefaultShell": true
     },
     "ghcr.io/devcontainers/features/git:1.1.5": {},
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {

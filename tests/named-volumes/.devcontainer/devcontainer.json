@@ -3,7 +3,7 @@
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
     "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"
   ],
-  "postStartCommand": "sudo chown $USER node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
+  "postStartCommand": "sudo chown vscode node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
   "customizations": {
     "vscode": {
