@@ -51,6 +51,11 @@ function isRegistryTag(tag: string): boolean {
 
 async function buildWithDevcontainerCli(): Promise<string> {
   const { targetDir, tag: argTag, push } = ParsedArgs();
+
+  if (push) {
+    await CheckOrCreateBuilder();
+  }
+
   const publishTag = await resolvePublishTag();
 
   const tag = argTag || publishTag;
@@ -81,6 +86,33 @@ async function buildWithDevcontainerCli(): Promise<string> {
 
   return image;
 }
+
+function currentBuildXDriver() {
+  const driverRegex = /^Driver:\s+(.*)$/;
+  const buildXInspect = execSync('docker buildx inspect', {
+    encoding: 'utf-8',
+  });
+  const driver = buildXInspect.match(driverRegex)?.[1];
+  return driver;
+}
+
+const CheckOrCreateBuilder = once(async () => {
+  if (currentBuildXDriver() !== 'docker-container') {
+    const builderName = `dcc-builder-${Date.now()}`;
+    execute('creating builder', 'docker', [
+      'buildx',
+      'create',
+      '--name',
+      builderName,
+      '--driver',
+      'docker-container',
+      '--use',
+    ]);
+    process.on('exit', () => {
+      execSync(`docker buildx rm ${builderName}`);
+    });
+  }
+});
 
 export const BuildDevcontainer = once(async () => {
   const image = await buildWithDevcontainerCli();

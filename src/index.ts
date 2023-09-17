@@ -15,7 +15,8 @@ await WriteDevcontainer();
 
 if (test) {
   await TestDevcontainer();
-} else if (push) {
+}
+if (push) {
   await BuildAndPushDevcontainer();
 } else if (build) {
   await BuildDevcontainer();
