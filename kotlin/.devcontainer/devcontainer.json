@@ -2,6 +2,7 @@
   "name": "Example devcontainer for kotlin",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-kotlin-cache",
     "args": {
       "KOTLIN_VERSION": "1.9.0"
     }

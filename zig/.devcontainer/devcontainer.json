@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for zig",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-zig-cache"
   },
   "customizations": {
     "vscode": {

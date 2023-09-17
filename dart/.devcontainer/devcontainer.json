@@ -1,7 +1,8 @@
 {
   "name": "Example devcontainer for dart",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-dart-cache"
   },
   "customizations": {
     "vscode": {

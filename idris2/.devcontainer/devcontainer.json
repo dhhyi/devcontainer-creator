@@ -2,6 +2,7 @@
   "name": "Example devcontainer for idris2",
   "build": {
     "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-idris2-cache",
     "args": {
       "IDRIS2_VERSION": "0.6.0"
     }
