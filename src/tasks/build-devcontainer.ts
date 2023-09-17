@@ -132,9 +132,10 @@ export const BuildDevcontainer = once(async () => {
 
 export const BuildAndPushDevcontainer = once(async () => {
   const image = await BuildDevcontainer();
-  const { tag } = ParsedArgs();
-  if (tag && isRegistryTag(tag)) {
-    execute('pushing image', 'docker', ['push', tag]);
+  const { push } = ParsedArgs();
+
+  if (push) {
+    execute('pushing image', 'docker', ['push', image]);
   }
   return image;
 });
