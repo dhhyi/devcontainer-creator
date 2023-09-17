@@ -1,6 +1,6 @@
 devcontainer:
   publish:
-    image: test-image-name
+    image: dcc/test-image-name
     labels:
       foo: bar
       test: dummy

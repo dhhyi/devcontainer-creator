@@ -1,8 +1,13 @@
 import { dirname } from 'path';
 
-import { baseImageReference, isBaseImage } from '../constants';
+import {
+  baseImageReference,
+  isBaseImage,
+  resolveImageReference,
+} from '../constants';
 import { DevcontainerBuildFile, Language, VSCodeTask } from '../language';
 
+import { getCacheFrom, isRegistryTag } from './build-devcontainer';
 import { DCCEnvKeys, VSCodeMetaType } from './devcontainer-meta';
 
 function parseCommand(input: string): string {
@@ -106,6 +111,7 @@ interface DevcontainerJSONType {
   image?: string;
   build?: {
     dockerfile: 'Dockerfile';
+    cacheFrom?: string;
     args?: Record<string, string | number>;
   };
   mounts?: string[];
@@ -223,6 +229,13 @@ const DevcontainerJSONTemplate = (
     json.build = {
       dockerfile: 'Dockerfile',
     };
+
+    if (desc.devcontainer?.publish?.image) {
+      const tag = resolveImageReference(desc.devcontainer.publish.image);
+      if (isRegistryTag(tag)) {
+        json.build.cacheFrom = getCacheFrom(tag);
+      }
+    }
 
     if (desc.devcontainer?.build?.args) {
       json.build.args = desc.devcontainer.build.args;

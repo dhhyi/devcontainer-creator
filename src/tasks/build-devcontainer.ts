@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 
 import { memoize, once } from 'lodash-es';
 
-import { baseImageReference, DCC_PROTOCOL } from '../constants';
+import { resolveImageReference } from '../constants';
 import { execute } from '../exec';
 import { logPersist } from '../logging';
 
@@ -38,15 +38,19 @@ async function resolvePublishTag(): Promise<string | undefined> {
   } else {
     const resolvedYaml = await ResolvedYaml();
     const tagFromPublish = resolvedYaml?.devcontainer?.publish?.image;
-    if (tagFromPublish?.startsWith(DCC_PROTOCOL)) {
-      return baseImageReference(tagFromPublish);
+    if (tagFromPublish) {
+      return resolveImageReference(tagFromPublish);
     }
     return tagFromPublish;
   }
 }
 
-function isRegistryTag(tag: string): boolean {
+export function isRegistryTag(tag: string): boolean {
   return tag.includes('/');
+}
+
+export function getCacheFrom(tag: string): string {
+  return `type=registry,ref=${tag}-cache`;
 }
 
 async function buildWithDevcontainerCli(): Promise<string> {
@@ -65,11 +69,11 @@ async function buildWithDevcontainerCli(): Promise<string> {
     devcontainerArgs.push('--image-name', tag);
   }
   if (publishTag && isRegistryTag(publishTag)) {
-    devcontainerArgs.push('--cache-from', `type=registry,ref=${tag}-cache`);
+    devcontainerArgs.push('--cache-from', getCacheFrom(publishTag));
     if (push) {
       devcontainerArgs.push(
         '--cache-to',
-        `type=registry,mode=max,ref=${tag}-cache`
+        `${getCacheFrom(publishTag)},mode=max`
       );
     }
   }
