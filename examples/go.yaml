@@ -2,7 +2,6 @@ language:
   name: go
   binary: go
   binaryArgs: run
-  repl: yaegi
   version: go version
 devcontainer:
   publish:
@@ -18,7 +17,6 @@ devcontainer:
       - RUN tar -C /opt -xzf /tmp/go.tar.gz
       - ENV PATH=/opt/go/bin:$PATH
     user:
-      - RUN go install github.com/traefik/yaegi/cmd/yaegi@latest
       - RUN go install -v golang.org/x/tools/gopls@latest
       - RUN go install -v github.com/go-delve/delve/cmd/dlv@latest
       - RUN go install -v honnef.co/go/tools/cmd/staticcheck@latest
