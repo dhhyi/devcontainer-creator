@@ -12,12 +12,6 @@
       "label": "Run file continuously with arguments",
       "problemMatcher": [],
       "type": "shell"
-    },
-    {
-      "command": "yaegi",
-      "label": "Start REPL",
-      "problemMatcher": [],
-      "type": "shell"
     }
   ],
   "inputs": [
