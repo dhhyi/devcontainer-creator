@@ -8,7 +8,8 @@
     "ghcr.io/devcontainers/features/git:1.1.5": {},
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
       "ohMyZshPlugins": "git ubuntu"
-    }
+    },
+    "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {}
   },
   "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
   "postAttachCommand": [
