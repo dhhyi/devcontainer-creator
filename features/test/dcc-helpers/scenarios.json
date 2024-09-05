@@ -62,5 +62,13 @@
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
     "postAttachCommand": ["sh", "-e", "/disclaimer.sh"]
+  },
+  "lazygit_config": {
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "features": {
+      "dcc-helpers": {}
+    },
+    "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"]
   }
 }

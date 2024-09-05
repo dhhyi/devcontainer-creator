@@ -35,3 +35,10 @@ sed -i 's/^ZSH_THEME=.*/ZSH_THEME="dcc"/g' "$HOME/.zshrc"
 
 BASH_PROMPT='\nexport PS1="$ "\n'
 printf "%b" "$BASH_PROMPT" >> "$HOME/.bashrc"
+
+mkdir -p "$HOME/.config/lazygit"
+cat > "$HOME/.config/lazygit/config.yml" << EOF
+os:
+  editPreset: "vscode"
+
+EOF
