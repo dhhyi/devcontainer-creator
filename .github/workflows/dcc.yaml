@@ -42,3 +42,5 @@ jobs:
         with:
           name: ${{ inputs.name }}
           path: dist/test/${{ inputs.name }}
+          if-no-files-found: error
+          include-hidden-files: true
