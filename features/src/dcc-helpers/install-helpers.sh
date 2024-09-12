@@ -40,4 +40,5 @@ mkdir -p "$HOME/.config/lazygit"
 cat > "$HOME/.config/lazygit/config.yml" << EOF
 os:
   editPreset: "vscode"
+
 EOF
