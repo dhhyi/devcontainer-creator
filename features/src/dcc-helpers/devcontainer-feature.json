@@ -21,6 +21,10 @@
           }
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.env.linux": {
+          "EDITOR": "code --wait",
+          "GIT_EDITOR": "code --wait"
+        },
         "editor.formatOnSave": true,
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
