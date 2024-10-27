@@ -11,7 +11,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
-      AMMONITE_VERSION: "3.0.0-M1/2.13-3.0.0-M1"
+      AMMONITE_VERSION: "3.0.0/2.13-3.0.0-2-6342755f"
     root:
       - ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm
       - RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
