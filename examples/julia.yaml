@@ -10,8 +10,8 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
-      JULIA_BASE_VERSION: "1.8"
-      JULIA_MINOR_VERSION: "2"
+      JULIA_BASE_VERSION: "1.11"
+      JULIA_MINOR_VERSION: "1"
     root:
       - ADD https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_BASE_VERSION}/julia-${JULIA_BASE_VERSION}.${JULIA_MINOR_VERSION}-linux-x86_64.tar.gz /opt/julia.tar.gz
       - RUN cd /opt && tar -xpf julia.tar.gz
