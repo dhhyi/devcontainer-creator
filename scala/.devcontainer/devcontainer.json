@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-scala-cache",
     "args": {
-      "AMMONITE_VERSION": "3.0.0-M1/2.13-3.0.0-M1"
+      "AMMONITE_VERSION": "3.0.0/2.13-3.0.0-2-6342755f"
     }
   },
   "customizations": {

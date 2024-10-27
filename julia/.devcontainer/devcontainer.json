@@ -4,8 +4,8 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-julia-cache",
     "args": {
-      "JULIA_BASE_VERSION": "1.8",
-      "JULIA_MINOR_VERSION": "2"
+      "JULIA_BASE_VERSION": "1.11",
+      "JULIA_MINOR_VERSION": "1"
     }
   },
   "customizations": {

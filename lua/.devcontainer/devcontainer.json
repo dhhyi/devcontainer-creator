@@ -4,8 +4,8 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-lua-cache",
     "args": {
-      "LUA_VERSION": "5.4.6",
-      "LUAROCKS_VERSION": "3.9.2"
+      "LUA_VERSION": "5.4.7",
+      "LUAROCKS_VERSION": "3.11.1"
     }
   },
   "customizations": {

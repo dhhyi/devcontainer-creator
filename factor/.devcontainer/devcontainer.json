@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-factor-cache",
     "args": {
-      "FACTOR_VERSION": "0.98",
+      "FACTOR_VERSION": "0.100",
       "WORKSPACE": "${containerWorkspaceFolder}"
     }
   },

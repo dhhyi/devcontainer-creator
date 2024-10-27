@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-odin-cache",
     "args": {
-      "ODIN_VERSION": "dev-2023-05"
+      "ODIN_VERSION": "dev-2024-10"
     }
   },
   "customizations": {
