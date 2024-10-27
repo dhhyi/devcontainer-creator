@@ -1,6 +1,6 @@
 {
   "image": "ghcr.io/dhhyi/dcc-base-debian",
   "features": {
-    "ghcr.io/devcontainers/features/java:1.2.1": {}
+    "ghcr.io/devcontainers/features/java:1": {}
   }
 }

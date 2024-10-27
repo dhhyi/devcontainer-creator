@@ -1,11 +1,11 @@
 {
   "image": "ubuntu:jammy-20230425",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2.1.2": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
       "configureZshAsDefaultShell": true
     },
-    "ghcr.io/devcontainers/features/git:1.1.5": {},
+    "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
       "ohMyZshPlugins": "git ubuntu"
     },
