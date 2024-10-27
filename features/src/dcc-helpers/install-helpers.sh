@@ -42,3 +42,11 @@ os:
   editPreset: "vscode"
 
 EOF
+
+tee -a "$HOME/.bashrc" "$HOME/.zshrc" > /dev/null << EOF
+
+if cat /proc/$PPID/cmdline | grep -q vscode-server; then
+  export EDITOR='code --wait'
+  export GIT_EDITOR='code --wait'
+fi
+EOF
