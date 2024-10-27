@@ -10,7 +10,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
-      ODIN_VERSION: dev-2023-05
+      ODIN_VERSION: dev-2024-10
     packages:
       - build-essential
       - clang
