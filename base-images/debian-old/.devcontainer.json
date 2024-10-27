@@ -1,5 +1,5 @@
 {
-  "image": "debian:11",
+  "image": "debian:bullseye-20241016",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
