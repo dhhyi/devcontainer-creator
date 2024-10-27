@@ -12,7 +12,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     args:
-      FACTOR_VERSION: "0.98"
+      FACTOR_VERSION: "0.100"
       WORKSPACE: "${containerWorkspaceFolder}"
     root:
       - ADD https://downloads.factorcode.org/releases/${FACTOR_VERSION}/factor-linux-x86-64-${FACTOR_VERSION}.tar.gz /opt/factor.tar.gz
