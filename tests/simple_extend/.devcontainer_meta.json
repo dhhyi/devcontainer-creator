@@ -65,7 +65,7 @@
     "customizations": {
       "vscode": {
         "settings": {
-          "[typescript]": {
+          "[javascript]": {
             "editor.defaultFormatter": "vscode.typescript-language-features"
           },
           "files.exclude": {
@@ -77,17 +77,10 @@
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "ts-node",
-      "DCC_REPL": "ts-node",
-      "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpOyc=",
-      "DCC_VERSION": "ts-node -vvv"
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "languageName": "typescript"
-      }
+      "DCC_BINARY": "node",
+      "DCC_REPL": "node",
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw==",
+      "DCC_VERSION": "node --version"
     }
   },
   {
@@ -104,7 +97,7 @@
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "dHMtbm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
     }
   },
   {
@@ -113,10 +106,9 @@
         "tasks": [
           {
             "label": "Say Hi",
-            "command": "ts-node -e 'console.log(\"Hi!\");'"
+            "command": "node -e 'console.log(\"Hi!\");'"
           }
-        ],
-        "languageName": "typescript"
+        ]
       }
     }
   }

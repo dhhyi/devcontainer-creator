@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-devcontainer-typescript
+FROM ghcr.io/dhhyi/dcc-devcontainer-javascript
 
 USER root
 

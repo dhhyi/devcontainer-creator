@@ -2,19 +2,19 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "command": "cont ${fileDirname} ts-node ${file}",
+      "command": "cont ${fileDirname} node ${file}",
       "label": "Run file continuously",
       "problemMatcher": [],
       "type": "shell"
     },
     {
-      "command": "cont ${fileDirname} ts-node ${file} ${input:arguments}",
+      "command": "cont ${fileDirname} node ${file} ${input:arguments}",
       "label": "Run file continuously with arguments",
       "problemMatcher": [],
       "type": "shell"
     },
     {
-      "command": "ts-node",
+      "command": "node",
       "label": "Start REPL",
       "problemMatcher": [],
       "type": "shell"

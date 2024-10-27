@@ -39,7 +39,6 @@ jobs:
       dccRuby: ${{ steps.check.outputs.dccRuby }}
       dccScala: ${{ steps.check.outputs.dccScala }}
       dccTcl: ${{ steps.check.outputs.dccTcl }}
-      dccTypescript: ${{ steps.check.outputs.dccTypescript }}
       dccV: ${{ steps.check.outputs.dccV }}
       dccZig: ${{ steps.check.outputs.dccZig }}
     env:
@@ -481,18 +480,6 @@ jobs:
       name: tcl
       skip: ${{ needs.calc.outputs.dccTcl == 'false' }}
     secrets: inherit
-  dccTypescript:
-    needs:
-      - calc
-      - bundle
-      - baseNode
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://typescript
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: typescript
-      skip: ${{ needs.calc.outputs.dccTypescript == 'false' }}
-    secrets: inherit
   dccV:
     needs:
       - calc
@@ -549,7 +536,6 @@ jobs:
       - dccRuby
       - dccScala
       - dccTcl
-      - dccTypescript
       - dccV
       - dccZig
     if: ${{ ! failure() && ! cancelled() && always() }}

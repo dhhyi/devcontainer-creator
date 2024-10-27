@@ -1,10 +1,10 @@
-extends: dcc://typescript
+extends: dcc://javascript
 devcontainer:
   name: "Simple Extended"
-  selftest: ts-node -e 'console.log("Hello Extended!");'
+  selftest: node -e 'console.log("Hello Extended!");'
 vscode:
   settings:
     foo: bar
   tasks:
     - label: Say Hi
-      command: ts-node -e 'console.log("Hi!");'
+      command: node -e 'console.log("Hi!");'

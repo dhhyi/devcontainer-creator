@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/dhhyi/dcc-devcontainer-typescript",
+  "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
   "customizations": {
     "vscode": {
       "settings": {
