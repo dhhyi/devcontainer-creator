@@ -10,7 +10,7 @@ devcontainer:
     packages:
       - openjdk-17-jdk
     args:
-      KOTLIN_VERSION: 1.9.0
+      KOTLIN_VERSION: 2.0.21
     root:
       - ADD https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip /opt/kotlinc.zip
       - RUN cd /opt && unzip kotlinc.zip
