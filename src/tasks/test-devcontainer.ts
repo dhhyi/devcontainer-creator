@@ -39,7 +39,7 @@ export const TestDevcontainer = once(async () => {
 
   try {
     execute('testing devcontainer\n', DevcontainerCLIBin, devcontainerTestArgs);
-  } catch (error) {
+  } catch (_error) {
     logError('error testing devcontainer');
     process.exit(1);
   } finally {

@@ -170,7 +170,7 @@ export const ResolvedYaml = once(async () => {
   logStatus('validating language spec');
 
   if (validate) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const validateAjv = require('../validate_language.js');
 
     try {

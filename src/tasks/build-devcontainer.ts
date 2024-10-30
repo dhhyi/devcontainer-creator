@@ -21,7 +21,7 @@ export const PulledImage: (image: string, fail?: boolean) => string = memoize(
       ) {
         try {
           execute('pulling ' + image, 'docker', ['pull', image]);
-        } catch (error) {
+        } catch (_error) {
           // do nothing
         }
       }

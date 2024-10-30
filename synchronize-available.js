@@ -28,7 +28,7 @@ try {
   cp.execSync(`git diff --exit-code --raw -p --stat ${schemaPath}`, {
     stdio: 'inherit',
   });
-} catch (error) {
+} catch (_error) {
   console.log('schema was not in sync, I updated it for you');
   process.exit(1);
 }

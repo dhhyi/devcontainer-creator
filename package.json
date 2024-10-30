@@ -33,17 +33,17 @@
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.57.1",
-    "eslint-config-standard": "^17.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
+    "eslint": "^9.13.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-n": "^17.12.0",
+    "eslint-plugin-promise": "^7.1.0",
     "glob": "^11.0.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
-    "prettier-plugin-sh": "^0.14.0"
+    "prettier-plugin-sh": "^0.14.0",
+    "typescript-eslint": "^8.12.2"
   }
 }

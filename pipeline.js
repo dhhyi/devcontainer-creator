@@ -1,4 +1,3 @@
-/* eslint-disable no-template-curly-in-string */
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -193,7 +192,7 @@ try {
   cp.execSync(`git diff --exit-code --raw -p --stat ${PIPELINE_FILE}`, {
     stdio: 'inherit',
   });
-} catch (error) {
+} catch (_error) {
   console.log('ci pipeline was not in sync, I updated it for you');
   process.exit(1);
 }
