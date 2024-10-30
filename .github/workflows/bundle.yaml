@@ -15,6 +15,7 @@ jobs:
       - name: Build
         run: |
           npm exec pnpm -- i --prod --ignore-scripts
+          npm exec pnpm run fix-getopts-import
           npm exec pnpm run build
         env:
           GIT_REV: ${{ github.sha }}

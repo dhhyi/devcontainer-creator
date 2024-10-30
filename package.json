@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "devcontainer creator",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky && npm run fix-getopts-import",
+    "fix-getopts-import": "sh -c \"find -wholename '*/getopts/index.d.ts' | xargs -rl sed -i 's/export = getopts/export default getopts/'\"",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
     "format": "prettier --write -u \"**/*\"",
     "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d",
@@ -18,31 +19,31 @@
   "dependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^18.19.26",
+    "@types/node": "^20.17.3",
     "ajv-cli": "^5.0.0",
     "copyfiles": "^2.4.1",
     "getopts": "^2.3.0",
     "js-yaml": "^4.1.0",
-    "json-schema-to-typescript": "^12.0.0",
+    "json-schema-to-typescript": "^15.0.2",
     "lodash-es": "^4.17.21",
     "raw-loader": "^4.0.2",
     "ts-loader": "^9.5.1",
-    "typescript": "^4.9.5",
-    "webpack": "^5.90.3",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "glob": "^10.3.10",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.3.0",
-    "prettier": "^2.8.8",
-    "prettier-plugin-sh": "^0.12.8"
+    "eslint-plugin-promise": "^6.6.0",
+    "glob": "^11.0.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-sh": "^0.14.0"
   }
 }
