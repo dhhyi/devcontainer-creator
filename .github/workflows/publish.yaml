@@ -47,12 +47,14 @@ jobs:
       - uses: actions/checkout@master
         with:
           fetch-depth: 0
-      - run: npm exec pnpm -- i --prod --ignore-scripts
+      - run: npm exec pnpm -- i --ignore-scripts
         name: npm install
       - run: |-
+          npm run lint
+          npm run format
           npm run synchronize-ci
           git diff --exit-code
-        name: Check Pipeline Sync
+        name: Check Integrity
       - run: |-
           noOfCommits=$(echo $commits | jq ". | length")
           git diff --name-only HEAD~$noOfCommits

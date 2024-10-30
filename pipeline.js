@@ -102,12 +102,12 @@ const workflow = {
       steps: [
         { uses: 'actions/checkout@master', with: { 'fetch-depth': 0 } },
         {
-          run: 'npm exec pnpm -- i --prod --ignore-scripts',
+          run: 'npm exec pnpm -- i --ignore-scripts',
           name: 'npm install',
         },
         {
-          run: 'npm run synchronize-ci\ngit diff --exit-code',
-          name: 'Check Pipeline Sync',
+          run: 'npm run lint\nnpm run format\nnpm run synchronize-ci\ngit diff --exit-code',
+          name: 'Check Integrity',
         },
         // {
         //   name: 'Debug',

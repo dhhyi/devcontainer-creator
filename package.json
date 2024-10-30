@@ -7,6 +7,7 @@
     "fix-getopts-import": "sh -c \"find -wholename '*/getopts/index.d.ts' | xargs -rl sed -i 's/export = getopts/export default getopts/'\"",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
     "format": "prettier --write -u \"**/*\"",
+    "lint": "eslint --max-warnings=0 '**/*.js' '**/*.ts'",
     "validate-yaml": "ajv validate  -s language_schema.json --errors=text --verbose -d",
     "synchronize-ci": "node synchronize-available.js && node pipeline.js",
     "build-base": "node build-base.js"
