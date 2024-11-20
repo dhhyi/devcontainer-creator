@@ -1,0 +1,28 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "terminal.integrated.defaultProfile.linux": "tmux",
+        "terminal.integrated.profiles.linux": {
+          "tmux": {
+            "args": [
+              "new-session",
+              "-A",
+              "-s",
+              "tmux"
+            ],
+            "path": "tmux"
+          }
+        }
+      }
+    }
+  }
+}

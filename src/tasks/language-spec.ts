@@ -162,6 +162,28 @@ export const ResolvedYaml = once(async () => {
     });
   }
 
+  if (resolvedYaml.extras.includes('tmux')) {
+    if (!resolvedYaml.devcontainer.build) {
+      resolvedYaml.devcontainer.build = {};
+    }
+    if (!resolvedYaml.devcontainer.build.packages) {
+      resolvedYaml.devcontainer.build.packages = [];
+    }
+    resolvedYaml.devcontainer.build.packages.push('tmux');
+
+    if (!resolvedYaml.vscode.settings) {
+      resolvedYaml.vscode.settings = {};
+    }
+    resolvedYaml.vscode.settings['terminal.integrated.defaultProfile.linux'] =
+      'tmux';
+    resolvedYaml.vscode.settings['terminal.integrated.profiles.linux'] = {
+      tmux: {
+        path: 'tmux',
+        args: ['new-session', '-A', '-s', 'tmux'],
+      },
+    };
+  }
+
   if (VERY_VERBOSE) {
     logPersist('Resolved YAML:');
     logPersist(yaml.dump(resolvedYaml));

@@ -263,7 +263,8 @@
           "forward-x11",
           "traefik",
           "tmpfs",
-          "named-volumes"
+          "named-volumes",
+          "tmux"
         ]
       }
     },
