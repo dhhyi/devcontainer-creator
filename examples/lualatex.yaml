@@ -1,0 +1,44 @@
+extends: dcc://lua
+devcontainer:
+  publish:
+    image: dcc://lualatex
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for lualatex
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
+  build:
+    root:
+      - RUN sh /root/install-latex.sh
+    files:
+      - type: script
+        path: /root/install-latex.sh
+        content: >-
+          apt-get update &&
+          apt-get install -y --no-install-recommends `apt-get --assume-no install texlive-full |
+          awk '/The following additional packages will be installed/{f=1;next} /Suggested packages/{f=0} f' |
+          tr ' ' '\n' | grep -vP 'doc$' | grep -vP 'texlive-lang' | grep -vP 'latex-cjk' | tr '\n' ' '`
+          texlive-lang-english
+          texlive-lang-european
+          texlive-lang-french
+          texlive-lang-german
+          libyaml-tiny-perl
+          libfile-homedir-perl
+vscode:
+  extensions:
+    - james-yu.latex-workshop
+    - streetsidesoftware.code-spell-checker
+  settings:
+    latex-workshop.latex.autoClean.run: onSucceeded
+    latex-workshop.latex.autoBuild.run: onSave
+    latex-workshop.latex.recipes:
+      - name: pdflatex
+        tools:
+          - pdflatex
+          - pdflatex
+    latex-workshop.latex.tools:
+      - name: pdflatex
+        command: pdflatex
+        args:
+          - -synctex=1
+          - -interaction=nonstopmode
+          - -file-line-error
+          - "%DOC%"

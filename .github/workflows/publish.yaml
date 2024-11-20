@@ -29,6 +29,7 @@ jobs:
       dccKoka: ${{ steps.check.outputs.dccKoka }}
       dccKotlin: ${{ steps.check.outputs.dccKotlin }}
       dccLua: ${{ steps.check.outputs.dccLua }}
+      dccLualatex: ${{ steps.check.outputs.dccLualatex }}
       dccMoonscript: ${{ steps.check.outputs.dccMoonscript }}
       dccOdin: ${{ steps.check.outputs.dccOdin }}
       dccPerl: ${{ steps.check.outputs.dccPerl }}
@@ -362,6 +363,18 @@ jobs:
       name: lua
       skip: ${{ needs.calc.outputs.dccLua == 'false' }}
     secrets: inherit
+  dccLualatex:
+    needs:
+      - calc
+      - bundle
+      - dccLua
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://lualatex
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: lualatex
+      skip: ${{ needs.calc.outputs.dccLualatex == 'false' }}
+    secrets: inherit
   dccMoonscript:
     needs:
       - calc
@@ -528,6 +541,7 @@ jobs:
       - dccKoka
       - dccKotlin
       - dccLua
+      - dccLualatex
       - dccMoonscript
       - dccOdin
       - dccPerl
