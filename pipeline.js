@@ -86,11 +86,11 @@ const workflow = {
     calc: {
       'runs-on': 'ubuntu-latest',
       outputs: {
-        buildLanguages: '${{ steps.check.outputs.buildLanguages }}',
-        buildBase: '${{ steps.check.outputs.buildBase }}',
+        buildLanguages: '${{ steps.calculate.outputs.buildLanguages }}',
+        buildBase: '${{ steps.calculate.outputs.buildBase }}',
         ...languages().reduce((acc, lang) => {
           acc[buildJob(lang)] =
-            '${{ steps.check.outputs.' + buildJob(lang) + ' }}';
+            '${{ steps.calculate.outputs.' + buildJob(lang) + ' }}';
           return acc;
         }, {}),
       },
