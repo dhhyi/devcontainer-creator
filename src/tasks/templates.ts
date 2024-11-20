@@ -415,12 +415,12 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
       blocks.push(mergeArgs(rootBuildArgs));
     }
 
-    if (build.root?.length) {
-      blocks.push(build.root.join('\n'));
-    }
-
     if (rootFiles.length) {
       blocks.push(...rootFiles);
+    }
+
+    if (build.root?.length) {
+      blocks.push(build.root.join('\n'));
     }
 
     let user = `USER ${remoteUser}`;
@@ -429,16 +429,16 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
     }
     blocks.push(user);
 
+    if (userFiles.length) {
+      blocks.push(...userFiles);
+    }
+
     if (userBuildArgs.length) {
       blocks.push(mergeArgs(userBuildArgs));
     }
 
     if (build.user?.length) {
       blocks.push(build.user.join('\n'));
-    }
-
-    if (userFiles.length) {
-      blocks.push(...userFiles);
     }
   }
 
