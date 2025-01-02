@@ -7,7 +7,7 @@ RUN mkdir -p "/tmp" && echo "IyEvYmluL2Jhc2gKaWYgISBtb3VudCB8IGdyZXAgLXEgL2hvbWU
 USER vscode
 ENV HOME=/home/vscode
 
-RUN npm install -g pnpm
-RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc $HOME/.bashrc && echo "store-dir=/home/pnpm\npackage-import-method=copy" > $HOME/.npmrc
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which sh)" sh -
+RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc && echo "store-dir=/home/pnpm\npackage-import-method=copy" > $HOME/.npmrc
 
 LABEL "org.opencontainers.image.description"="VSCode devcontainer for javascript-pnpm" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"
