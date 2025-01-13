@@ -8,6 +8,11 @@ devcontainer:
   build:
     root:
       - RUN sh /root/install-latex.sh
+      - ADD https://github.com/WGUNDERWOOD/tex-fmt/releases/download/v0.5.2/tex-fmt-x86_64-linux.tar.gz /tmp/tex/tex-fmt.tar.gz
+      - >-
+        RUN tar -xvzf /tmp/tex/tex-fmt.tar.gz
+        && mv tex-fmt /usr/bin
+        && chmod +x /usr/bin/tex-fmt
     files:
       - type: script
         path: /root/install-latex.sh
@@ -27,6 +32,7 @@ vscode:
     - james-yu.latex-workshop
     - streetsidesoftware.code-spell-checker
   settings:
+    latex-workshop.formatting.latex: tex-fmt
     latex-workshop.latex.autoClean.run: onSucceeded
     latex-workshop.latex.autoBuild.run: onSave
     latex-workshop.latex.recipes:
