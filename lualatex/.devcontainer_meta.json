@@ -1,0 +1,144 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1"
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "sumneko.lua",
+          "bubuabu.busted-test-explorer"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "lua",
+      "DCC_REPL": "lua",
+      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn",
+      "DCC_VERSION": "lua -v; luarocks --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Run busted continuously on test",
+            "command": "cont '${fileDirname}/**' busted ${file}"
+          }
+        ],
+        "languageName": "lua"
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          },
+          "latex-workshop.formatting.latex": "tex-fmt",
+          "latex-workshop.latex.autoBuild.run": "onSave",
+          "latex-workshop.latex.autoClean.run": "onSucceeded",
+          "latex-workshop.latex.recipes": [
+            {
+              "name": "pdflatex",
+              "tools": [
+                "pdflatex",
+                "pdflatex"
+              ]
+            }
+          ],
+          "latex-workshop.latex.tools": [
+            {
+              "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+              ],
+              "command": "pdflatex",
+              "name": "pdflatex"
+            }
+          ]
+        },
+        "extensions": [
+          "james-yu.latex-workshop",
+          "streetsidesoftware.code-spell-checker"
+        ]
+      }
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Run busted continuously on test",
+            "command": "cont '${fileDirname}/**' busted ${file}"
+          }
+        ],
+        "languageName": "lua"
+      }
+    }
+  }
+]
