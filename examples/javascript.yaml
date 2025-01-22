@@ -10,6 +10,8 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   selftest: node -e 'console.log("Hello World!")'
 vscode:
+  extensions:
+    - nicoespeon.abracadabra
   settings:
     "[javascript]":
       editor.defaultFormatter: vscode.typescript-language-features
