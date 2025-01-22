@@ -85,23 +85,5 @@
       "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw==",
       "DCC_VERSION": "node --version"
     }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "node",
-      "DCC_REPL": "node",
-      "DCC_VERSION": "node --version; pnpm --version; /tmp/check-pnpm-volume.sh"
-    }
   }
 ]
