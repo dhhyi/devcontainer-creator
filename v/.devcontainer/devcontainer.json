@@ -1,0 +1,30 @@
+{
+  "name": "Example devcontainer for v",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-v-cache",
+    "args": {
+      "V_VERSION": "0.3.3"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "vlanguage.vscode-vlang"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "v run",
+    "DCC_REPL": "v",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQudiA8PEVPRgpwcmludGxuKCdIZWxsbyBXb3JsZCEnKQpFT0YKdiBydW4gL3RtcC9oZWxsb3dvcmxkLnYK",
+    "DCC_VERSION": "v --version"
+  }
+}

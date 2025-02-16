@@ -1,0 +1,33 @@
+{
+  "name": "Example devcontainer for prolog",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-prolog-cache",
+    "args": {
+      "PROLOG_VERSION": "1.5.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.associations": {
+          "*.pl": "prolog"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "rebornix.prolog"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "",
+    "DCC_REPL": "gprolog",
+    "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi",
+    "DCC_VERSION": "gprolog --version"
+  }
+}

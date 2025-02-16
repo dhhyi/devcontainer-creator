@@ -1,0 +1,33 @@
+{
+  "name": "Example devcontainer for idris2",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-idris2-cache",
+    "args": {
+      "IDRIS2_VERSION": "0.7.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        },
+        "idris.autosave": "always",
+        "idris.idris2Mode": true,
+        "idris.idrisPath": "idris2"
+      },
+      "extensions": [
+        "meraymond.idris-vscode"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "runidris",
+    "DCC_REPL": "idris2",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuaWRyIDw8RU9GCm1vZHVsZSBNYWluCm1haW4gOiBJTyAoKQptYWluID0gcHV0U3RyTG4gIkhlbGxvIFdvcmxkISIKRU9GCnJ1bmlkcmlzIC90bXAvaGVsbG93b3JsZC5pZHIK",
+    "DCC_VERSION": "idris2 --version"
+  }
+}

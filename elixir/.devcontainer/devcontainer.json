@@ -1,0 +1,30 @@
+{
+  "name": "Example devcontainer for elixir",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-elixir-cache"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[elixir]": {
+          "editor.defaultFormatter": "JakeBecker.elixir-ls"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "JakeBecker.elixir-ls"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "elixir",
+    "DCC_REPL": "iex",
+    "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw==",
+    "DCC_VERSION": "elixir --version"
+  }
+}

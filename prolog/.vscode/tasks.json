@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "command": "gprolog",
+      "label": "Start REPL",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "gprolog --consult-file ${file}",
+      "label": "Start REPL on current file",
+      "problemMatcher": [],
+      "type": "shell"
+    }
+  ]
+}
