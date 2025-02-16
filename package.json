@@ -15,7 +15,7 @@
   "author": "Danilo Hoffmann",
   "license": "MIT",
   "config": {
-    "skip-languages": "hare,cicada"
+    "skip-languages": "cicada,crystal,dart,hare,idris2,koka,odin,pony,raku,tcl,v,zig"
   },
   "dependencies": {
     "@types/js-yaml": "^4.0.9",
