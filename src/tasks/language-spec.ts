@@ -171,6 +171,21 @@ export const ResolvedYaml = once(async () => {
     }
     resolvedYaml.devcontainer.build.packages.push('tmux');
 
+    if (!resolvedYaml.devcontainer.build.files) {
+      resolvedYaml.devcontainer.build.files = [];
+    }
+    resolvedYaml.devcontainer.build.files.push({
+      type: 'script',
+      path: '/tmux-or-else.sh',
+      content: `
+#!/bin/bash
+if [ -z "$*" ]; then
+  tmux new-session -A -s tmux
+fi
+exec sh "$@"
+`,
+    });
+
     if (!resolvedYaml.vscode.settings) {
       resolvedYaml.vscode.settings = {};
     }
@@ -178,8 +193,7 @@ export const ResolvedYaml = once(async () => {
       'tmux';
     resolvedYaml.vscode.settings['terminal.integrated.profiles.linux'] = {
       tmux: {
-        path: 'tmux',
-        args: ['new-session', '-A', '-s', 'tmux'],
+        path: '/tmux-or-else.sh',
       },
     };
   }
