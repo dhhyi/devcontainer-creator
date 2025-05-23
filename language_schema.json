@@ -184,6 +184,9 @@
         "remoteUser": {
           "type": "string"
         },
+        "instantiate": {
+          "type": "string"
+        },
         "initialize": {
           "type": "string"
         },

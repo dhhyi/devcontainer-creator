@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "image": "ghcr.io/dhhyi/dcc-base-debian",
+  "postCreateCommand": "echo 'Creating World' && echo barfoo && echo \"blubb\"",
   "postStartCommand": "echo 'Hello World' && echo foobar && echo \"blubb\"",
   "customizations": {
     "vscode": {

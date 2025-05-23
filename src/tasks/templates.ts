@@ -116,6 +116,7 @@ interface DevcontainerJSONType {
     args?: Record<string, string | number>;
   };
   mounts?: string[];
+  postCreateCommand?: string;
   postStartCommand?: string;
   customizations?: {
     vscode: VSCodeMetaType;
@@ -246,6 +247,13 @@ const DevcontainerJSONTemplate = (
     }
   } else {
     json.image = baseImageReference(desc.extends);
+  }
+
+  if (desc.devcontainer?.instantiate) {
+    json.postCreateCommand = addCommand(
+      json.postCreateCommand,
+      parseCommand(desc.devcontainer.instantiate)
+    );
   }
 
   if (desc.devcontainer?.initialize) {

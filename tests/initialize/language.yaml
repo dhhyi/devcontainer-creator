@@ -1,4 +1,9 @@
 devcontainer:
+  instantiate: |
+    echo 'Creating World'
+    # This is a comment
+    echo barfoo &&
+    echo "blubb"
   initialize: |
     echo 'Hello World'
     # This is a comment

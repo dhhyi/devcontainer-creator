@@ -52,6 +52,7 @@
     "remoteUser": "vscode"
   },
   {
+    "postCreateCommand": "echo 'Creating World' && echo barfoo && echo \"blubb\"",
     "postStartCommand": "echo 'Hello World' && echo foobar && echo \"blubb\"",
     "customizations": {
       "vscode": {
