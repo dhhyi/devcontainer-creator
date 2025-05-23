@@ -107,6 +107,7 @@ const VSCodeTasksTemplate = (desc: Language): VSCodeTasksType | undefined => {
 };
 
 interface DevcontainerJSONType {
+  $schema: string;
   name?: string;
   image?: string;
   build?: {
@@ -151,7 +152,10 @@ const DevcontainerJSONTemplate = (
 ): DevcontainerJSONType | undefined => {
   const remoteUser = desc.devcontainer?.remoteUser;
 
-  const json: DevcontainerJSONType = {};
+  const json: DevcontainerJSONType = {
+    $schema:
+      'https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json',
+  };
 
   if (desc.devcontainer?.name) {
     json.name = desc.devcontainer.name;

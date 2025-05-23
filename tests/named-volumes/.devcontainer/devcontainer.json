@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "mounts": [
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
     "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"

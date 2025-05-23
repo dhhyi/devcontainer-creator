@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
   "customizations": {
     "vscode": {
