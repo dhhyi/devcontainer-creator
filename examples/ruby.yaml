@@ -14,6 +14,8 @@ devcontainer:
   build:
     packages:
       - ruby
+      - ruby-dev
+      - build-essential
     root:
       - RUN gem install rubocop
   selftest: ruby -e 'puts "Hello World!"'
