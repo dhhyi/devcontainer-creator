@@ -6,7 +6,18 @@
     "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
   },
   {
-    "id": "ghcr.io/devcontainers/features/git:1"
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
   },
   {
     "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
