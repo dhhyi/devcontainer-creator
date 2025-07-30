@@ -13,7 +13,7 @@ devcontainer:
     packages:
       - erlang
     root:
-      - ADD https://s3.amazonaws.com/rebar3/rebar3 /usr/local/bin/rebar3
+      - ADD https://github.com/erlang/rebar3/releases/download/3.24.0/rebar3 /usr/local/bin/rebar3
       - RUN chmod +rx /usr/local/bin/rebar3
     files:
       - type: file
