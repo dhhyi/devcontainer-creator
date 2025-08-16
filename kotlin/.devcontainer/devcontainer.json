@@ -3,10 +3,7 @@
   "name": "Example devcontainer for kotlin",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-kotlin-cache",
-    "args": {
-      "KOTLIN_VERSION": "2.0.21"
-    }
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-kotlin-cache"
   },
   "customizations": {
     "vscode": {

@@ -1,4 +1,4 @@
-FROM ghcr.io/dhhyi/dcc-base-debian
+FROM ghcr.io/dhhyi/dcc-base-ubuntu
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends build-essential libpcre3-dev libevent-dev cmake && apt-get clean && rm -rf /var/lib/apt/lists/*
 

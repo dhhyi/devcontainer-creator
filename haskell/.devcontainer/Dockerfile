@@ -1,6 +1,6 @@
-FROM ghcr.io/dhhyi/dcc-base-debian-old
+FROM ghcr.io/dhhyi/dcc-base-debian
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends haskell-platform hlint && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends ghc hlint && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER vscode
 
