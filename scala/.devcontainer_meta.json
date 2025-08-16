@@ -49,16 +49,28 @@
     }
   },
   {
-    "postCreateCommand": [
-      "sudo",
-      "-E",
-      "/home/dcc/install-helpers.sh"
-    ],
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
+      ]
+    },
     "postAttachCommand": [
       "sh",
       "-e",
       "/disclaimer.sh",
       "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
     "remoteUser": "vscode"
   },

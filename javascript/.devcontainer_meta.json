@@ -49,16 +49,28 @@
     }
   },
   {
-    "postCreateCommand": [
-      "sudo",
-      "-E",
-      "/home/dcc/install-helpers.sh"
-    ],
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "ubuntu:ubuntu",
+        "/home/ubuntu/.local/state/lazygit"
+      ]
+    },
     "postAttachCommand": [
       "sh",
       "-e",
       "/disclaimer.sh",
       "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
     "remoteUser": "ubuntu"
   },
