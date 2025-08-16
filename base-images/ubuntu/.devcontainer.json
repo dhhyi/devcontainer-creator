@@ -1,5 +1,5 @@
 {
-  "image": "ubuntu:noble-20250404",
+  "image": "ubuntu:noble-20250716",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",

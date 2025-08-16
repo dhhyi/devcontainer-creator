@@ -1,5 +1,5 @@
 {
-  "image": "debian:stable-20250520",
+  "image": "debian:stable-20250811",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
