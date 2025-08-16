@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
+  "name": "Example devcontainer for deno",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-deno-cache"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[typescript]": {
+          "editor.defaultFormatter": "denoland.vscode-deno"
+        },
+        "deno.enable": true,
+        "deno.lint": true,
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "denoland.vscode-deno"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "deno run",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "ZGVubyBldmFsICdjb25zb2xlLmxvZygiSGVsbG8gd29ybGQhIikn",
+    "DCC_VERSION": "deno --version"
+  }
+}

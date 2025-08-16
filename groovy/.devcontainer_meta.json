@@ -1,0 +1,107 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/java:1",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "vscjava.vscode-java-pack"
+        ],
+        "settings": {
+          "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
+        }
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "NicolasVuillamy.vscode-groovy-lint"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "groovy",
+      "DCC_REPL": "",
+      "DCC_SELFTEST": "ZWNobyAicHJpbnRsbiAnSGVsbG8sIFdvcmxkISciID4gL3RtcC9oZWxsby5ncm9vdnkKZ3Jvb3Z5IC90bXAvaGVsbG8uZ3Jvb3Z5Cg==",
+      "DCC_VERSION": "groovy --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "groovy"
+      }
+    }
+  }
+]

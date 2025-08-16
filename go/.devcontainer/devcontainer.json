@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
+  "name": "Example devcontainer for go",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-go-cache",
+    "args": {
+      "GO_VERSION": "1.23.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "golang.Go"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "go run",
+    "DCC_REPL": "",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZ28gPDxFT0YKcGFja2FnZSBtYWluCmltcG9ydCAiZm10IgpmdW5jIG1haW4oKSB7IGZtdC5QcmludGxuKCJIZWxsbyBXb3JsZCEiKSB9CkVPRgpnbyBmbXQgL3RtcC9oZWxsb3dvcmxkLmdvCmNhdCAvdG1wL2hlbGxvd29ybGQuZ28KZ28gcnVuIC90bXAvaGVsbG93b3JsZC5nbwo=",
+    "DCC_VERSION": "go version"
+  }
+}

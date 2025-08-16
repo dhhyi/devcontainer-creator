@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
+  "name": "Example devcontainer for elm",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-elm-cache"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[elm]": {
+          "editor.defaultFormatter": "elmTooling.elm-ls-vscode"
+        },
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "elmTooling.elm-ls-vscode"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "",
+    "DCC_REPL": "elm repl",
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZWxtIDw8RU9GCm1vZHVsZSBIZWxsb1dvcmxkIGV4cG9zaW5nICguLikKaW1wb3J0IEh0bWwgZXhwb3NpbmcgKHRleHQpCm1haW4gPSB0ZXh0ICJIZWxsbyBXb3JsZCEiCkVPRgpjZCAvdG1wCmVjaG8gIlkiIHwgZWxtIGluaXQKZWxtIG1ha2UgaGVsbG93b3JsZC5lbG0KY2F0IGluZGV4Lmh0bWwgfCBncmVwICJIZWxsbyBXb3JsZCEiCg==",
+    "DCC_VERSION": "elm --version"
+  }
+}

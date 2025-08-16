@@ -1,0 +1,94 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": [
+      "sudo",
+      "-E",
+      "/home/dcc/install-helpers.sh"
+    ],
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "dexterhaslem.factor"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "factor -run",
+      "DCC_REPL": "factor",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZmFjdG9yIDw8RU9GClVTRTogaW8KIkhlbGxvIFdvcmxkISIgcHJpbnQKRU9GCmZhY3RvciAtcnVuIC90bXAvaGVsbG93b3JsZC5mYWN0b3IK",
+      "DCC_VERSION": ""
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "factor"
+      }
+    }
+  }
+]
