@@ -1,4 +1,4 @@
-extends: base://debian
+extends: base://ubuntu
 language:
   name: io
   binary: io
