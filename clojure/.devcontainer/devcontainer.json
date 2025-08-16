@@ -3,10 +3,7 @@
   "name": "Example devcontainer for clojure",
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-clojure-cache",
-    "args": {
-      "CLOJURE_VERSION": "1.11.1.1155"
-    }
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-clojure-cache"
   },
   "customizations": {
     "vscode": {
