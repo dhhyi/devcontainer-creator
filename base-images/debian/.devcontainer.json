@@ -11,7 +11,19 @@
     },
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {}
   },
-  "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
+  "mounts": [
+    "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+  ],
+  "postCreateCommand": {
+    "helpers": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
+    "lazygit": [
+      "sudo",
+      "chown",
+      "-R",
+      "vscode:vscode",
+      "/home/vscode/.local/state/lazygit"
+    ]
+  },
   "postAttachCommand": [
     "sh",
     "-e",
