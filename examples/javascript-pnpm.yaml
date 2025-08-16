@@ -15,12 +15,12 @@ devcontainer:
   build:
     user:
       - RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which sh)" sh -
-      - RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc && echo "store-dir=/home/pnpm\npackage-import-method=copy" > $HOME/.npmrc
+      - RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc && echo "store-dir=$HOME/.cache/pnpm\npackage-import-method=copy" > $HOME/.npmrc
     files:
       - type: script
         path: /tmp/check-pnpm-volume.sh
         content: |
           #!/bin/bash
-          if ! mount | grep -q /home/pnpm; then
-            echo -e "\e[31mWARNING: it is recommended to mount /home/pnpm as a named volume\e[0m"
+          if ! mount | grep -q $HOME/.cache/pnpm; then
+            echo -e "\e[31mWARNING: it is recommended to mount $HOME/.cache/pnpm as a named volume\e[0m"
           fi
