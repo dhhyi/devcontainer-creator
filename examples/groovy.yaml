@@ -1,3 +1,4 @@
+extends: base://java
 language:
   name: groovy
   binary: groovy
@@ -8,11 +9,8 @@ devcontainer:
       org.opencontainers.image.description: VSCode devcontainer for groovy
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
-    packages:
-      - openjdk-17-jdk
     user:
-      - RUN curl -s "https://get.sdkman.io" | bash
-      - RUN bash -c ". $HOME/.sdkman/bin/sdkman-init.sh && sdk install groovy"
+      - RUN bash -c ". $SDKMAN_DIR/bin/sdkman-init.sh && sdk install groovy"
   selftest: |
     echo "println 'Hello, World!'" > /tmp/hello.groovy
     groovy /tmp/hello.groovy

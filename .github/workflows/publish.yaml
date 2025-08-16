@@ -205,7 +205,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - baseJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://groovy
     uses: ./.github/workflows/dcc.yaml
@@ -277,7 +277,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - baseJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://kotlin
     uses: ./.github/workflows/dcc.yaml
