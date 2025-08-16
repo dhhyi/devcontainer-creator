@@ -98,7 +98,7 @@ jobs:
   baseNode:
     needs:
       - calc
-      - baseDebian
+      - baseUbuntu
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: base://node
     uses: ./.github/workflows/base.yaml

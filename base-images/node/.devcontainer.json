@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/dhhyi/dcc-base-debian",
+  "image": "ghcr.io/dhhyi/dcc-base-ubuntu",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
