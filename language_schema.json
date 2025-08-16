@@ -51,7 +51,6 @@
       "type": "string",
       "enum": [
         "base://debian",
-        "base://debian-old",
         "base://java",
         "base://node",
         "base://ubuntu",

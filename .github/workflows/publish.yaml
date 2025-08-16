@@ -84,17 +84,6 @@ jobs:
       name: debian
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  baseDebianOld:
-    needs:
-      - calc
-      - features
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://debian-old
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: debian-old
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
   baseJava:
     needs:
       - calc
