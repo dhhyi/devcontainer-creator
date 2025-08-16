@@ -60,7 +60,7 @@
       "/disclaimer.sh",
       "${containerWorkspaceFolder}"
     ],
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
   },
   {
     "id": "ghcr.io/devcontainers/features/node:1",
@@ -105,8 +105,8 @@
     }
   },
   {
-    "postCreateCommand": "sudo chown -Rf vscode node_modules /home/vscode/.cache/yarn",
-    "postStartCommand": "echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > /tmp/package.json && cd /tmp && yarn install",
+    "postCreateCommand": "sudo chown -Rf ubuntu node_modules /home/ubuntu/.cache/yarn",
+    "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
     "customizations": {
       "vscode": {
         "settings": {
@@ -120,10 +120,10 @@
     },
     "mounts": [
       "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
-      "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"
+      "type=volume,target=/home/ubuntu/.cache/yarn,source=dcc-test-yarn-cache"
     ],
     "containerEnv": {
-      "DCC_SELFTEST": "Y2QgL3RtcCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
+      "DCC_SELFTEST": "Y2QgJEhPTUUvcHJvamVjdCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
     }
   }
 ]

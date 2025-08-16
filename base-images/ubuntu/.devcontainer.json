@@ -2,7 +2,6 @@
   "image": "ubuntu:noble-20250716",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
-      "username": "vscode",
       "configureZshAsDefaultShell": true
     },
     "ghcr.io/devcontainers/features/git:1": {},
@@ -18,5 +17,5 @@
     "/disclaimer.sh",
     "${containerWorkspaceFolder}"
   ],
-  "remoteUser": "vscode"
+  "remoteUser": "ubuntu"
 }

@@ -4,4 +4,4 @@ USER root
 
 RUN npm i -g prettier
 
-USER vscode
+USER ubuntu

@@ -2,11 +2,11 @@
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "mounts": [
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
-    "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"
+    "type=volume,target=/home/ubuntu/.cache/yarn,source=dcc-test-yarn-cache"
   ],
-  "postCreateCommand": "sudo chown -Rf vscode node_modules /home/vscode/.cache/yarn",
+  "postCreateCommand": "sudo chown -Rf ubuntu node_modules /home/ubuntu/.cache/yarn",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
-  "postStartCommand": "echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > /tmp/package.json && cd /tmp && yarn install",
+  "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
   "customizations": {
     "vscode": {
       "settings": {
@@ -19,6 +19,6 @@
     }
   },
   "containerEnv": {
-    "DCC_SELFTEST": "Y2QgL3RtcCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
+    "DCC_SELFTEST": "Y2QgJEhPTUUvcHJvamVjdCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
   }
 }
