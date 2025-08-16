@@ -60,7 +60,7 @@
       "/disclaimer.sh",
       "${containerWorkspaceFolder}"
     ],
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
   },
   {
     "customizations": {
