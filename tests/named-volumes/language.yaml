@@ -1,9 +1,10 @@
 extends: dcc://javascript
 devcontainer:
   initialize: |
-    echo '{"name":"test","dependencies":{"prettier":"*"}}' > package.json
+    echo '{"name":"test","dependencies":{"prettier":"*"}}' > /tmp/package.json
+    cd /tmp
     yarn install
-  selftest: npx prettier --version
+  selftest: cd /tmp && npm exec prettier -- --version
 extras:
   - named-volumes
 namedVolumes:

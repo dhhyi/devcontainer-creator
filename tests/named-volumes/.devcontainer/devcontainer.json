@@ -4,8 +4,9 @@
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
     "type=volume,target=/home/vscode/.cache/yarn,source=dcc-test-yarn-cache"
   ],
-  "postStartCommand": "sudo chown vscode node_modules /home/vscode/.cache/yarn && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
+  "postCreateCommand": "sudo chown -Rf vscode node_modules /home/vscode/.cache/yarn",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
+  "postStartCommand": "echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > /tmp/package.json && cd /tmp && yarn install",
   "customizations": {
     "vscode": {
       "settings": {
@@ -18,6 +19,6 @@
     }
   },
   "containerEnv": {
-    "DCC_SELFTEST": "bnB4IHByZXR0aWVyIC0tdmVyc2lvbg=="
+    "DCC_SELFTEST": "Y2QgL3RtcCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
   }
 }

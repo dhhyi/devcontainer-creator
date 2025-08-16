@@ -223,11 +223,11 @@ const DevcontainerJSONTemplate = (
     json.mounts.push(...mounts);
 
     const command =
-      `sudo chown ${remoteUser} ` +
+      `sudo chown -Rf ${remoteUser} ` +
       Object.keys(desc.namedVolumes)
         .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
         .join(' ');
-    json.postStartCommand = addCommand(json.postStartCommand, command);
+    json.postCreateCommand = addCommand(json.postCreateCommand, command);
   }
 
   if (needsDockerfile(desc)) {
