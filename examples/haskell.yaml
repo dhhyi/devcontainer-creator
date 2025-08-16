@@ -1,4 +1,3 @@
-extends: base://debian-old
 language:
   name: haskell
   binary: runhaskell
@@ -12,7 +11,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     packages:
-      - haskell-platform
+      - ghc
       - hlint
   selftest: |
     cat > /tmp/helloworld.hs <<EOF
