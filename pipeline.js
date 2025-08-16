@@ -79,6 +79,10 @@ function buildJob(ref) {
 
 const workflow = {
   name: 'Publish',
+  concurrency: {
+    group: 'publish',
+    'cancel-in-progress': false,
+  },
   on: {
     push: { branches: ['main'] },
   },
