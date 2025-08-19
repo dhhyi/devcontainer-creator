@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "name": "Example devcontainer for clojure",
+  "runArgs": [
+    "--name",
+    "example-devcontainer-for-clojure-${devcontainerId}"
+  ],
   "build": {
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-clojure-cache"
