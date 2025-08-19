@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "name": "Simple Extended",
+  "runArgs": [
+    "--name",
+    "simple-extended-${devcontainerId}"
+  ],
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
   "customizations": {
     "vscode": {

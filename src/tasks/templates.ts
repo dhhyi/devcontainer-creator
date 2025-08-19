@@ -148,6 +148,15 @@ function flattenObject(obj: object): [string, string][] {
   return result;
 }
 
+function kebabifyKey(key: string): string {
+  return key
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/-{2,}/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase();
+}
+
 const DevcontainerJSONTemplate = (
   desc: Language
 ): DevcontainerJSONType | undefined => {
@@ -160,6 +169,14 @@ const DevcontainerJSONTemplate = (
 
   if (desc.devcontainer?.name) {
     json.name = desc.devcontainer.name;
+
+    if (!json.runArgs) {
+      json.runArgs = [];
+    }
+    json.runArgs.push(
+      '--name',
+      `${kebabifyKey(desc.devcontainer.name)}-\${devcontainerId}`
+    );
   }
 
   if (desc.extras?.includes('forward-x11')) {

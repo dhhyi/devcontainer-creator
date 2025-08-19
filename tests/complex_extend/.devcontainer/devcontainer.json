@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "name": "Complex Extended",
+  "runArgs": [
+    "--name",
+    "complex-extended-${devcontainerId}"
+  ],
   "build": {
     "dockerfile": "Dockerfile"
   },
