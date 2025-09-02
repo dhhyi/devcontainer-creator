@@ -9,5 +9,7 @@ ENV HOME=/home/ubuntu
 
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which sh)" sh -
 RUN echo "alias npm=pnpm" | tee -a $HOME/.zshrc && echo "store-dir=$HOME/.cache/pnpm\npackage-import-method=copy" > $HOME/.npmrc
+ENV PNPM_HOME=$HOME/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
 
 LABEL "org.opencontainers.image.description"="VSCode devcontainer for javascript-pnpm" "org.opencontainers.image.source"="https://github.com/dhhyi/devcontainer-creator"
