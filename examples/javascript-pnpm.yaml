@@ -4,7 +4,7 @@ language:
   repl: node
   version: |
     node --version
-    pnpm --version
+    pnpm self-update && pnpm --version
     /tmp/check-pnpm-volume.sh
 devcontainer:
   publish:
