@@ -131,7 +131,7 @@
     "containerEnv": {
       "DCC_BINARY": "node",
       "DCC_REPL": "node",
-      "DCC_VERSION": "node --version; pnpm --version; /tmp/check-pnpm-volume.sh"
+      "DCC_VERSION": "node --version; pnpm self-update && pnpm --version; /tmp/check-pnpm-volume.sh"
     }
   }
 ]
