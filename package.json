@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "devcontainer creator",
   "scripts": {
-    "prepare": "husky && npm run fix-getopts-import",
+    "prepare": "husky && pnpm run fix-getopts-import",
     "fix-getopts-import": "sh -c \"find -wholename '*/getopts/index.d.ts' | xargs -rl sed -i 's/export = getopts/export default getopts/'\"",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
     "format": "prettier --write -u \"**/*\"",
