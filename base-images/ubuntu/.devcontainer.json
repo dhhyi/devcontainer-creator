@@ -1,5 +1,5 @@
 {
-  "image": "ubuntu:noble-20250716",
+  "image": "ubuntu:noble-20260113",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true
