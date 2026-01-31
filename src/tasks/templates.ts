@@ -239,12 +239,28 @@ const DevcontainerJSONTemplate = (
     });
     json.mounts.push(...mounts);
 
-    const command =
-      `sudo chown -Rf ${remoteUser} ` +
-      Object.keys(desc.namedVolumes)
-        .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
-        .join(' ');
-    json.postCreateCommand = addCommand(json.postCreateCommand, command);
+    const folders = Object.keys(desc.namedVolumes)
+      .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
+      .join(' ');
+    json.postCreateCommand = addCommand(
+      json.postCreateCommand,
+      `sudo mkdir -p ${folders}`
+    );
+    const nonHomeFolders = Object.keys(desc.namedVolumes)
+      .filter((k) => !k.includes('HOME'))
+      .join(' ');
+    if (nonHomeFolders.length > 0) {
+      json.postCreateCommand = addCommand(
+        json.postCreateCommand,
+        `sudo chown -Rf ${remoteUser} ${nonHomeFolders}`
+      );
+    }
+    if (folders.includes('/home/' + remoteUser)) {
+      json.postCreateCommand = addCommand(
+        json.postCreateCommand,
+        `sudo chown -Rf ${remoteUser} /home/${remoteUser}`
+      );
+    }
   }
 
   if (needsDockerfile(desc)) {

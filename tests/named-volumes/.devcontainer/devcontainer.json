@@ -4,7 +4,7 @@
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
     "type=volume,target=/home/ubuntu/.cache/yarn,source=dcc-test-yarn-cache"
   ],
-  "postCreateCommand": "sudo chown -Rf ubuntu node_modules /home/ubuntu/.cache/yarn",
+  "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/yarn && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
   "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
   "customizations": {
