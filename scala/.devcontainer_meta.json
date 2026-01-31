@@ -1,0 +1,126 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
+      ]
+    },
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/java:1",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "vscjava.vscode-java-pack"
+        ],
+        "settings": {
+          "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
+        }
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "[scala]": {
+            "editor.defaultFormatter": "scalameta.metals",
+            "editor.tabSize": 2
+          },
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          },
+          "files.watcherExclude": {
+            "**/target": true
+          }
+        },
+        "extensions": [
+          "scalameta.metals"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "amm",
+      "DCC_REPL": "amm",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuc2NhbGEgPDxFT0YKQG1haW4gZGVmIG1haW4oKSA9IHsKICAgIHByaW50bG4oIkhlbGxvIFdvcmxkISIpCn0KRU9GCmFtbSAvdG1wL2hlbGxvd29ybGQuc2NhbGEK",
+      "DCC_VERSION": "amm --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "scala"
+      }
+    }
+  }
+]

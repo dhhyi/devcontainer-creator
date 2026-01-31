@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
+  "name": "Example devcontainer for io",
+  "runArgs": [
+    "--name",
+    "example-devcontainer-for-io-${devcontainerId}"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-io-cache",
+    "args": {
+      "IO_VERSION": "master"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      },
+      "extensions": [
+        "kennethceyer.io"
+      ]
+    }
+  },
+  "containerEnv": {
+    "DCC_BINARY": "io",
+    "DCC_REPL": "io",
+    "DCC_SELFTEST": "aW8gLWUgJ1JhbmRvbSBjbG9uZSA7IFJlZ2V4IGNsb25lIDsgTG9iYnkgUHJvdG9zIEFkZG9ucyBzbG90TmFtZXMgYXNKc29uIHByaW50bG4gOyAiSGVsbG8gV29ybGQhIiBwcmludGxuJyB8IGdyZXAgLTEgJ0hlbGxvIFdvcmxkISc=",
+    "DCC_VERSION": "io --version"
+  }
+}

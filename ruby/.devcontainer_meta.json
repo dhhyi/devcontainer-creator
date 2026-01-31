@@ -1,0 +1,110 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
+      ]
+    },
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "[ruby]": {
+            "editor.defaultFormatter": "misogi.ruby-rubocop"
+          },
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "rebornix.Ruby",
+          "misogi.ruby-rubocop"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "ruby",
+      "DCC_REPL": "irb",
+      "DCC_SELFTEST": "cnVieSAtZSAncHV0cyAiSGVsbG8gV29ybGQhIic=",
+      "DCC_VERSION": "rubocop --version; ruby --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "ruby"
+      }
+    }
+  }
+]

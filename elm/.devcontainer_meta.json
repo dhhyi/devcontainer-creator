@@ -1,0 +1,132 @@
+[
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "zsh": {
+              "path": "zsh",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "zsh",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "ubuntu:ubuntu",
+        "/home/ubuntu/.local/state/lazygit"
+      ]
+    },
+    "postAttachCommand": [
+      "sh",
+      "-e",
+      "/disclaimer.sh",
+      "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+    ],
+    "remoteUser": "ubuntu"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/node:1",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint"
+        ],
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes `node`, `npm` and `eslint` pre-installed and available on the `PATH` for Node.js and JavaScript development."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "[elm]": {
+            "editor.defaultFormatter": "elmTooling.elm-ls-vscode"
+          },
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "elmTooling.elm-ls-vscode"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "",
+      "DCC_REPL": "elm repl",
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZWxtIDw8RU9GCm1vZHVsZSBIZWxsb1dvcmxkIGV4cG9zaW5nICguLikKaW1wb3J0IEh0bWwgZXhwb3NpbmcgKHRleHQpCm1haW4gPSB0ZXh0ICJIZWxsbyBXb3JsZCEiCkVPRgpjZCAvdG1wCmVjaG8gIlkiIHwgZWxtIGluaXQKZWxtIG1ha2UgaGVsbG93b3JsZC5lbG0KY2F0IGluZGV4Lmh0bWwgfCBncmVwICJIZWxsbyBXb3JsZCEiCg==",
+      "DCC_VERSION": "elm --version"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "tasks": [
+          {
+            "label": "Run elm reactor",
+            "command": "onchange elm.json -ik -- elm reactor"
+          }
+        ],
+        "languageName": "elm"
+      }
+    }
+  }
+]
