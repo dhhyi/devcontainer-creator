@@ -2,6 +2,7 @@
   "install_default": {
     "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
     "features": {
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -16,6 +17,7 @@
   "skip_install_cont": {
     "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
     "features": {
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -29,6 +31,7 @@
   "use_onchange_on_node": {
     "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:16",
     "features": {
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -42,6 +45,7 @@
   "failing_selftest": {
     "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
     "features": {
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -56,6 +60,7 @@
   "lazygit_config": {
     "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
     "features": {
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],

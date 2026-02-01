@@ -26,12 +26,10 @@ if [ -n "$DCC_SELFTEST" ]; then
 fi
 chmod +x /selftest.sh
 
-echo "setting shell prompt"
+echo "setting shell environment for bash"
 
 BASH_PROMPT='\nexport PS1="$ "\n'
 printf "%b" "$BASH_PROMPT" >> "$HOME/.bashrc"
-
-echo "setting EDITOR and GIT_EDITOR"
 tee -a "$HOME/.bashrc" > /dev/null << EOF
 
 if cat /proc/\$PPID/cmdline | grep -q vscode-server; then
@@ -39,6 +37,37 @@ if cat /proc/\$PPID/cmdline | grep -q vscode-server; then
   export GIT_EDITOR='code --wait'
 fi
 EOF
+
+echo "setting shell environment for fish"
+
+mkdir -p "$HOME/.config/fish"
+cat > "$HOME/.config/fish/config.fish" << EOF
+if status is-interactive
+  function fish_prompt
+    printf "> "
+  end
+
+  fish_add_path $HOME/.fzf/bin
+  fzf --fish | source
+
+  set -g fish_greeting
+
+  set -l PPID (ps -o ppid= -p %self | string trim)
+  if cat /proc/\$PPID/cmdline | grep -q vscode-server
+    set -x EDITOR 'code --wait'
+    set -x GIT_EDITOR 'code --wait'
+  end
+end
+EOF
+
+if [ ! -z "${FISHERPLUGINS}" ]; then
+    echo "$FISHERPLUGINS" | tr ',' '\n' | while read -r plugin; do
+        echo "installing fisher plugin: $plugin"
+        fish -c "fisher install $plugin"
+    done
+fi
+
+chsh -s "$(which fish)"
 
 echo "setting up lazygit config"
 mkdir -p "$HOME/.config/lazygit"

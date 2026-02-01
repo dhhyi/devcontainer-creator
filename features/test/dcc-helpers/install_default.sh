@@ -5,6 +5,8 @@ set -e
 # shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
+check "fish prompt" grep -q 'fish_prompt' "$HOME/.config/fish/config.fish"
+
 check "bash prompt" grep -q 'export PS1="$ "' "$HOME/.bashrc"
 
 check "templates after install" test -f /disclaimer.sh && test -f /usr/local/bin/cont
