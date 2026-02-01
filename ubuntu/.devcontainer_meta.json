@@ -72,8 +72,8 @@
         "sudo",
         "chown",
         "-R",
-        "vscode:vscode",
-        "/home/vscode/.local/state/lazygit"
+        "ubuntu:ubuntu",
+        "/home/ubuntu/.local/state/lazygit"
       ]
     },
     "postAttachCommand": [
@@ -83,9 +83,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
   },
   {
     "customizations": {
@@ -96,25 +96,7 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        },
-        "extensions": [
-          "dramforever.vscode-ghc-simple",
-          "justusadam.language-haskell",
-          "hoovercj.haskell-linter"
-        ]
-      }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "runhaskell",
-      "DCC_REPL": "ghci",
-      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmhzIDw8RU9GCm1haW4gPSBwdXRTdHJMbiAiSGVsbG8gV29ybGQhIgpFT0YKcnVuaGFza2VsbCAvdG1wL2hlbGxvd29ybGQuaHMK",
-      "DCC_VERSION": "ghc --version"
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "languageName": "haskell"
+        }
       }
     }
   }
