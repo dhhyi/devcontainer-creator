@@ -42,7 +42,7 @@ find tests -name 'language.yaml' | while read -r test; do
     if filter "$test" "$@"; then
         echo "Running $test"
         # shellcheck disable=SC2086
-        node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta $args
+        node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta -vv $args
     fi
 done
 
