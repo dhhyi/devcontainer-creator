@@ -19,7 +19,7 @@ filter() {
     shift
 
     for filter in "$@"; do
-        if expr $test : ".*$filter.*" > /dev/null 2>&1; then
+        if expr "$test" : ".*$filter.*" > /dev/null 2>&1; then
             return 0
         fi
     done
@@ -46,7 +46,8 @@ find tests -name 'language.yaml' | while read -r test; do
     fi
 done
 
-if [ -n "$(git status -s)" ]; then
+changes=$(git status -s | grep -v .devcontainer_meta.json)
+if [ -n "$changes" ]; then
     echo "tree is dirty, please commit changes"
     git status -s
     exit 1
