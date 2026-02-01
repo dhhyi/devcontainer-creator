@@ -58,6 +58,7 @@
         "dcc://clojure",
         "dcc://crystal",
         "dcc://dart",
+        "dcc://debian",
         "dcc://deno",
         "dcc://elixir",
         "dcc://elm",
@@ -86,6 +87,7 @@
         "dcc://ruby",
         "dcc://scala",
         "dcc://tcl",
+        "dcc://ubuntu",
         "dcc://v",
         "dcc://zig"
       ]

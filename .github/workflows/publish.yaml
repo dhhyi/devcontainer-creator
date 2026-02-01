@@ -14,6 +14,7 @@ jobs:
       buildLanguages: ${{ steps.calculate.outputs.buildLanguages }}
       buildBase: ${{ steps.calculate.outputs.buildBase }}
       dccClojure: ${{ steps.calculate.outputs.dccClojure }}
+      dccDebian: ${{ steps.calculate.outputs.dccDebian }}
       dccDeno: ${{ steps.calculate.outputs.dccDeno }}
       dccElixir: ${{ steps.calculate.outputs.dccElixir }}
       dccElm: ${{ steps.calculate.outputs.dccElm }}
@@ -35,6 +36,7 @@ jobs:
       dccPython: ${{ steps.calculate.outputs.dccPython }}
       dccRuby: ${{ steps.calculate.outputs.dccRuby }}
       dccScala: ${{ steps.calculate.outputs.dccScala }}
+      dccUbuntu: ${{ steps.calculate.outputs.dccUbuntu }}
     env:
       commits: ${{ toJSON(github.event.commits) }}
     steps:
@@ -128,6 +130,18 @@ jobs:
     with:
       name: clojure
       skip: ${{ needs.calc.outputs.dccClojure == 'false' }}
+    secrets: inherit
+  dccDebian:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://debian
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: debian
+      skip: ${{ needs.calc.outputs.dccDebian == 'false' }}
     secrets: inherit
   dccDeno:
     needs:
@@ -381,10 +395,23 @@ jobs:
       name: scala
       skip: ${{ needs.calc.outputs.dccScala == 'false' }}
     secrets: inherit
+  dccUbuntu:
+    needs:
+      - calc
+      - bundle
+      - baseUbuntu
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://ubuntu
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: ubuntu
+      skip: ${{ needs.calc.outputs.dccUbuntu == 'false' }}
+    secrets: inherit
   examples:
     needs:
       - calc
       - dccClojure
+      - dccDebian
       - dccDeno
       - dccElixir
       - dccElm
@@ -406,6 +433,7 @@ jobs:
       - dccPython
       - dccRuby
       - dccScala
+      - dccUbuntu
     if: ${{ ! failure() && ! cancelled() && always() }}
     uses: ./.github/workflows/examples.yaml
     with:

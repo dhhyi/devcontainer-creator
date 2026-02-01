@@ -1,0 +1,7 @@
+extends: base://ubuntu
+devcontainer:
+  publish:
+    image: dcc://ubuntu
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for ubuntu
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator

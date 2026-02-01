@@ -1,0 +1,7 @@
+extends: base://debian
+devcontainer:
+  publish:
+    image: dcc://debian
+    labels:
+      org.opencontainers.image.description: VSCode devcontainer for debian
+      org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
