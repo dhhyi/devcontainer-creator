@@ -31,14 +31,14 @@
         ],
         "settings": {
           "terminal.integrated.profiles.linux": {
-            "zsh": {
-              "path": "zsh",
+            "fish": {
+              "path": "fish",
               "args": [
                 "-l"
               ]
             }
           },
-          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.defaultProfile.linux": "fish",
           "editor.formatOnSave": true,
           "files.insertFinalNewline": true,
           "files.trimFinalNewlines": true,
@@ -47,6 +47,16 @@
             "editor.defaultFormatter": "vscode.json-language-features"
           },
           "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/meaningful-ooo/devcontainer-features/fish:2",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "fish"
         }
       }
     }

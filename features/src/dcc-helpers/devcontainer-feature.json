@@ -1,14 +1,30 @@
 {
   "name": "Devcontainer Creator Helpers",
   "id": "dcc-helpers",
-  "version": "1.11.1",
+  "version": "1.12.2",
   "description": "Installs Devcontainer Creator Helpers",
-  "options": {},
-  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
+  "options": {
+    "fisherPlugins": {
+      "type": "string",
+      "description": "comma-separated list of Fisher plugins to install",
+      "default": ""
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/meaningful-ooo/devcontainer-features/fish"
+  ],
   "customizations": {
     "vscode": {
       "extensions": ["GitHub.copilot"],
       "settings": {
+        "terminal.integrated.profiles.linux": {
+          "fish": {
+            "path": "fish",
+            "args": ["-l"]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "fish",
         "editor.formatOnSave": true,
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,

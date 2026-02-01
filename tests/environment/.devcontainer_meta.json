@@ -28,14 +28,14 @@
         ],
         "settings": {
           "terminal.integrated.profiles.linux": {
-            "zsh": {
-              "path": "zsh",
+            "fish": {
+              "path": "fish",
               "args": [
                 "-l"
               ]
             }
           },
-          "terminal.integrated.defaultProfile.linux": "zsh",
+          "terminal.integrated.defaultProfile.linux": "fish",
           "editor.formatOnSave": true,
           "files.insertFinalNewline": true,
           "files.trimFinalNewlines": true,
