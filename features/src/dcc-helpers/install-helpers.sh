@@ -28,33 +28,16 @@ chmod +x /selftest.sh
 
 echo "setting shell prompt"
 
-# shellcheck disable=SC2016 # no expand
-ZSH_PROMPT='%{$reset_color%}%(?:$:%{$fg[red]%}$)%{$reset_color%} '
-printf "%b" "PROMPT='$ZSH_PROMPT'\n" > "$HOME/.oh-my-zsh/themes/dcc.zsh-theme"
-sed -i 's/^ZSH_THEME=.*/ZSH_THEME="dcc"/g' "$HOME/.zshrc"
-
 BASH_PROMPT='\nexport PS1="$ "\n'
 printf "%b" "$BASH_PROMPT" >> "$HOME/.bashrc"
 
 echo "setting EDITOR and GIT_EDITOR"
-tee -a "$HOME/.bashrc" "$HOME/.zshrc" > /dev/null << EOF
+tee -a "$HOME/.bashrc" > /dev/null << EOF
 
 if cat /proc/\$PPID/cmdline | grep -q vscode-server; then
   export EDITOR='code --wait'
   export GIT_EDITOR='code --wait'
 fi
-EOF
-
-echo "enabling ohmyzsh auto-update"
-sed -i '/^DISABLE_AUTO_UPDATE=.*/d' "$HOME/.zshrc"
-sed -i "/^DISABLE_UPDATE_PROMPT=.*/d" "$HOME/.zshrc"
-sed -i "/^zstyle ':omz:update' mode.*/d" "$HOME/.zshrc"
-sed -i "/^zstyle ':omz:update' frequency.*/d" "$HOME/.zshrc"
-cat >> "$HOME/.zshrc" << EOF
-
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 1
-
 EOF
 
 echo "setting up lazygit config"

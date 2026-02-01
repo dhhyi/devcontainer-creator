@@ -2,12 +2,13 @@
   "image": "ubuntu:noble-20260113",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
-      "configureZshAsDefaultShell": true
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "configureZshAsDefaultShell": false
     },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
-      "ohMyZshPlugins": "git ubuntu"
-    },
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {},
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {}
   },
   "mounts": [

@@ -3,12 +3,13 @@
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
-      "configureZshAsDefaultShell": true
+      "installZsh": false,
+      "installOhMyZsh": false,
+      "installOhMyZshConfig": false,
+      "configureZshAsDefaultShell": false
     },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {
-      "ohMyZshPlugins": "git debian"
-    },
+    "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest": {},
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {}
   },
   "mounts": [

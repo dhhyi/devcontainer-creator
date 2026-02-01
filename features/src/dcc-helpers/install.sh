@@ -33,11 +33,3 @@ fi
 mkdir -p /home/dcc
 cp cont.sh disclaimer.sh install-helpers.sh /home/dcc
 chmod +x /home/dcc/*.sh
-
-if command -v zsh > /dev/null; then
-    OHMYZSHPLUGINS=${OHMYZSHPLUGINS:-"git"}
-    # shellcheck disable=SC2046 # split by spaces
-    sed -i "s/^plugins=.*/plugins=($OHMYZSHPLUGINS)/g" $(find / -name '.zshrc')
-else
-    echo "no zsh found, skipping oh-my-zsh plugins"
-fi

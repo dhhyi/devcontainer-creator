@@ -3,24 +3,12 @@
   "id": "dcc-helpers",
   "version": "1.11.1",
   "description": "Installs Devcontainer Creator Helpers",
-  "options": {
-    "ohMyZshPlugins": {
-      "type": "string",
-      "default": "git"
-    }
-  },
+  "options": {},
   "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
   "customizations": {
     "vscode": {
       "extensions": ["GitHub.copilot"],
       "settings": {
-        "terminal.integrated.profiles.linux": {
-          "zsh": {
-            "path": "zsh",
-            "args": ["-l"]
-          }
-        },
-        "terminal.integrated.defaultProfile.linux": "zsh",
         "editor.formatOnSave": true,
         "files.insertFinalNewline": true,
         "files.trimFinalNewlines": true,
