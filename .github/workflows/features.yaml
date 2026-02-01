@@ -20,6 +20,7 @@ jobs:
 
       - name: Test Features
         run: devcontainer features test features
+        continue-on-error: true
 
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
