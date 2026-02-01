@@ -1,7 +1,16 @@
 {
   "install_default": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable",
     "features": {
+      "ghcr.io/devcontainers/features/common-utils:2": {
+        "username": "vscode",
+        "installZsh": false,
+        "installOhMyZsh": false,
+        "installOhMyZshConfig": false,
+        "configureZshAsDefaultShell": false
+      },
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -11,11 +20,21 @@
       "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl",
       "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgT0snCmV4aXQgMAo="
-    }
+    },
+    "remoteUser": "vscode"
   },
   "skip_install_cont": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable",
     "features": {
+      "ghcr.io/devcontainers/features/common-utils:2": {
+        "username": "vscode",
+        "installZsh": false,
+        "installOhMyZsh": false,
+        "installOhMyZshConfig": false,
+        "configureZshAsDefaultShell": false
+      },
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -24,11 +43,23 @@
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "",
       "DCC_REPL": "myrepl"
-    }
+    },
+    "remoreUser": "vscode"
   },
   "use_onchange_on_node": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:16",
+    "image": "ubuntu:noble",
     "features": {
+      "ghcr.io/devcontainers/features/common-utils:2": {
+        "installZsh": false,
+        "installOhMyZsh": false,
+        "installOhMyZshConfig": false,
+        "configureZshAsDefaultShell": false
+      },
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "lts"
+      },
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -37,11 +68,21 @@
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl"
-    }
+    },
+    "remoreUser": "ubuntu"
   },
   "failing_selftest": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable",
     "features": {
+      "ghcr.io/devcontainers/features/common-utils:2": {
+        "username": "vscode",
+        "installZsh": false,
+        "installOhMyZsh": false,
+        "installOhMyZshConfig": false,
+        "configureZshAsDefaultShell": false
+      },
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -51,14 +92,25 @@
       "DCC_BINARY": "bash",
       "DCC_REPL": "",
       "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgRkFJTCcKZXhpdCAzCg=="
-    }
+    },
+    "remoreUser": "vscode"
   },
   "lazygit_config": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable",
     "features": {
+      "ghcr.io/devcontainers/features/common-utils:2": {
+        "username": "vscode",
+        "installZsh": false,
+        "installOhMyZsh": false,
+        "installOhMyZshConfig": false,
+        "configureZshAsDefaultShell": false
+      },
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/meaningful-ooo/devcontainer-features/fish:2": {},
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"]
+    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "remoreUser": "vscode"
   }
 }
