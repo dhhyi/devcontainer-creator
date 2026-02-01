@@ -28,7 +28,7 @@ export const RunDevcontainer = once(async () => {
       'sudo -E /home/dcc/install-helpers.sh',
       'sh -e /disclaimer.sh',
       'cd $HOME',
-      'zsh',
+      'fish',
     ].join(' && '),
   ];
 

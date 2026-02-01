@@ -1,6 +1,6 @@
 {
   "install_default": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable-20260112",
     "features": {
       "dcc-helpers": {}
     },
@@ -11,10 +11,11 @@
       "DCC_BINARY": "bash",
       "DCC_REPL": "myrepl",
       "DCC_SELFTEST": "ZWNobyAnc2VsZnRlc3QgT0snCmV4aXQgMAo="
-    }
+    },
+    "remoteUser": "vscode"
   },
   "skip_install_cont": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable-20260112",
     "features": {
       "dcc-helpers": {}
     },
@@ -27,8 +28,11 @@
     }
   },
   "use_onchange_on_node": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:16",
+    "image": "debian:stable-20260112",
     "features": {
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "lts"
+      },
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
@@ -40,7 +44,7 @@
     }
   },
   "failing_selftest": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable-20260112",
     "features": {
       "dcc-helpers": {}
     },
@@ -54,7 +58,7 @@
     }
   },
   "lazygit_config": {
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:debian",
+    "image": "debian:stable-20260112",
     "features": {
       "dcc-helpers": {}
     },

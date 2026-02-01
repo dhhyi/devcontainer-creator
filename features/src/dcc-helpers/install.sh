@@ -33,3 +33,14 @@ fi
 mkdir -p /home/dcc
 cp cont.sh disclaimer.sh install-helpers.sh /home/dcc
 chmod +x /home/dcc/*.sh
+
+user="$(cat /etc/passwd | grep "1000:1000" | cut -d: -f1)"
+
+if [ ! -z "${FISHERPLUGINS}" ]; then
+    echo "$FISHERPLUGINS" | tr ',' '\n' | while read -r plugin; do
+        echo "installing fisher plugin: $plugin"
+        sudo -u "$user" fish -c "fisher install $plugin"
+    done
+fi
+
+usermod -s "$(which fish)" "$user"
