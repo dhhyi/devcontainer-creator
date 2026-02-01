@@ -23,6 +23,16 @@
     }
   },
   {
+    "id": "ghcr.io/meaningful-ooo/devcontainer-features/fish:2",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "fish"
+        }
+      }
+    }
+  },
+  {
     "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
     "customizations": {
       "vscode": {
@@ -31,7 +41,7 @@
         ],
         "settings": {
           "terminal.integrated.profiles.linux": {
-            "zsh": {
+            "fish": {
               "path": "fish",
               "args": [
                 "-l"
@@ -47,16 +57,6 @@
             "editor.defaultFormatter": "vscode.json-language-features"
           },
           "task.autoDetect": "off"
-        }
-      }
-    }
-  },
-  {
-    "id": "ghcr.io/meaningful-ooo/devcontainer-features/fish:2",
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "terminal.integrated.defaultProfile.linux": "fish"
         }
       }
     }
