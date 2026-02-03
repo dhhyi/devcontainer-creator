@@ -9,6 +9,8 @@ user="$(cat /etc/passwd | grep "1000:" | cut -d: -f1)"
 
 check "fish default shell" grep -q "/home/$user:/usr/bin/fish" /etc/passwd
 
+check "fish default shell for root" grep -q "/root:/usr/bin/fish" /etc/passwd
+
 check "fish prompt" grep -q 'fish_prompt' "/home/$user/.config/fish/config.fish"
 
 check "bash prompt" grep -q 'export PS1="$ "' "/home/$user/.bashrc"

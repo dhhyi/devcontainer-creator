@@ -43,4 +43,5 @@ if [ ! -z "${FISHERPLUGINS}" ]; then
     done
 fi
 
+chsh -s "$(which fish)"
 usermod -s "$(which fish)" "$user"
