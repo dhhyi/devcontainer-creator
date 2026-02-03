@@ -1,8 +1,6 @@
 {
   "image": "ghcr.io/dhhyi/dcc-base-ubuntu",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    }
+    "ghcr.io/roul/devcontainer-features/mise-node:1": {}
   }
 }
