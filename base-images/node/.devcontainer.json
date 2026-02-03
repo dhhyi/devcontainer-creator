@@ -2,5 +2,8 @@
   "image": "ghcr.io/dhhyi/dcc-base-ubuntu",
   "features": {
     "ghcr.io/roul/devcontainer-features/mise-node:1": {}
+  },
+  "containerEnv": {
+    "MISE_SHELL": "fish"
   }
 }
