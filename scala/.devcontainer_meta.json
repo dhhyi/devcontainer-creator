@@ -3,6 +3,9 @@
     "id": "ghcr.io/devcontainers/features/common-utils:2"
   },
   {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
     "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
   },
   {
@@ -74,6 +77,11 @@
         "-R",
         "vscode:vscode",
         "/home/vscode/.local/state/lazygit"
+      ],
+      "mise": [
+        "fish",
+        "-c",
+        "mise install --yes"
       ]
     },
     "postAttachCommand": [
@@ -88,16 +96,19 @@
     "remoteUser": "vscode"
   },
   {
-    "id": "ghcr.io/devcontainers/features/java:1",
     "customizations": {
       "vscode": {
-        "extensions": [
-          "vscjava.vscode-java-pack"
-        ],
         "settings": {
-          "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
         }
       }
+    },
+    "containerEnv": {
+      "DCC_SELFTEST": "amF2YSAtdmVyc2lvbg=="
     }
   },
   {

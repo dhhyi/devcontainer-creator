@@ -75,8 +75,8 @@
         "sudo",
         "chown",
         "-R",
-        "vscode:vscode",
-        "/home/vscode/.local/state/lazygit"
+        "ubuntu:ubuntu",
+        "/home/ubuntu/.local/state/lazygit"
       ],
       "mise": [
         "fish",
@@ -91,9 +91,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
   },
   {
     "customizations": {
@@ -104,24 +104,11 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        },
-        "extensions": [
-          "julialang.language-julia"
-        ]
+        }
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "julia",
-      "DCC_REPL": "julia",
-      "DCC_SELFTEST": "anVsaWEgLWUgJ3ByaW50bG4oIkhlbGxvIFdvcmxkISIpJw==",
-      "DCC_VERSION": "julia --version"
-    }
-  },
-  {
-    "customizations": {
-      "dcc": {
-        "languageName": "julia"
-      }
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
     }
   }
 ]

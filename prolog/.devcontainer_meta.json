@@ -3,6 +3,9 @@
     "id": "ghcr.io/devcontainers/features/common-utils:2"
   },
   {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
     "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
   },
   {
@@ -74,6 +77,11 @@
         "-R",
         "vscode:vscode",
         "/home/vscode/.local/state/lazygit"
+      ],
+      "mise": [
+        "fish",
+        "-c",
+        "mise install --yes"
       ]
     },
     "postAttachCommand": [

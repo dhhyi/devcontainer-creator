@@ -1,4 +1,6 @@
-FROM ghcr.io/dhhyi/dcc-base-java
+FROM ghcr.io/dhhyi/dcc-devcontainer-java
+
+USER root
 
 ARG AMMONITE_VERSION
 

@@ -1,4 +1,6 @@
-FROM ghcr.io/dhhyi/dcc-base-java
+FROM ghcr.io/dhhyi/dcc-devcontainer-java
+
+USER root
 
 ADD https://github.com/clojure/brew-install/releases/latest/download/posix-install.sh /tmp
 RUN chmod +x /tmp/posix-install.sh && /tmp/posix-install.sh
