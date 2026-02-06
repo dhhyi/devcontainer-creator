@@ -127,7 +127,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://deno
     uses: ./.github/workflows/dcc.yaml
@@ -163,7 +163,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://erlang
     uses: ./.github/workflows/dcc.yaml
@@ -175,7 +175,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://factor
     uses: ./.github/workflows/dcc.yaml
@@ -187,7 +187,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://go
     uses: ./.github/workflows/dcc.yaml
@@ -211,7 +211,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://haskell
     uses: ./.github/workflows/dcc.yaml
@@ -223,7 +223,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseUbuntu
+      - dccUbuntu
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://io
     uses: ./.github/workflows/dcc.yaml
@@ -235,7 +235,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://java
     uses: ./.github/workflows/dcc.yaml
@@ -271,7 +271,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://julia
     uses: ./.github/workflows/dcc.yaml
@@ -295,7 +295,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://lua
     uses: ./.github/workflows/dcc.yaml
@@ -331,7 +331,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseUbuntu
+      - dccUbuntu
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://node
     uses: ./.github/workflows/dcc.yaml
@@ -343,7 +343,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://perl
     uses: ./.github/workflows/dcc.yaml
@@ -355,7 +355,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://prolog
     uses: ./.github/workflows/dcc.yaml
@@ -367,7 +367,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://python
     uses: ./.github/workflows/dcc.yaml
@@ -379,7 +379,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseDebian
+      - dccDebian
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://ruby
     uses: ./.github/workflows/dcc.yaml

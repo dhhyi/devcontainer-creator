@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: prolog
   repl: gprolog
@@ -16,8 +17,8 @@ devcontainer:
     root:
       # - ADD http://www.gprolog.org/gprolog-${PROLOG_VERSION}.tar.gz /tmp
       - ADD https://sourceforge.net/projects/gprolog/files/${PROLOG_VERSION}/gprolog-${PROLOG_VERSION}.tar.gz/download /tmp/gprolog-${PROLOG_VERSION}.tar.gz
-      - RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
-      - RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
+      - RUN cd /tmp && tar -xvvf gprolog-$PROLOG_VERSION.tar.gz
+      - RUN cd /tmp/gprolog-$PROLOG_VERSION/src && ./configure && make && make install && make check
   selftest: gprolog --query-goal "write('Hello World!\n'),halt"
 vscode:
   settings:
