@@ -15,15 +15,15 @@ check "fish prompt" grep -q 'fish_prompt' "/home/$user/.config/fish/config.fish"
 
 check "bash prompt" grep -q 'export PS1="$ "' "/home/$user/.bashrc"
 
-check "templates after install" test -f /disclaimer.sh && test -f /usr/local/bin/cont
+check "templates after install" test -f /disclaimer.fish && test -f /usr/local/bin/cont
 
 check "binary referenced" grep -q "bash" /usr/local/bin/cont
 
-check "version referenced" grep -q "myversion" /disclaimer.sh
+check "version referenced" grep -q "myversion" /disclaimer.fish
 
-check "repl referenced" grep -q "myrepl" /disclaimer.sh
+check "repl referenced" grep -q "myrepl" /disclaimer.fish
 
-check "disclaimer executes" /disclaimer.sh
+check "disclaimer executes" /disclaimer.fish
 
 check "selftest exists" cat /selftest.sh
 

@@ -14,7 +14,7 @@
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "postAttachCommand": ["/disclaimer.fish"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
@@ -38,7 +38,7 @@
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "postAttachCommand": ["/disclaimer.fish"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "",
@@ -63,7 +63,7 @@
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "postAttachCommand": ["/disclaimer.fish"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
@@ -86,7 +86,7 @@
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "postAttachCommand": ["/disclaimer.fish"],
     "containerEnv": {
       "DCC_VERSION": "echo myversion",
       "DCC_BINARY": "bash",
@@ -110,7 +110,7 @@
       "dcc-helpers": {}
     },
     "postCreateCommand": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "postAttachCommand": ["sh", "-e", "/disclaimer.sh"],
+    "postAttachCommand": ["/disclaimer.fish"],
     "remoreUser": "vscode"
   }
 }

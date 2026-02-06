@@ -33,11 +33,6 @@
     ],
     "mise": ["fish", "-c", "mise install --yes"]
   },
-  "postAttachCommand": [
-    "sh",
-    "-e",
-    "/disclaimer.sh",
-    "${containerWorkspaceFolder}"
-  ],
+  "postAttachCommand": ["/disclaimer.fish", "${containerWorkspaceFolder}"],
   "remoteUser": "vscode"
 }
