@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: erlang
   binary: escript
@@ -17,7 +18,7 @@ devcontainer:
       - RUN chmod +rx /usr/local/bin/rebar3
     files:
       - type: file
-        path: ${HOME}/.config/rebar3/rebar.config
+        path: $HOME/.config/rebar3/rebar.config
         content: |
           {plugins, [erlfmt]}.
           {erlfmt, [write]}.

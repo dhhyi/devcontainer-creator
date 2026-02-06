@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: idris
   repl: idris2
@@ -39,7 +40,7 @@ devcontainer:
           idris2 "$1" --build-dir /tmp/idris --output-dir /tmp/idris -o $name
           /tmp/idris/$name "$@"
     root:
-      - RUN git clone --depth 1 --branch v${IDRIS2_VERSION} https://github.com/idris-lang/Idris2.git /tmp/idris2
+      - RUN git clone --depth 1 --branch v$IDRIS2_VERSION https://github.com/idris-lang/Idris2.git /tmp/idris2
       - RUN cd /tmp/idris2 && sed -i 's%PREFIX.*%PREFIX ?= /usr/local%' config.mk && make bootstrap SCHEME=chezscheme && make install
   selftest: |
     cat >/tmp/helloworld.idr <<EOF

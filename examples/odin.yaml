@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: odin
   binary: runodin
@@ -37,10 +38,10 @@ devcontainer:
       - ADD https://github.com/odin-lang/Odin/archive/refs/tags/${ODIN_VERSION}.tar.gz /tmp
       - >-
         RUN cd /tmp
-        && tar zxpf ${ODIN_VERSION}.tar.gz
-        && cd /tmp/Odin-${ODIN_VERSION}
+        && tar zxpf $ODIN_VERSION.tar.gz
+        && cd /tmp/Odin-$ODIN_VERSION
         && make
-        && ln -s /tmp/Odin-${ODIN_VERSION}/odin /usr/local/bin/odin
+        && ln -s /tmp/Odin-$ODIN_VERSION/odin /usr/local/bin/odin
   selftest: |
     cat >/tmp/helloworld.odin <<EOF
     package main

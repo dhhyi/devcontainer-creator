@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: factor
   binary: factor
@@ -18,9 +19,9 @@ devcontainer:
       - ADD https://downloads.factorcode.org/releases/${FACTOR_VERSION}/factor-linux-x86-64-${FACTOR_VERSION}.tar.gz /opt/factor.tar.gz
       - RUN cd /opt && tar zxpf factor.tar.gz
       - ENV PATH=/opt/factor:${PATH}
-      - RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
+      - RUN echo $WORKSPACE > $HOME/.factor-roots
     user:
-      - RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
+      - RUN echo $WORKSPACE > $HOME/.factor-roots
   selftest: |
     cat >/tmp/helloworld.factor <<EOF
     USE: io

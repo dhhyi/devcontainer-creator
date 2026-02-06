@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: perl
   binary: perl

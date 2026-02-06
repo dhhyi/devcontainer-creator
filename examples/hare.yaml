@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: hare
   binary: hare
@@ -18,8 +19,8 @@ devcontainer:
       - ADD https://c9x.me/compile/release/qbe-${QBE_VERSION}.tar.xz /tmp
       - >-
         RUN cd /tmp
-        && tar xpfv /tmp/qbe-${QBE_VERSION}.tar.xz
-        && cd /tmp/qbe-${QBE_VERSION}
+        && tar xpfv /tmp/qbe-$QBE_VERSION.tar.xz
+        && cd /tmp/qbe-$QBE_VERSION
         && make
         && make install
       - >-

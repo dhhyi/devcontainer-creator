@@ -1,3 +1,4 @@
+extends: dcc://debian
 language:
   name: koka
   repl: koka
