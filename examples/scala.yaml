@@ -1,4 +1,4 @@
-extends: base://java
+extends: dcc://java
 language:
   name: scala
   binary: amm

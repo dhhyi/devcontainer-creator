@@ -1,4 +1,4 @@
-extends: base://java
+extends: dcc://java
 language:
   name: groovy
   binary: groovy
@@ -10,7 +10,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     user:
-      - RUN bash -c ". $SDKMAN_DIR/bin/sdkman-init.sh && sdk install groovy"
+      - RUN mise use -g groovy
   selftest: |
     echo "println 'Hello, World!'" > /tmp/hello.groovy
     groovy /tmp/hello.groovy

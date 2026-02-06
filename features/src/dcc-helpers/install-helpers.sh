@@ -2,10 +2,10 @@
 
 cd "$(dirname "$0")"
 
-echo "creating /disclaimer.sh"
+echo "creating /disclaimer.fish"
 # shellcheck disable=SC2016 # no expand
-envsubst '$DCC_VERSION,$DCC_BINARY,$DCC_REPL' < disclaimer.sh > /disclaimer.sh
-chmod +x /disclaimer.sh
+envsubst '$DCC_VERSION,$DCC_BINARY,$DCC_REPL' < disclaimer.fish > /disclaimer.fish
+chmod +x /disclaimer.fish
 
 if [ -n "$DCC_BINARY" ]; then
     echo "creating /usr/local/bin/cont"
@@ -58,6 +58,10 @@ if status is-interactive
     set -x GIT_EDITOR 'code --wait'
   end
 end
+
+fish_add_path $HOME/.local/bin
+mise activate fish | source
+
 EOF
 
 echo "setting up lazygit config"

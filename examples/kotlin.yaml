@@ -1,4 +1,4 @@
-extends: base://java
+extends: dcc://java
 language:
   name: kotlin
 devcontainer:
@@ -11,9 +11,10 @@ devcontainer:
     args:
       KTFMT_VERSION: "0.61"
     root:
-      - RUN bash -c ". $SDKMAN_DIR/bin/sdkman-init.sh && sdk install kotlin"
       - ADD https://repo1.maven.org/maven2/com/facebook/ktfmt/${KTFMT_VERSION}/ktfmt-${KTFMT_VERSION}-with-dependencies.jar /opt/ktfmt.jar
       - RUN chmod 644 /opt/ktfmt.jar
+    user:
+      - RUN mise use -g kotlin
     files:
       - type: script
         path: /usr/bin/ktfmt

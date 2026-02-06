@@ -31,7 +31,7 @@ if [ -n "$packages" ]; then
 fi
 
 mkdir -p /home/dcc
-cp cont.sh disclaimer.sh install-helpers.sh /home/dcc
+cp cont.sh disclaimer.fish install-helpers.sh /home/dcc
 chmod +x /home/dcc/*.sh
 
 user="$(cat /etc/passwd | grep "1000:1000" | cut -d: -f1)"

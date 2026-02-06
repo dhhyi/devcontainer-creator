@@ -1,4 +1,4 @@
-extends: base://node
+extends: dcc://node
 language:
   binary: node
   repl: node
