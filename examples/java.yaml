@@ -1,10 +1,12 @@
 extends: base://debian
 devcontainer:
   publish:
-    image: dcc://debian
+    image: dcc://java
     labels:
-      org.opencontainers.image.description: VSCode devcontainer for debian
+      org.opencontainers.image.description: VSCode devcontainer for java
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
-    root:
+    user:
       - SHELL ["/usr/bin/env", "fish", "-c"]
+      - RUN mise use -g java@21
+  selftest: java -version

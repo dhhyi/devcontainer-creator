@@ -3,6 +3,8 @@
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
+      "userGid": 1000,
+      "userUid": 1000,
       "installZsh": false,
       "installOhMyZsh": false,
       "installOhMyZshConfig": false,
@@ -14,7 +16,8 @@
       "fisherPlugins": ["jhillyerd/plugin-git"]
     },
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {},
-    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {}
+    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {},
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
   },
   "mounts": [
     "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
@@ -27,13 +30,9 @@
       "-R",
       "vscode:vscode",
       "/home/vscode/.local/state/lazygit"
-    ]
+    ],
+    "mise": ["fish", "-c", "mise install --yes"]
   },
-  "postAttachCommand": [
-    "sh",
-    "-e",
-    "/disclaimer.sh",
-    "${containerWorkspaceFolder}"
-  ],
+  "postAttachCommand": ["/disclaimer.fish", "${containerWorkspaceFolder}"],
   "remoteUser": "vscode"
 }

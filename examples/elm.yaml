@@ -1,4 +1,4 @@
-extends: base://node
+extends: dcc://node
 language:
   name: elm
   repl: elm repl
@@ -10,7 +10,7 @@ devcontainer:
       org.opencontainers.image.description: VSCode devcontainer for elm
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
-    root:
+    user:
       - RUN npm i -g elm elm-test elm-format elm-review onchange
   selftest: |
     cat >/tmp/helloworld.elm <<EOF

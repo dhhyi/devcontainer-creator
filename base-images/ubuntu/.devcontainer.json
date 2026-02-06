@@ -2,6 +2,9 @@
   "image": "ubuntu:noble-20260113",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "ubuntu",
+      "userGid": 1000,
+      "userUid": 1000,
       "installZsh": false,
       "installOhMyZsh": false,
       "installOhMyZshConfig": false,
@@ -13,7 +16,8 @@
       "fisherPlugins": ["jhillyerd/plugin-git"]
     },
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {},
-    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {}
+    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {},
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
   },
   "mounts": [
     "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
@@ -26,13 +30,9 @@
       "-R",
       "ubuntu:ubuntu",
       "/home/ubuntu/.local/state/lazygit"
-    ]
+    ],
+    "mise": ["fish", "-c", "mise install --yes"]
   },
-  "postAttachCommand": [
-    "sh",
-    "-e",
-    "/disclaimer.sh",
-    "${containerWorkspaceFolder}"
-  ],
+  "postAttachCommand": ["/disclaimer.fish", "${containerWorkspaceFolder}"],
   "remoteUser": "ubuntu"
 }

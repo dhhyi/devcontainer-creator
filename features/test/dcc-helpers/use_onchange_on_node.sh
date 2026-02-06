@@ -11,7 +11,7 @@ check "no inotifywait bin" test -z "$(command -v inotifywait)"
 
 check "onchange bin" command -v onchange
 
-check "disclaimer executes" /disclaimer.sh
+check "disclaimer executes" /disclaimer.fish
 
 echo "echo 'mycommand'" > /tmp/file.sh
 cont /tmp/file.sh > /tmp/file.out &

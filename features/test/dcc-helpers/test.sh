@@ -5,7 +5,7 @@ set -e
 # shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
-check "disclaimer template" test -f /home/dcc/disclaimer.sh
+check "disclaimer template" test -f /home/dcc/disclaimer.fish
 
 check "cont template" test -f /home/dcc/cont.sh
 

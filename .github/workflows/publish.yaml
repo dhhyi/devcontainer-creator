@@ -24,6 +24,7 @@ jobs:
       dccGroovy: ${{ steps.calculate.outputs.dccGroovy }}
       dccHaskell: ${{ steps.calculate.outputs.dccHaskell }}
       dccIo: ${{ steps.calculate.outputs.dccIo }}
+      dccJava: ${{ steps.calculate.outputs.dccJava }}
       dccJavascriptPnpm: ${{ steps.calculate.outputs.dccJavascriptPnpm }}
       dccJavascript: ${{ steps.calculate.outputs.dccJavascript }}
       dccJulia: ${{ steps.calculate.outputs.dccJulia }}
@@ -31,6 +32,7 @@ jobs:
       dccLua: ${{ steps.calculate.outputs.dccLua }}
       dccLualatex: ${{ steps.calculate.outputs.dccLualatex }}
       dccMoonscript: ${{ steps.calculate.outputs.dccMoonscript }}
+      dccNode: ${{ steps.calculate.outputs.dccNode }}
       dccPerl: ${{ steps.calculate.outputs.dccPerl }}
       dccProlog: ${{ steps.calculate.outputs.dccProlog }}
       dccPython: ${{ steps.calculate.outputs.dccPython }}
@@ -86,28 +88,6 @@ jobs:
       name: debian
       skip: ${{ needs.calc.outputs.buildBase == 'false' }}
     secrets: inherit
-  baseJava:
-    needs:
-      - calc
-      - baseDebian
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://java
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: java
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
-  baseNode:
-    needs:
-      - calc
-      - baseUbuntu
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: base://node
-    uses: ./.github/workflows/base.yaml
-    with:
-      name: node
-      skip: ${{ needs.calc.outputs.buildBase == 'false' }}
-    secrets: inherit
   baseUbuntu:
     needs:
       - calc
@@ -123,7 +103,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseJava
+      - dccJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://clojure
     uses: ./.github/workflows/dcc.yaml
@@ -171,7 +151,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseNode
+      - dccNode
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://elm
     uses: ./.github/workflows/dcc.yaml
@@ -219,7 +199,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseJava
+      - dccJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://groovy
     uses: ./.github/workflows/dcc.yaml
@@ -251,6 +231,18 @@ jobs:
       name: io
       skip: ${{ needs.calc.outputs.dccIo == 'false' }}
     secrets: inherit
+  dccJava:
+    needs:
+      - calc
+      - bundle
+      - baseDebian
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://java
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: java
+      skip: ${{ needs.calc.outputs.dccJava == 'false' }}
+    secrets: inherit
   dccJavascriptPnpm:
     needs:
       - calc
@@ -267,7 +259,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseNode
+      - dccNode
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://javascript
     uses: ./.github/workflows/dcc.yaml
@@ -291,7 +283,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseJava
+      - dccJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://kotlin
     uses: ./.github/workflows/dcc.yaml
@@ -334,6 +326,18 @@ jobs:
     with:
       name: moonscript
       skip: ${{ needs.calc.outputs.dccMoonscript == 'false' }}
+    secrets: inherit
+  dccNode:
+    needs:
+      - calc
+      - bundle
+      - baseUbuntu
+    if: ${{ ! failure() && ! cancelled() && always() }}
+    name: dcc://node
+    uses: ./.github/workflows/dcc.yaml
+    with:
+      name: node
+      skip: ${{ needs.calc.outputs.dccNode == 'false' }}
     secrets: inherit
   dccPerl:
     needs:
@@ -387,7 +391,7 @@ jobs:
     needs:
       - calc
       - bundle
-      - baseJava
+      - dccJava
     if: ${{ ! failure() && ! cancelled() && always() }}
     name: dcc://scala
     uses: ./.github/workflows/dcc.yaml
@@ -421,6 +425,7 @@ jobs:
       - dccGroovy
       - dccHaskell
       - dccIo
+      - dccJava
       - dccJavascriptPnpm
       - dccJavascript
       - dccJulia
@@ -428,6 +433,7 @@ jobs:
       - dccLua
       - dccLualatex
       - dccMoonscript
+      - dccNode
       - dccPerl
       - dccProlog
       - dccPython

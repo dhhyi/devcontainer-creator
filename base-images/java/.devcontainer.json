@@ -1,9 +1,0 @@
-{
-  "image": "ghcr.io/dhhyi/dcc-base-debian",
-  "features": {
-    "ghcr.io/roul/devcontainer-features/mise-java:1": {}
-  },
-  "containerEnv": {
-    "MISE_SHELL": "fish"
-  }
-}
