@@ -1,8 +1,12 @@
 {
-  "image": "debian:stable-20260112",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
+      "userGid": 1000,
+      "userUid": 1000,
       "installZsh": false,
       "installOhMyZsh": false,
       "installOhMyZshConfig": false,
@@ -27,7 +31,8 @@
       "-R",
       "vscode:vscode",
       "/home/vscode/.local/state/lazygit"
-    ]
+    ],
+    "mise": ["fish", "-c", "mise install --yes"]
   },
   "postAttachCommand": [
     "sh",

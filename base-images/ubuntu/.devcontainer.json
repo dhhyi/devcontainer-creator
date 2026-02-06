@@ -1,7 +1,12 @@
 {
-  "image": "ubuntu:noble-20260113",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "ubuntu",
+      "userGid": 1000,
+      "userUid": 1000,
       "installZsh": false,
       "installOhMyZsh": false,
       "installOhMyZshConfig": false,
@@ -26,7 +31,8 @@
       "-R",
       "ubuntu:ubuntu",
       "/home/ubuntu/.local/state/lazygit"
-    ]
+    ],
+    "mise": ["fish", "-c", "mise install --yes"]
   },
   "postAttachCommand": [
     "sh",
