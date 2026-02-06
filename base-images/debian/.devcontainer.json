@@ -1,7 +1,5 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "debian:stable-20260112",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
@@ -18,7 +16,8 @@
       "fisherPlugins": ["jhillyerd/plugin-git"]
     },
     "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {},
-    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {}
+    "ghcr.io/braun-daniel/devcontainer-features/fzf:1": {},
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
   },
   "mounts": [
     "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
