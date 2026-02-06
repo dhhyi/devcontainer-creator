@@ -1,4 +1,4 @@
-extends: base://ubuntu
+extends: dcc://ubuntu
 devcontainer:
   publish:
     image: dcc://node

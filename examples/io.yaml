@@ -1,4 +1,4 @@
-extends: base://ubuntu
+extends: dcc://ubuntu
 language:
   name: io
   binary: io

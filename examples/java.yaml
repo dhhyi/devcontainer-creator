@@ -1,4 +1,4 @@
-extends: base://debian
+extends: dcc://debian
 devcontainer:
   publish:
     image: dcc://java

@@ -1,4 +1,4 @@
-extends: base://ubuntu
+extends: dcc://ubuntu
 language:
   name: pony
   version: ponyc --version
