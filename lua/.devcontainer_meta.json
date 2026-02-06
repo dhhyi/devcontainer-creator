@@ -1,5 +1,8 @@
 [
   {
+    "id": "ghcr.io/devcontainers-extra/features/mise:1"
+  },
+  {
     "id": "ghcr.io/devcontainers/features/common-utils:2"
   },
   {
@@ -85,15 +88,26 @@
       ]
     },
     "postAttachCommand": [
-      "sh",
-      "-e",
-      "/disclaimer.sh",
+      "/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
       "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
     "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    }
   },
   {
     "customizations": {
