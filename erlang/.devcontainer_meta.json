@@ -1,0 +1,147 @@
+[
+  {
+    "id": "ghcr.io/devcontainers-extra/features/mise:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
+    "id": "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1"
+  },
+  {
+    "id": "ghcr.io/braun-daniel/devcontainer-features/fzf:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/git:1",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "github.copilot.chat.codeGeneration.instructions": [
+            {
+              "text": "This dev container includes an up-to-date version of Git, built from source as needed, pre-installed and available on the `PATH`."
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/meaningful-ooo/devcontainer-features/fish:2",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "fish"
+        }
+      }
+    }
+  },
+  {
+    "id": "ghcr.io/dhhyi/devcontainer-creator/dcc-helpers:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "GitHub.copilot"
+        ],
+        "settings": {
+          "terminal.integrated.profiles.linux": {
+            "fish": {
+              "path": "fish",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          "terminal.integrated.defaultProfile.linux": "fish",
+          "editor.formatOnSave": true,
+          "files.insertFinalNewline": true,
+          "files.trimFinalNewlines": true,
+          "files.trimTrailingWhitespace": true,
+          "[jsonc]": {
+            "editor.defaultFormatter": "vscode.json-language-features"
+          },
+          "task.autoDetect": "off"
+        }
+      }
+    }
+  },
+  {
+    "postCreateCommand": {
+      "helpers": [
+        "sudo",
+        "-E",
+        "/home/dcc/install-helpers.sh"
+      ],
+      "lazygit": [
+        "sudo",
+        "chown",
+        "-R",
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
+      ],
+      "mise": [
+        "fish",
+        "-c",
+        "mise install --yes"
+      ]
+    },
+    "postAttachCommand": [
+      "/disclaimer.fish",
+      "${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+    ],
+    "remoteUser": "vscode"
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "[erlang]": {
+            "editor.defaultFormatter": "szTheory.erlang-formatter",
+            "editor.tabSize": 2
+          },
+          "erlangFormatter.formatter": "erlfmt",
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        },
+        "extensions": [
+          "pgourlain.erlang",
+          "szTheory.erlang-formatter"
+        ]
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "escript",
+      "DCC_REPL": "erl",
+      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmVybCA8PEVPRgotbW9kdWxlKGhlbGxvd29ybGQpLiAtZXhwb3J0KFttYWluLzFdKS4KbWFpbihfKSAtPiAgICBpbzpmb3JtYXQoIkhlbGxvIFdvcmxkIVxuIikuCkVPRgpjZCAvdG1wCnJlYmFyMyBmbXQgLXcgaGVsbG93b3JsZC5lcmwKY2F0IGhlbGxvd29ybGQuZXJsCmVzY3JpcHQgaGVsbG93b3JsZC5lcmwK",
+      "DCC_VERSION": "erl +V"
+    }
+  },
+  {
+    "customizations": {
+      "dcc": {
+        "languageName": "erlang"
+      }
+    }
+  }
+]
