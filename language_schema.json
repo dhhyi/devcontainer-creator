@@ -1,0 +1,304 @@
+{
+  "$id": "https://example.com/language.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Language",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "devcontainer-build-file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path",
+        "content"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "script",
+            "file"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    },
+    "v-s-code-task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "command"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "extends": {
+      "type": "string",
+      "enum": [
+        "base://debian",
+        "base://ubuntu",
+        "dcc://cicada",
+        "dcc://clojure",
+        "dcc://crystal",
+        "dcc://dart",
+        "dcc://debian",
+        "dcc://deno",
+        "dcc://elixir",
+        "dcc://elm",
+        "dcc://erlang",
+        "dcc://factor",
+        "dcc://go",
+        "dcc://groovy",
+        "dcc://hare",
+        "dcc://haskell",
+        "dcc://idris2",
+        "dcc://io",
+        "dcc://java",
+        "dcc://javascript",
+        "dcc://javascript-pnpm",
+        "dcc://julia",
+        "dcc://koka",
+        "dcc://kotlin",
+        "dcc://lua",
+        "dcc://lualatex",
+        "dcc://moonscript",
+        "dcc://node",
+        "dcc://odin",
+        "dcc://perl",
+        "dcc://pony",
+        "dcc://prolog",
+        "dcc://python",
+        "dcc://raku",
+        "dcc://ruby",
+        "dcc://scala",
+        "dcc://tcl",
+        "dcc://ubuntu",
+        "dcc://v",
+        "dcc://zig"
+      ]
+    },
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "binary": {
+          "type": "string"
+        },
+        "binaryArgs": {
+          "type": "string"
+        },
+        "repl": {
+          "type": "string"
+        },
+        "version": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean",
+              "not": {
+                "const": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    "devcontainer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "build": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "args": {
+              "type": "object",
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/devcontainer-build-file"
+              }
+            },
+            "prepare": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "packages": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "user": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "root": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "selftest": {
+          "type": "string"
+        },
+        "remoteUser": {
+          "type": "string"
+        },
+        "instantiate": {
+          "type": "string"
+        },
+        "initialize": {
+          "type": "string"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "publish": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "image"
+          ],
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "labels": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "vscode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hideFiles": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "boolean",
+              "not": {
+                "const": true
+              }
+            }
+          ]
+        },
+        "settings": {
+          "type": "object"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/v-s-code-task"
+          }
+        }
+      }
+    },
+    "extras": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "forward-x11",
+          "traefik",
+          "tmpfs",
+          "named-volumes",
+          "tmux"
+        ]
+      }
+    },
+    "traefik": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network"
+      ],
+      "properties": {
+        "network": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object"
+        }
+      }
+    },
+    "tmpfs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "namedVolumes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}
