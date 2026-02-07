@@ -1,13 +1,13 @@
-extends: dcc://javascript
+extends: dcc://javascript-pnpm
 devcontainer:
   initialize: |
     mkdir -p $HOME/project
     cd $HOME/project
     echo '{"name":"test","dependencies":{"prettier":"*"}}' > package.json
-    yarn install
+    pnpm install
   selftest: cd $HOME/project && npm exec prettier -- --version
 extras:
   - named-volumes
 namedVolumes:
   node_modules: dcc-test-node-modules
-  $HOME/.cache/yarn: dcc-test-yarn-cache
+  $HOME/.cache/pnpm: dcc-test-pnpm-cache

@@ -1,5 +1,11 @@
 [
   {
+    "id": "ghcr.io/devcontainers-extra/features/mise:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
     "id": "ghcr.io/devcontainers/features/common-utils:2"
   },
   {
@@ -74,12 +80,15 @@
         "-R",
         "ubuntu:ubuntu",
         "/home/ubuntu/.local/state/lazygit"
+      ],
+      "mise": [
+        "fish",
+        "-c",
+        "mise install --yes"
       ]
     },
     "postAttachCommand": [
-      "sh",
-      "-e",
-      "/disclaimer.sh",
+      "/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
@@ -88,20 +97,32 @@
     "remoteUser": "ubuntu"
   },
   {
-    "id": "ghcr.io/devcontainers/features/node:1",
     "customizations": {
       "vscode": {
-        "extensions": [
-          "dbaeumer.vscode-eslint"
-        ],
         "settings": {
-          "github.copilot.chat.codeGeneration.instructions": [
-            {
-              "text": "This dev container includes `node`, `npm` and `eslint` pre-installed and available on the `PATH` for Node.js and JavaScript development."
-            }
-          ]
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
         }
       }
+    }
+  },
+  {
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
     }
   },
   {
@@ -130,8 +151,26 @@
     }
   },
   {
-    "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/yarn && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
-    "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "files.exclude": {
+            ".devcontainer": true,
+            ".update_devcontainer.sh": true,
+            ".vscode": true
+          }
+        }
+      }
+    },
+    "containerEnv": {
+      "DCC_BINARY": "node",
+      "DCC_REPL": "node",
+      "DCC_VERSION": "node --version; pnpm self-update && pnpm --version; /tmp/check-pnpm-volume.sh"
+    }
+  },
+  {
+    "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/pnpm && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
+    "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && pnpm install",
     "customizations": {
       "vscode": {
         "settings": {
@@ -145,7 +184,7 @@
     },
     "mounts": [
       "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
-      "type=volume,target=/home/ubuntu/.cache/yarn,source=dcc-test-yarn-cache"
+      "type=volume,target=/home/ubuntu/.cache/pnpm,source=dcc-test-pnpm-cache"
     ],
     "containerEnv": {
       "DCC_SELFTEST": "Y2QgJEhPTUUvcHJvamVjdCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="

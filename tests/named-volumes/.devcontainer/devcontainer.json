@@ -2,11 +2,11 @@
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
   "mounts": [
     "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
-    "type=volume,target=/home/ubuntu/.cache/yarn,source=dcc-test-yarn-cache"
+    "type=volume,target=/home/ubuntu/.cache/pnpm,source=dcc-test-pnpm-cache"
   ],
-  "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/yarn && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
-  "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
-  "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && yarn install",
+  "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/pnpm && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
+  "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm",
+  "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && pnpm install",
   "customizations": {
     "vscode": {
       "settings": {

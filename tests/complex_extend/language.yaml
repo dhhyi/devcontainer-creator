@@ -4,7 +4,7 @@ devcontainer:
   selftest: node -e 'console.log("Hello Extended!");'
   build:
     root:
-      - RUN npm i -g prettier
+      - RUN echo Hello from the build stage
 vscode:
   settings:
     foo: bar

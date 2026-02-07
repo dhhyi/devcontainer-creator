@@ -42,13 +42,12 @@ find tests -name 'language.yaml' | while read -r test; do
     if filter "$test" "$@"; then
         echo "Running $test"
         # shellcheck disable=SC2086
-        node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta -vv $args
+        node dist/bundle.js "$test" "$(dirname "$test")" --test --dump-meta $args
     fi
 done
 
-changes=$(git status -s | grep -v .devcontainer_meta.json)
-if [ -n "$changes" ]; then
+if git status --porcelain | grep -v .devcontainer_meta.json; then
     echo "tree is dirty, please commit changes"
-    git status -s
+    git status --porcelain
     exit 1
 fi

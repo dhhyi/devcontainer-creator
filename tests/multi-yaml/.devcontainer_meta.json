@@ -1,5 +1,11 @@
 [
   {
+    "id": "ghcr.io/devcontainers-extra/features/mise:1"
+  },
+  {
+    "id": "ghcr.io/devcontainers/features/common-utils:2"
+  },
+  {
     "id": "ghcr.io/devcontainers/features/common-utils:2"
   },
   {
@@ -74,12 +80,15 @@
         "-R",
         "ubuntu:ubuntu",
         "/home/ubuntu/.local/state/lazygit"
+      ],
+      "mise": [
+        "fish",
+        "-c",
+        "mise install --yes"
       ]
     },
     "postAttachCommand": [
-      "sh",
-      "-e",
-      "/disclaimer.sh",
+      "/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
