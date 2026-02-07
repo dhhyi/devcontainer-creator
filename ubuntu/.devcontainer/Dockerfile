@@ -1,6 +1,5 @@
 FROM ghcr.io/dhhyi/dcc-base-ubuntu
 
-ENV PATH="$HOME/.local/share/mise/shims:$PATH"
 SHELL ["/usr/bin/env", "fish", "-c"]
 
 USER ubuntu
