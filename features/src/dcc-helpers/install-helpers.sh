@@ -50,9 +50,6 @@ if status is-interactive
   fish_add_path $HOME/.fzf/bin
   fzf --fish | source
 
-  fish_add_path $HOME/.local/bin
-  mise activate fish | source
-
   set -g fish_greeting
 
   set -l PPID (ps -o ppid= -p %self | string trim)
@@ -61,6 +58,10 @@ if status is-interactive
     set -x GIT_EDITOR 'code --wait'
   end
 end
+
+fish_add_path $HOME/.local/bin
+mise activate fish | source
+
 EOF
 
 echo "setting up lazygit config"

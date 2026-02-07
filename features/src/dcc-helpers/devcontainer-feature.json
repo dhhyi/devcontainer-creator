@@ -1,7 +1,7 @@
 {
   "name": "Devcontainer Creator Helpers",
   "id": "dcc-helpers",
-  "version": "1.12.8",
+  "version": "1.12.9",
   "description": "Installs Devcontainer Creator Helpers",
   "options": {
     "fisherPlugins": {
