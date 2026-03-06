@@ -2,6 +2,14 @@
   "name": "dcc",
   "version": "1.0.0",
   "description": "devcontainer creator",
+  "engines": {
+    "node": ">=24"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm"
+    }
+  },
   "scripts": {
     "prepare": "husky && pnpm run fix-getopts-import",
     "fix-getopts-import": "sh -c \"find -wholename '*/getopts/index.d.ts' | xargs -rl sed -i 's/export = getopts/export default getopts/'\"",

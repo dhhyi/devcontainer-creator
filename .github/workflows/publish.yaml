@@ -45,12 +45,13 @@ jobs:
       - uses: actions/checkout@master
         with:
           fetch-depth: 0
-      - run: npm exec pnpm -- i --ignore-scripts
-        name: npm install
+      - uses: jdx/mise-action@v3
+      - run: pnpm i --ignore-scripts
+        name: pnpm install
       - run: |-
-          npm run lint
-          npm run format
-          npm run synchronize-ci
+          pnpm run lint
+          pnpm run format
+          pnpm run synchronize-ci
           git diff --exit-code
         name: Check Integrity
       - run: |-

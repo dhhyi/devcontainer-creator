@@ -1,0 +1,4 @@
+[tools]
+node = "24"
+pnpm = "latest"
+"npm:@devcontainers/cli" = "latest"

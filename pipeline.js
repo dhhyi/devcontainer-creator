@@ -106,11 +106,14 @@ const workflow = {
       steps: [
         { uses: 'actions/checkout@master', with: { 'fetch-depth': 0 } },
         {
-          run: 'npm exec pnpm -- i --ignore-scripts',
-          name: 'npm install',
+          uses: 'jdx/mise-action@v3',
         },
         {
-          run: 'npm run lint\nnpm run format\nnpm run synchronize-ci\ngit diff --exit-code',
+          run: 'pnpm i --ignore-scripts',
+          name: 'pnpm install',
+        },
+        {
+          run: 'pnpm run lint\npnpm run format\npnpm run synchronize-ci\ngit diff --exit-code',
           name: 'Check Integrity',
         },
         // {

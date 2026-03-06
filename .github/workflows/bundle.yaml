@@ -9,14 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Install latest devcontainer CLI
-        run: npm install -g @devcontainers/cli
+      - uses: jdx/mise-action@v3
 
       - name: Build
         run: |
-          npm exec pnpm -- i --prod --ignore-scripts
-          npm exec pnpm run fix-getopts-import
-          npm exec pnpm run build
+          pnpm i --prod --ignore-scripts
+          pnpm run fix-getopts-import
+          pnpm run build
         env:
           GIT_REV: ${{ github.sha }}
 

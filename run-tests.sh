@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 if [ -z "$CI" ]; then
-    npm exec pnpm -- i --prod --ignore-scripts
-    npm exec pnpm run build
+    pnpm i --prod --ignore-scripts
+    pnpm run build
 fi
 
 if [ -z "$*" ]; then

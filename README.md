@@ -12,4 +12,4 @@ Generated devcontainers can be previewed on the [branch `devcontainers`](https:/
 
 ## Dependencies
 
-- @devcontainers/cli (install using `npm i -g @devcontainers/cli@latest`)
+- @devcontainers/cli (install using `pnpm i -g @devcontainers/cli@latest`)
