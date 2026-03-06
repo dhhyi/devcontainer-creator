@@ -20,5 +20,10 @@ if [ -f "$vscode" ]
 end
 
 if type -q mise
-    mise list
+    cd "$1"
+    if [ -f "mise.toml" ]
+        mise trust mise.toml
+    end
+    mise install --yes
+    mise list --local
 end
