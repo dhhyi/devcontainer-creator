@@ -1,15 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
-  "name": "Example devcontainer for javascript-pnpm",
+  "name": "Example devcontainer for python",
   "runArgs": [
     "--name",
-    "example-devcontainer-for-javascript-pnpm-${devcontainerId}"
+    "example-devcontainer-for-python-${devcontainerId}"
   ],
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm-cache"
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-python-cache"
   },
-  "postStartCommand": "/tmp/check-pnpm-volume.sh",
   "customizations": {
     "vscode": {
       "settings": {
@@ -18,7 +17,14 @@
           ".update_devcontainer.sh": true,
           ".vscode": true
         }
-      }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
     }
+  },
+  "containerEnv": {
+    "DCC_SELFTEST": "cHl0aG9uIC1jICdwcmludCgiSGVsbG8gV29ybGQhIikn"
   }
 }

@@ -1,15 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
-  "name": "Example devcontainer for io",
+  "name": "Example devcontainer for go",
   "runArgs": [
     "--name",
-    "example-devcontainer-for-io-${devcontainerId}"
+    "example-devcontainer-for-go-${devcontainerId}"
   ],
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-io-cache",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-go-cache",
     "args": {
-      "IO_VERSION": "8d1566b5edf8f378618fc7739518d7a5c56de654"
+      "GO_VERSION": "1.23.0"
     }
   },
   "customizations": {
@@ -22,11 +22,11 @@
         }
       },
       "extensions": [
-        "kennethceyer.io"
+        "golang.Go"
       ]
     }
   },
   "containerEnv": {
-    "DCC_SELFTEST": "aW8gLWUgJ1JhbmRvbSBjbG9uZSA7IFJlZ2V4IGNsb25lIDsgTG9iYnkgUHJvdG9zIEFkZG9ucyBzbG90TmFtZXMgYXNKc29uIHByaW50bG4gOyAiSGVsbG8gV29ybGQhIiBwcmludGxuJyB8IGdyZXAgLTEgJ0hlbGxvIFdvcmxkISc="
+    "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuZ28gPDxFT0YKcGFja2FnZSBtYWluCmltcG9ydCAiZm10IgpmdW5jIG1haW4oKSB7IGZtdC5QcmludGxuKCJIZWxsbyBXb3JsZCEiKSB9CkVPRgpnbyBmbXQgL3RtcC9oZWxsb3dvcmxkLmdvCmNhdCAvdG1wL2hlbGxvd29ybGQuZ28KZ28gcnVuIC90bXAvaGVsbG93b3JsZC5nbwo="
   }
 }

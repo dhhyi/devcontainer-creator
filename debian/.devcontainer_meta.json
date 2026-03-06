@@ -78,8 +78,8 @@
         "sudo",
         "chown",
         "-R",
-        "ubuntu:ubuntu",
-        "/home/ubuntu/.local/state/lazygit"
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
       ]
     },
     "postAttachCommand": [
@@ -87,63 +87,11 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "ubuntu"
+    "remoteUser": "vscode"
   },
   {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "[javascript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
-          },
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        },
-        "extensions": [
-          "nicoespeon.abracadabra"
-        ]
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "postStartCommand": "/tmp/check-pnpm-volume.sh",
     "customizations": {
       "vscode": {
         "settings": {

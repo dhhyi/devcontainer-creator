@@ -78,8 +78,8 @@
         "sudo",
         "chown",
         "-R",
-        "ubuntu:ubuntu",
-        "/home/ubuntu/.local/state/lazygit"
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
       ]
     },
     "postAttachCommand": [
@@ -87,9 +87,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "ubuntu"
+    "remoteUser": "vscode"
   },
   {
     "customizations": {
@@ -108,24 +108,33 @@
     "customizations": {
       "vscode": {
         "settings": {
+          "[erlang]": {
+            "editor.defaultFormatter": "szTheory.erlang-formatter",
+            "editor.tabSize": 2
+          },
+          "erlangFormatter.formatter": "erlfmt",
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "pgourlain.erlang",
+          "szTheory.erlang-formatter"
+        ]
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
+      "DCC_SELFTEST": "Y2F0ID4gL3RtcC9oZWxsb3dvcmxkLmVybCA8PEVPRgotbW9kdWxlKGhlbGxvd29ybGQpLiAtZXhwb3J0KFttYWluLzFdKS4KbWFpbihfKSAtPiAgICBpbzpmb3JtYXQoIkhlbGxvIFdvcmxkIVxuIikuCkVPRgpjZCAvdG1wCnJlYmFyMyBmbXQgLXcgaGVsbG93b3JsZC5lcmwKY2F0IGhlbGxvd29ybGQuZXJsCmVzY3JpcHQgaGVsbG93b3JsZC5lcmwK"
     }
   },
   {
     "customizations": {
       "vscode": {
         "settings": {
-          "[javascript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
+          "[elixir]": {
+            "editor.defaultFormatter": "JakeBecker.elixir-ls"
           },
           "files.exclude": {
             ".devcontainer": true,
@@ -134,26 +143,12 @@
           }
         },
         "extensions": [
-          "nicoespeon.abracadabra"
+          "JakeBecker.elixir-ls"
         ]
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "postStartCommand": "/tmp/check-pnpm-volume.sh",
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
+      "DCC_SELFTEST": "ZWxpeGlyIC1lICdJTy5wdXRzICJIZWxsbyBXb3JsZCEiJw=="
     }
   }
 ]

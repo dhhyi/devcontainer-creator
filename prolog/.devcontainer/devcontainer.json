@@ -1,20 +1,23 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
-  "name": "Example devcontainer for io",
+  "name": "Example devcontainer for prolog",
   "runArgs": [
     "--name",
-    "example-devcontainer-for-io-${devcontainerId}"
+    "example-devcontainer-for-prolog-${devcontainerId}"
   ],
   "build": {
     "dockerfile": "Dockerfile",
-    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-io-cache",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-prolog-cache",
     "args": {
-      "IO_VERSION": "8d1566b5edf8f378618fc7739518d7a5c56de654"
+      "PROLOG_VERSION": "1.5.0"
     }
   },
   "customizations": {
     "vscode": {
       "settings": {
+        "files.associations": {
+          "*.pl": "prolog"
+        },
         "files.exclude": {
           ".devcontainer": true,
           ".update_devcontainer.sh": true,
@@ -22,11 +25,11 @@
         }
       },
       "extensions": [
-        "kennethceyer.io"
+        "rebornix.prolog"
       ]
     }
   },
   "containerEnv": {
-    "DCC_SELFTEST": "aW8gLWUgJ1JhbmRvbSBjbG9uZSA7IFJlZ2V4IGNsb25lIDsgTG9iYnkgUHJvdG9zIEFkZG9ucyBzbG90TmFtZXMgYXNKc29uIHByaW50bG4gOyAiSGVsbG8gV29ybGQhIiBwcmludGxuJyB8IGdyZXAgLTEgJ0hlbGxvIFdvcmxkISc="
+    "DCC_SELFTEST": "Z3Byb2xvZyAtLXF1ZXJ5LWdvYWwgIndyaXRlKCdIZWxsbyBXb3JsZCFcbicpLGhhbHQi"
   }
 }

@@ -78,8 +78,8 @@
         "sudo",
         "chown",
         "-R",
-        "ubuntu:ubuntu",
-        "/home/ubuntu/.local/state/lazygit"
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
       ]
     },
     "postAttachCommand": [
@@ -87,9 +87,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "ubuntu"
+    "remoteUser": "vscode"
   },
   {
     "customizations": {
@@ -108,25 +108,6 @@
     "customizations": {
       "vscode": {
         "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "[javascript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
-          },
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
@@ -134,16 +115,16 @@
           }
         },
         "extensions": [
-          "nicoespeon.abracadabra"
+          "sumneko.lua",
+          "bubuabu.busted-test-explorer"
         ]
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
+      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn"
     }
   },
   {
-    "postStartCommand": "/tmp/check-pnpm-volume.sh",
     "customizations": {
       "vscode": {
         "settings": {
@@ -152,8 +133,14 @@
             ".update_devcontainer.sh": true,
             ".vscode": true
           }
-        }
+        },
+        "extensions": [
+          "vgalaktionov.moonscript"
+        ]
       }
+    },
+    "containerEnv": {
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo="
     }
   }
 ]

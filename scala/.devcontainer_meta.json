@@ -78,8 +78,8 @@
         "sudo",
         "chown",
         "-R",
-        "ubuntu:ubuntu",
-        "/home/ubuntu/.local/state/lazygit"
+        "vscode:vscode",
+        "/home/vscode/.local/state/lazygit"
       ]
     },
     "postAttachCommand": [
@@ -87,9 +87,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "ubuntu"
+    "remoteUser": "vscode"
   },
   {
     "customizations": {
@@ -117,43 +117,33 @@
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
+      "DCC_SELFTEST": "amF2YSAtdmVyc2lvbg=="
     }
   },
   {
     "customizations": {
       "vscode": {
         "settings": {
-          "[javascript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
+          "[scala]": {
+            "editor.defaultFormatter": "scalameta.metals",
+            "editor.tabSize": 2
           },
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
+          },
+          "files.watcherExclude": {
+            "**/target": true
           }
         },
         "extensions": [
-          "nicoespeon.abracadabra"
+          "scalameta.metals"
         ]
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "postStartCommand": "/tmp/check-pnpm-volume.sh",
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
+      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQuc2NhbGEgPDxFT0YKQG1haW4gZGVmIG1haW4oKSA9IHsKICAgIHByaW50bG4oIkhlbGxvIFdvcmxkISIpCn0KRU9GCmFtbSAvdG1wL2hlbGxvd29ybGQuc2NhbGEK"
     }
   }
 ]

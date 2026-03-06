@@ -103,57 +103,5 @@
         }
       }
     }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "[javascript]": {
-            "editor.defaultFormatter": "vscode.typescript-language-features"
-          },
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        },
-        "extensions": [
-          "nicoespeon.abracadabra"
-        ]
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
-    }
-  },
-  {
-    "postStartCommand": "/tmp/check-pnpm-volume.sh",
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        }
-      }
-    }
   }
 ]
