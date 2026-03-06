@@ -9,7 +9,7 @@
     "dockerfile": "Dockerfile",
     "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-io-cache",
     "args": {
-      "IO_VERSION": "master"
+      "IO_VERSION": "8d1566b5edf8f378618fc7739518d7a5c56de654"
     }
   },
   "customizations": {

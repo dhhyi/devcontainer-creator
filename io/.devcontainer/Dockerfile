@@ -9,8 +9,8 @@ ENV HOME=/home/ubuntu
 
 ARG IO_VERSION
 
-RUN git clone -b $IO_VERSION --single-branch --depth 1 --recursive https://github.com/IoLanguage/io.git /tmp/io
-RUN cd /tmp/io && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=release .. && make && sudo make install && io setup.io
+RUN git clone --recursive https://github.com/IoLanguage/io.git /tmp/io
+RUN cd /tmp/io && git reset --hard $IO_VERSION && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=release .. && make && sudo make install && io setup.io
 ENV EERIEDIR=${HOME}/.eerie PATH=${PATH}:${HOME}/.eerie/base/bin:${HOME}/.eerie/activeEnv/bin
 WORKDIR ${HOME}
 RUN eerie install https://github.com/IoLanguage/Regex.git
