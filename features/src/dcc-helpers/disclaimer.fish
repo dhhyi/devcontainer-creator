@@ -18,3 +18,7 @@ if [ -f "$vscode" ]
         echo "- $label"
     end
 end
+
+if type -q mise
+    mise list
+end
