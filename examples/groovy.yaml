@@ -1,7 +1,4 @@
 extends: dcc://java
-language:
-  name: groovy
-  binary: groovy
 devcontainer:
   publish:
     image: dcc://groovy

@@ -1,8 +1,4 @@
 extends: dcc://java
-language:
-  name: scala
-  binary: amm
-  repl: amm
 devcontainer:
   publish:
     image: dcc://scala

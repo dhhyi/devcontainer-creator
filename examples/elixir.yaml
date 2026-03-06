@@ -1,8 +1,4 @@
 extends: dcc://erlang
-language:
-  name: elixir
-  binary: elixir
-  repl: iex
 devcontainer:
   publish:
     image: dcc://elixir

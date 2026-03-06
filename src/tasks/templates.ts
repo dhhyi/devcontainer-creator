@@ -60,27 +60,6 @@ const VSCodeTasksTemplate = (desc: Language): VSCodeTasksType | undefined => {
 
   const tasks = [];
 
-  if (desc.language?.binary) {
-    let command = 'cont ${fileDirname} ' + desc.language.binary;
-    if (desc.language.binaryArgs) {
-      command += ` ${desc.language.binaryArgs}`;
-    }
-    command += ' ${file}';
-
-    tasks.push(task('Run file continuously', command));
-
-    tasks.push(
-      task(
-        'Run file continuously with arguments',
-        command + ' ${input:arguments}'
-      )
-    );
-  }
-
-  if (desc.language?.repl) {
-    tasks.push(task('Start REPL', desc.language.repl));
-  }
-
   if (desc.vscode?.tasks?.length) {
     tasks.push(...desc.vscode.tasks.map((t) => task(t.label, t.command)));
   }
@@ -90,18 +69,6 @@ const VSCodeTasksTemplate = (desc: Language): VSCodeTasksType | undefined => {
       version: '2.0.0',
       tasks: tasks,
     };
-
-    if (desc.language?.binary) {
-      json.inputs = [
-        {
-          type: 'promptString',
-          id: 'arguments',
-          description: 'Arguments.',
-          default: '1 2 3 4 5',
-        },
-      ];
-    }
-
     return json;
   }
 };
@@ -321,33 +288,7 @@ const DevcontainerJSONTemplate = (
     json.customizations = { vscode };
   }
 
-  const containerEnv: DevcontainerJSONType['containerEnv'] = desc.language
-    ? {
-        DCC_BINARY: '',
-        DCC_REPL: '',
-        DCC_VERSION: '',
-      }
-    : {};
-  if (desc.language?.binary) {
-    let command = desc.language.binary;
-    if (desc.language.binaryArgs) {
-      command += ` ${desc.language.binaryArgs}`;
-    }
-    containerEnv.DCC_BINARY = command;
-  }
-  if (desc.language?.repl) {
-    containerEnv.DCC_REPL = desc.language.repl;
-  }
-  if (desc.language?.version !== false) {
-    if (typeof desc.language?.version === 'string') {
-      containerEnv.DCC_VERSION = desc.language.version
-        .trim()
-        .split('\n')
-        .join('; ');
-    } else if (desc.language?.binary) {
-      containerEnv.DCC_VERSION = `${desc.language.binary} --version`;
-    }
-  }
+  const containerEnv: DevcontainerJSONType['containerEnv'] = {};
   if (desc.devcontainer?.selftest) {
     containerEnv.DCC_SELFTEST = Buffer.from(
       desc.devcontainer.selftest

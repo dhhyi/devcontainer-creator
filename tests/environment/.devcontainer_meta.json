@@ -80,15 +80,10 @@
         "-R",
         "ubuntu:ubuntu",
         "/home/ubuntu/.local/state/lazygit"
-      ],
-      "mise": [
-        "fish",
-        "-c",
-        "mise install --yes"
       ]
     },
     "postAttachCommand": [
-      "/disclaimer.fish",
+      "/home/dcc/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
@@ -144,10 +139,7 @@
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "node",
-      "DCC_REPL": "node",
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw==",
-      "DCC_VERSION": "node --version"
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
     }
   },
   {

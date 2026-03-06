@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: haskell
-  binary: runhaskell
-  repl: ghci
-  version: ghc --version
 devcontainer:
   publish:
     image: dcc://haskell

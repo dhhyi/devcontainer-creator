@@ -1,11 +1,4 @@
 extends: dcc://javascript
-language:
-  binary: node
-  repl: node
-  version: |
-    node --version
-    pnpm self-update && pnpm --version
-    /tmp/check-pnpm-volume.sh
 devcontainer:
   publish:
     image: dcc://javascript-pnpm
@@ -28,3 +21,4 @@ devcontainer:
           if ! mount | grep -q $HOME/.cache/pnpm; then
             echo -e "\e[31mWARNING: it is recommended to mount $HOME/.cache/pnpm as a named volume\e[0m"
           fi
+  initialize: /tmp/check-pnpm-volume.sh

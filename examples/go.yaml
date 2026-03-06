@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: go
-  binary: go
-  binaryArgs: run
-  version: go version
 devcontainer:
   publish:
     image: dcc://go

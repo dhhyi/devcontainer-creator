@@ -92,37 +92,6 @@
         "dcc://zig"
       ]
     },
-    "language": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "binary": {
-          "type": "string"
-        },
-        "binaryArgs": {
-          "type": "string"
-        },
-        "repl": {
-          "type": "string"
-        },
-        "version": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "boolean",
-              "not": {
-                "const": true
-              }
-            }
-          ]
-        }
-      }
-    },
     "devcontainer": {
       "type": "object",
       "additionalProperties": false,

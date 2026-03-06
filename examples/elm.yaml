@@ -1,8 +1,4 @@
 extends: dcc://node
-language:
-  name: elm
-  repl: elm repl
-  version: elm --version
 devcontainer:
   publish:
     image: dcc://elm

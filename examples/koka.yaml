@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: koka
-  repl: koka
-  binary: koka
-  binaryArgs: -e
 devcontainer:
   publish:
     image: dcc://koka

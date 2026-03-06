@@ -1,9 +1,4 @@
 extends: dcc://node
-language:
-  name: cicada
-  repl: cic
-  binary: cic
-  binaryArgs: run
 devcontainer:
   publish:
     image: dcc://cicada

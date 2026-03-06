@@ -83,7 +83,7 @@
       ]
     },
     "postAttachCommand": [
-      "/disclaimer.fish",
+      "/home/dcc/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
@@ -139,13 +139,11 @@
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "node",
-      "DCC_REPL": "node",
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw==",
-      "DCC_VERSION": "node --version"
+      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIFdvcmxkISIpJw=="
     }
   },
   {
+    "postStartCommand": "/tmp/check-pnpm-volume.sh",
     "customizations": {
       "vscode": {
         "settings": {
@@ -156,11 +154,6 @@
           }
         }
       }
-    },
-    "containerEnv": {
-      "DCC_BINARY": "node",
-      "DCC_REPL": "node",
-      "DCC_VERSION": "node --version; pnpm self-update && pnpm --version; /tmp/check-pnpm-volume.sh"
     }
   },
   {

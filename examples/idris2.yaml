@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: idris
-  repl: idris2
-  binary: runidris
-  version: idris2 --version
 devcontainer:
   publish:
     image: dcc://idris2

@@ -27,7 +27,6 @@ export interface VSCodeMetaType {
 
 interface DCCMetaType {
   tasks?: VSCodeTask[];
-  languageName?: string;
 }
 
 interface DevcontainerMetaType {
@@ -123,9 +122,6 @@ export const ConstructedDCCMeta: () => Promise<
   const dcc: Record<string, unknown> = {};
   if (yaml.vscode?.tasks) {
     dcc.tasks = yaml.vscode.tasks;
-  }
-  if (yaml.language?.name) {
-    dcc.languageName = yaml.language.name;
   }
   if (Object.keys(dcc).length > 0) {
     return {

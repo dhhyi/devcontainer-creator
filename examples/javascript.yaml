@@ -1,7 +1,4 @@
 extends: dcc://node
-language:
-  binary: node
-  repl: node
 devcontainer:
   publish:
     image: dcc://javascript

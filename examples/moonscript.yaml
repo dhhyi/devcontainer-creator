@@ -1,8 +1,4 @@
 extends: dcc://lua
-language:
-  name: moonscript
-  binary: moon
-  version: moonc -v .
 devcontainer:
   publish:
     image: dcc://moonscript

@@ -1,11 +1,4 @@
 extends: dcc://debian
-language:
-  name: ruby
-  binary: ruby
-  repl: irb
-  version: |
-    rubocop --version
-    ruby --version
 devcontainer:
   publish:
     image: dcc://ruby

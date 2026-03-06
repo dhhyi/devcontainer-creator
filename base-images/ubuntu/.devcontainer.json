@@ -32,6 +32,9 @@
       "/home/ubuntu/.local/state/lazygit"
     ]
   },
-  "postAttachCommand": ["/disclaimer.fish", "${containerWorkspaceFolder}"],
+  "postAttachCommand": [
+    "/home/dcc/disclaimer.fish",
+    "${containerWorkspaceFolder}"
+  ],
   "remoteUser": "ubuntu"
 }
