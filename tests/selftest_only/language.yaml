@@ -1,4 +1,2 @@
-language:
-  binary: bash
 devcontainer:
   selftest: bash -c "echo 'Hello World!'"

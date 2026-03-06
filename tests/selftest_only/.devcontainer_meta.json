@@ -80,11 +80,6 @@
         "-R",
         "vscode:vscode",
         "/home/vscode/.local/state/lazygit"
-      ],
-      "mise": [
-        "fish",
-        "-c",
-        "mise install --yes"
       ]
     },
     "postAttachCommand": [
@@ -109,10 +104,7 @@
       }
     },
     "containerEnv": {
-      "DCC_BINARY": "bash",
-      "DCC_REPL": "",
-      "DCC_SELFTEST": "YmFzaCAtYyAiZWNobyAnSGVsbG8gV29ybGQhJyI=",
-      "DCC_VERSION": "bash --version"
+      "DCC_SELFTEST": "YmFzaCAtYyAiZWNobyAnSGVsbG8gV29ybGQhJyI="
     }
   }
 ]

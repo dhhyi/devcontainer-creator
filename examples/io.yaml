@@ -1,8 +1,4 @@
 extends: dcc://ubuntu
-language:
-  name: io
-  binary: io
-  repl: io
 devcontainer:
   publish:
     image: dcc://io

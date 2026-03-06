@@ -1,12 +1,4 @@
 extends: dcc://java
-language:
-  name: clojure
-  binary: clojure
-  repl: clojure
-  binaryArgs: -M
-  version: |
-    clojure-lsp --version
-    clojure --version
 devcontainer:
   publish:
     image: dcc://clojure

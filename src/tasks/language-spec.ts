@@ -234,37 +234,15 @@ export const ExpandedYaml = once(async () => {
 
   const resolvedYaml = await ResolvedYaml();
 
-  if (!Object.keys(resolvedYaml?.language || {}).length) {
-    const language: Language['language'] = {};
-    if (merged?.containerEnv?.DCC_REPL) {
-      language.repl = merged.containerEnv.DCC_REPL;
-    }
-    if (merged?.containerEnv?.DCC_BINARY) {
-      const split = merged.containerEnv.DCC_BINARY.split(' ');
-      const binary = split[0];
-      language.binary = binary;
-      if (split.length > 1) {
-        language.binaryArgs = split.slice(1).join(' ');
-      }
-    }
-    if (merged?.containerEnv?.DCC_VERSION) {
-      language.version = merged.containerEnv.DCC_VERSION;
-    }
-    if (Object.keys(language).length) {
-      resolvedYaml.language = language;
-    }
-  }
   const custom = [
     ...(merged.customizations?.dcc || []),
     {
       tasks: resolvedYaml.vscode?.tasks,
-      languageName: resolvedYaml.language?.name,
     },
   ].reduce((acc, val) => ({
     tasks: [...(acc.tasks || []), ...(val.tasks || [])].filter(
       (v, i, a) => a.findIndex((t) => t.label === v.label) === i
     ),
-    languageName: val.languageName || acc.languageName,
   }));
 
   if (custom?.tasks) {
@@ -272,12 +250,6 @@ export const ExpandedYaml = once(async () => {
       resolvedYaml.vscode = {};
     }
     resolvedYaml.vscode.tasks = custom.tasks;
-  }
-  if (custom?.languageName) {
-    if (!resolvedYaml.language) {
-      resolvedYaml.language = {};
-    }
-    resolvedYaml.language.name = custom.languageName;
   }
 
   return resolvedYaml;

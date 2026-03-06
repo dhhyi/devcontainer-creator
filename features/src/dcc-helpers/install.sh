@@ -2,22 +2,12 @@
 
 packages=""
 
-if ! command -v envsubst > /dev/null; then
-    packages="$packages gettext-base"
-fi
-
 if ! command -v base64 > /dev/null; then
     packages="$packages coreutils"
 fi
 
 if ! command -v jq > /dev/null; then
     packages="$packages jq"
-fi
-
-if command -v npm > /dev/null; then
-    npm i -g onchange
-elif ! command -v inotifywait > /dev/null; then
-    packages="$packages inotify-tools"
 fi
 
 if [ -n "$packages" ]; then
@@ -31,8 +21,8 @@ if [ -n "$packages" ]; then
 fi
 
 mkdir -p /home/dcc
-cp cont.sh disclaimer.fish install-helpers.sh /home/dcc
-chmod +x /home/dcc/*.sh
+cp disclaimer.fish install-helpers.sh /home/dcc
+chmod +x /home/dcc/*.*sh
 
 user="$(cat /etc/passwd | grep "1000:1000" | cut -d: -f1)"
 

@@ -3,7 +3,7 @@
 # shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
-check "disclaimer executes" /disclaimer.fish
+check "disclaimer executes" /home/dcc/disclaimer.fish
 
 check "selftest exists" cat /selftest.sh
 

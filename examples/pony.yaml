@@ -1,7 +1,4 @@
 extends: dcc://ubuntu
-language:
-  name: pony
-  version: ponyc --version
 devcontainer:
   publish:
     image: dcc://pony

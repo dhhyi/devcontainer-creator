@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: zig
-  binary: zig
-  binaryArgs: run
-  version: zig version
 devcontainer:
   publish:
     image: dcc://zig

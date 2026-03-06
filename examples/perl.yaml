@@ -1,7 +1,4 @@
 extends: dcc://debian
-language:
-  name: perl
-  binary: perl
 devcontainer:
   publish:
     image: dcc://perl

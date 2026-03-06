@@ -1,8 +1,4 @@
 extends: dcc://debian
-language:
-  name: odin
-  binary: runodin
-  version: odin version
 devcontainer:
   publish:
     image: dcc://odin

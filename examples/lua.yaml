@@ -1,11 +1,4 @@
 extends: dcc://debian
-language:
-  name: lua
-  binary: lua
-  repl: lua
-  version: |
-    lua -v
-    luarocks --version
 devcontainer:
   publish:
     image: dcc://lua
@@ -34,6 +27,3 @@ vscode:
   extensions:
     - sumneko.lua
     - bubuabu.busted-test-explorer
-  tasks:
-    - label: Run busted continuously on test
-      command: "cont '${fileDirname}/**' busted ${file}"

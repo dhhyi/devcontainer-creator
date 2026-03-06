@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: tcl
-  binary: tclsh
-  repl: tclsh
-  version: echo 'puts [info patchlevel]' | tclsh
 devcontainer:
   publish:
     image: dcc://tcl

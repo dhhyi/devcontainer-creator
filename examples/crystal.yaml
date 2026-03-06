@@ -1,7 +1,4 @@
 extends: dcc://debian
-language:
-  name: crystal
-  binary: crystal
 devcontainer:
   publish:
     image: dcc://crystal

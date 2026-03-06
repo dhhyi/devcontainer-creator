@@ -1,10 +1,4 @@
 extends: dcc://debian
-language:
-  name: factor
-  binary: factor
-  binaryArgs: -run
-  repl: factor
-  version: false
 devcontainer:
   publish:
     image: dcc://factor

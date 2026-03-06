@@ -80,11 +80,6 @@
         "-R",
         "vscode:vscode",
         "/home/vscode/.local/state/lazygit"
-      ],
-      "mise": [
-        "fish",
-        "-c",
-        "mise install --yes"
       ]
     },
     "postAttachCommand": [

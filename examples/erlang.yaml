@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: erlang
-  binary: escript
-  repl: erl
-  version: erl +V
 devcontainer:
   publish:
     image: dcc://erlang

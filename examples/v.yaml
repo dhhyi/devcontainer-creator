@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: v
-  binary: v
-  binaryArgs: run
-  repl: v
 devcontainer:
   publish:
     image: dcc://v

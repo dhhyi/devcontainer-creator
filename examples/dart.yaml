@@ -1,7 +1,4 @@
 extends: dcc://debian
-language:
-  name: dart
-  binary: dart
 devcontainer:
   publish:
     image: dcc://dart

@@ -1,8 +1,4 @@
 extends: dcc://debian
-language:
-  name: deno
-  binary: deno
-  binaryArgs: run
 devcontainer:
   publish:
     image: dcc://deno

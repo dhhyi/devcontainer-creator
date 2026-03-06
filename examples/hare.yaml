@@ -1,9 +1,4 @@
 extends: dcc://debian
-language:
-  name: hare
-  binary: hare
-  binaryArgs: run
-  version: hare version
 devcontainer:
   publish:
     image: dcc://hare

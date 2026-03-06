@@ -1,6 +1,4 @@
 extends: dcc://java
-language:
-  name: kotlin
 devcontainer:
   publish:
     image: dcc://kotlin
