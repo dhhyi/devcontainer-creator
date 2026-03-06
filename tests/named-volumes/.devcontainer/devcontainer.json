@@ -6,7 +6,6 @@
   ],
   "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/pnpm && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu",
   "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm",
-  "postStartCommand": "mkdir -p $HOME/project && cd $HOME/project && echo '{\"name\":\"test\",\"dependencies\":{\"prettier\":\"*\"}}' > package.json && pnpm install",
   "customizations": {
     "vscode": {
       "settings": {
@@ -19,6 +18,6 @@
     }
   },
   "containerEnv": {
-    "DCC_SELFTEST": "Y2QgJEhPTUUvcHJvamVjdCAmJiBucG0gZXhlYyBwcmV0dGllciAtLSAtLXZlcnNpb24="
+    "DCC_SELFTEST": "bWtkaXIgLXAgJEhPTUUvcHJvamVjdApjZCAkSE9NRS9wcm9qZWN0CmVjaG8gJ3sibmFtZSI6InRlc3QiLCJkZXBlbmRlbmNpZXMiOnsicHJldHRpZXIiOiIqIn19JyA+IHBhY2thZ2UuanNvbgpwbnBtIGluc3RhbGwKLi9ub2RlX21vZHVsZXMvLmJpbi9wcmV0dGllciAtLXZlcnNpb24K"
   }
 }

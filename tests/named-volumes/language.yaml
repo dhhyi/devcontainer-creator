@@ -1,11 +1,11 @@
 extends: dcc://javascript-pnpm
 devcontainer:
-  initialize: |
+  selftest: |
     mkdir -p $HOME/project
     cd $HOME/project
     echo '{"name":"test","dependencies":{"prettier":"*"}}' > package.json
     pnpm install
-  selftest: cd $HOME/project && npm exec prettier -- --version
+    ./node_modules/.bin/prettier --version
 extras:
   - named-volumes
 namedVolumes:
