@@ -8,5 +8,5 @@ if type -q mise
         end
     end
     mise install --yes
-    mise list --local
+    mise list
 end
