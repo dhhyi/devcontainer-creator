@@ -24,13 +24,7 @@
   ],
   "postCreateCommand": {
     "helpers": ["sudo", "-E", "/home/dcc/install-helpers.sh"],
-    "lazygit": [
-      "sudo",
-      "chown",
-      "-R",
-      "vscode:vscode",
-      "/home/vscode/.local/state/lazygit"
-    ]
+    "lazygit": ["sudo", "chown", "-R", "vscode:vscode", "/home/vscode/.local"]
   },
   "postAttachCommand": [
     "/home/dcc/disclaimer.fish",

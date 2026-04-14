@@ -79,7 +79,7 @@
         "chown",
         "-R",
         "vscode:vscode",
-        "/home/vscode/.local/state/lazygit"
+        "/home/vscode/.local"
       ]
     },
     "postAttachCommand": [
