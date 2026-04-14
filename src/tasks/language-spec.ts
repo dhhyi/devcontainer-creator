@@ -171,31 +171,22 @@ export const ResolvedYaml = once(async () => {
     }
     resolvedYaml.devcontainer.build.packages.push('tmux');
 
-    if (!resolvedYaml.devcontainer.build.files) {
-      resolvedYaml.devcontainer.build.files = [];
-    }
-    resolvedYaml.devcontainer.build.files.push({
-      type: 'script',
-      path: '/tmux-or-else.sh',
-      content: `
-#!/bin/bash
-if [ -z "$*" ]; then
-  tmux new-session -A -s tmux
-fi
-exec sh "$@"
-`,
-    });
-
     if (!resolvedYaml.vscode.settings) {
       resolvedYaml.vscode.settings = {};
     }
-    resolvedYaml.vscode.settings['terminal.integrated.defaultProfile.linux'] =
-      'tmux';
+    resolvedYaml.vscode.settings['chat.tools.terminal.terminalProfile.linux'] =
+      {
+        path: '/usr/bin/bash',
+      };
     resolvedYaml.vscode.settings['terminal.integrated.profiles.linux'] = {
-      tmux: {
-        path: '/tmux-or-else.sh',
+      'tmux-reuse': {
+        path: '/usr/bin/tmux',
+        icon: 'terminal-tmux',
+        args: ['new-session', '-A', '-s', 'vscode'],
       },
     };
+    resolvedYaml.vscode.settings['terminal.integrated.defaultProfile.linux'] =
+      'tmux-reuse';
   }
 
   if (VERY_VERBOSE) {
