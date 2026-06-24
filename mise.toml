@@ -1,7 +1,18 @@
 [tools]
 node = "24"
 pnpm = "latest"
-"npm:@devcontainers/cli" = "latest"
+
+[hooks]
+postinstall = '''
+pnpm setup
+pnpm add -g npm:@devcontainers/cli
+'''
+
+[settings]
+experimental = true
 
 [settings.npm]
 package_manager = "pnpm"
+
+[env]
+_.path = { path = ["{{env.HOME}}/.local/share/pnpm/bin"] }
