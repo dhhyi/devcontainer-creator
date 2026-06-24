@@ -2,3 +2,6 @@
 node = "24"
 pnpm = "latest"
 "npm:@devcontainers/cli" = "latest"
+
+[settings.npm]
+package_manager = "pnpm"
