@@ -32,14 +32,17 @@ function transitiveLanguages() {
   return transitive;
 }
 
+function toPascalCase(str) {
+  return str
+    .split(/[-_]/)
+    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+    .join('');
+}
+
 function output(langs = [], buildBase = false) {
   console.log(`languages=${JSON.stringify(langs)}`);
   allLanguages().forEach((lang) => {
-    console.log(
-      `dcc${lang.substring(0, 1).toUpperCase()}${lang.substring(
-        1
-      )}=${langs.includes(lang)}`
-    );
+    console.log(`dcc${toPascalCase(lang)}=${langs.includes(lang)}`);
   });
   console.log(`buildLanguages=${!!langs.length}`);
   console.log(`buildBase=${buildBase}`);
