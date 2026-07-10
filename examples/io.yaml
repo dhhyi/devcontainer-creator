@@ -13,9 +13,15 @@ devcontainer:
       - libpcre3-dev
       - libevent-dev
       - cmake
+      - pkgconf
     user:
-      - RUN git clone --recursive https://github.com/IoLanguage/io.git /tmp/io
-      - RUN cd /tmp/io && git reset --hard $IO_VERSION && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=release .. && make && sudo make install && io setup.io
+      - RUN git clone --branch native --recursive https://github.com/IoLanguage/io.git /tmp/io
+      - RUN cd /tmp/io && git checkout $IO_VERSION
+      - RUN cd /tmp/io && mkdir build
+      - RUN cd /tmp/io/build && cmake -DCMAKE_BUILD_TYPE=release ..
+      - RUN cd /tmp/io/build && make
+      - RUN cd /tmp/io/build && sudo make install
+      - RUN cd /tmp/io/build && io_static setup.io
 
       - ENV EERIEDIR=${HOME}/.eerie PATH=${PATH}:${HOME}/.eerie/base/bin:${HOME}/.eerie/activeEnv/bin
       - WORKDIR ${HOME}
