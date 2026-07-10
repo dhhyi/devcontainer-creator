@@ -22,11 +22,11 @@ export const RunDevcontainer = once(async () => {
       `${key}=${value}`,
     ]),
     image,
-    'sh',
+    'fish',
     '-c',
     [
       'sudo -E /home/dcc/install-helpers.sh',
-      '/disclaimer.fish',
+      '/home/dcc/disclaimer.fish',
       'cd $HOME',
       'fish',
     ].join(' && '),
