@@ -9,6 +9,7 @@ devcontainer:
 vscode:
   extensions:
     - nicoespeon.abracadabra
+    - MylesMurphy.prettify-ts
   settings:
     "[javascript]":
       editor.defaultFormatter: vscode.typescript-language-features
