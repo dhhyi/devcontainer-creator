@@ -272,7 +272,11 @@ const DevcontainerJSONTemplate = (
   if (desc.vscode?.settings) {
     settings = desc.vscode.settings;
   }
-  if (desc.vscode && Array.isArray(desc.vscode.hideFiles)) {
+  if (
+    desc.vscode &&
+    Array.isArray(desc.vscode.hideFiles) &&
+    desc.vscode.hideFiles.length > 0
+  ) {
     settings['files.exclude'] = desc.vscode.hideFiles.reduce(
       (acc, f) => ({ ...acc, [f]: true }),
       {}

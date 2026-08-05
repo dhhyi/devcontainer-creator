@@ -119,7 +119,7 @@ export const ResolvedYaml = once(async () => {
   if (!resolvedYaml.vscode) {
     resolvedYaml.vscode = {};
   }
-  if (!resolvedYaml.vscode.hideFiles) {
+  if (resolvedYaml.vscode.hideFiles === undefined) {
     resolvedYaml.vscode.hideFiles = [
       '.devcontainer',
       '.update_devcontainer.sh',
