@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json",
+  "name": "Example devcontainer for javascript-pnpm",
+  "runArgs": [
+    "--name",
+    "example-devcontainer-for-javascript-pnpm-${devcontainerId}"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "cacheFrom": "type=registry,ref=ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm-cache",
+    "args": {
+      "PNPM_VERSION": "10.22.0"
+    }
+  },
+  "postStartCommand": "/tmp/check-pnpm-volume.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.exclude": {
+          ".devcontainer": true,
+          ".update_devcontainer.sh": true,
+          ".vscode": true
+        }
+      }
+    }
+  }
+}
