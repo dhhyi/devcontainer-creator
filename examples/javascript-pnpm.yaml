@@ -6,8 +6,10 @@ devcontainer:
       org.opencontainers.image.description: VSCode devcontainer for javascript-pnpm
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
+    args:
+      PNPM_VERSION: "10.22.0"
     user:
-      - RUN mise use -g pnpm
+      - RUN mise use -g pnpm@$PNPM_VERSION
       - RUN echo "store-dir=$HOME/.cache/pnpm\npackage-import-method=copy" > $HOME/.npmrc
     files:
       - type: file
