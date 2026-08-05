@@ -43,7 +43,8 @@
     "customizations": {
       "vscode": {
         "extensions": [
-          "GitHub.copilot"
+          "GitHub.copilot",
+          "redhat.vscode-yaml"
         ],
         "settings": {
           "terminal.integrated.profiles.linux": {
@@ -108,6 +109,11 @@
     "customizations": {
       "vscode": {
         "settings": {
+          "[typescript]": {
+            "editor.defaultFormatter": "denoland.vscode-deno"
+          },
+          "deno.enable": true,
+          "deno.lint": true,
           "files.exclude": {
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
@@ -115,32 +121,12 @@
           }
         },
         "extensions": [
-          "sumneko.lua",
-          "bubuabu.busted-test-explorer"
+          "denoland.vscode-deno"
         ]
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bHVhIC1lICdwcmludCgiSGVsbG8gV29ybGQhIikn"
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          }
-        },
-        "extensions": [
-          "vgalaktionov.moonscript"
-        ]
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "Y2F0ID4vdG1wL2hlbGxvd29ybGQubW9vbiA8PEVPRgpwcmludCAiSGVsbG8gV29ybGQhIgpFT0YKbW9vbiAvdG1wL2hlbGxvd29ybGQubW9vbgo="
+      "DCC_SELFTEST": "ZGVubyBldmFsICdjb25zb2xlLmxvZygiSGVsbG8gd29ybGQhIikn"
     }
   }
 ]
