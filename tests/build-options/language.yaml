@@ -1,0 +1,18 @@
+extends: dcc://javascript
+devcontainer:
+  build:
+    args:
+      NODE_VERSION: "22"
+      TOOL_VER: 7
+    prepare:
+      - ARG NODE_VERSION
+      - RUN echo preparing-$NODE_VERSION
+    packages:
+      - ripgrep
+      - fd-find
+    root:
+      - ARG TOOL_VER
+      - RUN echo root-$TOOL_VER
+    user:
+      - ARG HOME_SETUP
+      - RUN echo user-home-$HOME_SETUP

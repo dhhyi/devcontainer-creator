@@ -1,0 +1,7 @@
+extends: dcc://javascript
+vscode:
+  extensions:
+    - ms-python.python
+    - golang.go
+  hideFiles: false
+  settings: {}
