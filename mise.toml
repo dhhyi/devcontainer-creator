@@ -5,7 +5,11 @@ pnpm = "latest"
 [hooks]
 postinstall = '''
 pnpm setup
-pnpm add -g npm:@devcontainers/cli
+if command -v devcontainer >/dev/null 2>&1; then
+	echo "devcontainer CLI already installed"
+else
+	pnpm add -g npm:@devcontainers/cli
+fi
 '''
 
 [settings]
