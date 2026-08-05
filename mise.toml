@@ -4,7 +4,11 @@ pnpm = "latest"
 
 [hooks]
 postinstall = '''
-pnpm setup
+if [ -x "$HOME/.local/share/pnpm/bin/pnpm" ] && [ -x "$HOME/.local/share/pnpm/bin/pnpx" ]; then
+	echo "pnpm already set up"
+else
+	pnpm setup
+fi
 if command -v devcontainer >/dev/null 2>&1; then
 	echo "devcontainer CLI already installed"
 else
