@@ -6,5 +6,18 @@ devcontainer:
       org.opencontainers.image.description: VSCode devcontainer for ubuntu
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
+    files:
+      - type: file
+        path: /etc/fish/conf.d/mise.fish
+        content: |
+          if type -q mise
+            mise activate fish | source
+          end
+      - type: file
+        path: $HOME/.config/fish/conf.d/mise.fish
+        content: |
+          if type -q mise
+            mise activate fish | source
+          end
     root:
       - SHELL ["/usr/bin/env", "fish", "-c"]
