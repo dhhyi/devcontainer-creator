@@ -1,6 +1,7 @@
 [tools]
 node = "24"
 pnpm = "latest"
+python = "latest"
 
 [hooks]
 postinstall = '''
@@ -14,6 +15,20 @@ if command -v devcontainer >/dev/null 2>&1; then
 else
 	pnpm add -g npm:@devcontainers/cli
 fi
+if command -v cram >/dev/null 2>&1; then
+	echo "cram already installed"
+else
+	python3 -m pip install --user cram==0.7
+fi
+if command -v jq >/dev/null 2>&1; then
+	echo "jq already installed"
+elif command -v apt-get >/dev/null 2>&1; then
+	sudo apt-get update
+	sudo apt-get install -y jq
+else
+	echo "jq is required but no supported package manager found"
+	exit 1
+fi
 '''
 
 [settings]
@@ -23,4 +38,5 @@ experimental = true
 package_manager = "pnpm"
 
 [env]
-_.path = { path = ["{{env.HOME}}/.local/share/pnpm/bin"] }
+_.path = { path = ["{{env.HOME}}/.local/share/pnpm/bin", "{{env.HOME}}/.local/bin"] }
+DCC_EXEC = "node {{config_root}}/dist/bundle.js"

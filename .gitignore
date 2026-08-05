@@ -6,3 +6,4 @@
 *~
 /src/language.d.ts
 /src/validate_language.js
+*.t.err

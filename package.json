@@ -13,6 +13,8 @@
   "scripts": {
     "prepare": "husky && pnpm run fix-getopts-import",
     "fix-getopts-import": "sh -c \"find -wholename '*/getopts/index.d.ts' | xargs -rl sed -i 's/export = getopts/export default getopts/'\"",
+    "test:cram": "pnpm run build && DCC_EXEC=\"${DCC_EXEC:-node $PWD/dist/bundle.js}\" python3 -m cram -v tests/*/test.t",
+    "test:cram:interactive": "pnpm run build && python3 -m cram -vi tests/*/test.t",
     "build": "json2ts language_schema.json src/language.d.ts && ajv compile -s language_schema.json  -o src/validate_language.js && webpack --mode=production --node-env=production && copyfiles language_schema.json dist",
     "format": "prettier --write -u \"**/*\"",
     "lint": "eslint --max-warnings=0 '**/*.js' '**/*.ts'",

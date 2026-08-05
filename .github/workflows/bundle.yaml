@@ -23,7 +23,7 @@ jobs:
         run: node synchronize-available.js
 
       - name: Test
-        run: ./run-tests.sh
+        run: pnpm run test:cram
 
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop

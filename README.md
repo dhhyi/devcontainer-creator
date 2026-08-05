@@ -13,3 +13,4 @@ Generated devcontainers can be previewed on the [branch `devcontainers`](https:/
 ## Dependencies
 
 - @devcontainers/cli (install using `pnpm i -g @devcontainers/cli@latest`)
+- Python and cram are provisioned by `mise install`.

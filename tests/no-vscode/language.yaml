@@ -1,0 +1,7 @@
+extends: dcc://javascript
+vscode:
+  settings:
+    foo: bar
+  tasks:
+    - label: Say Hi
+      command: node -e 'console.log("Hi!");'

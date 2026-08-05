@@ -4,7 +4,11 @@ const path = require('path');
 cp.execSync('pnpm install');
 
 const rules = {
-  '*': [() => 'pnpm run format', () => 'pnpm run synchronize-ci'],
+  '*': [
+    () => 'pnpm run format',
+    () => 'pnpm run synchronize-ci',
+    () => 'pnpm run test:cram',
+  ],
   '*.{js,ts}': ['eslint --fix --max-warnings=0'],
 };
 
