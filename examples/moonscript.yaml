@@ -7,8 +7,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     user:
-      - RUN mise activate fish | source
-        && luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec
+      - RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec
         && luarocks install moonpick
   selftest: |
     cat >/tmp/helloworld.moon <<EOF

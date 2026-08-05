@@ -7,7 +7,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     user:
-      - RUN mise activate fish | source && npm i -g elm elm-test elm-format elm-review onchange
+      - RUN npm i -g elm elm-test elm-format elm-review onchange
   selftest: |
     cat >/tmp/helloworld.elm <<EOF
     module HelloWorld exposing (..)

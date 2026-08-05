@@ -11,8 +11,7 @@ devcontainer:
       - cmake
     user:
       - RUN mise use -g lua
-      - RUN mise activate fish | source
-        && luarocks install busted
+      - RUN luarocks install busted
         && luarocks install --server=https://luarocks.org/dev luaformatter
         && luarocks install luacheck
   selftest: |
