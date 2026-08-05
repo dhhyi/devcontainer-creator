@@ -18,8 +18,11 @@ const noUnusedVarsConfig = [
 
 module.exports = tseslint.config(
   {
+    ignores: ['dist/**'],
+  },
+  {
     files: ['**/*.js'],
-    ignores: ['dist/bundle.js', 'src/validate_language.js'],
+    ignores: ['src/validate_language.js'],
     extends: [eslint.configs.recommended],
     languageOptions: {
       ecmaVersion: 'latest',
