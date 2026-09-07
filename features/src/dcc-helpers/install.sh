@@ -24,7 +24,10 @@ mkdir -p /home/dcc
 cp disclaimer.fish install-helpers.sh /home/dcc
 chmod +x /home/dcc/*.*sh
 
-user="$(cat /etc/passwd | grep "1000:1000" | cut -d: -f1)"
+user="${_REMOTE_USER:-}"
+if [ -z "$user" ] || ! getent passwd "$user" > /dev/null; then
+    user="$(getent passwd 1000 | cut -d: -f1)"
+fi
 
 # pre-create with correct ownership so the lazygit history volume inherits it
 mkdir -p "/home/$user/.local/state/lazygit"

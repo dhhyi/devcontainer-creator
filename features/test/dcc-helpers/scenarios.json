@@ -1,9 +1,11 @@
 {
   "install_default": {
-    "image": "debian:stable",
+    "image": "debian:stable-20260112",
     "features": {
       "ghcr.io/devcontainers/features/common-utils:2": {
         "username": "vscode",
+        "userGid": 1000,
+        "userUid": 1000,
         "installZsh": false,
         "installOhMyZsh": false,
         "installOhMyZshConfig": false,
@@ -21,10 +23,12 @@
     "remoteUser": "vscode"
   },
   "failing_selftest": {
-    "image": "debian:stable",
+    "image": "debian:stable-20260112",
     "features": {
       "ghcr.io/devcontainers/features/common-utils:2": {
         "username": "vscode",
+        "userGid": 1000,
+        "userUid": 1000,
         "installZsh": false,
         "installOhMyZsh": false,
         "installOhMyZshConfig": false,
@@ -42,10 +46,12 @@
     "remoreUser": "vscode"
   },
   "lazygit_config": {
-    "image": "debian:stable",
+    "image": "debian:stable-20260112",
     "features": {
       "ghcr.io/devcontainers/features/common-utils:2": {
         "username": "vscode",
+        "userGid": 1000,
+        "userUid": 1000,
         "installZsh": false,
         "installOhMyZsh": false,
         "installOhMyZshConfig": false,

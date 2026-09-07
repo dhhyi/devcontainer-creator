@@ -5,11 +5,12 @@ set -e
 # shellcheck disable=SC1091 # Import test library
 source dev-container-features-test-lib
 
-user="$(cat /etc/passwd | grep "1000:" | cut -d: -f1)"
+user="vscode"
+fish_path="$(command -v fish)"
 
-check "fish default shell" grep -q "/home/$user:/usr/bin/fish" /etc/passwd
+check "fish default shell" grep -q "/home/$user:$fish_path" /etc/passwd
 
-check "fish default shell for root" grep -q "/root:/usr/bin/fish" /etc/passwd
+check "fish default shell for root" grep -q "/root:$fish_path" /etc/passwd
 
 check "fish prompt" grep -q 'fish_prompt' "/home/$user/.config/fish/config.fish"
 
