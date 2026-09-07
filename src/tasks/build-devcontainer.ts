@@ -54,7 +54,7 @@ export function getCacheFrom(tag: string): string {
 }
 
 async function buildWithDevcontainerCli(): Promise<string> {
-  const { targetDir, tag: argTag, push } = ParsedArgs();
+  const { targetDir, tag: argTag, push, pushCache } = ParsedArgs();
 
   if (push) {
     await CheckOrCreateBuilder();
@@ -70,7 +70,7 @@ async function buildWithDevcontainerCli(): Promise<string> {
   }
   if (publishTag && isRegistryTag(publishTag)) {
     devcontainerArgs.push('--cache-from', getCacheFrom(publishTag));
-    if (push) {
+    if (push || pushCache) {
       devcontainerArgs.push(
         '--cache-to',
         `${getCacheFrom(publishTag)},mode=max`
