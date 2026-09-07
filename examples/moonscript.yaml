@@ -1,4 +1,4 @@
-extends: dcc://lua
+extends: dcc://debian
 devcontainer:
   publish:
     image: dcc://moonscript
@@ -7,6 +7,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     user:
+      - RUN mise use -g lua
       - RUN luarocks install https://luarocks.org/manifests/leafo/moonscript-dev-1.rockspec
         && luarocks install moonpick
   selftest: |

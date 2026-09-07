@@ -1,4 +1,4 @@
-extends: dcc://lua
+extends: dcc://debian
 devcontainer:
   publish:
     image: dcc://lualatex
@@ -7,6 +7,7 @@ devcontainer:
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
     root:
+      - RUN mise use -g lua
       - RUN sh /root/install-latex.sh
       - ADD https://github.com/WGUNDERWOOD/tex-fmt/releases/download/v0.5.2/tex-fmt-x86_64-linux.tar.gz /tmp/tex/tex-fmt.tar.gz
       - >-
