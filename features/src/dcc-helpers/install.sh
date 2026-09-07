@@ -26,6 +26,10 @@ chmod +x /home/dcc/*.*sh
 
 user="$(cat /etc/passwd | grep "1000:1000" | cut -d: -f1)"
 
+# pre-create with correct ownership so the lazygit history volume inherits it
+mkdir -p "/home/$user/.local/state/lazygit"
+chown -R "$user:$user" "/home/$user/.local"
+
 if [ ! -z "${FISHERPLUGINS}" ]; then
     echo "$FISHERPLUGINS" | tr ',' '\n' | while read -r plugin; do
         echo "installing fisher plugin: $plugin"
