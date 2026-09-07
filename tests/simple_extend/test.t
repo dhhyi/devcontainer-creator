@@ -15,7 +15,7 @@ Generated devcontainer.json matches expected shape:
       "--name",
       "simple-extended-${devcontainerId}"
     ],
-    "image": "ghcr.io/dhhyi/dcc-devcontainer-javascript",
+    "image": "ghcr.io/dhhyi/dcc-devcontainer-debian",
     "customizations": {
       "vscode": {
         "settings": {
@@ -29,7 +29,7 @@ Generated devcontainer.json matches expected shape:
       }
     },
     "containerEnv": {
-      "DCC_SELFTEST": "bm9kZSAtZSAnY29uc29sZS5sb2coIkhlbGxvIEV4dGVuZGVkISIpOyc="
+      "DCC_SELFTEST": "ZWNobyAnSGVsbG8gRXh0ZW5kZWQhJw=="
     }
   }
 
@@ -40,7 +40,7 @@ Generated VS Code task looks right:
     "version": "2.0.0",
     "tasks": [
       {
-        "command": "node -e 'console.log(\"Hi!\");'",
+        "command": "echo 'Hi!'",
         "label": "Say Hi",
         "problemMatcher": [],
         "type": "shell"

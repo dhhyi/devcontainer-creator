@@ -5,6 +5,6 @@ Basic help line is available:
 
 Can generate devcontainer files in temporary folder:
 
-  $ $DCC_EXEC dcc://javascript "$CRAMTMP/out" > /dev/null
+  $ $DCC_EXEC dcc://debian "$CRAMTMP/out" > /dev/null
   $ test -f "$CRAMTMP/out/.devcontainer/devcontainer.json"
   $ test -f "$CRAMTMP/out/.update_devcontainer.sh"

@@ -1,4 +1,4 @@
-extends: dcc://javascript
+extends: dcc://debian
 vscode:
   extensions:
     - ms-python.python

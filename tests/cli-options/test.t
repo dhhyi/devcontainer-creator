@@ -1,17 +1,17 @@
 Name override is applied:
 
-  $ $DCC_EXEC dcc://javascript "$CRAMTMP/out" --name "My Custom Name" > /dev/null
+  $ $DCC_EXEC dcc://debian "$CRAMTMP/out" --name "My Custom Name" > /dev/null
 
 Generated devcontainer name and update script include --name:
 
   $ jq -r '.name' "$CRAMTMP/out/.devcontainer/devcontainer.json"
   My Custom Name
   $ grep -F -- '--name "My Custom Name"' "$CRAMTMP/out/.update_devcontainer.sh"
-  curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - dcc://javascript . --name "My Custom Name" "$@"
+  curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - dcc://debian . --name "My Custom Name" "$@"
 
 Unknown option exits with usage:
 
-  $ $DCC_EXEC dcc://javascript "$CRAMTMP/out-unknown" --badoption > "$CRAMTMP/unknown.log" 2>&1
+  $ $DCC_EXEC dcc://debian "$CRAMTMP/out-unknown" --badoption > "$CRAMTMP/unknown.log" 2>&1
   [1]
   $ grep '^Unknown option: badoption$' "$CRAMTMP/unknown.log"
   Unknown option: badoption

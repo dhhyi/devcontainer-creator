@@ -1,4 +1,4 @@
-extends: dcc://javascript
+extends: dcc://debian
 devcontainer:
   environment:
-    NODE_ENV: development
+    APP_ENV: development

@@ -1,12 +1,12 @@
-extends: dcc://javascript
+extends: dcc://debian
 devcontainer:
   build:
     args:
-      NODE_VERSION: "22"
+      APP_VERSION: "22"
       TOOL_VER: 7
     prepare:
-      - ARG NODE_VERSION
-      - RUN echo preparing-$NODE_VERSION
+      - ARG APP_VERSION
+      - RUN echo preparing-$APP_VERSION
     packages:
       - ripgrep
       - fd-find

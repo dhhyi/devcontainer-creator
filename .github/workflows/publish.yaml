@@ -17,7 +17,6 @@ jobs:
       dccDebian: ${{ steps.calculate.outputs.dccDebian }}
       dccDeno: ${{ steps.calculate.outputs.dccDeno }}
       dccElixir: ${{ steps.calculate.outputs.dccElixir }}
-      dccElm: ${{ steps.calculate.outputs.dccElm }}
       dccErlang: ${{ steps.calculate.outputs.dccErlang }}
       dccFactor: ${{ steps.calculate.outputs.dccFactor }}
       dccGo: ${{ steps.calculate.outputs.dccGo }}
@@ -25,14 +24,11 @@ jobs:
       dccHaskell: ${{ steps.calculate.outputs.dccHaskell }}
       dccIo: ${{ steps.calculate.outputs.dccIo }}
       dccJava: ${{ steps.calculate.outputs.dccJava }}
-      dccJavascriptPnpm: ${{ steps.calculate.outputs.dccJavascriptPnpm }}
-      dccJavascript: ${{ steps.calculate.outputs.dccJavascript }}
       dccJulia: ${{ steps.calculate.outputs.dccJulia }}
       dccKotlin: ${{ steps.calculate.outputs.dccKotlin }}
       dccLua: ${{ steps.calculate.outputs.dccLua }}
       dccLualatex: ${{ steps.calculate.outputs.dccLualatex }}
       dccMoonscript: ${{ steps.calculate.outputs.dccMoonscript }}
-      dccNode: ${{ steps.calculate.outputs.dccNode }}
       dccPerl: ${{ steps.calculate.outputs.dccPerl }}
       dccProlog: ${{ steps.calculate.outputs.dccProlog }}
       dccPython: ${{ steps.calculate.outputs.dccPython }}
@@ -148,18 +144,6 @@ jobs:
       name: elixir
       skip: ${{ needs.calc.outputs.dccElixir == 'false' }}
     secrets: inherit
-  dccElm:
-    needs:
-      - calc
-      - bundle
-      - dccNode
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://elm
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: elm
-      skip: ${{ needs.calc.outputs.dccElm == 'false' }}
-    secrets: inherit
   dccErlang:
     needs:
       - calc
@@ -244,30 +228,6 @@ jobs:
       name: java
       skip: ${{ needs.calc.outputs.dccJava == 'false' }}
     secrets: inherit
-  dccJavascriptPnpm:
-    needs:
-      - calc
-      - bundle
-      - dccJavascript
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://javascript-pnpm
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: javascript-pnpm
-      skip: ${{ needs.calc.outputs.dccJavascriptPnpm == 'false' }}
-    secrets: inherit
-  dccJavascript:
-    needs:
-      - calc
-      - bundle
-      - dccNode
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://javascript
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: javascript
-      skip: ${{ needs.calc.outputs.dccJavascript == 'false' }}
-    secrets: inherit
   dccJulia:
     needs:
       - calc
@@ -327,18 +287,6 @@ jobs:
     with:
       name: moonscript
       skip: ${{ needs.calc.outputs.dccMoonscript == 'false' }}
-    secrets: inherit
-  dccNode:
-    needs:
-      - calc
-      - bundle
-      - dccUbuntu
-    if: ${{ ! failure() && ! cancelled() && always() }}
-    name: dcc://node
-    uses: ./.github/workflows/dcc.yaml
-    with:
-      name: node
-      skip: ${{ needs.calc.outputs.dccNode == 'false' }}
     secrets: inherit
   dccPerl:
     needs:
@@ -419,7 +367,6 @@ jobs:
       - dccDebian
       - dccDeno
       - dccElixir
-      - dccElm
       - dccErlang
       - dccFactor
       - dccGo
@@ -427,14 +374,11 @@ jobs:
       - dccHaskell
       - dccIo
       - dccJava
-      - dccJavascriptPnpm
-      - dccJavascript
       - dccJulia
       - dccKotlin
       - dccLua
       - dccLualatex
       - dccMoonscript
-      - dccNode
       - dccPerl
       - dccProlog
       - dccPython

@@ -1,8 +1,8 @@
-extends: dcc://javascript
+extends: dcc://debian
 prettier:
   plugins:
     - prettier-plugin-xml
   ignores:
     - "**/*.html"
-precommit: npm run lint
-test: npm run test
+precommit: make lint
+test: make test

@@ -1,7 +1,7 @@
-extends: dcc://javascript
+extends: dcc://debian
 devcontainer:
   name: "Complex Extended"
-  selftest: node -e 'console.log("Hello Extended!");'
+  selftest: echo 'Hello Extended!'
   build:
     root:
       - RUN echo Hello from the build stage
@@ -15,4 +15,4 @@ vscode:
         extensions: [py]
   tasks:
     - label: Say Hi
-      command: node -e 'console.log("Hi!");'
+      command: echo 'Hi!'

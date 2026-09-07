@@ -5,12 +5,12 @@ Generate named-volumes fixture:
 Named volumes and ownership command are configured:
 
   $ jq -r '.image' "$CRAMTMP/out/.devcontainer/devcontainer.json"
-  ghcr.io/dhhyi/dcc-devcontainer-javascript-pnpm
+  ghcr.io/dhhyi/dcc-devcontainer-debian
   $ jq '{mounts, postCreateCommand}' "$CRAMTMP/out/.devcontainer/devcontainer.json"
   {
     "mounts": [
-      "type=volume,target=${containerWorkspaceFolder}/node_modules,source=dcc-test-node-modules",
-      "type=volume,target=/home/ubuntu/.cache/pnpm,source=dcc-test-pnpm-cache"
+      "type=volume,target=${containerWorkspaceFolder}/build,source=dcc-test-build-cache",
+      "type=volume,target=/home/vscode/.cache/tool,source=dcc-test-tool-cache"
     ],
-    "postCreateCommand": "sudo mkdir -p node_modules /home/ubuntu/.cache/pnpm && sudo chown -Rf ubuntu node_modules && sudo chown -Rf ubuntu /home/ubuntu"
+    "postCreateCommand": "sudo mkdir -p build /home/vscode/.cache/tool && sudo chown -Rf vscode build && sudo chown -Rf vscode /home/vscode"
   }

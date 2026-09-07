@@ -1,10 +1,10 @@
-extends: dcc://javascript
+extends: dcc://debian
 devcontainer:
   name: "Simple Extended"
-  selftest: node -e 'console.log("Hello Extended!");'
+  selftest: echo 'Hello Extended!'
 vscode:
   settings:
     foo: bar
   tasks:
     - label: Say Hi
-      command: node -e 'console.log("Hi!");'
+      command: echo 'Hi!'

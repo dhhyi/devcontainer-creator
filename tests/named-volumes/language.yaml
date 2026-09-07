@@ -1,13 +1,13 @@
-extends: dcc://javascript-pnpm
+extends: dcc://debian
 devcontainer:
   selftest: |
     mkdir -p $HOME/project
     cd $HOME/project
-    echo '{"name":"test","dependencies":{"prettier":"*"}}' > package.json
-    pnpm install
-    ./node_modules/.bin/prettier --version
+    mkdir -p build
+    echo "cached artifact" > build/artifact.txt
+    cat build/artifact.txt
 extras:
   - named-volumes
 namedVolumes:
-  node_modules: dcc-test-node-modules
-  $HOME/.cache/pnpm: dcc-test-pnpm-cache
+  build: dcc-test-build-cache
+  $HOME/.cache/tool: dcc-test-tool-cache
