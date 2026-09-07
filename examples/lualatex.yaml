@@ -6,8 +6,9 @@ devcontainer:
       org.opencontainers.image.description: VSCode devcontainer for lualatex
       org.opencontainers.image.source: https://github.com/dhhyi/devcontainer-creator
   build:
+    packages:
+      - build-essential
     root:
-      - RUN mise use -g lua
       - RUN sh /root/install-latex.sh
       - ADD https://github.com/WGUNDERWOOD/tex-fmt/releases/download/v0.5.2/tex-fmt-x86_64-linux.tar.gz /tmp/tex/tex-fmt.tar.gz
       - >-
@@ -28,6 +29,8 @@ devcontainer:
           texlive-lang-german
           libyaml-tiny-perl
           libfile-homedir-perl
+    user:
+      - RUN mise use -g lua
 vscode:
   extensions:
     - james-yu.latex-workshop
