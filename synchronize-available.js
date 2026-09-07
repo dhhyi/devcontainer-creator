@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 
+const skipLanguagesRaw =
+  process.env.npm_config_skip_languages ||
+  JSON.parse(fs.readFileSync('package.json')).config?.['skip-languages'];
+const skipLanguages = skipLanguagesRaw?.split(',') || [];
+
 const bases = fs
   .readdirSync('./base-images')
   .filter((f) => fs.statSync(path.join('base-images', f)).isDirectory())
@@ -12,7 +17,8 @@ const langs = fs
   .filter(
     (f) =>
       fs.statSync(path.join('examples', f)).isFile() &&
-      path.extname(f) === '.yaml'
+      path.extname(f) === '.yaml' &&
+      !skipLanguages.includes(path.basename(f, '.yaml'))
   )
   .map((f) => `dcc://${path.basename(f, '.yaml')}`);
 
