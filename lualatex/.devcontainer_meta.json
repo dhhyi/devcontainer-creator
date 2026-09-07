@@ -113,26 +113,6 @@
             ".devcontainer": true,
             ".update_devcontainer.sh": true,
             ".vscode": true
-          }
-        },
-        "extensions": [
-          "sumneko.lua",
-          "bubuabu.busted-test-explorer"
-        ]
-      }
-    },
-    "containerEnv": {
-      "DCC_SELFTEST": "bHVhIC12Cmx1YXJvY2tzIC0tdmVyc2lvbgpsdWEgLWUgJ3ByaW50KCJIZWxsbyBXb3JsZCEiKScK"
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
           },
           "latex-workshop.formatting.latex": "tex-fmt",
           "latex-workshop.latex.autoBuild.run": "onSave",
