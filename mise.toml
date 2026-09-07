@@ -5,6 +5,7 @@ python = "latest"
 
 [hooks]
 postinstall = '''
+set -e
 if [ -x "$HOME/.local/share/pnpm/bin/pnpm" ] && [ -x "$HOME/.local/share/pnpm/bin/pnpx" ]; then
 	echo "pnpm already set up"
 else
@@ -13,7 +14,7 @@ fi
 if command -v devcontainer >/dev/null 2>&1; then
 	echo "devcontainer CLI already installed"
 else
-	pnpm add -g npm:@devcontainers/cli
+	pnpm add -g @devcontainers/cli
 fi
 if command -v cram >/dev/null 2>&1; then
 	echo "cram already installed"
