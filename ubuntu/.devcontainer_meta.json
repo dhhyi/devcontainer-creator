@@ -81,9 +81,9 @@
       "${containerWorkspaceFolder}"
     ],
     "mounts": [
-      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
+      "type=volume,target=/home/ubuntu/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
     ],
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
   },
   {
     "customizations": {
@@ -95,47 +95,6 @@
             ".vscode": true
           }
         }
-      }
-    }
-  },
-  {
-    "customizations": {
-      "vscode": {
-        "settings": {
-          "files.exclude": {
-            ".devcontainer": true,
-            ".update_devcontainer.sh": true,
-            ".vscode": true
-          },
-          "latex-workshop.formatting.latex": "tex-fmt",
-          "latex-workshop.latex.autoBuild.run": "onSave",
-          "latex-workshop.latex.autoClean.run": "onSucceeded",
-          "latex-workshop.latex.recipes": [
-            {
-              "name": "pdflatex",
-              "tools": [
-                "pdflatex",
-                "pdflatex"
-              ]
-            }
-          ],
-          "latex-workshop.latex.tools": [
-            {
-              "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-              ],
-              "command": "pdflatex",
-              "name": "pdflatex"
-            }
-          ]
-        },
-        "extensions": [
-          "james-yu.latex-workshop",
-          "streetsidesoftware.code-spell-checker"
-        ]
       }
     }
   }
