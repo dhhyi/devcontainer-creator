@@ -211,23 +211,8 @@ const DevcontainerJSONTemplate = (
       .join(' ');
     json.postCreateCommand = addCommand(
       json.postCreateCommand,
-      `sudo mkdir -p ${folders}`
+      `sudo install -d -o ${remoteUser} -g ${remoteUser} ${folders}`
     );
-    const nonHomeFolders = Object.keys(desc.namedVolumes)
-      .filter((k) => !k.includes('HOME'))
-      .join(' ');
-    if (nonHomeFolders.length > 0) {
-      json.postCreateCommand = addCommand(
-        json.postCreateCommand,
-        `sudo chown -Rf ${remoteUser} ${nonHomeFolders}`
-      );
-    }
-    if (folders.includes('/home/' + remoteUser)) {
-      json.postCreateCommand = addCommand(
-        json.postCreateCommand,
-        `sudo chown -Rf ${remoteUser} /home/${remoteUser}`
-      );
-    }
   }
 
   if (needsDockerfile(desc)) {
