@@ -5,7 +5,14 @@
   "type": "object",
   "additionalProperties": false,
   "$defs": {
-    "devcontainer-build-file": {
+    "devcontainer-build-file-type": {
+      "type": "string",
+      "enum": [
+        "script",
+        "file"
+      ]
+    },
+    "devcontainer-build-file-content": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -15,11 +22,7 @@
       ],
       "properties": {
         "type": {
-          "type": "string",
-          "enum": [
-            "script",
-            "file"
-          ]
+          "$ref": "#/$defs/devcontainer-build-file-type"
         },
         "path": {
           "type": "string"
@@ -28,6 +31,36 @@
           "type": "string"
         }
       }
+    },
+    "devcontainer-build-file-base64": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path",
+        "base64"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/devcontainer-build-file-type"
+        },
+        "path": {
+          "type": "string"
+        },
+        "base64": {
+          "type": "string"
+        }
+      }
+    },
+    "devcontainer-build-file": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/devcontainer-build-file-content"
+        },
+        {
+          "$ref": "#/$defs/devcontainer-build-file-base64"
+        }
+      ]
     },
     "v-s-code-task": {
       "type": "object",

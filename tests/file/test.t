@@ -12,3 +12,5 @@ Build Dockerfile and encoded selftest are generated:
   RUN mkdir -p "/usr/local/bin" && echo "ZWNobyAnSGVsbG8gV29ybGQhJw==" | base64 -d > "/usr/local/bin/testme" && chmod +rx "/usr/local/bin/testme"
   $ grep '"${HOME}/.config/test/test.file"' "$CRAMTMP/out/.devcontainer/Dockerfile"
   RUN mkdir -p "${HOME}/.config/test" && echo "RU1QVFk=" | base64 -d > "${HOME}/.config/test/test.file" && chmod +r "${HOME}/.config/test/test.file"
+  $ grep '"${HOME}/.config/test/test.base64"' "$CRAMTMP/out/.devcontainer/Dockerfile"
+  RUN mkdir -p "${HOME}/.config/test" && echo "SGVsbG8gQmFzZTY0IQ==" | base64 -d > "${HOME}/.config/test/test.base64" && chmod +r "${HOME}/.config/test/test.base64"

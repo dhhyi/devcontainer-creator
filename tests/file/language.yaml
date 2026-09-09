@@ -7,6 +7,10 @@ devcontainer:
       - type: file
         path: ${HOME}/.config/test/test.file
         content: EMPTY
+      - type: file
+        path: ${HOME}/.config/test/test.base64
+        base64: SGVsbG8gQmFzZTY0IQ==
   selftest: |
     testme
     stat $HOME/.config/test/test.file
+    stat $HOME/.config/test/test.base64

@@ -335,7 +335,10 @@ const DockerfileTemplate = (desc: Language): string | undefined => {
     );
 
     const fileTemplate = (file: DevcontainerBuildFile): string => {
-      const encoded = Buffer.from(file.content).toString('base64');
+      const encoded =
+        'base64' in file
+          ? file.base64
+          : Buffer.from(file.content).toString('base64');
       return `RUN mkdir -p "${dirname(
         file.path
       )}" && echo "${encoded}" | base64 -d > "${file.path}" && chmod ${
