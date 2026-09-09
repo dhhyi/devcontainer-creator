@@ -13,5 +13,7 @@ check "base64 bin" command -v base64
 
 check "jq bin" command -v jq
 
+check "ripgrep bin" command -v rg
+
 # Report result
 reportResults

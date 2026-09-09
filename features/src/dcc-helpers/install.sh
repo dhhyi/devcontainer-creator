@@ -10,6 +10,10 @@ if ! command -v jq > /dev/null; then
     packages="$packages jq"
 fi
 
+if ! command -v rg > /dev/null; then
+    packages="$packages ripgrep"
+fi
+
 if [ -n "$packages" ]; then
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
