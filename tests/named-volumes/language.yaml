@@ -11,3 +11,4 @@ extras:
 namedVolumes:
   build: dcc-test-build-cache
   $HOME/.cache/tool: dcc-test-tool-cache
+  /opt/tool/cache: dcc-test-opt-tool-cache

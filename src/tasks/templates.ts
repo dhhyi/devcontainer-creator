@@ -207,6 +207,13 @@ const DevcontainerJSONTemplate = (
     json.mounts.push(...mounts);
 
     const folders = Object.keys(desc.namedVolumes)
+      .flatMap((k) =>
+        k.split('/').reduce<string[]>((acc, _, i, arr) => {
+          const path = arr.slice(0, i + 1).join('/');
+          if (!path) return acc;
+          return acc.concat(path);
+        }, [])
+      )
       .map((k) => k.replace(/\$\{?HOME\}?/, '/home/' + remoteUser))
       .join(' ');
     json.postCreateCommand = addCommand(

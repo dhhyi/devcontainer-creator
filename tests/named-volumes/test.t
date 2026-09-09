@@ -10,7 +10,8 @@ Named volumes and ownership command are configured:
   {
     "mounts": [
       "type=volume,target=${containerWorkspaceFolder}/build,source=dcc-test-build-cache",
-      "type=volume,target=/home/vscode/.cache/tool,source=dcc-test-tool-cache"
+      "type=volume,target=/home/vscode/.cache/tool,source=dcc-test-tool-cache",
+      "type=volume,target=/opt/tool/cache,source=dcc-test-opt-tool-cache"
     ],
-    "postCreateCommand": "sudo install -d -o vscode -g vscode build /home/vscode/.cache/tool"
+    "postCreateCommand": "sudo install -d -o vscode -g vscode build /home/vscode /home/vscode/.cache /home/vscode/.cache/tool /opt /opt/tool /opt/tool/cache"
   }
