@@ -104,7 +104,9 @@ function needsDockerfile(desc: Language): boolean {
 function flattenObject(obj: object): [string, string][] {
   const result: [string, string][] = [];
   for (const [k, v] of Object.entries(obj)) {
-    if (typeof v === 'object' && v !== null) {
+    if (Array.isArray(v)) {
+      result.push([k, v.map(String).join(',')]);
+    } else if (typeof v === 'object' && v !== null) {
       for (const [kk, vv] of flattenObject(v)) {
         result.push([`${k}.${kk}`, vv]);
       }
