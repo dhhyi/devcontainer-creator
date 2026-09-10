@@ -33,9 +33,9 @@ if [ -z "$user" ] || ! getent passwd "$user" > /dev/null; then
     user="$(getent passwd 1000 | cut -d: -f1)"
 fi
 
-# pre-create with correct ownership so the lazygit history volume inherits it
-mkdir -p "/home/$user/.local/state/lazygit"
-chown -R "$user:$user" "/home/$user/.local"
+# pre-create with correct ownership
+mkdir -p "/home/$user/.local/state/lazygit" "/home/$user/.cache/mise"
+chown -R "$user:$user" "/home/$user/.local" "/home/$user/.cache"
 
 if [ ! -z "${FISHERPLUGINS}" ]; then
     echo "$FISHERPLUGINS" | tr ',' '\n' | while read -r plugin; do
