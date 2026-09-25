@@ -1,5 +1,5 @@
 {
-  "image": "ubuntu:noble-20260113",
+  "image": "ubuntu:noble-20260911",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "ubuntu",
