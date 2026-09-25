@@ -6,11 +6,26 @@ tmux profile and build instructions are present:
 
   $ jq -r '.build.dockerfile' "$CRAMTMP/out/.devcontainer/devcontainer.json"
   Dockerfile
-  $ jq '.customizations.vscode.settings | {"terminal.integrated.defaultProfile.linux": ."terminal.integrated.defaultProfile.linux", "chat.tools.terminal.terminalProfile.linux": ."chat.tools.terminal.terminalProfile.linux"}' "$CRAMTMP/out/.devcontainer/devcontainer.json"
+  $ jq '.customizations.vscode.settings | with_entries(select(.key | contains("terminal")))' "$CRAMTMP/out/.devcontainer/devcontainer.json"
   {
-    "terminal.integrated.defaultProfile.linux": "tmux-reuse",
     "chat.tools.terminal.terminalProfile.linux": {
       "path": "/usr/bin/bash"
+    },
+    "terminal.integrated.automationProfile.linux": {
+      "path": "/usr/bin/bash"
+    },
+    "terminal.integrated.defaultProfile.linux": "tmux-reuse",
+    "terminal.integrated.profiles.linux": {
+      "tmux-reuse": {
+        "args": [
+          "new-session",
+          "-A",
+          "-s",
+          "vscode"
+        ],
+        "icon": "terminal-tmux",
+        "path": "/usr/bin/tmux"
+      }
     }
   }
 

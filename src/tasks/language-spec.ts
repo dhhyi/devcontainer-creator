@@ -178,6 +178,11 @@ export const ResolvedYaml = once(async () => {
       {
         path: '/usr/bin/bash',
       };
+    resolvedYaml.vscode.settings[
+      'terminal.integrated.automationProfile.linux'
+    ] = {
+      path: '/usr/bin/bash',
+    };
     resolvedYaml.vscode.settings['terminal.integrated.profiles.linux'] = {
       'tmux-reuse': {
         path: '/usr/bin/tmux',
