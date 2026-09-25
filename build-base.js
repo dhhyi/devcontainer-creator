@@ -30,6 +30,7 @@ const cacheTag = `${tag}-cache`;
 cp.execSync(
   [
     'devcontainer build',
+    '--no-cache',
     `--workspace-folder base-images/${name}`,
     `--cache-to type=registry,mode=max,ref=${cacheTag}`,
     `--cache-from type=registry,ref=${cacheTag}`,
