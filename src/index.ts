@@ -9,6 +9,8 @@ import { RunDevcontainer } from './tasks/run-devcontainer';
 import { TestDevcontainer } from './tasks/test-devcontainer';
 import { WriteDevcontainer } from './tasks/write-devcontainer';
 
+process.env.BUILDKIT_PROGRESS ??= 'plain';
+
 const { build, push, test, dumpMeta, run } = ParsedArgs();
 
 await WriteDevcontainer();

@@ -1,6 +1,8 @@
 const cp = require('child_process');
 const fs = require('fs');
 
+process.env.BUILDKIT_PROGRESS ??= 'plain';
+
 const name = process.argv[2];
 
 if (!name) {
