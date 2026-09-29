@@ -1,6 +1,5 @@
 [tools]
 node = "24"
-pnpm = "latest"
 python = "latest"
 
 [hooks]
@@ -34,6 +33,7 @@ fi
 
 [settings]
 experimental = true
+idiomatic_version_file_enable_tools = ['pnpm', 'npm']
 
 [settings.npm]
 package_manager = "pnpm"
