@@ -80,9 +80,6 @@
       "/home/dcc/disclaimer.fish",
       "${containerWorkspaceFolder}"
     ],
-    "mounts": [
-      "type=volume,target=/home/vscode/.local/state/lazygit,source=lazygit-history-${devcontainerId}"
-    ],
     "remoteUser": "vscode"
   },
   {
