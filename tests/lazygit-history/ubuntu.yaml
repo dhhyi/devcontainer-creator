@@ -1,0 +1,5 @@
+extends: base://ubuntu
+devcontainer:
+  name: My Project
+extras:
+  - lazygit-history

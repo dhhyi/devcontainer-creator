@@ -8,3 +8,5 @@ Defaults are applied:
   ghcr.io/dhhyi/dcc-base-debian
   $ jq -r '.customizations.vscode.settings["files.exclude"][".vscode"]' "$CRAMTMP/out/.devcontainer/devcontainer.json"
   true
+  $ jq '.mounts' "$CRAMTMP/out/.devcontainer/devcontainer.json"
+  null

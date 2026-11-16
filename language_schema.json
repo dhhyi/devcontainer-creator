@@ -236,6 +236,7 @@
           "traefik",
           "tmpfs",
           "named-volumes",
+          "lazygit-history",
           "tmux"
         ]
       }

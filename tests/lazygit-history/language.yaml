@@ -1,0 +1,6 @@
+extends: base://debian
+extras:
+  - lazygit-history
+  - named-volumes
+namedVolumes:
+  build: dcc-test-build-cache

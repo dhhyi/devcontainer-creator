@@ -188,6 +188,15 @@ const DevcontainerJSONTemplate = (
     }
   }
 
+  if (desc.extras?.includes('lazygit-history')) {
+    const historyName =
+      (desc.devcontainer?.name && kebabifyKey(desc.devcontainer.name)) ||
+      '${devcontainerId}';
+    json.mounts = [
+      `type=volume,target=/home/${remoteUser}/.local/state/lazygit,source=lazygit-history-${historyName}`,
+    ];
+  }
+
   if (desc.extras?.includes('named-volumes') && desc.namedVolumes) {
     if (!json.mounts) {
       json.mounts = [];
